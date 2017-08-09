@@ -84,7 +84,7 @@
   :group 'languages
   :prefix "oef-"
   :link '(url-link :tag "Site" "http://wims.unice.fr")
-  :link '(url-link :tag "Repository" "https://github.com/raoulhatterer/oef-mode"))
+  :link '(url-link :tag "Repository" "https://github.com/raoulhatterer/oef"))
 
 
 (defgroup oef-mode-faces nil
