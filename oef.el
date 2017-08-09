@@ -9,7 +9,7 @@
 ;; Maintainer: Raoul HATTERER
 ;; Package-Requires: ((emacs "24"))
 ;; URL: http://http://wims.unice.fr
-;; Repository: http://github.com/raoulhatterer/oef-mode
+;; Repository: http://github.com/raoulhatterer/oef
 ;; Created: July 2017
 ;; Keywords: languages oef wims 'multiple choice'
 ;; License: GNU General Public License >= 2
