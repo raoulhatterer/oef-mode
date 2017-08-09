@@ -18,12 +18,12 @@
 ;;; Commentary:
 
 ;;==============================================================================
-;; The WWW Interactive Multipurpose Server (WIMS) project is designed for supporting
-;; intensive mathematical exercises via the Internet
+;; The WWW Interactive Multipurpose Server (WIMS) project is designed for 
+;; supporting intensive mathematical exercises via the Internet
 ;; or in a computer-equipped classroom with server-side interactivity,
 ;; accessible at the address http://wims.unice.fr.
 ;; oef-mode is a mode for editing exercises (online exercise format) files
-;; witch have ".oef" or ".cgi" extension. 	
+;; witch should have ".oef" or ".cgi" extension to be recognized. 	
 ;;==============================================================================
 
 ;;; manually installation:
@@ -35,12 +35,25 @@
 ;; alt+x load-file then give the file path.
 ;; Now, emacs is aware of the package. To activate, call “oef-mode” (with alt+x).
 ;; Other method: "Load File at Startup"
+;; * emacs (Linux):                                   
 ;; If you want emacs to load the file 'oef.el' when it starts, put the file 'oef.el'
-;; in the dir ~/.emacs.d/lisp/, (create that directory if it doesn't exist.)
+;; in the dir "~/.emacs.d/lisp/", (create that directory if it doesn't exist).
 ;; By convention, the dir ~/.emacs.d/lisp/ is for packages you manually installed. 
 ;; Then put the following (without ;;) in your emacs init file "~/.emacs"
 ;;vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 ;;  (add-to-list 'load-path "~/.emacs.d/lisp/") ;; Tell emacs where is your personal elisp lib dir
+;;  (load "oef") ;; load the packaged named oef (best not to include the ending “.el” or “.elc”)
+;;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+;; before the line (package-initialize).
+;; * aquamacs (OSX):
+;; If you want aquamacs to load the file 'oef.el' when it starts, put the file 'oef.el'
+;; in the dir "~/Library/Application Support/Aquamacs Emacs/myPlugin"
+;; (create that directory if it doesn't exist).
+;; Then put the following (without ;;) in your aquamacs init file
+;; "~/Library/Preferences/Aquamacs Emacs/Preferences.el"
+;;  ~/.emacs  (deprecated -- meaning 'should not be used for new installations,
+;; but will continue to be supported' -- in Aquamacs on OS X)
+;;vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 ;;  (load "oef") ;; load the packaged named oef (best not to include the ending “.el” or “.elc”)
 ;;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ;; before the line (package-initialize).
@@ -49,18 +62,12 @@
 ;;;; customize
 
 ;;==============================================================================
-;; alt+x customize, then seach for oef
+;; alt+x customize, then search for oef
 ;;==============================================================================
-
-
-
-
-
-
 
 ;;; Code:
 
-;;------  AUTO-ACTIVATION of Mode When Opening File ----------------------------
+;;----  AUTO-ACTIVATION of Mode When Opening File ------------------------------
 
 (add-to-list 'auto-mode-alist '("\\.cgi?\\'" . oef-mode)) ;wims file
 (add-to-list 'auto-mode-alist '("\\.oef?\\'" . oef-mode)) ;wims file
