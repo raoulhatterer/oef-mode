@@ -66,11 +66,20 @@
 ;;==============================================================================
 
 ;;; Code:
+(let ((default-directory  "~/.emacs.d/"))
+  (normal-top-level-add-subdirs-to-load-path)) ; linux vérifier que cette ligne reste utile quand oef sera un package
 
-;;----  AUTO-ACTIVATION of Mode When Opening File ------------------------------
+;;---- AUTO-START --------------------------------------------------------------
 
-(add-to-list 'auto-mode-alist '("\\.cgi?\\'" . oef-mode)) ;wims file
-(add-to-list 'auto-mode-alist '("\\.oef?\\'" . oef-mode)) ;wims file
+(require 'rainbow-mode) ;; Auto-start CSS colorization
+(add-hook 'sgml-mode-hook 'oef-sgml-mode-hook) 
+(defun oef-sgml-mode-hook ()
+  (setq rainbow-html-colors t)
+  (rainbow-mode 1)
+  )
+
+(require 'emmet-mode) ;; Auto-start emmet-mode
+(emmet-mode 1)
 
 ;;---- CONSTS ------------------------------------------------------------------
 
@@ -155,9 +164,6 @@
   '((t :inherit font-lock-variable-name-face))
   "Face for variables"
   :group 'oef-mode-faces)
-
-
-
 
 
 
@@ -278,7 +284,6 @@
      (,(regexp-opt oef-commands 'words) . 'oef-font-command-face) ; commands : statement, answer, embed...
      ("\\(\\\\special\\){[ \\\n]*\\(expandlines\\|imagefill\\|help\\|tabs2lines\\|rename\\|tooltip\\|codeinput\\|imageinput\\|mathmlinput\\|drawinput\\)" (1 'oef-font-function-name-face)(2 'oef-font-keyword-face)) ; special OEF
      ("\\\\\\(for\\|if\\|else\\) *{" 1 'oef-font-control-face)	     ;controls
-     ("\\\\\\w+\\([0-9]?_?\\w?\\)*" . 'oef-font-variable-name-face) ; '\variable'
      ("-[0-9]+\\(\\.[0-9]+\\)?" . 'oef-font-warning-face) ; warning negative number
      ("[^\\w]\\([0-9]+\\(\\.[0-9]+\\)?\\)" 1 'oef-font-positivenumber-face) ; a number in a variable name is not a number in blue (it's a part of the name) 
      (,(regexp-opt oef-language-reserved-words 'words) . 'oef-font-keyword-face)
@@ -289,12 +294,18 @@
      (,(regexp-opt oef-maths-functions 'words) . 'oef-font-keyword-face)
      (,(regexp-opt oef-random-functions 'words) . 'oef-font-keyword-face)
      ("\\(\\w*\\)\\(pari\\|maxima\\|yacas\\|wims\\|draw\\|slib\\|teximg)\\)(" 2 'oef-font-function-name-face) ; advanced functions
-     ("\\(\\\\\\w*\\){" 1 'oef-font-warning-face) ; unknown '\command{'
+     ("\\(\\\\\\w+\\){" 1 'oef-font-warning-face) ; unknown '\command{'
+     ("\\(\\\\\\){" 1 'oef-font-positivenumber-face) ; latex expression \{}
+     ("\\\\\\w+\\([0-9]?_?\\w?\\)*" . 'oef-font-variable-name-face) ; '\variable'
+
      )
    )
   )
 
+;;---- AUTO-ACTIVATION of Mode When Opening File -------------------------------
 
+(add-to-list 'auto-mode-alist '("\\.cgi?\\'" . oef-mode)) ;wims file
+(add-to-list 'auto-mode-alist '("\\.oef?\\'" . oef-mode)) ;wims file
 
 (provide 'oef-mode)
 
