@@ -1,0 +1,169 @@
+%YAML 1.2
+---
+# http://www.sublimetext.com/docs/3/syntax.html
+name: OEF WIMS
+file_extensions:
+  - oef
+  - oef.dtml
+scope: source.oef
+
+variables:
+  ident: '[A-Za-z_][A-Za-z_0-9]*'
+  ident_wims: '[a-zA-Z0-9_]+'
+
+contexts:
+  main:
+    # Du moment que la ligne n'est pas détectée comme étant de l'OEF, elle sera colorée par HTML
+    - match: ''
+      set: html_basic
+
+  html_basic:
+    - match: ''
+      push: 'scope:text.html.basic'
+      with_prototype:
+        - include: wims_oef
+
+  wims_oef:
+    ## Commentaires
+    - match: ^\s*(#.*)
+      name: comments
+      scope: comment.line.number-sign
+      comment: Commentaires commencant par #...
+    - match: ^\s*(:%%.*)
+      scope: comment.line.wims
+      comment: Commentaires commencant par :%%...
+
+* DONE ## Langage OEF
+** DONE - match: \b(==|!=|!=| < |<=| > |>=|isin|notin|iswordof|notwordof|isvarof|notvarof|isvariableof|notvariableof|isitemof|notitemof|islineof|notlineof|issamecase|notsamecase|issametext|notsametext|or|and)\b
+      scope: keyword.operator.compare.wims
+      #comment: comparisons operators...
+
+** DONE - match: \b(to|of|within|in|into|by|internal)\b
+       scope: constant.language
+       #comment: langage reserved words
+
+** DONE - match: \b(append|nonempty|getopt|replace|embraced|randitem|text|select|upper|nospace|sort|makelist|for|values|rows2lines|lines2items|items2words|tolower)\b
+       scope: constant.language.wims
+       #comment: wims functions callable in a wims() instruction
+
+** DONE - match: \b(divrem)\b
+       scope: constant.language.pari
+       #comment: functions callable in a pari() instruction
+
+** DONE - match: (\\)(real|complex|text|integer|rational|function|matrix)\b
+       scope: storage.type
+       #comment: déclarations de variables
+
+** DONE - match: \b(items|item|words|word|lines|line|rows|row|columns|column|position|asis|htmlmath|texmath)\b
+       scope: constant.language.types
+       #comment: types d'éléments reconnus
+
+** TODO - match: \b(evalue|solve|simplify|diff|int|int=|det|abs|sqrt|binomial|ceil|floor|rint|e|erf|erfc|Euler|exp|factorial|Inf|gcd|lcm|%|max|min|lg|lgamma|ln|log2|pow|sgn|PI|sin|acos|sh|Argch)(?=\()
+       scope: entity.name.function.wims.maths
+       #comment: Maths functions
+*** TODO signaler à Bernadette:
+- Les fonctions trigo sont incomplètes "tg" "tan" "sec" "cot" "cotan" "ctg" "csc" 
+- Fonctions trigonométriques réciproques (autres fonctions : acos arccos acos arcsin asin
+arctan atan arctg atan)
+- Fonctions hyperboliques (autres fonctions : sh sinh tanh tanh th ch cosh coth cotanh)
+** DONE - match: (random|randint|shuffle|randomitem|randomrow)(?=\()
+       scope: entity.name.function.wims.random
+       #comment: Wims random functions
+
+** DONE - match: (pari|maxima|yacas|wims|draw|slib|teximg)(?=\()
+       scope: entity.name.function.wims.external
+       #comment: Wims external functions
+
+** DONE - match: \b(reply|choice|step|sc_reply|reply_|help_subject|oef_firstname|oef_lastname|oef_login|oef_now|oef_lang)\b
+       scope: entity.name.function.wims.special
+       #comment: Wims special vars
+
+** DONE - match: ^:?\\(title|language|author|email|format|css|keywords|credits|description|observation|precision|range|computeanswer|statement|answer|choice|condition|solution|hint|help|feedback|steps|nextstep|conditions|latex)\b
+       scope: entity.name.function.wims.oefcommands
+       #comment: OEF commands, starts at line beginning
+
+** TODO - match: (?<=\{)\s*(type)\s*(?=\=)
+      scope: entity.name.function.wims.oef.answer
+      #answer parameters like "{type="
+
+** TODO - match: ^\:.*
+      scope: string.name.wims.record
+      #comment: Record, ":" at line beginning
+
+** DONE - match: \\(embed)\b
+      scope: entity.name.function.wims.oefcommands
+      #comment: OEF commands, starting everywhere
+
+** DONE - match: \\special{\s*(expandlines|imagefill|help|tabs2lines|rename|tooltip|codeinput|imageinput|mathmlinput|drawinput)\b
+      scope: entity.name.function.wims.oefspecials
+      #comment: OEF special commands
+
+** DONE - match: \b(algexp|aset|atext|case|checkbox|chembrut|chemclick|chemdraw|chemeq|chessgame|chset|click|clickfill|clicktile|compose|coord|correspond|crossword|default|dragfill|equation|flashcard|formal|fset|function|geogebra|javacurve|jmolclick|jsxgraph|jsxgraphcurve|keyboard|litexp|mark|matrix|menu|multipleclick|nocase|numeric|numexp|puzzle|radio|range|raw|reorder|set|sigunits|symtext|units|vector|wlist)\b
+      scope: entity.name.function.wims, string.name.function.wims
+      #comment: OEF special commands
+
+** TODO - match: \\(for|if|else)\b
+      scope: entity.name.function.wimscommand
+      #comment: Wims functions, starting with "!" (like "!changeto")...
+
+** TODO - match: (\\{{ident_wims}})
+      scope: variable.parameter.wims
+      #comment: Variables like \PARAM1, \TM_SELECTION...
+
+** TODO - match: (\*|\+| - |\^|:=|=| // | \? )
+      scope: keyword.operator
+      #comment: numerical operators...
+
+** TODO - match: \b[0-9]+\b
+      scope: constant.numeric, support.type
+       #comment: constantes numériques
+
+* TODO ## Models
+** TODO - match: ^(type|modele_jalon|textarea|asis|random|computed)(?=\=)
+       scope: entity.name.function.wims.oef.models
+       #comment: OEF commands for models, starts at line beginning
+
+** TODO - match: \$(embraced_randitem|oef_help|math_help)
+       scope: variable.parameter.wims
+       #comment: Wims known variables like $embraced_randitem, $oef_help...
+       
+* TODO ## Inclusion LaTeX
+**     - match: \\\(
+       push:
+         - match: \)
+           pop: true
+         - include: scope:text.tex.math
+       #comment: LaTeX Maths \(\sqrt{\frac{\x}{\y}})
+
+* TODO ## Verification des parentheses
+     - match: \(
+       push: curve_brackets
+     - match: \)
+       scope: invalid.illegal.stray-bracket-end
+
+     - match: \[
+       push: square_brackets
+     - match: \]
+       scope: invalid.illegal.stray-bracket-end
+
+     # Pour le moment, on désactive la verification sur les accolades, afin de pouvoir colorer l'html inclus
+     #- match: \{
+     #  push: curly_brackets
+     #- match: \}
+     #  scope: invalid.illegal.stray-bracket-end
+
+
+   curve_brackets:
+     - match: \)
+       pop: true
+     - include: wims_oef
+
+   square_brackets:
+     - match: \]
+       pop: true
+     - include: wims_oef
+
+   curly_brackets:
+     - match: \}
+       pop: true
+     - include: wims_oef
