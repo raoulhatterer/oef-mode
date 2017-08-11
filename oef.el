@@ -7,7 +7,7 @@
 ;; Package-Version: 
 ;; Author: Raoul Hatterer <hatterer.raoul AT gmail.com>
 ;; Maintainer: Raoul HATTERER
-;; Package-Requires: ((emacs "24"))
+;; Package-Requires: ((emacs "24")(rainbow-mode))
 ;; URL: http://http://wims.unice.fr
 ;; Repository: http://github.com/raoulhatterer/oef
 ;; Created: July 2017
@@ -339,3 +339,5 @@
 ;; indent-tabs-mode: nil
 ;; End:
 
+;; Debug Aquamacs                          
+;; /Applications/Aquamacs.app/Contents/MacOS/Aquamacs -nw --debug-init
