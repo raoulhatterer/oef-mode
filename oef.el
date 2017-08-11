@@ -75,6 +75,7 @@
 (add-hook 'sgml-mode-hook 'oef-sgml-mode-hook) 
 (defun oef-sgml-mode-hook ()
   (setq rainbow-html-colors t)
+  (setq rainbow-delimiters-mode t)
   (rainbow-mode 1)
   )
 
@@ -110,13 +111,13 @@
   :group 'oef-mode-faces)
 
 (defface oef-font-answer-command-face
-  ' ((t
-      (:box
-       (:line-width 4 :color "blue" :style nil)
-       :inverse-video t :inherit
-       (oef-font-command-face))))
-    "Face for answer command"
-    :group 'oef-mode-faces)
+  '((t
+     (:box
+      (:line-width 4 :color "blue" :style nil)
+      :inverse-video t :inherit
+      (oef-font-command-face))))
+  "Face for answer command"
+  :group 'oef-mode-faces)
 
 (defface oef-font-statement-command-face
   '((t
@@ -128,6 +129,25 @@
 (defface oef-font-positivenumber-face
   '((t (:foreground "#0000EE")))
   "Face for positive number"
+  :group 'oef-mode-faces)
+
+(defface oef-font-htag-face
+  '((t (:foreground "snow4")))
+  "Face for h1 h2 h3 tags"
+  :group 'oef-mode-faces)
+
+(defface oef-font-h1text-face
+  '((t
+     (:width normal :height 1.1 :weight bold :underline
+             (:color foreground-color :style line)
+             :foreground "black")))
+  "Face for h1 (sections) tag"
+  :group 'oef-mode-faces)
+
+(defface oef-font-h2text-face
+  '((t
+     (:width normal :height 1.0 :weight bold :foreground "black")))
+  "Face for h2 (sub-sections) tag"
   :group 'oef-mode-faces)
 
 (defface oef-font-answer-type-face
@@ -285,6 +305,8 @@
      ("\\(\\\\special\\){[ \\\n]*\\(expandlines\\|imagefill\\|help\\|tabs2lines\\|rename\\|tooltip\\|codeinput\\|imageinput\\|mathmlinput\\|drawinput\\)" (1 'oef-font-function-name-face)(2 'oef-font-keyword-face)) ; special OEF
      ("\\\\\\(for\\|if\\|else\\) *{" 1 'oef-font-control-face)	     ;controls
      ("-[0-9]+\\(\\.[0-9]+\\)?" . 'oef-font-warning-face) ; warning negative number
+     ("<\\(h1\\)\\( \\(class\\|id\\) ?=.*\\)?>\\(.+\\)<\\(/h1\\)>" (1 'oef-font-htag-face)(4 'oef-font-h1text-face)(5 'oef-font-htag-face)) ; sections
+     ("<\\(h2\\)\\( \\(class\\|id\\) ?=.*\\)?>\\(.+\\)<\\(/h2\\)>" (1 'oef-font-htag-face)(4 'oef-font-h2text-face)(5 'oef-font-htag-face)) ; sub-sections
      ("[^\\w]\\([0-9]+\\(\\.[0-9]+\\)?\\)" 1 'oef-font-positivenumber-face) ; a number in a variable name is not a number in blue (it's a part of the name) 
      (,(regexp-opt oef-language-reserved-words 'words) . 'oef-font-keyword-face)
      (,(regexp-opt oef-answers-options 'symbols) . 'oef-font-answer-type-face)

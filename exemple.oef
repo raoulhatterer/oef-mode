@@ -23,8 +23,11 @@
 \text{choix = oui,non,on ne peut pas savoir}
 <!-- mouvement -->
 \text{mouvement = \facteur = 1? rectiligne uniforme: rectiligne varié}
-\text{mouvement = \facteur > 1? rectiligne décéléré}
+
+<!-- warning oef : show-paren-mode coince -->
+\text{\if{ \facteur > 1}{mouvement = rectiligne décéléré}}
 \text{mouvement = \facteur < 1? rectiligne accéléré}
+
 <!-- parachute déployé ? -->
 \text{parachute = \mouvement issametext rectiligne décéléré ? 1}
 \text{parachute = \mouvement issametext rectiligne accéléré ? 2}
@@ -35,58 +38,58 @@
 \real{yf = -\yP*\facteur}
 \text{mmlf= wims(mathmlmath \overrightarrow{f})}
 \text{mmlP= wims(mathmlmath \overrightarrow{P})}
-\text{dessin = 
-    xrange -4.2,4.2
-    yrange -4.2,4.2
-    rect -4,-4,4,4,black
-    arrow 0,0,0,\yP,10,blue
-    mathml 0.5, 0.5*\yP+0.4, 0,0,\mmlP
-    arrow 0,0,0,\yf,10,green
-    mathml 0.5, 0.5*\yf+0.4, 0,0,\mmlf
-    <!--rect 0.5, 0.5*\yf+0.4, 1.3,0.5*\yf-0.4,black-->
-    fcircle 0,0,5,black
-    text black,-1, 0, medium, S
-} 
+\text{dessin =
+xrange -4.2,4.2
+yrange -4.2,4.2
+rect -4,-4,4,4,black
+arrow 0,0,0,\yP,10,blue
+mathml 0.5, 0.5*\yP+0.4, 0,0,\mmlP
+arrow 0,0,0,\yf,10,green
+mathml 0.5, 0.5*\yf+0.4, 0,0,\mmlf
+<!--rect 0.5, 0.5*\yf+0.4, 1.3,0.5*\yf-0.4,black-->
+fcircle 0,0,5,black
+text black,-1, 0, medium, S
+}
 
 \text{mmlR= wims(mathmlmath \overrightarrow{R})}
 \text{mmlP2= wims(mathmlmath \overrightarrow{P})}
 
-\text{dessin2 = 
-    xrange -4.2,4.2
-    yrange -4.2,4.2
-    rect -4,-4,4,4,black
-    arrow 0,0,0,\yP,10,blue
-    mathml 0.5, 0.5*\yP+0.4, 0,0,\mmlP2
-    arrow 0,0,0,-\yP,10,green
-    mathml 0.5, -0.5*\yP+0.4, 0,0,\mmlR
-    fcircle 0,0,5,black
-    text black,-1, 0, medium, S
-} 
+\text{dessin2 =
+xrange -4.2,4.2
+yrange -4.2,4.2
+rect -4,-4,4,4,black
+arrow 0,0,0,\yP,10,blue
+mathml 0.5, 0.5*\yP+0.4, 0,0,\mmlP2
+arrow 0,0,0,-\yP,10,green
+mathml 0.5, -0.5*\yP+0.4, 0,0,\mmlR
+fcircle 0,0,5,black
+text black,-1, 0, medium, S
+}
 
 <!-- STYLE CSS -->
 \css{
 <style type="text/css">
-h1 { 
-background-color: white;
-color: #2584AB; margin: 1% 1%; padding : 1%;}
-.énoncé { 
-background-color: #E7F7FF;
-color: black; margin: 1% 1%; padding : 1%;}
-.questions { 
-background-color: #CCF0FF;
-color: black; margin: 1% 1%; padding : 1%;}
-.solution { background-color: #D6E4C1;
-color : green  ;margin: 0; padding : 1% 5% 5% 5%;}
-.définition { background-color: #FFBF7F;
-color : black  ;margin: 0 10% 0 10%; padding : 1% 1% 1% 1%;}
-h1.solution { background-color: #C5E0A2;
-color: green; margin: 5% 0 1% -5pt; padding : 1%;}
-</style> 
+  h1{
+  background-color: white;
+  color: #2584AB; margin: 1% 1%; padding : 1%;}
+  .énoncé{
+  background-color: #E7F7FF;
+  color: black; margin: 1% 1%; padding : 1%;}
+  .questions{
+  background-color: #CCF0FF;
+  color: black; margin: 1% 1%; padding : 1%;}
+  .solution{ background-color: #D6E4C1;
+  color : green  ;margin: 0; padding : 1% 5% 5% 5%;}
+  .définition{ background-color: #FFBF7F;
+  color : black  ;margin: 0 10% 0 10%; padding : 1% 1% 1% 1%;}
+  h1.solution{ background-color: #C5E0A2;
+  color: green; margin: 5% 0 1% -5pt; padding : 1%;}
+</style>
 }
 
 <!-- ÉNONCÉ -->
 \statement{
-<h1> Énoncé </h1>
+<h1>Énoncé</h1>
 <div class="énoncé">
   Un parachutiste est entrain d'effectuer un saut.
   <ul>
@@ -133,82 +136,82 @@ color: green; margin: 5% 0 1% -5pt; padding : 1%;}
 <div class="solution">
 
   <h1 class="solution"> Calcul du poids</h1>
-<p>
-Le poids se calcule en utilisant la formule \(P=m\cdot g) 
-où le poids \(P) est en newtons (N), la masse \(m) est en kilogrammes (\(kg))
- et l'intensité du champ de pesanteur  \(g) est en newtons par kilogramme (N/kg). 
-</p>
-\(P=\m\times \g=\P=)\(\Punit)
-<p>
-Chiffres significatifs :
-  \(m) est donné avec 2 chiffres significatifs 
- et \(g) est donné avec 3 chiffres significatifs ; la réponse est donnée avec le plus petit de ces deux nombres
-  donc 2 chiffres significatifs. Une calculatrice en mode scientifique est capable d'afficher la réponse sous cette forme.
-</P>
+  <p>
+    Le poids se calcule en utilisant la formule \(P=m\cdot g)
+    où le poids \(P) est en newtons (N), la masse \(m) est en kilogrammes (\(kg))
+    et l'intensité du champ de pesanteur  \(g) est en newtons par kilogramme (N/kg).
+  </p>
+  \(P=\m\times \g=\P=)\(\Punit)
+  <p>
+    Chiffres significatifs :
+    \(m) est donné avec 2 chiffres significatifs
+    et \(g) est donné avec 3 chiffres significatifs ; la réponse est donnée avec le plus petit de ces deux nombres
+    donc 2 chiffres significatifs. Une calculatrice en mode scientifique est capable d'afficher la réponse sous cette forme.
+  </P>
 
-<h1 class="solution">Les forces se compensent-elles ?</h1>
-Le vecteur \{\vec{P}} représente l'action de la Terre (action à distance de la planète) 
-sur le système (parachutiste avec son équipement) sous la forme d'une force que l'on appelle le poids.
-Le vecteur \{\vec{f}} représente l'action de l'air (action de contact) 
-sur le système sous la forme d'une force que l'on appelle la force de frottements.
-Les deux vecteurs ont la même direction (verticale) et des sens opposés. 
-Si les forces se compensent, les vecteurs ont la même longueur. 
-Ici, les forces \if{\compensent = 1}{se compensent}{ne se compensent pas}.
+  <h1 class="solution">Les forces se compensent-elles ?</h1>
+  Le vecteur \{\vec{P}} représente l'action de la Terre (action à distance de la planète)
+  sur le système (parachutiste avec son équipement) sous la forme d'une force que l'on appelle le poids.
+  Le vecteur \{\vec{f}} représente l'action de l'air (action de contact)
+  sur le système sous la forme d'une force que l'on appelle la force de frottements.
+  Les deux vecteurs ont la même direction (verticale) et des sens opposés.
+  Si les forces se compensent, les vecteurs ont la même longueur.
+  Ici, les forces \if{\compensent = 1}{se compensent}{ne se compensent pas}.
 
-<h1 class="solution">Quelle est la nature du mouvement ?</h1>
-Le principe d'inertie permet de répondre à cette question.
-<h2>Le principe d'inertie dit que</h2>
+  <h1 class="solution">Quelle est la nature du mouvement ?</h1>
+  Le principe d'inertie permet de répondre à cette question.
+  <h2>Le principe d'inertie dit que</h2>
 
-<div class="définition">
-Un corps est immobile ou en mouvement rectiligne uniforme si et seulement si 
-les forces qui s’exercent sur lui se compensent (ou s’il n’est soumis  à aucune force).
-</div>
+  <div class="définition">
+    Un corps est immobile ou en mouvement rectiligne uniforme si et seulement si
+    les forces qui s’exercent sur lui se compensent (ou s’il n’est soumis  à aucune force).
+  </div>
 
-<p>
-Ici comme les forces \if{\compensent = 1}{se compensent, en en déduit que le mouvement est rectiligne uniforme.}
- {ne se compensent pas, on en déduit que le mouvement n'est pas rectiligne uniforme. Le mouvement est \mouvement car 
- l'intensité du poids est \if{\mouvement issametext rectiligne accéléré}{supérieure}{inférieure} à celle des frottements.}
-</p>
-<h1 class="solution">Le parachute est-il déployé ?</h1>
-\if{\mouvement issametext rectiligne uniforme}{Le mouvement est rectiligne uniforme,
- il est donc impossible de savoir si le parachute est déployé ou pas car deux situations peuvent se présenter :
- <ul>
-<li> Lorsque le parachute n'est pas encore déployé, la vitesse du parachutiste augmente jusqu'à se stabiliser. 
- La vitesse se stabilise car la force de frottements augmente avec la vitesse. 
- Par conséquent, son intensité finira par atteindre celle du poids.  
- À partir de ce moment, les forces se compensent et le mouvement est uniforme. </li>
- <li> Lorsque le parachutiste déploie son parachute, la force de frottements augmente brutalement, la vitesse du parachutiste décroit.
- À mesure que la vitesse décroit, la force de frottement décroit jusqu'à ce que son intensité atteigne celle du poids. 
- Le parachutiste cesse de ralentir et continue sa descente à vitesse constante.
- </li>
- </ul>
- }
+  <p>
+    Ici comme les forces \if{\compensent = 1}{se compensent, en en déduit que le mouvement est rectiligne uniforme.}
+    {ne se compensent pas, on en déduit que le mouvement n'est pas rectiligne uniforme. Le mouvement est \mouvement car
+    l'intensité du poids est \if{\mouvement issametext rectiligne accéléré}{supérieure}{inférieure} à celle des frottements.}
+  </p>
+  <h1 class="solution">Le parachute est-il déployé ?</h1>
+  \if{\mouvement issametext rectiligne uniforme}{Le mouvement est rectiligne uniforme,
+  il est donc impossible de savoir si le parachute est déployé ou pas car deux situations peuvent se présenter :
+  <ul>
+    <li> Lorsque le parachute n'est pas encore déployé, la vitesse du parachutiste augmente jusqu'à se stabiliser.
+      La vitesse se stabilise car la force de frottements augmente avec la vitesse.
+      Par conséquent, son intensité finira par atteindre celle du poids.
+      À partir de ce moment, les forces se compensent et le mouvement est uniforme. </li>
+    <li> Lorsque le parachutiste déploie son parachute, la force de frottements augmente brutalement, la vitesse du parachutiste décroit.
+      À mesure que la vitesse décroit, la force de frottement décroit jusqu'à ce que son intensité atteigne celle du poids.
+      Le parachutiste cesse de ralentir et continue sa descente à vitesse constante.
+    </li>
+  </ul>
+  }
 
-\if{\mouvement issametext rectiligne accéléré}{Le mouvement est rectiligne accéléré 
-donc le parachute n'est pas encore déployé. 
-La vitesse du parachutiste va augmenter jusqu'à se stabiliser (mais on a pas encore atteint ce stade). 
- Remarque : la vitesse se stabilise car la force de frottements augmentant avec la vitesse,
+  \if{\mouvement issametext rectiligne accéléré}{Le mouvement est rectiligne accéléré
+  donc le parachute n'est pas encore déployé.
+  La vitesse du parachutiste va augmenter jusqu'à se stabiliser (mais on a pas encore atteint ce stade).
+  Remarque : la vitesse se stabilise car la force de frottements augmentant avec la vitesse,
   son intensité finira par atteindre celle du poids. }
 
-\if{\mouvement issametext rectiligne décéléré}{Le mouvement est rectiligne décéléré 
-donc le parachute est déployé. 
-Explications: Lorsque le parachutiste déploie son parachute, la force de frottements augmente brutalement,
- la vitesse du parachutiste décroit.
- À mesure que la vitesse décroit, la force de frottement décroit jusqu'à ce que son intensité atteigne
-  celle du poids (mais on a pas encore atteint ce stade). 
- Le parachutiste cesse de ralentir et continue sa descente à vitesse constante. }
+  \if{\mouvement issametext rectiligne décéléré}{Le mouvement est rectiligne décéléré
+  donc le parachute est déployé.
+  Explications: Lorsque le parachutiste déploie son parachute, la force de frottements augmente brutalement,
+  la vitesse du parachutiste décroit.
+  À mesure que la vitesse décroit, la force de frottement décroit jusqu'à ce que son intensité atteigne
+  celle du poids (mais on a pas encore atteint ce stade).
+  Le parachutiste cesse de ralentir et continue sa descente à vitesse constante. }
 
-<h1 class="solution">Le parachutiste s'est posé au sol</h1>
-Le vecteur \{\vec{P}} représente l'action de la Terre (action à distance de la planète) 
-sur le système  sous la forme d'une force que l'on appelle le poids.
-Le vecteur \{\vec{R}} représente l'action du sol (action de contact) 
-sur le système sous la forme d'une force que l'on appelle la force de réaction.
-Le corps est immobile au sol. Donc, d'après le principe de l'inertie,  
-les forces se compensent. 
-Les deux vecteurs ont la même direction (verticale), des sens opposés et la même longueur. 
+  <h1 class="solution">Le parachutiste s'est posé au sol</h1>
+  Le vecteur \{\vec{P}} représente l'action de la Terre (action à distance de la planète)
+  sur le système  sous la forme d'une force que l'on appelle le poids.
+  Le vecteur \{\vec{R}} représente l'action du sol (action de contact)
+  sur le système sous la forme d'une force que l'on appelle la force de réaction.
+  Le corps est immobile au sol. Donc, d'après le principe de l'inertie,
+  les forces se compensent.
+  Les deux vecteurs ont la même direction (verticale), des sens opposés et la même longueur.
 
-<p class="wimscenter">
-\canvasdraw{200,200}{\dessin2}
-</p>
+  <p class="wimscenter">
+    \canvasdraw{200,200}{\dessin2}
+  </p>
 </div>
- }
+}
