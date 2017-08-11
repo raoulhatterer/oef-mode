@@ -66,8 +66,9 @@
 ;;==============================================================================
 
 ;;; Code:
-(let ((default-directory  "~/.emacs.d/"))
-  (normal-top-level-add-subdirs-to-load-path)) ; linux vérifier que cette ligne reste utile quand oef sera un package
+(unless (featurep 'aquamacs); subdir inclusion so oef dir will be included to emacs load path
+  (let ((default-directory  "~/.emacs.d/"))
+    (normal-top-level-add-subdirs-to-load-path)))
 
 ;;---- AUTO-START --------------------------------------------------------------
 
