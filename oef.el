@@ -15,6 +15,19 @@
 ;; License: GNU General Public License >= 2
 ;; Distribution: This file is not part of Emacs
 
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 ;;; Commentary:
 
 ;;==============================================================================
@@ -57,6 +70,10 @@
 ;;  (load "oef") ;; load the packaged named oef (best not to include the ending “.el” or “.elc”)
 ;;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ;; before the line (package-initialize).
+;; How to Debug Aquamacs if you need to:
+;; Past the following command in a terminal:
+;; /Applications/Aquamacs.app/Contents/MacOS/Aquamacs -nw --debug-init
+
 ;;==============================================================================
 
 ;;;; customize
@@ -70,14 +87,21 @@
   (let ((default-directory  "~/.emacs.d/"))
     (normal-top-level-add-subdirs-to-load-path)))
 
+;;---- KILL-ALL-LOCAL-VARIABLES-------------------------------------------------
+
+(kill-all-local-variables)
+;; This function eliminates all the buffer-local variable bindings of the current buffer except for variables marked as permanent and local hook functions that have a non-nil permanent-local-hook property (see Setting Hooks). As a result, the buffer will see the default values of most variables.
+;; This function also resets certain other information pertaining to the buffer: it sets the local keymap to nil, the syntax table to the value of (standard-syntax-table), the case table to (standard-case-table), and the abbrev table to the value of fundamental-mode-abbrev-table.
+;; The very first thing this function does is run the normal hook change-major-mode-hook.
+
 ;;---- AUTO-START --------------------------------------------------------------
 
 (require 'rainbow-mode) ;; Auto-start CSS colorization
 (add-hook 'sgml-mode-hook 'oef-sgml-mode-hook) 
 (defun oef-sgml-mode-hook ()
   (setq rainbow-html-colors t)
-  (setq rainbow-delimiters-mode t)
   (rainbow-mode 1)
+  (rainbow-delimiters-mode 1)
   )
 
 (require 'emmet-mode) ;; Auto-start emmet-mode
@@ -286,6 +310,30 @@
 (defvar oef-random-functions
   '("random" "randint" "shuffle" "randomitem" "randomrow"))
 
+(defvar oef-mode-syntax-table
+  (let ((table (make-syntax-table)))
+    (modify-syntax-entry ?< "_" table)
+    (modify-syntax-entry ?> "_" table)
+    table)
+  "oef Syntax Table")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ;;----------------MODE----------------------------------------
 
@@ -339,5 +387,3 @@
 ;; indent-tabs-mode: nil
 ;; End:
 
-;; Debug Aquamacs                          
-;; /Applications/Aquamacs.app/Contents/MacOS/Aquamacs -nw --debug-init
