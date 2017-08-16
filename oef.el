@@ -121,7 +121,6 @@
   :link '(url-link :tag "Site" "http://wims.unice.fr")
   :link '(url-link :tag "Repository" "https://github.com/raoulhatterer/oef"))
 
-
 (defgroup oef-mode-faces nil
   "Faces for syntax highlighting."
   :group 'oef-mode
@@ -129,10 +128,14 @@
 
 ;;---- FACES -------------------------------------------------------------------
 
-
 (defface oef-font-command-face
   '((t :inherit font-lock-function-name-face))
   "Face for commands"
+  :group 'oef-mode-faces)
+
+(defface oef-font-function-name-face
+  '((t :inherit font-lock-function-name-face))
+  "Face for functions"
   :group 'oef-mode-faces)
 
 (defface oef-font-answer-command-face
@@ -161,11 +164,28 @@
   "Face for h1 h2 h3 tags"
   :group 'oef-mode-faces)
 
-(defface oef-font-h1text-face
+;(if (string= (frame-parameter nil 'background-mode) "light")
+
+(defface oef-font-h1text-lightbg-face
   '((t
      (:width normal :height 1.1 :weight bold :underline
              (:color foreground-color :style line)
              :foreground "black")))
+  "Face for h1 (sections) tag when the background is light"
+  :group 'oef-mode-faces)
+
+(defface oef-font-h1text-darkbg-face
+  '((t
+     (:width normal :height 1.1 :weight bold :underline
+             (:color foreground-color :style line)
+             :foreground "white")))
+  "Face for h1 (sections) tag when the background is dark"
+  :group 'oef-mode-faces)
+
+(defface oef-font-h1text-face
+  '((t
+     (:inherit
+      (oef-font-h1text-lightbg-face))))
   "Face for h1 (sections) tag"
   :group 'oef-mode-faces)
 
@@ -209,8 +229,6 @@
   '((t :inherit font-lock-variable-name-face))
   "Face for variables"
   :group 'oef-mode-faces)
-
-
 
 ;;---- VARS --------------------------------------------------------------------
 
@@ -278,6 +296,7 @@
     "type=set"
     "type=fset"
     "type=aset"
+    "type=units"
     "type=sigunits"
     "type=symtext"
     "type=time"
@@ -316,24 +335,6 @@
     (modify-syntax-entry ?> "_" table)
     table)
   "oef Syntax Table")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ;;----------------MODE----------------------------------------
 
@@ -386,4 +387,3 @@
 ;; coding: utf-8
 ;; indent-tabs-mode: nil
 ;; End:
-
