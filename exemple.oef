@@ -129,6 +129,7 @@ text black,-1, 0, medium, S
 \answer{Le poids  est \(P)}{\Punit}{type=units}
 \answer{Les forces se compensent}{\compensent;\choix}{type=menu}
 \answer{Le mouvement est} {\mouvement}{type=nocase}
+
 \answer{Le parachute est déployé}{\parachute; \choix}{type=menu}
 \answer{Le parachutiste}{1; descend, monte, reste à la même altitude,on ne peut pas savoir}{type=menu}
 
