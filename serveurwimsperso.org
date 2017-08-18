@@ -1,0 +1,11 @@
+* <2017-08-18 ven.>Téléchargement et Installation du serveur wims
+hatterer@asus1:~$ sudo apt-get install wims
+hatterer@asus1:~$ sudo apt-get install libapache2-mod-fastcgi
+hatterer@asus1:~$ sudo a2enmod cgid
+hatterer@asus1:~$ service apache2 restart
+hatterer@asus1:~$ sudo chown wims:wims /var/lib/wims/sessions /var/lib/wims/s2
+
+* Configurer le serveur
+- Ouvrir un navigateur sur la machine ou vous avez installé wims et mettre comme adresse
+ http://127.0.0.1/wims/
+- Suivre ces instructions:http://wiki.wimsedu.info/doku.php?id=installation:first_config 
