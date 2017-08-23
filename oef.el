@@ -189,11 +189,31 @@
   "Face for h1 (sections) tag"
   :group 'oef-mode-faces)
 
+
+(defface oef-font-h2text-lightbg-face
+  '((t
+     (:width normal :height 1.05 :weight bold :foreground "black")))
+  "Face for h2 (sections) tag when the background is light"
+  :group 'oef-mode-faces)
+
+(defface oef-font-h2text-darkbg-face
+  '((t
+     (:width normal :height 1.05 :weight bold :foreground "white")))
+  "Face for h2 (sections) tag when the background is dark"
+  :group 'oef-mode-faces)
+
 (defface oef-font-h2text-face
   '((t
-     (:width normal :height 1.0 :weight bold :foreground "black")))
+     (:inherit
+      (oef-font-h2text-lightbg-face))))
   "Face for h2 (sub-sections) tag"
   :group 'oef-mode-faces)
+
+;; (defface oef-font-h2text-face
+;;   '((t
+;;      (:width normal :height 1.0 :weight bold :foreground "black")))
+;;   "Face for h2 (sub-sections) tag"
+;;   :group 'oef-mode-faces)
 
 (defface oef-font-answer-type-face
   '((t (:foreground "#CC9900")))
@@ -342,15 +362,13 @@
   "oef-mode"
   "'Online Exercise Format' mode"
 
-
-  ;;(if (string= (frame-parameter nil 'background-mode) "light") test if the background is light (or dark)
-
-  (if (string= (frame-parameter nil 'background-mode) "light")
-      (set-face-attribute ;; if the background is light
-       'oef-font-h1text-face nil :inherit 'oef-font-h1text-lightbg-face)
-    (set-face-attribute ;; if the background is dark
-     'oef-font-h1text-face nil :inherit 'oef-font-h1text-darkbg-face)
-    )
+  (if (string= (frame-parameter nil 'background-mode) "light") ; test if the background is light (or dark)
+      (progn      ; if the background is light
+        (set-face-attribute 'oef-font-h1text-face nil :inherit 'oef-font-h1text-lightbg-face)
+        (set-face-attribute 'oef-font-h2text-face nil :inherit 'oef-font-h2text-lightbg-face))
+    (progn    ; if the background is dark
+      (set-face-attribute 'oef-font-h1text-face nil :inherit 'oef-font-h1text-darkbg-face)
+      (set-face-attribute 'oef-font-h2text-face nil :inherit 'oef-font-h2text-darkbg-face)))
 
   (font-lock-add-keywords
    nil
