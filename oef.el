@@ -377,9 +377,9 @@
      (,(regexp-opt oef-comparison-operators 'symbols) . 'oef-font-keyword-face)
      ("\\(real\\|complex\\|text\\|integer\\|rational\\|function\\|matrix\\){\\\\\\w* ?=" . 'oef-font-warning-face) ; warning '\varName=' instead of 'varName='
      (,(regexp-opt oef-storage-types 'words) . 'oef-font-type-face) ; types : text, integer, real...
-     ("^\\\\statement{" . 'oef-font-statement-command-face) ; overwrite statement
-     ("^\\\\answer{[^}]*}" . 'oef-font-answer-command-face) ; overwrite answer
-     (,(regexp-opt oef-commands 'words) . 'oef-font-command-face) ; commands : statement, answer, embed...
+     ("^\\\\statement{" . 'oef-font-statement-command-face) ; command statement
+     ("^\\\\answer{[^}]*}" . 'oef-font-answer-command-face) ; command answer
+     (,(regexp-opt oef-commands 'words) . 'oef-font-command-face) ; other oef-commands : embed...
      ("\\(\\\\special\\){[ \\\n]*\\(expandlines\\|imagefill\\|help\\|tabs2lines\\|rename\\|tooltip\\|codeinput\\|imageinput\\|mathmlinput\\|drawinput\\)" (1 'oef-font-function-name-face)(2 'oef-font-keyword-face)) ; special OEF
      ("\\\\\\(for\\|if\\|else\\) *{" 1 'oef-font-control-face)	     ;controls
      ("-[0-9]+\\(\\.[0-9]+\\)?" . 'oef-font-warning-face) ; warning negative number
