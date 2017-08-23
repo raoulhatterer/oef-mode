@@ -164,7 +164,7 @@
   "Face for h1 h2 h3 tags"
   :group 'oef-mode-faces)
 
-;(if (string= (frame-parameter nil 'background-mode) "light")
+
 
 (defface oef-font-h1text-lightbg-face
   '((t
@@ -341,7 +341,17 @@
 (define-derived-mode oef-mode sgml-mode
   "oef-mode"
   "'Online Exercise Format' mode"
-  
+
+
+  ;;(if (string= (frame-parameter nil 'background-mode) "light") test if the background is light (or dark)
+
+  (if (string= (frame-parameter nil 'background-mode) "light")
+      (set-face-attribute ;; if the background is light
+       'oef-font-h1text-face nil :inherit 'oef-font-h1text-lightbg-face)
+    (set-face-attribute ;; if the background is dark
+     'oef-font-h1text-face nil :inherit 'oef-font-h1text-darkbg-face)
+    )
+
   (font-lock-add-keywords
    nil
    `(
