@@ -165,7 +165,7 @@
   :group 'oef-mode-faces)
 
 (defface oef-font-litag-face
-  '((t (:foreground "#FF3366")))
+  '((t (:foreground "magenta")))
   "Face for li tags"
   :group 'oef-mode-faces)
 
@@ -359,6 +359,19 @@
     (modify-syntax-entry ?> "_" table)
     table)
   "oef Syntax Table")
+;; Without removing <> as SGML matching parenthesis from the syntax table
+;; oef-mode is not mattching parenthesis well when there is a comparaison.
+;; The down side is that SGML toogle tag visibility is not working anymore
+;; and should be (TODO) removed from the SGML menu or rewrite in a different way.
+
+(defvar oef-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map [menu-bar oef]             (cons "OEF" (make-sparse-keymap)))
+    ;;--------------------------------------------------------------------------
+    ;; "C-c <LETTER>" are reserved for users
+    ;;--------------------------------------------------------------------------
+    map)
+  "Keymap for `oef-mode'.")
 
 ;;----------------MODE----------------------------------------
 
@@ -378,7 +391,7 @@
    nil
    `(
      ("\\\\comment{.*}" . 'oef-font-comment-face) ; comments
-     ("^ *<\\(li\\)>.*</\\(li\\)> *$"(1 'oef-font-litag-face)(2 'oef-font-litag-face)) ; li
+     ("^ *<\\(li\\)>.*</\\(li\\)> *$"(1 'oef-font-litag-face)(2 'oef-font-litag-face)) ; <li> </li>
      (,(regexp-opt oef-comparison-operators 'symbols) . 'oef-font-keyword-face)
      ("\\(real\\|complex\\|text\\|integer\\|rational\\|function\\|matrix\\){\\\\\\w* ?=" . 'oef-font-warning-face) ; warning '\varName=' instead of 'varName='
      (,(regexp-opt oef-storage-types 'words) . 'oef-font-type-face) ; types : text, integer, real...
