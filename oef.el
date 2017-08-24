@@ -164,6 +164,10 @@
   "Face for h1 h2 h3 tags"
   :group 'oef-mode-faces)
 
+(defface oef-font-litag-face
+  '((t (:foreground "#FF3366")))
+  "Face for li tags"
+  :group 'oef-mode-faces)
 
 
 (defface oef-font-h1text-lightbg-face
@@ -374,6 +378,7 @@
    nil
    `(
      ("\\\\comment{.*}" . 'oef-font-comment-face) ; comments
+     ("^ *<\\(li\\)>.*</\\(li\\)> *$"(1 'oef-font-litag-face)(2 'oef-font-litag-face)) ; li
      (,(regexp-opt oef-comparison-operators 'symbols) . 'oef-font-keyword-face)
      ("\\(real\\|complex\\|text\\|integer\\|rational\\|function\\|matrix\\){\\\\\\w* ?=" . 'oef-font-warning-face) ; warning '\varName=' instead of 'varName='
      (,(regexp-opt oef-storage-types 'words) . 'oef-font-type-face) ; types : text, integer, real...
