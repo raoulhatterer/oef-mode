@@ -1,0 +1,14 @@
+\title{Norme de vecteur 2D}
+\language{fr}
+\computeanswer{no}
+\format{html}
+
+\integer{x=random(-10..10)}
+\integer{y=random(-10..10)}
+\real{norm=sqrt((\x)^2+(\y)^2)}
+\statement{Quelle est la longueur du vecteur (\x,\y) dans R<sup>2</sup>?}
+
+\hint{La longueur d'un vecteur (x,y) est égale à sqrt(x^2+y^2).}
+\answer{La longueur}{\norm}
+
+\comment{Dans cet exercice, on a défini 2 entiers aléatoires, x et y, qui sont les coordonnées du vecteur. Ensuite un troisième paramètre, cette fois réel, est défini par la formule de longueur. L'exercice prend une réponse libre sous le nom de ``La longueur'', et la bonne réponse doit être la valeur du troisième paramètre ``norm''. Une indication est préparée dans l'exercice, qui rappelle la formule de longueur.}
