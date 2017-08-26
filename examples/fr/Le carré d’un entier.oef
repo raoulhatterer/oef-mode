@@ -1,0 +1,12 @@
+\title{Le carré d’un entier}
+\computeanswer{no}
+\integer{n=randint(−50..50)}
+\integer{N=(\n)^2}
+
+\statement{Calculer le carré de \n.}
+
+\answer{Carré de \n}{\N}{type=numeric}
+\feedback{\reply1<0}{Le carré d’un entier est toujours positif.}
+
+\comment{On veut faire un exercice donnant un entier, demandant à l’utilisateur de déterminer le carré de cet entier et renvoyant un message si l’utilisateur a entré un nombre négatif.}
+			

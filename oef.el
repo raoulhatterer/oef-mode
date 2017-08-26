@@ -395,7 +395,7 @@
     (define-key map [menu-bar oef examples]    (cons "Examples" (make-sparse-keymap)))
 
     (define-key map [menu-bar oef examples example-1] '(menu-item "/home/hatterer/.emacs.d/lisp/oef/examples/fr/Longueur de vecteur 2D.oef" oef-mode-show-example1))
-    (define-key map [menu-bar oef examples all] '(menu-item "Show all examples" oef-mode-show-all))
+    (define-key map [menu-bar oef examples all] '(menu-item "Show all oef examples" oef-mode-show-all))
     
     ;;--------------------------------------------------------------------------
     ;; "C-c <LETTER>" are reserved for users

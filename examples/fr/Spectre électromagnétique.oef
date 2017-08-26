@@ -1,0 +1,9 @@
+\title{ Spectre électromagnétique }
+\text{liste=rayons\(\gamma\),rayons X, ultraviolet , lumière visible , infrarouge , micro−ondes , ondes radio }
+
+\statement{ Remettre les parties du spectre dans l’ordre croissant des longueurs d’onde : }
+
+\answer{}{\liste}{type=reorder}
+
+\comment{On analyse la réponse en faisant appel au type de réponse : reorder qui fait le travail de comparaison entre \liste et la liste des items définie par l’utilisateur.}
+

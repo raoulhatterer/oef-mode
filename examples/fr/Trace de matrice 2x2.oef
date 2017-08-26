@@ -1,0 +1,18 @@
+\title{Trace de matrice 2x2}
+\language{fr}
+\computeanswer{yes}
+\format{html}
+
+\integer{lim=20}
+\integer{a=random(-\lim..\lim)}
+\integer{b=random(-\lim..\lim)}
+\integer{c=random(-\lim..\lim)}
+\integer{d=random(-\lim..\lim)}
+\integer{trace=(\a)+(\d)}
+\statement{Calculer la trace de la matrice
+\([\a,\b;\c,\d]\).}
+
+\answer{La trace}{\trace}
+
+
+\comment{ On a d'abord défini un entier lim qui permettra d'encadrer les valeurs aléatoires a, b, c, d qui sont les éléments de la matrice. La trace est définie par la somme des éléments sur la diagonale. Faites attention à la définition trace=(\a)+(\d): les paires de parenthèses sont nécessaires, car la substitution est littérale. Si on définit trace=\a+\d et si a et d prennent les valeurs de 3 et -15 respectivement, on aurait trace=3+-15, ce qui est une mauvaise expression mathématique. Remarquons que dans cet exercice, les réponses non calculées sont admises (telles 2+15 ou 3*105). }
