@@ -370,8 +370,6 @@
   "oef Syntax Table")
 ;; Without removing <> as SGML matching parenthesis from the syntax table
 ;; oef-mode is not mattching parenthesis well when there is a comparaison.
-;; The down side is that SGML toogle tag visibility is not working anymore
-;; and should be (TODO) removed from the SGML menu or rewrite in a different way.
 
 (setq oef-example-files (directory-files-recursively user-emacs-directory ".oef$"))
 
@@ -391,6 +389,7 @@
 
 (defvar oef-mode-map
   (let ((map (make-sparse-keymap)))
+    (define-key map [menu-bar sgml] 'undefined) ;SGML menu-bar item suppressed
     (define-key map [menu-bar oef]             (cons "OEF" (make-sparse-keymap)))
     (define-key map [menu-bar oef examples]    (cons "Examples" (make-sparse-keymap)))
 

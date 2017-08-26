@@ -23,8 +23,6 @@
 \text{choix = oui,non,on ne peut pas savoir}
 <!-- mouvement -->
 \text{mouvement = \facteur = 1? rectiligne uniforme: rectiligne varié}
-
-<!-- warning oef : show-paren-mode coince -->
 \text{\if{ \facteur > 1}{mouvement = rectiligne décéléré}}
 \text{mouvement = \facteur < 1? rectiligne accéléré}
 
