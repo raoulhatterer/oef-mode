@@ -147,6 +147,15 @@
   "Face for answer command"
   :group 'oef-mode-faces)
 
+(defface oef-font-hint-command-face
+  '((t
+     (:box
+      (:line-width 2 :color "blue" :style nil)
+      :inverse-video t :inherit
+      (oef-font-command-face))))
+  "Face for hint command"
+  :group 'oef-mode-faces)
+
 (defface oef-font-statement-command-face
   '((t
      (:height 1.2 :weight extra-bold :inherit
@@ -364,6 +373,9 @@
 ;; The down side is that SGML toogle tag visibility is not working anymore
 ;; and should be (TODO) removed from the SGML menu or rewrite in a different way.
 
+(setq oef-example-files (directory-files-recursively user-emacs-directory ".oef$"))
+
+
 ;;----------------MENU----------------------------------------
 
 ;; retourne la liste des fichier oef présents dans "~/.emacs.d/" :
@@ -383,7 +395,8 @@
     (define-key map [menu-bar oef examples]    (cons "Examples" (make-sparse-keymap)))
 
     (define-key map [menu-bar oef examples example-1] '(menu-item "/home/hatterer/.emacs.d/lisp/oef/examples/fr/Longueur de vecteur 2D.oef" oef-mode-show-example1))
-
+    (define-key map [menu-bar oef examples all] '(menu-item "Show all examples" oef-mode-show-all))
+    
     ;;--------------------------------------------------------------------------
     ;; "C-c <LETTER>" are reserved for users
     ;;--------------------------------------------------------------------------
@@ -414,6 +427,7 @@
      (,(regexp-opt oef-storage-types 'words) . 'oef-font-type-face) ; types : text, integer, real...
      ("^\\\\statement{" . 'oef-font-statement-command-face) ; command statement
      ("^\\\\answer{[^}]*}" . 'oef-font-answer-command-face) ; command answer
+     ("^\\\\hint{[^}]*}" . 'oef-font-hint-command-face) ; command hint
      (,(regexp-opt oef-commands 'words) . 'oef-font-command-face) ; other oef-commands : embed...
      ("\\(\\\\special\\){[ \\\n]*\\(expandlines\\|imagefill\\|help\\|tabs2lines\\|rename\\|tooltip\\|codeinput\\|imageinput\\|mathmlinput\\|drawinput\\)" (1 'oef-font-function-name-face)(2 'oef-font-keyword-face)) ; special OEF
      ("\\\\\\(for\\|if\\|else\\) *{" 1 'oef-font-control-face)	     ;controls
@@ -443,6 +457,15 @@
   (interactive)
   (find-file-read-only "/home/hatterer/.emacs.d/lisp/oef/examples/fr/Longueur de vecteur 2D.oef")
   )
+
+(defun oef-mode-show-all () 
+  "Show all examples in read-only buffers"
+  (interactive)
+  (dolist (oef-example-file oef-example-files)
+  (find-file-read-only oef-example-file))
+  )
+
+
 
 
 ;;---- AUTO-ACTIVATION of Mode When Opening File -------------------------------
