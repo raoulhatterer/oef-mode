@@ -364,16 +364,33 @@
 ;; The down side is that SGML toogle tag visibility is not working anymore
 ;; and should be (TODO) removed from the SGML menu or rewrite in a different way.
 
+;;----------------MENU----------------------------------------
+
+;; retourne la liste des fichier oef présents dans "~/.emacs.d/" :
+;; (directory-files-recursively user-emacs-directory ".oef$")
+;; ("/home/hatterer/.emacs.d/lisp/oef/examples/fr/Longueur de vecteur 2D.oef" "/home/hatterer/.emacs.d/lisp/oef/exemple.oef")
+
+;; retourne la liste des fichier oef présents dans "~/Documents" :
+;; (directory-files-recursively "~/Documents" ".oef$")
+
+;; Pour ouvrir un fichier en lecture seule:
+;; (find-file-read-only "/home/hatterer/.emacs.d/lisp/oef/examples/fr/Longueur de vecteur 2D.oef") 
+
+
 (defvar oef-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map [menu-bar oef]             (cons "OEF" (make-sparse-keymap)))
+    (define-key map [menu-bar oef examples]    (cons "Examples" (make-sparse-keymap)))
+
+    (define-key map [menu-bar oef examples example-1] '(menu-item "/home/hatterer/.emacs.d/lisp/oef/examples/fr/Longueur de vecteur 2D.oef" oef-mode-show-example1))
+
     ;;--------------------------------------------------------------------------
     ;; "C-c <LETTER>" are reserved for users
     ;;--------------------------------------------------------------------------
     map)
   "Keymap for `oef-mode'.")
 
-;;----------------MODE----------------------------------------
+;;-----------MAJOR MODE----------------------------------------
 
 (define-derived-mode oef-mode sgml-mode
   "oef-mode"
@@ -419,6 +436,14 @@
      )
    )
   )
+
+;;---- DEFUNS ------------------------------------------------------------------
+(defun oef-mode-show-example1 () 
+  "Show example1 in a read-only buffer"
+  (interactive)
+  (find-file-read-only "/home/hatterer/.emacs.d/lisp/oef/examples/fr/Longueur de vecteur 2D.oef")
+  )
+
 
 ;;---- AUTO-ACTIVATION of Mode When Opening File -------------------------------
 
