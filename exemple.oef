@@ -93,7 +93,7 @@ text black,-1, 0, medium, S
   <ul>
     <li>Le système étudié est le parachutiste et son parachute.</li>
     <li>On considère que le mouvement du parachutiste s'effectue suivant une verticale.</li>
-    <li>L’intensité du champ de pesanteur est considérée constante : \(g =\gunit).</li>
+    <li>L’intensité du champ de pesanteur est considérée constante : \(g =\gunit\).</li>
     <li>La masse du système est de \m kg.  </li>
     <li>À un instant donné, les forces qui s'exercent sur le système sont représentées ci-dessous.</li>
     <li>Le système est représenté par son centre de gravité S.</li>
@@ -124,7 +124,7 @@ text black,-1, 0, medium, S
 }
 
 <!-- Analyse des RÉPONSES -->
-\answer{Le poids  est \(P)}{\Punit}{type=units}
+\answer{Le poids  est \(P\)}{\Punit}{type=units}
 \answer{Les forces se compensent}{\compensent;\choix}{type=menu}
 \answer{Le mouvement est} {\mouvement}{type=nocase}
 
@@ -136,15 +136,15 @@ text black,-1, 0, medium, S
 
   <h1 class="solution"> Calcul du poids</h1>
   <p>
-    Le poids se calcule en utilisant la formule \(P=m\cdot g)
-    où le poids \(P) est en newtons (N), la masse \(m) est en kilogrammes (\(kg))
-    et l'intensité du champ de pesanteur  \(g) est en newtons par kilogramme (N/kg).
+    Le poids se calcule en utilisant la formule \(P=m\cdot g\)
+    où le poids \(P\) est en newtons (N), la masse \(m\) est en kilogrammes (\(kg\))
+    et l'intensité du champ de pesanteur  \(g\) est en newtons par kilogramme (N/kg).
   </p>
-  \(P=\m\times \g=\P=)\(\Punit)
+  \(P=\m\times \g=\P=\)\(\Punit\)
   <p>
     Chiffres significatifs :
-    \(m) est donné avec 2 chiffres significatifs
-    et \(g) est donné avec 3 chiffres significatifs ; la réponse est donnée avec le plus petit de ces deux nombres
+    \(m\) est donné avec 2 chiffres significatifs
+    et \(g\) est donné avec 3 chiffres significatifs ; la réponse est donnée avec le plus petit de ces deux nombres
     donc 2 chiffres significatifs. Une calculatrice en mode scientifique est capable d'afficher la réponse sous cette forme.
   </P>
 

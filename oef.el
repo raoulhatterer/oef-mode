@@ -345,7 +345,7 @@
   '("reply " "choice" "step" "sc_reply" "reply_" "help_subject" "oef_firstname" "oef_lastname" "oef_login" "oef_now" "oef_lang" ))
 
 (defvar oef-comparison-operators
-  '("isin" "notin" "iswordof" "notwordof" "isvarof" "notvarof" "isvariableof" "notvariableof" "isitemof" "notitemof" "islineof" "notlineof" "issamecase" "notsamecase" "issametext" "notsametext" "or" "and")) ; "==" "=" "!=" "<" "<=" ">" ">=" out of test
+  '("==" "<="  ">=" "isin" "notin" "iswordof" "notwordof" "isvarof" "notvarof" "isvariableof" "notvariableof" "isitemof" "notitemof" "islineof" "notlineof" "issamecase" "notsamecase" "issametext" "notsametext" "or" "and")) ;  "="  "<"  ">"  tested in another place
 
 (defvar oef-language-reserved-words
   '("to" "of" "within" "in" "into" "by" "internal"))
@@ -364,12 +364,21 @@
 
 (defvar oef-mode-syntax-table
   (let ((table (make-syntax-table)))
-    (modify-syntax-entry ?< "_" table)
-    (modify-syntax-entry ?> "_" table)
+    (modify-syntax-entry ?< "_" table)  ;Symbol constituent
+    (modify-syntax-entry ?> "_" table)  ;Symbol constituent
     table)
   "oef Syntax Table")
 ;; Without removing <> as SGML matching parenthesis from the syntax table
 ;; oef-mode is not mattching parenthesis well when there is a comparaison.
+
+
+;; the rest of the code work better wit sgml-make-syntax-table
+
+;; idea to test : with-syntax-table temporarily alters the current syntax table of whichever buffer
+;; is current at the time t;; he macro execution starts.
+;; When the syntax table is not flexible enough to specify the syntax of a language, you can
+;; override the syntax table for specific character occurrences in the buffer, by applying a
+;; syntax-table text property.
 
 (setq oef-example-files (directory-files-recursively user-emacs-directory ".oef$"))
 
@@ -395,6 +404,7 @@
 
     (define-key map [menu-bar oef examples example-1] '(menu-item "/home/hatterer/.emacs.d/lisp/oef/examples/fr/Longueur de vecteur 2D.oef" oef-mode-show-example1))
     (define-key map [menu-bar oef examples all] '(menu-item "Show all oef examples" oef-mode-show-all))
+
     
     ;;--------------------------------------------------------------------------
     ;; "C-c <LETTER>" are reserved for users
@@ -416,12 +426,19 @@
       (set-face-attribute 'oef-font-h1text-face nil :inherit 'oef-font-h1text-darkbg-face)
       (set-face-attribute 'oef-font-h2text-face nil :inherit 'oef-font-h2text-darkbg-face)))
 
+;; Warning: Major mode commands must not call font-lock-add-keywords under any
+;; circumstances, either directly or indirectly, except through their mode hooks. (Doing
+;; so would lead to incorrect behavior for some minor modes.) They should set up their
+;; rules for search-based fontification by setting font-lock-keywords.
+
   (font-lock-add-keywords
    nil
    `(
      ("\\\\comment{.*}" . 'oef-font-comment-face) ; comments
      ("^ *<\\(li\\)>.*</\\(li\\)> *$"(1 'oef-font-litag-face)(2 'oef-font-litag-face)) ; <li> </li>
      (,(regexp-opt oef-comparison-operators 'symbols) . 'oef-font-keyword-face)
+     ("{[^}^{]*\\(>\\|<\\|!=\\)[^{]+}" 1 'oef-font-keyword-face) ;  "<" ">" "!=" comparison (must be after the precedent line)
+     ;; There are text properties here: (face oef-font-keyword-face fontified t) see describe-char
      ("\\(real\\|complex\\|text\\|integer\\|rational\\|function\\|matrix\\){\\\\\\w* ?=" . 'oef-font-warning-face) ; warning '\varName=' instead of 'varName='
      (,(regexp-opt oef-storage-types 'words) . 'oef-font-type-face) ; types : text, integer, real...
      ("^\\\\statement{" . 'oef-font-statement-command-face) ; command statement
@@ -464,6 +481,30 @@
   (find-file-read-only oef-example-file))
   )
 
+;;_________________________________________________
+
+;; idea to test to create a dynamic menu for emacs
+
+;; (easy-menu-define jrk-menu global-map "MyMenu"
+;;   '("My Files"))
+
+
+;; (defun get-menu ()
+;;   (easy-menu-create-menu
+;;    "Files"
+;;    (mapcar (lambda (x)
+;;              (vector (file-name-nondirectory x)
+;;                      `(lambda () (interactive) (find-file ,x) t)))
+;;            (f-glob "*"))))
+
+
+;; (easy-menu-add-item jrk-menu '() (get-menu))
+
+
+;; (defun update-my-file-menu ()
+;;   (easy-menu-add-item jrk-menu '() (get-menu)))
+
+;; (add-hook 'menu-bar-update-hook 'update-my-file-menu)
 
 
 
