@@ -399,6 +399,23 @@
 (defvar oef-mode-map
   (let ((map (make-sparse-keymap)))
     ;;    (define-key map [menu-bar sgml] 'undefined) ;SGML menu-bar item suppressed
+    (define-key map [menu-bar text paragraph-indent-minor-mode] 'undefined) ;Text menu-bar item `Paragraph indent' suppressed
+    (define-key map [menu-bar text toggle-text-mode-auto-fill] 'undefined) ;Text menu-bar item `Auto Fill' suppressed
+    (define-key map [menu-bar text center-region] 'undefined) ;Text menu-bar item `Center region' suppressed
+    (define-key map [menu-bar text center-paragraph] 'undefined) ;Text menu-bar item `Center paragraph' suppressed
+    (define-key map [menu-bar text center-line] 'undefined) ;Text menu-bar item `Center line' suppressed
+    (define-key map [menu-bar text indent]    (cons "Indent" (make-sparse-keymap)))    
+    (define-key map [menu-bar text indent indent-line] '(menu-item "Smart Indent Line" oef-mode-indent-line)) ;`Smart Indent Line' added to Text menu-bar
+    (define-key map [menu-bar text indent indent-region] '(menu-item "Smart Indent Region" oef-mode-indent-region)) ;`Smart Indent Region' added to Text menu-bar
+    (define-key map [menu-bar text indent indent-rigidly] '(menu-item "Indent Region" indent-rigidly)) ;`Indent Region' added to Text menu-bar
+    (define-key map [menu-bar text transpose]    (cons "Transpose" (make-sparse-keymap)))
+    (define-key map [menu-bar text transpose transpose-lines] '(menu-item "Transpose Lines" transpose-lines)) ;`Transpose Lines' added to Text menu-bar
+    (define-key map [menu-bar text transpose transpose-words] '(menu-item "Transpose Words" transpose-words)) ;`Transpose Words' added to Text menu-bar
+    (define-key map [menu-bar text transpose transpose-chars] '(menu-item "Transpose Characters" transpose-chars)) ;`Transpose Characters' added to Text menu-bar
+    (define-key map [menu-bar text clear]    (cons "Clear Text" (make-sparse-keymap)))
+    (define-key map [menu-bar text clear delete-blank-lines] '(menu-item "Delete Blank Lines" delete-blank-lines)) ;`Delete Blank Lines' added to Text menu-bar
+    (define-key map [menu-bar text clear delete-horizontal-space] '(menu-item "Delete All Spaces" delete-horizontal-space)) ;`Delete All Spaces' added to Text menu-bar
+    (define-key map [menu-bar text clear just-one-space] '(menu-item "Just One Space" just-one-space)) ;`Just One Space' added to Text menu-bar        
     (define-key map [menu-bar oef]             (cons "OEF" (make-sparse-keymap)))
     (define-key map [menu-bar oef examples]    (cons "Examples" (make-sparse-keymap)))
 
@@ -441,6 +458,8 @@
    nil
    `(
      ("\\\\comment{.*}" . 'oef-font-comment-face) ; comments
+     ("^[:blank:]*#.*" . 'oef-font-comment-face) ; comments
+     ("^[:blank:]*:%%.*" . 'oef-font-comment-face) ; comments
      ("^ *<\\(li\\)>.*</\\(li\\)> *$"(1 'oef-font-litag-face)(2 'oef-font-litag-face)) ; <li> </li>
      (,(regexp-opt oef-comparison-operators 'symbols) . 'oef-font-keyword-face)
      ("{[^}^{]*\\(>\\|<\\|!=\\)[^{]+}" 1 'oef-font-keyword-face) ;  "<" ">" "!=" comparison (must be after the precedent line)
