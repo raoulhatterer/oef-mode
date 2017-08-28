@@ -430,6 +430,7 @@
   ;; circumstances, either directly or indirectly, except through their mode hooks. (Doing
   ;; so would lead to incorrect behavior for some minor modes.) They should set up their
   ;; rules for search-based fontification by setting font-lock-keywords.
+  ;; So the following code may cause troubles.
 
   (font-lock-add-keywords
    nil
