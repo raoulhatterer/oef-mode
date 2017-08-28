@@ -398,7 +398,7 @@
 
 (defvar oef-mode-map
   (let ((map (make-sparse-keymap)))
-;;    (define-key map [menu-bar sgml] 'undefined) ;SGML menu-bar item suppressed
+    ;;    (define-key map [menu-bar sgml] 'undefined) ;SGML menu-bar item suppressed
     (define-key map [menu-bar oef]             (cons "OEF" (make-sparse-keymap)))
     (define-key map [menu-bar oef examples]    (cons "Examples" (make-sparse-keymap)))
 
@@ -425,6 +425,11 @@
     (progn    ; if the background is dark
       (set-face-attribute 'oef-font-h1text-face nil :inherit 'oef-font-h1text-darkbg-face)
       (set-face-attribute 'oef-font-h2text-face nil :inherit 'oef-font-h2text-darkbg-face)))
+
+
+  ;; key binding
+  (define-key oef-mode-map (kbd "C-M-\\") 'oef-mode-indent-region) ; indent-region with sgml-mode-syntax-table because with oef-syntax-table there are ploblems with the identation
+
 
   ;; Warning: Major mode commands must not call font-lock-add-keywords under any
   ;; circumstances, either directly or indirectly, except through their mode hooks. (Doing
