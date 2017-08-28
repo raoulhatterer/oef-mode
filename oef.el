@@ -97,8 +97,8 @@
 ;;---- AUTO-START --------------------------------------------------------------
 
 (require 'rainbow-mode) ;; Auto-start CSS colorization
-(add-hook 'sgml-mode-hook 'oef-sgml-mode-hook) 
-(defun oef-sgml-mode-hook ()
+(add-hook 'sgml-mode-hook 'oef-mode-hook) 
+(defun oef-mode-hook ()
   (setq rainbow-html-colors t)
   (rainbow-mode 1)
   (rainbow-delimiters-mode 1)
