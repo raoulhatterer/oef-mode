@@ -398,7 +398,7 @@
 
 (defvar oef-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map [menu-bar sgml] 'undefined) ;SGML menu-bar item suppressed
+;;    (define-key map [menu-bar sgml] 'undefined) ;SGML menu-bar item suppressed
     (define-key map [menu-bar oef]             (cons "OEF" (make-sparse-keymap)))
     (define-key map [menu-bar oef examples]    (cons "Examples" (make-sparse-keymap)))
 
@@ -426,10 +426,10 @@
       (set-face-attribute 'oef-font-h1text-face nil :inherit 'oef-font-h1text-darkbg-face)
       (set-face-attribute 'oef-font-h2text-face nil :inherit 'oef-font-h2text-darkbg-face)))
 
-;; Warning: Major mode commands must not call font-lock-add-keywords under any
-;; circumstances, either directly or indirectly, except through their mode hooks. (Doing
-;; so would lead to incorrect behavior for some minor modes.) They should set up their
-;; rules for search-based fontification by setting font-lock-keywords.
+  ;; Warning: Major mode commands must not call font-lock-add-keywords under any
+  ;; circumstances, either directly or indirectly, except through their mode hooks. (Doing
+  ;; so would lead to incorrect behavior for some minor modes.) They should set up their
+  ;; rules for search-based fontification by setting font-lock-keywords.
 
   (font-lock-add-keywords
    nil
@@ -450,7 +450,6 @@
      ("-[0-9]+\\(\\.[0-9]+\\)?" . 'oef-font-warning-face) ; warning negative number
      ("<\\(h1\\)\\( \\(class\\|id\\) ?=.*\\)?>\\(.+\\)<\\(/h1\\)>" (1 'oef-font-htag-face)(4 'oef-font-h1text-face)(5 'oef-font-htag-face)) ; sections
      ("<\\(h2\\)\\( \\(class\\|id\\) ?=.*\\)?>\\(.+\\)<\\(/h2\\)>" (1 'oef-font-htag-face)(4 'oef-font-h2text-face)(5 'oef-font-htag-face)) ; sub-sections
-     ("[^\\w]\\([0-9]+\\(\\.[0-9]+\\)?\\)" 1 'oef-font-positivenumber-face) ; a number in a variable name is not a number in blue (it's a part of the name) 
      (,(regexp-opt oef-language-reserved-words 'words) . 'oef-font-keyword-face)
      (,(regexp-opt oef-answers-options 'symbols) . 'oef-font-answer-type-face)
      (,(regexp-opt oef-defined-variables 'words) . 'oef-font-variable-name-face)
@@ -462,7 +461,7 @@
      ("\\(\\\\\\w+\\){" 1 'oef-font-warning-face) ; unknown '\command{'
      ("\\(\\\\\\){" 1 'oef-font-positivenumber-face) ; latex expression \{}
      ("\\\\\\w+\\([0-9]?_?\\w?\\)*" . 'oef-font-variable-name-face) ; '\variable'
-
+     ("[^\\w]\\([0-9]+\\(\\.[0-9]+\\)?\\)" 1 'oef-font-positivenumber-face) ; a number in a variable name is not a number in blue (it's a part of the name) 
      )
    )
   )
@@ -480,6 +479,17 @@
   (dolist (oef-example-file oef-example-files)
   (find-file-read-only oef-example-file))
   )
+
+(defun oef-mode-indent-region (start end)
+  "indent-region with sgml-mode-syntax-table because with oef-syntax-table there are ploblems with the identation"
+  (interactive (if (use-region-p)
+                   (list (region-beginning) (region-end))
+                 ;; Operate on the current line if region is not to be used.
+                 (list (line-beginning-position) (line-end-position))))
+
+  (with-syntax-table sgml-mode-syntax-table
+    (indent-region start end)
+    ))
 
 ;;_________________________________________________
 
