@@ -399,6 +399,7 @@
 (defvar oef-mode-map
   (let ((map (make-sparse-keymap)))
     ;;    (define-key map [menu-bar sgml] 'undefined) ;SGML menu-bar item suppressed
+    ;; menu-bar text
     (define-key map [menu-bar text paragraph-indent-minor-mode] 'undefined) ;Text menu-bar item `Paragraph indent' suppressed
     (define-key map [menu-bar text toggle-text-mode-auto-fill] 'undefined) ;Text menu-bar item `Auto Fill' suppressed
     (define-key map [menu-bar text center-region] 'undefined) ;Text menu-bar item `Center region' suppressed
@@ -413,15 +414,18 @@
     (define-key map [menu-bar text transpose transpose-words] '(menu-item "Transpose Words" transpose-words)) ;`Transpose Words' added to Text menu-bar
     (define-key map [menu-bar text transpose transpose-chars] '(menu-item "Transpose Characters" transpose-chars)) ;`Transpose Characters' added to Text menu-bar
     (define-key map [menu-bar text clear]    (cons "Clear Text" (make-sparse-keymap)))
-    (define-key map [menu-bar text clear delete-blank-lines] '(menu-item "Delete Blank Lines" delete-blank-lines)) ;`Delete Blank Lines' added to Text menu-bar
+    (define-key map [menu-bar text clear delete-blank-lines] '(menu-item "Delete Blank Lines" delete-blank-lines:help"On blank line, delete all surrounding blank lines, leaving just one.\n
+On isolated blank line, delete that one.\n
+On nonblank line, delete any immediately following blank lines.")) ;`Delete Blank Lines' added to Text menu-bar
     (define-key map [menu-bar text clear delete-horizontal-space] '(menu-item "Delete All Spaces" delete-horizontal-space)) ;`Delete All Spaces' added to Text menu-bar
-    (define-key map [menu-bar text clear just-one-space] '(menu-item "Just One Space" just-one-space)) ;`Just One Space' added to Text menu-bar        
+    (define-key map [menu-bar text clear just-one-space] '(menu-item "Just One Space" just-one-space)) ;`Just One Space' added to Text menu-bar
+    ;; menu-bar OEF
     (define-key map [menu-bar oef]             (cons "OEF" (make-sparse-keymap)))
     (define-key map [menu-bar oef examples]    (cons "Examples" (make-sparse-keymap)))
 
     (define-key map [menu-bar oef examples example-1] '(menu-item "/home/hatterer/.emacs.d/lisp/oef/examples/fr/Longueur de vecteur 2D.oef" oef-mode-show-example1))
     (define-key map [menu-bar oef examples all] '(menu-item "Show all oef examples" oef-mode-show-all))
-
+    (define-key map [menu-bar oef oef-commands]    (cons "OEF Commands" (make-sparse-keymap)))
     
     ;;--------------------------------------------------------------------------
     ;; "C-c <LETTER>" are reserved for users
@@ -492,6 +496,14 @@
   )
 
 ;;---- DEFUNS ------------------------------------------------------------------
+
+
+
+(defun lecture ()
+  "Test de lecture"
+  (interactive)
+  (insert "Raoul"))
+
 (defun oef-mode-show-example1 () 
   "Show example1 in a read-only buffer"
   (interactive)
@@ -502,7 +514,7 @@
   "Show all examples in read-only buffers"
   (interactive)
   (dolist (oef-example-file oef-example-files)
-  (find-file-read-only oef-example-file))
+    (find-file-read-only oef-example-file))
   )
 
 (defun oef-mode-indent-region (start end)
@@ -519,27 +531,28 @@
 ;;_________________________________________________
 
 ;; idea to test to create a dynamic menu for emacs
+;; idea1
+;;(dolist (oef-command oef-commands)(insert (concat oef-command "{}\n")))
+;; idea2
+(require 'f)
 
-;; (easy-menu-define jrk-menu global-map "MyMenu"
-;;   '("My Files"))
+(easy-menu-define jrk-menu oef-mode-map "Examples of OEF files"
+  '("My Files"))
 
+(defun get-menu ()
+  (easy-menu-create-menu
+   "Files"
+   (mapcar (lambda (x)
+             (vector (file-name-nondirectory x)
+                     `(lambda () (interactive) (find-file ,x) t)))
+           (f-glob "*" user-emacs-directory))))
 
-;; (defun get-menu ()
-;;   (easy-menu-create-menu
-;;    "Files"
-;;    (mapcar (lambda (x)
-;;              (vector (file-name-nondirectory x)
-;;                      `(lambda () (interactive) (find-file ,x) t)))
-;;            (f-glob "*"))))
+(easy-menu-add-item jrk-menu '() (get-menu))
 
+(defun update-my-file-menu ()
+  (easy-menu-add-item jrk-menu '() (get-menu)))
 
-;; (easy-menu-add-item jrk-menu '() (get-menu))
-
-
-;; (defun update-my-file-menu ()
-;;   (easy-menu-add-item jrk-menu '() (get-menu)))
-
-;; (add-hook 'menu-bar-update-hook 'update-my-file-menu)
+(add-hook 'menu-bar-update-hook 'update-my-file-menu)
 
 
 
