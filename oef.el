@@ -374,19 +374,16 @@
     table)
   "oef Syntax Table")
 ;; Without removing <> as SGML matching parenthesis from the syntax table
-;; oef-mode is not mattching parenthesis well when there is a comparaison.
-
-
+;; oef-mode is not mattching parenthesis well when there is a comparison.
 ;; the rest of the code work better wit sgml-make-syntax-table
 
 ;; idea to test : with-syntax-table temporarily alters the current syntax table of whichever buffer
-;; is current at the time t;; he macro execution starts.
+;; is current at the time the macro execution starts.
 ;; When the syntax table is not flexible enough to specify the syntax of a language, you can
 ;; override the syntax table for specific character occurrences in the buffer, by applying a
 ;; syntax-table text property.
 
 (setq oef-example-files (directory-files-recursively user-emacs-directory ".oef$")) ; list of strings (the oef examples files)
-
 
 ;;----------------MENU----------------------------------------
 
@@ -404,7 +401,7 @@
 (defvar oef-mode-map
   (let ((map (make-sparse-keymap)))
     ;;    (define-key map [menu-bar sgml] 'undefined) ;SGML menu-bar item suppressed
-    ;; menu-bar text
+    ;; menu-bar Text
     (define-key map [menu-bar text paragraph-indent-minor-mode] 'undefined) ;Text menu-bar item `Paragraph indent' suppressed
     (define-key map [menu-bar text toggle-text-mode-auto-fill] 'undefined) ;Text menu-bar item `Auto Fill' suppressed
     (define-key map [menu-bar text center-region] 'undefined) ;Text menu-bar item `Center region' suppressed
@@ -424,19 +421,78 @@ On isolated blank line, delete that one.\n
 On nonblank line, delete any immediately following blank lines.")) ;`Delete Blank Lines' added to Text menu-bar
     (define-key map [menu-bar text clear delete-horizontal-space] '(menu-item "Delete All Spaces" delete-horizontal-space)) ;`Delete All Spaces' added to Text menu-bar
     (define-key map [menu-bar text clear just-one-space] '(menu-item "Just One Space" just-one-space)) ;`Just One Space' added to Text menu-bar
-    ;; menu-bar OEF
-    (define-key map [menu-bar oef]             (cons "OEF" (make-sparse-keymap)))
-    (define-key map [menu-bar oef examples]    (cons "Examples" (make-sparse-keymap)))
 
-    (define-key map [menu-bar oef examples example-1] '(menu-item "/home/hatterer/.emacs.d/lisp/oef/examples/fr/Longueur de vecteur 2D.oef" oef-mode-show-example1))
-    (define-key map [menu-bar oef examples all] '(menu-item "Show all oef examples" oef-mode-show-all))
-    (define-key map [menu-bar oef oef-commands]    (cons "OEF Commands" (make-sparse-keymap)))
-    
     ;;--------------------------------------------------------------------------
     ;; "C-c <LETTER>" are reserved for users
     ;;--------------------------------------------------------------------------
     map)
   "Keymap for `oef-mode'.")
+
+;;--------------------------------------------------------------------------
+;; idea to test to create a dynamic menu for emacs
+;; idea1
+;;(dolist (oef-command oef-commands)(insert (concat oef-command "{}\n")))
+
+;; Add an OEF menu
+(easy-menu-define oef-menu-bar oef-mode-map "OEF-mode menu"
+  '("OEF" ; we start by creating a menu that is initially empty. This menu will be called "OEF" in the menu-bar. 
+    ["Show All OEF Examples" oef-mode-show-all t] ; item in the OEF menu
+    ))
+
+(defun get-examples ()
+ "This function create a submenu with oef examples"
+  (easy-menu-create-menu
+   "Examples"
+   (mapcar                   ; (mapcar function sequence) mapcar applies function to each element of sequence, and returns a list of the results.
+    (lambda                  ; here start the fuction: a lambda expression (witch is an anonymous function object). The first element of a lambda expression is always the symbol lambda. 
+      (x)                    ; The second element is a list of symbols—the argument variable names. This is called the lambda list.
+                                        ; The next element could be The documentation string
+                                        ; The next element could be (interactive code-string). This declares how to provide arguments if the function is used interactively.Functions with this declaration are called commands; they can be called using M-x or bound to a key.
+                                        ; The rest of the elements are the body of the function: the Lisp code to do the work of the function. The value returned by the function is the value returned by the last element of the body:
+      (vector (file-name-nondirectory x)
+              `(lambda () (interactive) (find-file-read-only ,x) t)) ; read-only
+      )               ; end of the lamda expression
+    oef-example-files ; sequence : here a list of strings (the oef examples files)
+    ) ; end of mapcar
+   )) ; end of defun get-examples
+
+
+(defun get-my-oef-files ()
+ "This function create a submenu with my oef files"
+  (easy-menu-create-menu
+   "My Files"
+   (mapcar                   ; (mapcar function sequence) mapcar applies function to each element of sequence, and returns a list of the results.
+    (lambda                  ; here start the fuction: a lambda expression (witch is an anonymous function object). The first element of a lambda expression is always the symbol lambda. 
+      (x)                    ; The second element is a list of symbols—the argument variable names. This is called the lambda list.
+                                        ; The next element could be The documentation string
+                                        ; The next element could be (interactive code-string). This declares how to provide arguments if the function is used interactively.Functions with this declaration are called commands; they can be called using M-x or bound to a key.
+                                        ; The rest of the elements are the body of the function: the Lisp code to do the work of the function. The value returned by the function is the value returned by the last element of the body:
+      (vector (file-name-nondirectory x)
+              `(lambda () (interactive) (find-file ,x) t))
+      )               ; end of the lamda expression
+    (directory-files-recursively "~/Documents" ".oef$\\|.cgi$") ; sequence : here a list of strings (my .oef and .cgi files)
+    ) ; end of mapcar
+   )) ; end of defun get-my-files
+
+
+
+
+(easy-menu-add-item oef-menu-bar '() (get-examples)) ; we add the submenu `Examples' to the oef-menu-bar. This menu is not yet dynamic.
+(easy-menu-add-item oef-menu-bar '() (get-my-oef-files)) ; we add the submenu `My Files' to the oef-menu-bar. This menu is not yet dynamic.
+
+(defun update-oef-menu () ;
+  "This function update the oef-menu"
+  (easy-menu-add-item oef-menu-bar '() (get-examples))
+  (easy-menu-add-item oef-menu-bar '() (get-my-oef-files))
+  )
+
+(add-hook 'menu-bar-update-hook 'update-oef-menu)
+
+
+
+
+
+
 
 ;;-----------MAJOR MODE----------------------------------------
 
@@ -454,7 +510,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 
 
   ;; key binding
-  (define-key oef-mode-map (kbd "C-M-\\") 'oef-mode-indent-region) ; indent-region with sgml-mode-syntax-table because with oef-syntax-table there are ploblems with the identation
+  (define-key oef-mode-map (kbd "C-M-\\") 'oef-mode-indent-region) ; indent-region with sgml-mode-syntax-table because with oef-syntax-table there are ploblems with the indentation
 
 
   ;; Warning: Major mode commands must not call font-lock-add-keywords under any
@@ -509,21 +565,20 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (interactive)
   (insert "Raoul"))
 
-(defun oef-mode-show-example1 () 
-  "Show example1 in a read-only buffer"
-  (interactive)
-  (find-file-read-only "/home/hatterer/.emacs.d/lisp/oef/examples/fr/Longueur de vecteur 2D.oef")
-  )
-
 (defun oef-mode-show-all () 
-  "Show all examples in read-only buffers"
+  "This function shows all oef-examples in read-only buffers.\n
+ If you want you can add more examples in a examples folder in your `user-emacs-directory'"
   (interactive)
   (dolist (oef-example-file oef-example-files)
     (find-file-read-only oef-example-file))
+  (ido-switch-buffer)
   )
 
 (defun oef-mode-indent-region (start end)
-  "indent-region with sgml-mode-syntax-table because with oef-syntax-table there are ploblems with the identation"
+  "This fuction try to smartly indent-region.\n
+It uses `sgml-mode-syntax-table' because with `oef-mode-syntax-table' there are more problems with indentation.\n
+If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigidly' for re-indent manually\n
+the first line which has bad indentation. Then you can reuse `oef-mode-indent-region' for the rest of the code."
   (interactive (if (use-region-p)
                    (list (region-beginning) (region-end))
                  ;; Operate on the current line if region is not to be used.
@@ -532,42 +587,6 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (with-syntax-table sgml-mode-syntax-table
     (indent-region start end)
     ))
-
-;;_________________________________________________
-
-;; idea to test to create a dynamic menu for emacs
-;; idea1
-;;(dolist (oef-command oef-commands)(insert (concat oef-command "{}\n")))
-;; idea2
-(require 'f)
-
-(easy-menu-define jrk-menu oef-mode-map "Examples of OEF files"
-  '("OEF Examples Files"))
-
-(defun get-menu ()
-  (easy-menu-create-menu
-   "Files"
-   (mapcar                   ; (mapcar function sequence) mapcar applies function to each element of sequence, and returns a list of the results.
-    (lambda                  ; here start the fuction: a lambda expression (witch is an anonymous function object). The first element of a lambda expression is always the symbol lambda. 
-      (x)                    ; The second element is a list of symbols—the argument variable names. This is called the lambda list.
-                             ; The next element could be The documentation string
-                             ; The next element could be (interactive code-string). This declares how to provide arguments if the function is used interactively.Functions with this declaration are called commands; they can be called using M-x or bound to a key.
-                             ; The rest of the elements are the body of the function: the Lisp code to do the work of the function. The value returned by the function is the value returned by the last element of the body:
-             (vector (file-name-nondirectory x)
-                     `(lambda () (interactive) (find-file ,x) t))
-             )               ; end of the lamda expression
-           oef-example-files ; sequence : here a list of strings (the oef examples files)
-           ) ; end of mapcar
-   ))
-
-(easy-menu-add-item jrk-menu '() (get-menu))
-
-(defun update-my-file-menu ()
-  (easy-menu-add-item jrk-menu '() (get-menu)))
-
-(add-hook 'menu-bar-update-hook 'update-my-file-menu)
-
-
 
 ;;---- AUTO-ACTIVATION of Mode When Opening File -------------------------------
 
