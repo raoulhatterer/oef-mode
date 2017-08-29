@@ -90,8 +90,13 @@
 ;;---- KILL-ALL-LOCAL-VARIABLES-------------------------------------------------
 
 (kill-all-local-variables)
-;; This function eliminates all the buffer-local variable bindings of the current buffer except for variables marked as permanent and local hook functions that have a non-nil permanent-local-hook property (see Setting Hooks). As a result, the buffer will see the default values of most variables.
-;; This function also resets certain other information pertaining to the buffer: it sets the local keymap to nil, the syntax table to the value of (standard-syntax-table), the case table to (standard-case-table), and the abbrev table to the value of fundamental-mode-abbrev-table.
+;; This function eliminates all the buffer-local variable bindings of the current buffer
+;; except for variables marked as permanent and local hook functions that have a non-nil
+;; permanent-local-hook property (see Setting Hooks).
+;; As a result, the buffer will see the default values of most variables.
+;; This function also resets certain other information pertaining to the buffer: it sets
+;; the local keymap to nil, the syntax table to the value of (standard-syntax-table),
+;; the case table to (standard-case-table), and the abbrev table to the value of fundamental-mode-abbrev-table.
 ;; The very first thing this function does is run the normal hook change-major-mode-hook.
 
 ;;---- AUTO-START --------------------------------------------------------------
@@ -380,7 +385,7 @@
 ;; override the syntax table for specific character occurrences in the buffer, by applying a
 ;; syntax-table text property.
 
-(setq oef-example-files (directory-files-recursively user-emacs-directory ".oef$"))
+(setq oef-example-files (directory-files-recursively user-emacs-directory ".oef$")) ; list of strings (the oef examples files)
 
 
 ;;----------------MENU----------------------------------------
@@ -537,15 +542,23 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (require 'f)
 
 (easy-menu-define jrk-menu oef-mode-map "Examples of OEF files"
-  '("My Files"))
+  '("OEF Examples Files"))
 
 (defun get-menu ()
   (easy-menu-create-menu
    "Files"
-   (mapcar (lambda (x)
+   (mapcar                   ; (mapcar function sequence) mapcar applies function to each element of sequence, and returns a list of the results.
+    (lambda                  ; here start the fuction: a lambda expression (witch is an anonymous function object). The first element of a lambda expression is always the symbol lambda. 
+      (x)                    ; The second element is a list of symbols—the argument variable names. This is called the lambda list.
+                             ; The next element could be The documentation string
+                             ; The next element could be (interactive code-string). This declares how to provide arguments if the function is used interactively.Functions with this declaration are called commands; they can be called using M-x or bound to a key.
+                             ; The rest of the elements are the body of the function: the Lisp code to do the work of the function. The value returned by the function is the value returned by the last element of the body:
              (vector (file-name-nondirectory x)
-                     `(lambda () (interactive) (find-file ,x) t)))
-           (f-glob "*" user-emacs-directory))))
+                     `(lambda () (interactive) (find-file ,x) t))
+             )               ; end of the lamda expression
+           oef-example-files ; sequence : here a list of strings (the oef examples files)
+           ) ; end of mapcar
+   ))
 
 (easy-menu-add-item jrk-menu '() (get-menu))
 
