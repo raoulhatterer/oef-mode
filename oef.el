@@ -385,11 +385,6 @@
 
 ;;---- DEFUNS ------------------------------------------------------------------
 
-(defun lecture ()
-  "Test de lecture"
-  (interactive)
-  (insert "Raoul"))
-
 (defun get-examples ()
  "This function create a submenu with oef examples"
   (easy-menu-create-menu
@@ -406,6 +401,19 @@
     oef-example-files ; sequence : here a list of strings (the oef examples files)
     ) ; end of mapcar
    )) ; end of defun get-examples
+
+(defun get-oef-commands ()
+ "This function create a submenu with oef-commands"
+  (easy-menu-create-menu
+   "Commands"
+   (mapcar             
+    (lambda (x)              
+      (vector x ; each command name in the submenu
+              `(lambda () (interactive) (insert (concat "\\" ,x "{}")) t)) 
+      )               ; end of the lamda expression
+    oef-commands ; sequence : here a list of strings (the oef-commands)
+    ) ; end of mapcar
+   )) ; end of defun get-oef-commands
 
 (defun get-my-oef-files ()
  "This function create a submenu with my oef files"
@@ -428,11 +436,12 @@
   "This function update the oef-menu"
   (setq oef-example-files (directory-files-recursively user-emacs-directory ".oef$")) ; list of strings (the oef examples files)
   (easy-menu-add-item oef-menu-bar '() (get-examples))
+  (easy-menu-add-item oef-menu-bar '("OEF" "Examples")["Open All OEF Examples" oef-mode-open-all t])
   (easy-menu-add-item oef-menu-bar '() (get-my-oef-files))
   )
 
-(defun oef-mode-show-all () 
-  "This function shows all oef-examples in read-only buffers.\n
+(defun oef-mode-open-all () 
+  "This function open all oef-examples in read-only buffers.\n
  If you want you can add more examples in a examples folder in your `user-emacs-directory'"
   (interactive)
   (dolist (oef-example-file oef-example-files)
@@ -496,11 +505,13 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 ;; Add an OEF menu
 (easy-menu-define oef-menu-bar oef-mode-map "OEF-mode menu"
   '("OEF" ; we start by creating a menu that is initially empty. This menu will be called "OEF" in the menu-bar. 
-    ["Show All OEF Examples" oef-mode-show-all t] ; item in the OEF menu
+    ["Open All OEF Examples" oef-mode-open-all t] ; item in the OEF menu
     ))
 
 (easy-menu-add-item oef-menu-bar '() (get-examples)) ; we add the submenu `Examples' to the oef-menu-bar. This menu is not yet dynamic.
+(easy-menu-add-item oef-menu-bar '("menu-bar" "OEF" "Examples")["Open All OEF Examples" oef-mode-open-all t]) ; we add the command "Open All OEF Examples" to the submenu `Examples' in the oef-menu-bar. This menu is not yet dynamic.
 (easy-menu-add-item oef-menu-bar '() (get-my-oef-files)) ; we add the submenu `My Files' to the oef-menu-bar. This menu is not yet dynamic.
+(easy-menu-add-item oef-menu-bar '() (get-oef-commands)) ; we add the submenu `Commands' to the oef-menu-bar.
 
 (add-hook 'menu-bar-update-hook 'update-oef-menu) ;add the function update-oef-menu to a hook that runs each time the menu opens so the oef menu is dynamic
 
