@@ -340,8 +340,41 @@
     "type=time"
     ))
 
-(defvar oef-commands
-  '("title" "language" "author" "email" "format" "css" "keywords" "credits" "description" "observation" "precision" "range" "computeanswer" "statement" "answer" "choice" "condition" "solution" "hint" "help" "feedback" "steps" "nextstep" "conditions" "latex" "embed" "special"))
+;; (defvar oef-commands
+;;   '("title" "language" "author" "email" "format" "css" "keywords" "credits" "description" "observation" "precision" "range" "computeanswer" "statement" "answer" "choice" "condition" "solution" "hint" "help" "feedback" "steps" "nextstep" "conditions" "latex" "embed" "special"))
+
+;;mmm1
+(defvar oef-menu-commands
+  '("title{«exerciseTitle»}" 
+ "language{«en» or «fr»}"
+ "author{«forename1»,«name1»;«forename2»,«name2»}"
+ "email{«email1»,«email2»}"
+ "format{html}"
+ "css{«style»«/style»}"
+ "keywords{«keyword1»,«keyword2»}"
+ "credits{«Tank's»}"
+ "description{«forTheStudent»}"
+ "observation{«forTheTeacher»}"
+ "precision{1000}"
+ "range{«n1..n2»}"
+ "computeanswer{«yes» or «no»}"
+ "statement{}"
+ "answer{«message»}{«goodAnswer»}{&opt«type=»}{&opt«option=»}{&opt«weight=»}"
+ "choice{<>}"
+ "condition{<>}"
+ "solution{<>}"
+ "hint{<>}"
+ "help{<>}"
+ "feedback{<>}"
+ "steps{<>}"
+ "nextstep{<>}"
+ "conditions{<>}"
+ "latex{<>}"
+ "embed{<>}"
+ "special{<>}"
+ ))
+
+
 
 (defvar oef-storage-types
   '("real" "complex" "text" "integer" "rational" "function" "matrix" ))
@@ -394,24 +427,28 @@
       (x)                    ; The second element is a list of symbols—the argument variable names. This is called the lambda list.
                                         ; The next element could be The documentation string
                                         ; The next element could be (interactive code-string). This declares how to provide arguments if the function is used interactively.Functions with this declaration are called commands; they can be called using M-x or bound to a key.
-                                        ; The rest of the elements are the body of the function: the Lisp code to do the work of the function. The value returned by the function is the value returned by the last element of the body:
-      (vector (file-name-nondirectory x)
-              `(lambda () (interactive) (find-file-read-only ,x) t)) ; read-only
+                                        ; The rest of the elements are the body of the function: the Lisp code to do the work of the function. The value returned by the function is the value returned by the last element of the body: The rest of the elements in MENU are menu items. A menu item can be a vector of three elements:  [NAME CALLBACK ENABLE]
+      (vector (file-name-nondirectory x) ;NAME
+              `(lambda () (interactive) (find-file-read-only ,x) ; CALLBACK
+                 t) ;ENABLE
+              ) ; read-only
       )               ; end of the lamda expression
     oef-example-files ; sequence : here a list of strings (the oef examples files)
     ) ; end of mapcar
    )) ; end of defun get-examples
-
+;;mmm2
 (defun get-oef-commands ()
  "This function create a submenu with oef-commands"
   (easy-menu-create-menu
    "Commands"
    (mapcar             
-    (lambda (x)              
-      (vector x ; each command name in the submenu
-              `(lambda () (interactive) (insert (concat "\\" ,x "{}")) t)) 
+    (lambda (x);             
+      (vector (replace-regexp-in-string "{.+}" "" x) ; each command name in the submenu
+              `(lambda () (interactive)
+                 (insert  (concat "\\" ,x))
+                 t))  
       )               ; end of the lamda expression
-    oef-commands ; sequence : here a list of strings (the oef-commands)
+    oef-menu-commands ; sequence : here a list of cons cells ("oef-command for the menu"."oef-command for the buffer")
     ) ; end of mapcar
    )) ; end of defun get-oef-commands
 
@@ -431,6 +468,19 @@
     (directory-files-recursively "~/Documents" ".oef$\\|.cgi$") ; sequence : here a list of strings (my .oef and .cgi files)
     ) ; end of mapcar
    )) ; end of defun get-my-files
+
+(defun get-list-commands-names (list-commands-definitions)
+  "This function take a list of commands definitions (with braces)and return a list of commands names (without braces)"
+  (setq list-commands '())
+  (dolist
+      (command-definition list-commands-definitions)
+    (add-to-list
+     'list-commands
+     (replace-regexp-in-string "{.+}" "" command-definition)
+     )
+    )
+   (nreverse list-commands)
+  )
 
 (defun update-oef-menu () ;
   "This function update the oef-menu"
@@ -463,6 +513,7 @@ the first line which has bad indentation. Then you can reuse `oef-mode-indent-re
 ;;----------------MENU----------------------------------------
 
 (setq oef-example-files (directory-files-recursively user-emacs-directory ".oef$")) ; list of strings (the oef examples files) needed to build the OEF menu
+(setq oef-commands (get-list-commands-names oef-menu-commands)) ; list of strings (the oef-commands like 'title' and 'author')
 
 (defvar oef-mode-map
   (let ((map (make-sparse-keymap)))
