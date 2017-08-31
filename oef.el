@@ -36,7 +36,7 @@
 ;; or in a computer-equipped classroom with server-side interactivity,
 ;; accessible at the address http://wims.unice.fr.
 ;; oef-mode is a mode for editing exercises (online exercise format) files
-;; witch should have ".oef" or ".cgi" extension to be recognized. 	
+;; witch should have ".oef" extension to be recognized. 	
 ;;==============================================================================
 
 ;;; manually installation:
@@ -67,6 +67,7 @@
 ;;  ~/.emacs  (deprecated -- meaning 'should not be used for new installations,
 ;; but will continue to be supported' -- in Aquamacs on OS X)
 ;;vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+;;  (add-to-list 'load-path "~/Library/Preferences/Aquamacs Emacs/Packages/lisp/oef/") ;; Tell emacs where is your personal elisp lib dir
 ;;  (load "oef") ;; load the packaged named oef (best not to include the ending “.el” or “.elc”)
 ;;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ;; before the line (package-initialize).
@@ -457,22 +458,24 @@
     ) ; end of mapcar
    )) ; end of defun get-oef-commands
 
-(defun get-my-oef-files ()
- "This function create a submenu with my oef files"
-  (easy-menu-create-menu
-   "My Files"
-   (mapcar                   ; (mapcar function sequence) mapcar applies function to each element of sequence, and returns a list of the results.
-    (lambda                  ; here start the fuction: a lambda expression (witch is an anonymous function object). The first element of a lambda expression is always the symbol lambda. 
-      (x)                    ; The second element is a list of symbols—the argument variable names. This is called the lambda list.
-                                        ; The next element could be The documentation string
-                                        ; The next element could be (interactive code-string). This declares how to provide arguments if the function is used interactively.Functions with this declaration are called commands; they can be called using M-x or bound to a key.
-                                        ; The rest of the elements are the body of the function: the Lisp code to do the work of the function. The value returned by the function is the value returned by the last element of the body:
-      (vector (file-name-nondirectory x)
-              `(lambda () (interactive) (find-file ,x) t))
-      )               ; end of the lamda expression
-    (directory-files-recursively "~/Documents" ".oef$\\|.cgi$") ; sequence : here a list of strings (my .oef and .cgi files)
-    ) ; end of mapcar
-   )) ; end of defun get-my-files
+
+
+;; (defun get-my-oef-files () ;; deactivated because it's too slow with a lot of files
+;;  "This function create a submenu with my oef files"
+;;   (easy-menu-create-menu
+;;    "My Files"
+;;    (mapcar                   ; (mapcar function sequence) mapcar applies function to each element of sequence, and returns a list of the results.
+;;     (lambda                  ; here start the fuction: a lambda expression (witch is an anonymous function object). The first element of a lambda expression is always the symbol lambda. 
+;;       (x)                    ; The second element is a list of symbols—the argument variable names. This is called the lambda list.
+;;                                         ; The next element could be The documentation string
+;;                                         ; The next element could be (interactive code-string). This declares how to provide arguments if the function is used interactively.Functions with this declaration are called commands; they can be called using M-x or bound to a key.
+;;                                         ; The rest of the elements are the body of the function: the Lisp code to do the work of the function. The value returned by the function is the value returned by the last element of the body:
+;;       (vector (file-name-nondirectory x)
+;;               `(lambda () (interactive) (find-file ,x) t))
+;;       )               ; end of the lamda expression
+;;     (directory-files-recursively "~/Documents/" ".oef$") ; sequence : here a list of strings (my .oef files)
+;;     ) ; end of mapcar
+;;    )) ; end of defun get-my-files
 
 (defun get-list-commands-names (list-commands-definitions)
   "This function take a list of commands definitions (with braces)and return a list of commands names (without braces)"
@@ -487,10 +490,10 @@
    (nreverse list-commands)
   )
 
-(defun update-oef-menu () ;
-  "This function update the oef-menu"
-  (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files))
-  )
+;; (defun update-oef-menu () ; ;; desactivate because slowdown aquamacs
+;;   "This function update the oef-menu"
+;;   (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files))
+;;   )
 
 (defun oef-mode-open-all () 
   "This function open all oef-examples in read-only buffers.\n
@@ -563,10 +566,11 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 
 (easy-menu-add-item oef-menu-bar '("Files") (get-examples)) ; we add the submenu `Examples' to the oef-menu-bar. This menu is not dynamic.
 (easy-menu-add-item oef-menu-bar '("Files")["Open All OEF Examples" oef-mode-open-all t]) ; we add the command "Open All OEF Examples" to the submenu `Examples' in the oef-menu-bar.
-(easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; we add the submenu `My Files' to the oef-menu-bar. This menu is NOT YET dynamic.
+;; (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; deactivatedd (too slow)
 (easy-menu-add-item oef-menu-bar '() (get-oef-commands)) ; we add the submenu `Commands' to the oef-menu-bar.
 
-(add-hook 'menu-bar-update-hook 'update-oef-menu) ;add the function update-oef-menu to a hook that runs each time the menu opens so the 'My Files' in oef menu is dynamic
+;; deactivated because slowdown aquamacs
+;; (add-hook 'menu-bar-update-hook 'update-oef-menu) ;add the function update-oef-menu to a hook that runs each time the menu opens so the 'My Files' in oef menu is dynamic
 
 ;;-----------MAJOR MODE----------------------------------------
 ;;;###autoload
@@ -632,7 +636,6 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 
 ;;---- AUTO-ACTIVATION of Mode When Opening File -------------------------------
 
-(add-to-list 'auto-mode-alist '("\\.cgi?\\'" . oef-mode)) ;wims file
 (add-to-list 'auto-mode-alist '("\\.oef?\\'" . oef-mode)) ;wims file
 
 (provide 'oef-mode)
