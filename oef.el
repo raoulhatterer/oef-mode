@@ -1,17 +1,17 @@
-;;; oef-mode.el --- major mode for editing oef templates
+;;; oef-mode.el --- Major mode for editing oef templates
 ;;; -*- coding: utf-8 -*-
 
-;; Copyright 2017-20.. Raoul HATTERER
+;; Copyright 2017-2017 Raoul HATTERER
 
-;; Version: 1.0.0
-;; Package-Version: 
-;; Author: Raoul Hatterer <hatterer.raoul AT gmail.com>
-;; Maintainer: Raoul HATTERER
-;; Package-Requires: ((emacs "24")(rainbow-mode))
-;; URL: http://http://wims.unice.fr
-;; Repository: http://github.com/raoulhatterer/oef
+;; Author: Raoul Hatterer <hatterer.raoul@gmail.com>
 ;; Created: July 2017
-;; Keywords: languages oef wims 'multiple choice'
+;; Keywords: languages
+;; Homepage: http://github.com/raoulhatterer/oef
+;; Package-Version:
+;; Package-Requires: ((rainbow-mode)(emmet-mode))
+
+
+
 ;; License: GNU General Public License >= 2
 ;; Distribution: This file is not part of Emacs
 
@@ -70,6 +70,10 @@
 ;;  (load "oef") ;; load the packaged named oef (best not to include the ending “.el” or “.elc”)
 ;;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ;; before the line (package-initialize).
+;; Open the file: oef.el
+;; M-x: eval-buffer
+;; If ou get the following message: Cannot open load file: No such file or directory, emmet-mode
+;; Then install emmet-mode with:  M-x: package-list-packages
 ;; How to Debug Aquamacs if you need to:
 ;; Past the following command in a terminal:
 ;; /Applications/Aquamacs.app/Contents/MacOS/Aquamacs -nw --debug-init
@@ -86,6 +90,7 @@
 (unless (featurep 'aquamacs); subdir inclusion so oef dir will be included to emacs load path
   (let ((default-directory  "~/.emacs.d/"))
     (normal-top-level-add-subdirs-to-load-path)))
+
 
 ;;---- KILL-ALL-LOCAL-VARIABLES-------------------------------------------------
 
@@ -564,7 +569,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (add-hook 'menu-bar-update-hook 'update-oef-menu) ;add the function update-oef-menu to a hook that runs each time the menu opens so the 'My Files' in oef menu is dynamic
 
 ;;-----------MAJOR MODE----------------------------------------
-
+;;;###autoload
 (define-derived-mode oef-mode sgml-mode
   "oef-mode"
   "'Online Exercise Format' mode"
