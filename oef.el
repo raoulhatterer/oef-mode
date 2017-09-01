@@ -364,6 +364,10 @@
  "precision{1000}"
  "range{«n1..n2»}"
  "computeanswer{«yes» or «no»}"
+ "steps{&opt«choice1,»«reply1»
+&opt«choice2,»«reply2»,«reply3»
+&opt«choice3»}"
+ "nextstep{<>}"
  "statement{}"
  "answer{«message»}{«goodAnswer»}{&opt«type=»}{&opt«option=»}{&opt«weight=»}"
  "choice{«message»}{«goodAnswers»}{«badAnswers»}{&opt«option=»}{&opt«weight=»}"
@@ -372,13 +376,9 @@
  "hint{«hint»}"
  "help{«popupHelp»}"
  "feedback{«condition»}{«message»}"
- "steps{«choice1»,«reply1»
-«choice2»,«reply2»,«reply3»
-«choice3»}"
- "nextstep{<>}"
- "conditions{<>}"
- "latex{<>}"
- "embed{<>}"
+ "conditions{«conditionsNumbers»}"
+ "latex{}"
+ "embed{«reply 1»,&opt«option»}"
  "special{<>}"
  ))
 
@@ -451,7 +451,7 @@
    "Commands"
    (mapcar             
     (lambda (x);             
-      (vector (replace-regexp-in-string "{.+}" "" x) ; each command name in the submenu
+      (vector (replace-regexp-in-string "{\\(.\\|\n\\)+}" "" x) ; each command name in the submenu
               `(lambda () (interactive)
                  (insert  (concat "\\" ,x))
                  t))  
