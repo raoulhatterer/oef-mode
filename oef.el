@@ -8,8 +8,7 @@
 ;; Keywords: languages
 ;; Homepage: http://github.com/raoulhatterer/oef
 ;; Package-Version:
-;; Package-Requires: ((rainbow-mode)(emmet-mode))
-
+;; Package-Requires: ((rainbow-mode)(emmet-mode)(rainbow-delimiters))
 
 
 ;; License: GNU General Public License >= 2
@@ -108,6 +107,7 @@
 ;;---- AUTO-START --------------------------------------------------------------
 
 (require 'rainbow-mode) ;; Auto-start CSS colorization
+(require 'rainbow-delimiters) ;; Auto-start parens matching
 (add-hook 'sgml-mode-hook 'oef-mode-hook) 
 (defun oef-mode-hook ()
   (setq rainbow-html-colors t)
@@ -177,6 +177,11 @@
 (defface oef-font-positivenumber-face
   '((t (:foreground "#0000EE")))
   "Face for positive number"
+  :group 'oef-mode-faces)
+
+(defface oef-font-documentation-face
+   '((t :inherit font-lock-doc-face))
+  "Face for documentation"
   :group 'oef-mode-faces)
 
 (defface oef-font-htag-face
@@ -356,9 +361,9 @@
  "author{«forename1»,«name1»;«forename2»,«name2»}"
  "email{«email1»,«email2»}"
  "format{html}"
- "css{«style»«/style»}"
+ "css{<style></style>}"
  "keywords{«keyword1»,«keyword2»}"
- "credits{«Tank's»}"
+ "credits{«acknowledgement of those who contributed to the document or exercice, whether through ideas or in a more direct sense»}"
  "description{«forTheStudent»}"
  "observation{«forTheTeacher»}"
  "precision{1000}"
@@ -486,7 +491,7 @@
       (command-definition list-commands-definitions)
     (add-to-list
      'list-commands
-     (replace-regexp-in-string "{.+}" "" command-definition)
+     (replace-regexp-in-string "{\\(.\\|\n\\)+}" "" command-definition)
      )
     )
    (nreverse list-commands)
@@ -605,6 +610,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("\\\\comment{.*}" . 'oef-font-comment-face) ; comments
      ("^[:blank:]*#.*" . 'oef-font-comment-face) ; comments
      ("^[:blank:]*:%%.*" . 'oef-font-comment-face) ; comments
+     ("«[^»]*\n?[^»]*»" . 'oef-font-documentation-face) ; documentation     
      ("^ *<\\(li\\)>.*</\\(li\\)> *$"(1 'oef-font-litag-face)(2 'oef-font-litag-face)) ; <li> </li>
      (,(regexp-opt oef-comparison-operators 'symbols) . 'oef-font-keyword-face)
      ("{[^}^{]*\\(>\\|<\\|!=\\)[^{]+}" 1 'oef-font-keyword-face) ;  "<" ">" "!=" comparison (must be after the precedent line)
