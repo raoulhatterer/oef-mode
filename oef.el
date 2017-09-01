@@ -383,11 +383,22 @@
  "feedback{«condition»}{«message»}"
  "conditions{«conditionsNumbers»}"
  "latex{}"
- "embed{«reply 1»,&opt«option»}"
- "special{<>}"
+ "embed{«reply1»,&opt«option»}"
  ))
 
-
+(defvar oef-menu-special-commands
+  '(
+    "special{imagefill «parameters»}"
+    "special{expandlines «parameters»}"
+    "special{help «parameters»}"
+    "special{tabs2lines «parameters»}"
+    "special{rename «parameters»}"
+    "special{tooltip «parameters»}"
+    "special{codeinput «parameters»}"
+    "special{imageinput «parameters»}"
+    "special{mathmlinput «parameters»}"
+    "special{drawinput «parameters»}"
+ ))
 
 (defvar oef-storage-types
   '("real" "complex" "text" "integer" "rational" "function" "matrix" ))
@@ -449,7 +460,7 @@
     oef-example-files ; sequence : here a list of strings (the oef examples files)
     ) ; end of mapcar
    )) ; end of defun get-examples
-;;mmm2
+
 (defun get-oef-commands ()
  "This function create a submenu with oef-commands"
   (easy-menu-create-menu
@@ -461,10 +472,24 @@
                  (insert  (concat "\\" ,x))
                  t))  
       )               ; end of the lamda expression
-    oef-menu-commands ; sequence : here a list of cons cells ("oef-command for the menu"."oef-command for the buffer")
+    oef-menu-commands ; sequence : here a list of string
     ) ; end of mapcar
    )) ; end of defun get-oef-commands
 
+(defun get-oef-special-commands ()
+ "This function create a submenu special with oef-special-commands"
+  (easy-menu-create-menu
+   "Special"
+   (mapcar             
+    (lambda (x);             
+      (vector (replace-regexp-in-string "special{" "" (replace-regexp-in-string " «parameters»}" "" x)) ; each special-command name in the submenu
+              `(lambda () (interactive)
+                 (insert  (concat "\\" ,x))
+                 t))  
+      )               ; end of the lamda expression
+    oef-menu-special-commands ; sequence : here a list of string
+    ) ; end of mapcar
+   )) ; end of defun get-oef-commands
 
 
 ;; (defun get-my-oef-files () ;; deactivated because it's too slow with a lot of files
@@ -529,6 +554,7 @@ the first line which has bad indentation. Then you can reuse `oef-mode-indent-re
 
 (setq oef-example-files (directory-files-recursively user-emacs-directory ".oef$")) ; list of strings (the oef examples files) needed to build the OEF menu
 (setq oef-commands (get-list-commands-names oef-menu-commands)) ; list of strings (the oef-commands like 'title' and 'author')
+(setq oef-special-commands (get-list-commands-names oef-menu-special-commands)) ; list of strings (the oef-special-commands)
 
 (defvar oef-mode-map
   (let ((map (make-sparse-keymap)))
@@ -575,6 +601,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Files")["Open All OEF Examples" oef-mode-open-all t]) ; we add the command "Open All OEF Examples" to the submenu `Examples' in the oef-menu-bar.
 ;; (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; deactivatedd (too slow)
 (easy-menu-add-item oef-menu-bar '() (get-oef-commands)) ; we add the submenu `Commands' to the oef-menu-bar.
+(easy-menu-add-item oef-menu-bar '("Commands") (get-oef-special-commands)) ; we add the submenu `Special' in menu `Commands' to the oef-menu-bar.
 
 ;; deactivated because slowdown aquamacs
 ;; (add-hook 'menu-bar-update-hook 'update-oef-menu) ;add the function update-oef-menu to a hook that runs each time the menu opens so the 'My Files' in oef menu is dynamic
