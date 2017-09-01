@@ -595,7 +595,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 
 
   ;; key binding
-  (define-key oef-mode-map (kbd "C-M-\\") 'oef-mode-indent-region) ; indent-region with sgml-mode-syntax-table because with oef-syntax-table there are ploblems with the indentation
+  (define-key oef-mode-map (kbd "C-x RET RET") 'oef-mode-indent-region) ; indent-region with sgml-mode-syntax-table because with oef-syntax-table there are ploblems with the indentation
 
 
   ;; Warning: Major mode commands must not call font-lock-add-keywords under any
