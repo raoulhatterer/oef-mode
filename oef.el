@@ -611,7 +611,9 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("^[:blank:]*#.*" . 'oef-font-comment-face) ; comments
      ("^[:blank:]*:%%.*" . 'oef-font-comment-face) ; comments
      ("«[^»]*\n?[^»]*»" . 'oef-font-documentation-face) ; documentation     
-     ("^ *<\\(li\\)>.*</\\(li\\)> *$"(1 'oef-font-litag-face)(2 'oef-font-litag-face)) ; <li> </li>
+;     ("^ *<\\(li\\)>.*?</\\(li\\)> *$"(1 'oef-font-litag-face)(2 'oef-font-litag-face)) ; <li> </li>
+     ("<\\(li\\)[^>]*>"(1 'oef-font-litag-face)) ; <li>
+     ("</\\(li\\)>"(1 'oef-font-litag-face)) ;  </li>
      (,(regexp-opt oef-comparison-operators 'symbols) . 'oef-font-keyword-face)
      ("{[^}^{]*\\(>\\|<\\|!=\\)[^{]+}" 1 'oef-font-keyword-face) ;  "<" ">" "!=" comparison (must be after the precedent line)
      ;; There are text properties here: (face oef-font-keyword-face fontified t) see describe-char
