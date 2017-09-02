@@ -351,10 +351,6 @@
     "type=time"
     ))
 
-;; (defvar oef-commands
-;;   '("title" "language" "author" "email" "format" "css" "keywords" "credits" "description" "observation" "precision" "range" "computeanswer" "statement" "answer" "choice" "condition" "solution" "hint" "help" "feedback" "steps" "nextstep" "conditions" "latex" "embed" "special"))
-
-;;mmm1
 (defvar oef-menu-commands
   '("title{«exerciseTitle»}" 
  "language{«en» or «fr»}"
@@ -400,8 +396,60 @@
     "special{drawinput «parameters»}"
  ))
 
+
+(defvar oef-doc-commands
+  '("calcform"
+    "comment"
+    "def"
+    "define"
+    "docform"
+    "form"
+    "draw"
+    "embed"
+    "exercise"
+    "tool"
+    "help"
+    "adm"
+    "fold"
+    "for"
+    "form"
+    "if"
+    "ifval"
+    "link"
+    "ref"
+    "href"
+    "reload"
+    "slib"
+    "tooltip"
+    "while")
+  )
+
+
+
 (defvar oef-storage-types
   '("real" "complex" "text" "integer" "rational" "function" "matrix" ))
+
+(defvar oef-menu-exo-init-types
+  '(
+    "real{}"
+    "complex{}"
+    "text{}"
+    "integer{}"
+    "rational{}"
+    "function{}"
+    "matrix{}"
+ ))
+
+(defvar oef-menu-doc-init-types
+  '(
+    "def{real }"
+    "def{complex }"
+    "def{text }"
+    "def{integer }"
+    "def{rational }"
+    "def{function }"
+    "def{matrix }"
+    ))
 
 (defvar oef-defined-variables
   '("reply " "choice" "step" "sc_reply" "reply_" "help_subject" "oef_firstname" "oef_lastname" "oef_login" "oef_now" "oef_lang" ))
@@ -490,6 +538,39 @@
     oef-menu-special-commands ; sequence : here a list of string
     ) ; end of mapcar
    )) ; end of defun get-oef-commands
+
+
+(defun get-oef-exo-init-types ()
+ "This function create a submenu for a variable initialization in an exercice"
+  (easy-menu-create-menu
+   "Exercice"
+   (mapcar             
+    (lambda (x);             
+      (vector (replace-regexp-in-string "{\\(.\\|\n\\)*}" "" x) ; each command name in the submenu
+              `(lambda () (interactive)
+                 (insert  (concat "\\" ,x))
+                 t))  
+      )               ; end of the lamda expression
+    oef-menu-exo-init-types ; sequence : here a list of string
+    ) ; end of mapcar
+   )) ; end of defun get-oef-commands
+
+(defun get-oef-doc-init-types ()
+ "This function create a submenu for a variable initialization in an document"
+  (easy-menu-create-menu
+   "Document"
+   (mapcar             
+    (lambda (x);             
+      (vector (replace-regexp-in-string "Def{" "" (replace-regexp-in-string " }" "" x)) ; each type name in the submenu
+              `(lambda () (interactive)
+                 (insert  (concat "\\" ,x))
+                 t))  
+      )               ; end of the lamda expression
+    oef-menu-doc-init-types ; sequence : here a list of string
+    ) ; end of mapcar
+   )) ; end of defun get-oef-commands
+
+
 
 
 ;; (defun get-my-oef-files () ;; deactivated because it's too slow with a lot of files
@@ -587,9 +668,6 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   "Keymap for `oef-mode'.")
 
 ;;-------EASY-MENU-------------------------------------------------------------------
-;; idea to test to create a dynamic menu for emacs
-;; idea1
-;;(dolist (oef-command oef-commands)(insert (concat oef-command "{}\n")))
 
 ;; Add an OEF menu
 (easy-menu-define oef-menu-bar oef-mode-map "OEF-mode menu"
@@ -600,6 +678,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Files") (get-examples)) ; we add the submenu `Examples' to the oef-menu-bar. This menu is not dynamic.
 (easy-menu-add-item oef-menu-bar '("Files")["Open All OEF Examples" oef-mode-open-all t]) ; we add the command "Open All OEF Examples" to the submenu `Examples' in the oef-menu-bar.
 ;; (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; deactivatedd (too slow)
+(easy-menu-add-item oef-menu-bar '("Initializations") (get-oef-exo-init-types)) ; we add the submenu `Exercices' to the oef-menu-bar.
+(easy-menu-add-item oef-menu-bar '("Initializations") (get-oef-doc-init-types)) ; we add the submenu `Documents' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-commands)) ; we add the submenu `Commands' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '("Commands") (get-oef-special-commands)) ; we add the submenu `Special' in menu `Commands' to the oef-menu-bar.
 
@@ -650,6 +730,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("^\\\\answer{[^}]*}" . 'oef-font-answer-command-face) ; command answer
      ("^\\\\hint{[^}]*}" . 'oef-font-hint-command-face) ; command hint
      (,(regexp-opt oef-commands 'words) . 'oef-font-command-face) ; other oef-commands : embed...
+     (,(regexp-opt oef-doc-commands 'words) . 'oef-font-command-face) ;  oef-doc-commands : def...
      ("\\(\\\\special\\){[ \\\n]*\\(expandlines\\|imagefill\\|help\\|tabs2lines\\|rename\\|tooltip\\|codeinput\\|imageinput\\|mathmlinput\\|drawinput\\)" (1 'oef-font-function-name-face)(2 'oef-font-keyword-face)) ; special OEF
      ("\\\\\\(for\\|if\\|else\\) *{" 1 'oef-font-control-face)	     ;controls
      ("-[0-9]+\\(\\.[0-9]+\\)?" . 'oef-font-warning-face) ; warning negative number
