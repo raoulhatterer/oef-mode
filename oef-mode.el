@@ -43,12 +43,12 @@
 ;;==============================================================================
 ;; This section is a tutorial on how to install oef-mode emacs package manually. 
 ;; First method for trying: "Load the File Manually"
-;; To use the package, all you have to do is to make emacs load the file 'oef.el'.
+;; To use the package, all you have to do is to make emacs load the file 'oef-mode.el'.
 ;; alt+x load-file then give the file path.
 ;; Now, emacs is aware of the package. To activate, call “oef-mode” (with alt+x).
 ;; Other method: "Load File at Startup"
 ;; * emacs (Linux):                                   
-;; If you want emacs to load the file 'oef.el' when it starts, put the file 'oef.el'
+;; If you want emacs to load the file 'oef-mode.el' when it starts, put the file 'oef-mode.el'
 ;; in the dir "~/.emacs.d/lisp/", (create that directory if it doesn't exist).
 ;; By convention, the dir ~/.emacs.d/lisp/ is for packages you manually installed. 
 ;; Then put the following (without ;;) in your emacs init file "~/.emacs"
@@ -58,22 +58,18 @@
 ;;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ;; before the line (package-initialize).
 ;; * aquamacs (OSX):
-;; If you want aquamacs to load the file 'oef.el' when it starts, put the file 'oef.el'
-;; in the dir "~/Library/Application Support/Aquamacs Emacs/myPlugin"
+;; If you want aquamacs to load the file 'oef-mode.el' when it starts, put the file 'oef-mode.el'
+;; in the dir "~/Library/Preferences/Aquamacs Emacs/Packages/lisp/"
 ;; (create that directory if it doesn't exist).
 ;; Then put the following (without ;;) in your aquamacs init file
 ;; "~/Library/Preferences/Aquamacs Emacs/Preferences.el"
 ;;  ~/.emacs  (deprecated -- meaning 'should not be used for new installations,
 ;; but will continue to be supported' -- in Aquamacs on OS X)
 ;;vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-;;  (add-to-list 'load-path "~/Library/Preferences/Aquamacs Emacs/Packages/lisp/oef/") ;; Tell emacs where is your personal elisp lib dir
-;;  (load "oef") ;; load the packaged named oef (best not to include the ending “.el” or “.elc”)
+;;  (add-to-list 'load-path "~/Library/Preferences/Aquamacs Emacs/Packages/lisp/oef-mode/") ;; Tell emacs where is your personal elisp lib dir
+;;  (load "oef-mode") ;; load the packaged named oef-mode (best not to include the ending “.el” or “.elc”)
 ;;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ;; before the line (package-initialize).
-;; Open the file: oef.el
-;; M-x: eval-buffer
-;; If ou get the following message: Cannot open load file: No such file or directory, emmet-mode
-;; Then install emmet-mode with:  M-x: package-list-packages
 ;; How to Debug Aquamacs if you need to:
 ;; Past the following command in a terminal:
 ;; /Applications/Aquamacs.app/Contents/MacOS/Aquamacs -nw --debug-init
