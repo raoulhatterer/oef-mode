@@ -33,30 +33,30 @@
 ;;; Commentary:
 
 ;;==============================================================================
-;; The WWW Interactive Multipurpose Server (WIMS) project is designed for 
+;; The WWW Interactive Multipurpose Server (WIMS) project is designed for
 ;; supporting intensive mathematical exercises via the Internet
 ;; or in a computer-equipped classroom with server-side interactivity,
 ;; accessible at the address http://wims.unice.fr.
 ;; oef-mode is a mode for editing exercises (online exercise format) files
-;; witch should have ".oef" extension to be recognized. 	
+;; witch should have ".oef" extension to be recognized.
 ;;==============================================================================
 
 ;;; manually installation:
 
 ;;==============================================================================
-;; This section is a tutorial on how to install oef-mode emacs package manually. 
+;; This section is a tutorial on how to install oef-mode Emacs package manually.
 ;; First method for trying: "Load the File Manually"
-;; To use the package, all you have to do is to make emacs load the file 'oef-mode.el'.
+;; To use the package, all you have to do is to make Emacs load the file 'oef-mode.el'.
 ;; alt+x load-file then give the file path.
-;; Now, emacs is aware of the package. To activate, call “oef-mode” (with alt+x).
+;; Now, Emacs is aware of the package.  To activate, call “oef-mode” (with alt+x).
 ;; Other method: "Load File at Startup"
-;; * emacs (Linux):                                   
-;; If you want emacs to load the file 'oef-mode.el' when it starts, put the file 'oef-mode.el'
+;; * Emacs (Linux):
+;; If you want Emacs to load the file 'oef-mode.el' when it starts, put the file 'oef-mode.el'
 ;; in the dir "~/.emacs.d/lisp/", (create that directory if it doesn't exist).
-;; By convention, the dir ~/.emacs.d/lisp/ is for packages you manually installed. 
-;; Then put the following (without ;;) in your emacs init file "~/.emacs"
+;; By convention, the dir ~/.emacs.d/lisp/ is for packages you manually installed.
+;; Then put the following (without ;;) in your Emacs init file "~/.emacs"
 ;;vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-;;  (add-to-list 'load-path "~/.emacs.d/lisp/") ;; Tell emacs where is your personal elisp lib dir
+;;  (add-to-list 'load-path "~/.emacs.d/lisp/") ;; Tell Emacs where is your personal elisp lib dir
 ;;  (load "oef") ;; load the packaged named oef (best not to include the ending “.el” or “.elc”)
 ;;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ;; before the line (package-initialize).
@@ -69,7 +69,7 @@
 ;; not in  ~/.emacs  witch is deprecated -- meaning 'should not be used for new installations,
 ;; but will continue to be supported' -- in Aquamacs on OS X)
 ;;vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-;;  (add-to-list 'load-path "~/Library/Preferences/Aquamacs Emacs/Packages/lisp/oef-mode/") ;; Tell emacs where is your personal elisp lib dir
+;;  (add-to-list 'load-path "~/Library/Preferences/Aquamacs Emacs/Packages/lisp/oef-mode/") ;; Tell Emacs where is your personal elisp lib dir
 ;;  (load "oef-mode") ;; load the packaged named oef-mode (best not to include the ending “.el” or “.elc”)
 ;;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ;; before the line (package-initialize).
@@ -101,8 +101,9 @@
 
 (require 'rainbow-mode) ;; Auto-start CSS colorization
 (require 'rainbow-delimiters) ;; Auto-start parens matching
-(add-hook 'sgml-mode-hook 'oef-mode-hook) 
+(add-hook 'sgml-mode-hook 'oef-mode-hook)
 (defun oef-mode-hook ()
+  "Activation of some usefull minor modes."
   (setq rainbow-html-colors t)
   (rainbow-mode 1)
   (rainbow-delimiters-mode 1)
@@ -114,7 +115,7 @@
 ;;---- CONSTS ------------------------------------------------------------------
 
 (defconst oef-mode-version "0.0.1"
-  "oef-mode version")
+  "Oef-mode version.")
 
 ;;---- GROUPS ------------------------------------------------------------------
 
@@ -339,7 +340,7 @@
     ))
 
 (defvar oef-menu-commands
-  '("title{«exerciseTitle»}" 
+  '("title{«exerciseTitle»}"
  "language{«en» or «fr»}"
  "author{«forename1»,«name1»;«forename2»,«name2»}"
  "email{«email1»,«email2»}"
@@ -461,7 +462,7 @@
     (modify-syntax-entry ?< "_" table)  ;Symbol constituent
     (modify-syntax-entry ?> "_" table)  ;Symbol constituent
     table)
-  "oef Syntax Table")
+  "Syntax table used while in oef mode.")
 ;; Without removing <> as SGML matching parenthesis from the syntax table
 ;; oef-mode is not mattching parenthesis well when there is a comparison.
 ;; the rest of the code work better wit sgml-make-syntax-table
@@ -475,11 +476,11 @@
 ;;---- DEFUNS ------------------------------------------------------------------
 
 (defun get-examples ()
- "This function create a submenu with oef examples"
+ "This function create a submenu with oef examples."
   (easy-menu-create-menu
    "Examples"
    (mapcar                   ; (mapcar function sequence) mapcar applies function to each element of sequence, and returns a list of the results.
-    (lambda                  ; here start the fuction: a lambda expression (witch is an anonymous function object). The first element of a lambda expression is always the symbol lambda. 
+    (lambda                  ; here start the fuction: a lambda expression (witch is an anonymous function object). The first element of a lambda expression is always the symbol lambda.
       (x)                    ; The second element is a list of symbols—the argument variable names. This is called the lambda list.
                                         ; The next element could be The documentation string
                                         ; The next element could be (interactive code-string). This declares how to provide arguments if the function is used interactively.Functions with this declaration are called commands; they can be called using M-x or bound to a key.
@@ -494,30 +495,30 @@
    )) ; end of defun get-examples
 
 (defun get-oef-commands ()
- "This function create a submenu with oef-commands"
+ "This function create a submenu with ‘oef-commands’."
   (easy-menu-create-menu
    "Commands"
-   (mapcar             
+   (mapcar
     (lambda (x);             
       (vector (replace-regexp-in-string "{\\(.\\|\n\\)*}" "" x) ; each command name in the submenu
               `(lambda () (interactive)
                  (insert  (concat "\\" ,x))
-                 t))  
+                 t))
       )               ; end of the lamda expression
     oef-menu-commands ; sequence : here a list of string
     ) ; end of mapcar
    )) ; end of defun get-oef-commands
 
 (defun get-oef-special-commands ()
- "This function create a submenu special with oef-special-commands"
+ "This function create a submenu special with ‘oef-special-commands’."
   (easy-menu-create-menu
    "Special"
-   (mapcar             
+   (mapcar
     (lambda (x);             
       (vector (replace-regexp-in-string "special{" "" (replace-regexp-in-string " «parameters»}" "" x)) ; each special-command name in the submenu
               `(lambda () (interactive)
                  (insert  (concat "\\" ,x))
-                 t))  
+                 t))
       )               ; end of the lamda expression
     oef-menu-special-commands ; sequence : here a list of string
     ) ; end of mapcar
@@ -525,30 +526,30 @@
 
 
 (defun get-oef-exo-init-types ()
- "This function create a submenu for a variable initialization in an exercice"
+ "This function create a submenu for a variable initialization in an exercice."
   (easy-menu-create-menu
    "Exercice"
-   (mapcar             
+   (mapcar
     (lambda (x);             
       (vector (replace-regexp-in-string "{\\(.\\|\n\\)*}" "" x) ; each command name in the submenu
               `(lambda () (interactive)
                  (insert  (concat "\\" ,x))
-                 t))  
+                 t))
       )               ; end of the lamda expression
     oef-menu-exo-init-types ; sequence : here a list of string
     ) ; end of mapcar
    )) ; end of defun get-oef-commands
 
 (defun get-oef-doc-init-types ()
- "This function create a submenu for a variable initialization in an document"
+ "This function create a submenu for a variable initialization in an document."
   (easy-menu-create-menu
    "Document"
-   (mapcar             
+   (mapcar
     (lambda (x);             
       (vector (replace-regexp-in-string "Def{" "" (replace-regexp-in-string " }" "" x)) ; each type name in the submenu
               `(lambda () (interactive)
                  (insert  (concat "\\" ,x))
-                 t))  
+                 t))
       )               ; end of the lamda expression
     oef-menu-doc-init-types ; sequence : here a list of string
     ) ; end of mapcar
@@ -562,7 +563,7 @@
 ;;   (easy-menu-create-menu
 ;;    "My Files"
 ;;    (mapcar                   ; (mapcar function sequence) mapcar applies function to each element of sequence, and returns a list of the results.
-;;     (lambda                  ; here start the fuction: a lambda expression (witch is an anonymous function object). The first element of a lambda expression is always the symbol lambda. 
+;;     (lambda                  ; here start the fuction: a lambda expression (witch is an anonymous function object). The first element of a lambda expression is always the symbol lambda.
 ;;       (x)                    ; The second element is a list of symbols—the argument variable names. This is called the lambda list.
 ;;                                         ; The next element could be The documentation string
 ;;                                         ; The next element could be (interactive code-string). This declares how to provide arguments if the function is used interactively.Functions with this declaration are called commands; they can be called using M-x or bound to a key.
@@ -575,7 +576,7 @@
 ;;    )) ; end of defun get-my-files
 
 (defun get-list-commands-names (list-commands-definitions)
-  "This function take a list of commands definitions (with braces)and return a list of commands names (without braces)"
+  "This function take LIST-COMMANDS-DEFINITIONS a list of commands definitions (with braces)and return a list of commands names (without braces)."
   (setq list-commands '())
   (dolist
       (command-definition list-commands-definitions)
@@ -592,9 +593,9 @@
 ;;   (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files))
 ;;   )
 
-(defun oef-mode-open-all () 
-  "This function open all oef-examples in read-only buffers.\n
- If you want you can add more examples in a examples folder in your `user-emacs-directory'"
+(defun oef-mode-open-all ()
+  "Opens all files found in the list `oef-example-files' in read-only buffers.\n
+You can add more examples in the examples folder in your `user-emacs-directory'"
   (interactive)
   (dolist (oef-example-file oef-example-files)
     (find-file-read-only oef-example-file))
@@ -602,8 +603,9 @@
   )
 
 (defun oef-mode-indent-region (start end)
-  "This fuction try to smartly indent-region.\n
-It uses `sgml-mode-syntax-table' because with `oef-mode-syntax-table' there are more problems with indentation.\n
+  "This fuction try to smartly indent the region selected.\n
+It uses `sgml-mode-syntax-table' because with `oef-mode-syntax-table' there are\n
+more problems with indentation.\n
 If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigidly' for re-indent manually\n
 the first line which has bad indentation. Then you can reuse `oef-mode-indent-region' for the rest of the code."
   (interactive (if (use-region-p)
@@ -615,6 +617,12 @@ the first line which has bad indentation. Then you can reuse `oef-mode-indent-re
     (indent-region start end)
     ))
 
+(defun oef-mode-newline ()
+  "This function insert a newline with 'sgml-syntax-table' then return to 'oef-mode-syntax-table'"
+  (interactive (set-syntax-table sgml-syntax-table)
+               (newline-and-indent)
+               (set-syntax-table oef-mode-syntax-table))
+  
 ;;----------------MENU----------------------------------------
 
 (setq oef-example-files (directory-files-recursively user-emacs-directory ".oef$")) ; list of strings (the oef examples files) needed to build the OEF menu
@@ -630,7 +638,7 @@ the first line which has bad indentation. Then you can reuse `oef-mode-indent-re
     (define-key map [menu-bar text center-region] 'undefined) ;Text menu-bar item `Center region' suppressed
     (define-key map [menu-bar text center-paragraph] 'undefined) ;Text menu-bar item `Center paragraph' suppressed
     (define-key map [menu-bar text center-line] 'undefined) ;Text menu-bar item `Center line' suppressed
-    (define-key map [menu-bar text indent]    (cons "Indent" (make-sparse-keymap)))    
+    (define-key map [menu-bar text indent]    (cons "Indent" (make-sparse-keymap)))
     (define-key map [menu-bar text indent indent-line] '(menu-item "Smart Indent Line" oef-mode-indent-line)) ;`Smart Indent Line' added to Text menu-bar
     (define-key map [menu-bar text indent indent-region] '(menu-item "Smart Indent Region" oef-mode-indent-region)) ;`Smart Indent Region' added to Text menu-bar
     (define-key map [menu-bar text indent indent-rigidly] '(menu-item "Indent Region" indent-rigidly)) ;`Indent Region' added to Text menu-bar
@@ -655,7 +663,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 
 ;; Add an OEF menu
 (easy-menu-define oef-menu-bar oef-mode-map "OEF-mode menu"
-  '("OEF" ; we start by creating a menu that is initially empty. This menu will be called "OEF" in the menu-bar. 
+  '("OEF" ; we start by creating a menu that is initially empty. This menu will be called "OEF" in the menu-bar.
        ;;["Open All OEF Examples" oef-mode-open-all t] ; item in the OEF menu
     ))
 
@@ -701,7 +709,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("\\\\comment{.*}" . 'oef-font-comment-face) ; comments
      ("^[:blank:]*#.*" . 'oef-font-comment-face) ; comments
      ("^[:blank:]*:%%.*" . 'oef-font-comment-face) ; comments
-     ("«[^»]*\n?[^»]*»" . 'oef-font-documentation-face) ; documentation     
+     ("«[^»]*\n?[^»]*»" . 'oef-font-documentation-face) ; documentation
 ;     ("^ *<\\(li\\)>.*?</\\(li\\)> *$"(1 'oef-font-litag-face)(2 'oef-font-litag-face)) ; <li> </li>
      ("<\\(li\\)[^>]*>"(1 'oef-font-litag-face)) ; <li>
      ("</\\(li\\)>"(1 'oef-font-litag-face)) ;  </li>
@@ -731,7 +739,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("\\(\\\\\\w+\\){" 1 'oef-font-warning-face) ; unknown '\command{'
      ("\\(\\\\\\){" 1 'oef-font-positivenumber-face) ; latex expression \{}
      ("\\\\\\w+\\([0-9]?_?\\w?\\)*" . 'oef-font-variable-name-face) ; '\variable'
-     ("[^\\w]\\([0-9]+\\(\\.[0-9]+\\)?\\)" 1 'oef-font-positivenumber-face) ; a number in a variable name is not a number in blue (it's a part of the name) 
+     ("[^\\w]\\([0-9]+\\(\\.[0-9]+\\)?\\)" 1 'oef-font-positivenumber-face) ; a number in a variable name is not a number in blue (it's a part of the name)
      )
    )
   )
@@ -748,3 +756,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 ;; coding: utf-8
 ;; indent-tabs-mode: nil
 ;; End:
+
+(provide 'oef-mode)
+
+;;; oef-mode.el ends here
