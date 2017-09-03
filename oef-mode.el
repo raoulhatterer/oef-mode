@@ -9,7 +9,7 @@
 
 ;; Created: July 2017
 ;; Keywords: languages
-;; URL: http://github.com/raoulhatterer/oef
+;; URL: http://github.com/raoulhatterer/oef-mode
 ;; Package-Requires: ((rainbow-mode)(emmet-mode)(rainbow-delimiters))
 ;; News: First publication on elpa
 ;; Package-Type: multi
@@ -80,7 +80,7 @@
 ;;==============================================================================
 
 ;;; Code:
-(unless (featurep 'aquamacs); subdir inclusion so oef dir will be included to emacs load path
+(unless (featurep 'aquamacs); subdir inclusion so oef-mode dir will be included to emacs load path
   (let ((default-directory  "~/.emacs.d/"))
     (normal-top-level-add-subdirs-to-load-path)))
 
@@ -113,8 +113,8 @@
 
 ;;---- CONSTS ------------------------------------------------------------------
 
-(defconst oef-mode-version "1.0.0"
-  "oef Mode version.")
+(defconst oef-mode-version "0.0.1"
+  "oef-mode version")
 
 ;;---- GROUPS ------------------------------------------------------------------
 
@@ -123,7 +123,7 @@
   :group 'languages
   :prefix "oef-"
   :link '(url-link :tag "Site" "http://wims.unice.fr")
-  :link '(url-link :tag "Repository" "https://github.com/raoulhatterer/oef"))
+  :link '(url-link :tag "Repository" "https://github.com/raoulhatterer/oef-mode"))
 
 (defgroup oef-mode-faces nil
   "Faces for syntax highlighting."
@@ -230,12 +230,6 @@
       (oef-font-h2text-lightbg-face))))
   "Face for h2 (sub-sections) tag"
   :group 'oef-mode-faces)
-
-;; (defface oef-font-h2text-face
-;;   '((t
-;;      (:width normal :height 1.0 :weight bold :foreground "black")))
-;;   "Face for h2 (sub-sections) tag"
-;;   :group 'oef-mode-faces)
 
 (defface oef-font-answer-type-face
   '((t (:foreground "#CC9900")))
@@ -505,7 +499,7 @@
    "Commands"
    (mapcar             
     (lambda (x);             
-      (vector (replace-regexp-in-string "{\\(.\\|\n\\)+}" "" x) ; each command name in the submenu
+      (vector (replace-regexp-in-string "{\\(.\\|\n\\)*}" "" x) ; each command name in the submenu
               `(lambda () (interactive)
                  (insert  (concat "\\" ,x))
                  t))  
