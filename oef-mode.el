@@ -4,12 +4,15 @@
 ;; Copyright 2017-2017 Raoul HATTERER
 
 ;; Author: Raoul Hatterer <hatterer.raoul@gmail.com>
+;; Version: 0.0.1
+;; Maintainer: Raoul Hatterer <hatterer.raoul@gmail.com>
+
 ;; Created: July 2017
 ;; Keywords: languages
-;; Homepage: http://github.com/raoulhatterer/oef
-;; Package-Version:
+;; URL: http://github.com/raoulhatterer/oef
 ;; Package-Requires: ((rainbow-mode)(emmet-mode)(rainbow-delimiters))
-
+;; News: First publication on elpa
+;; Package-Type: multi
 
 ;; License: GNU General Public License >= 2
 ;; Distribution: This file is not part of Emacs
@@ -63,7 +66,7 @@
 ;; (create that directory if it doesn't exist).
 ;; Then put the following (without ;;) in your aquamacs init file
 ;; "~/Library/Preferences/Aquamacs Emacs/Preferences.el"
-;;  ~/.emacs  (deprecated -- meaning 'should not be used for new installations,
+;; not in  ~/.emacs  witch is deprecated -- meaning 'should not be used for new installations,
 ;; but will continue to be supported' -- in Aquamacs on OS X)
 ;;vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 ;;  (add-to-list 'load-path "~/Library/Preferences/Aquamacs Emacs/Packages/lisp/oef-mode/") ;; Tell emacs where is your personal elisp lib dir
@@ -74,12 +77,6 @@
 ;; Past the following command in a terminal:
 ;; /Applications/Aquamacs.app/Contents/MacOS/Aquamacs -nw --debug-init
 
-;;==============================================================================
-
-;;;; customize
-
-;;==============================================================================
-;; alt+x customize, then search for oef
 ;;==============================================================================
 
 ;;; Code:
@@ -392,7 +389,6 @@
     "special{drawinput «parameters»}"
  ))
 
-
 (defvar oef-doc-commands
   '("calcform"
     "comment"
@@ -419,8 +415,6 @@
     "tooltip"
     "while")
   )
-
-
 
 (defvar oef-storage-types
   '("real" "complex" "text" "integer" "rational" "function" "matrix" ))
