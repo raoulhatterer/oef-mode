@@ -122,7 +122,7 @@
 (defgroup oef-mode nil
   "Mode for editing OEF (wims) files"
   :group 'languages
-  :prefix "oef-"
+  :prefix "oef-mode"
   :link '(url-link :tag "Site" "http://wims.unice.fr")
   :link '(url-link :tag "Repository" "https://github.com/raoulhatterer/oef-mode"))
 
@@ -621,7 +621,7 @@ the first line which has bad indentation. Then you can reuse `oef-mode-indent-re
   "This function insert a newline with 'sgml-syntax-table' then return to 'oef-mode-syntax-table'"
   (interactive (set-syntax-table sgml-syntax-table)
                (newline-and-indent)
-               (set-syntax-table oef-mode-syntax-table))
+               (set-syntax-table oef-mode-syntax-table)))
   
 ;;----------------MENU----------------------------------------
 
@@ -751,12 +751,3 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (provide 'oef-mode)
 
 ;;; oef.el ends here
-
-;; Local Variables:
-;; coding: utf-8
-;; indent-tabs-mode: nil
-;; End:
-
-(provide 'oef-mode)
-
-;;; oef-mode.el ends here
