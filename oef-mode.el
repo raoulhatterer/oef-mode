@@ -617,12 +617,6 @@ the first line which has bad indentation. Then you can reuse `oef-mode-indent-re
     (indent-region start end)
     ))
 
-(defun oef-mode-newline ()
-  "This function insert a newline with 'sgml-syntax-table' then return to 'oef-mode-syntax-table'"
-  (interactive (set-syntax-table sgml-syntax-table)
-               (newline-and-indent)
-               (set-syntax-table oef-mode-syntax-table)))
-  
 ;;----------------MENU----------------------------------------
 
 (setq oef-example-files (directory-files-recursively user-emacs-directory ".oef$")) ; list of strings (the oef examples files) needed to build the OEF menu
@@ -696,6 +690,10 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   ;; key binding
   (define-key oef-mode-map (kbd "C-x RET RET") 'oef-mode-indent-region) ; indent-region with sgml-mode-syntax-table because with oef-syntax-table there are ploblems with the indentation
 
+  ;; not working:
+  ;; (define-key oef-mode-map (kbd "C-*") '(lambda ()
+  ;;          (interactive)
+  ;;          (with-syntax-table sgml-mode-syntax-table (newline-and-indent))))
 
   ;; Warning: Major mode commands must not call font-lock-add-keywords under any
   ;; circumstances, either directly or indirectly, except through their mode hooks. (Doing
