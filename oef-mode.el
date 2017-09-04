@@ -269,7 +269,7 @@
 
 ;;---- VARS --------------------------------------------------------------------
 
-(defvar oef-answers-options
+(defvar oef-answers-options ; in the menu TODO
   '("type=" "option=" "weight=" "type=default"
     "type=raw"
     "option=noaccent" "option=nocase" "option=nodigit" "option=nomathop" "option=noparenthesis" "option=nopunct" "option=noquote" "option=nospace" "option=reaccent" "option=singlespace" "option=symtext"
@@ -339,7 +339,7 @@
     "type=time"
     ))
 
-(defvar oef-menu-commands
+(defvar oef-menu-commands ; in the menu DONE
   '("title{«exerciseTitle»}"
  "language{«en» or «fr»}"
  "author{«forename1»,«name1»;«forename2»,«name2»}"
@@ -368,9 +368,14 @@
  "conditions{«conditionsNumbers»}"
  "latex{}"
  "embed{«reply1»,&opt«option»}"
- ))
+ )
+  "In this variable we have the definitions of `oef-commands'.  Used to get `oef-commands' (thanks to `get-list-commands-names') for highlighting.  Also used to get the 'Commands menu' (thanks to `get-oef-commands')."
+  )
 
-(defvar oef-menu-special-commands
+(defvar oef-commands nil
+  "`oef-commands' is automatically  build from `oef-menu-commands' a list of commands definitions.")
+
+(defvar oef-menu-special-commands ; in the menu DONE
   '(
     "special{imagefill «parameters»}"
     "special{expandlines «parameters»}"
@@ -382,9 +387,14 @@
     "special{imageinput «parameters»}"
     "special{mathmlinput «parameters»}"
     "special{drawinput «parameters»}"
- ))
+    )
+  "In this variable we have the definitions of `oef-special-commands'.  Used to get `oef-special-commands' (thanks to `get-list-commands-names') for highlighting.  Also used to get the 'Commands menu' (thanks to `get-oef-special-commands')."
+  )
 
-(defvar oef-doc-commands
+(defvar oef-special-commands nil
+  "`oef-special-commands' is automatically  build from `oef-menu-special-commands' a list of special commands definitions.")
+
+(defvar oef-doc-commands ; used for highlighting. ; in the menu TODO
   '("calcform"
     "comment"
     "def"
@@ -412,9 +422,11 @@
   )
 
 (defvar oef-storage-types
-  '("real" "complex" "text" "integer" "rational" "function" "matrix" ))
+  '("real" "complex" "text" "integer" "rational" "function" "matrix" )
+  "List of Oef Variable Types.  Used for highlighting.  See also `oef-menu-exo-init-types' and `oef-menu-doc-init-types'."
+  )
 
-(defvar oef-menu-exo-init-types
+(defvar oef-menu-exo-init-types ; in the menu DONE
   '(
     "real{}"
     "complex{}"
@@ -423,9 +435,11 @@
     "rational{}"
     "function{}"
     "matrix{}"
- ))
+    )
+  "In this variable we have the definitions of variables initialization commands to be used in an exercise.  Used to get the 'Initialization menu' (thanks to `get-oef-exo-init-types').  See also `oef-storage-types' and `oef-menu-doc-init-types'."
+  )
 
-(defvar oef-menu-doc-init-types
+(defvar oef-menu-doc-init-types ; in the menu DONE
   '(
     "def{real }"
     "def{complex }"
@@ -434,28 +448,43 @@
     "def{rational }"
     "def{function }"
     "def{matrix }"
-    ))
+    )
+ "In this variable we have the definitions of variables initialization commands to be used in a document.  Used to get the 'Initialization menu' (thanks to `get-oef-doc-init-types').  See also `oef-storage-types' and `oef-menu-exo-init-types'."
+  )
 
 (defvar oef-defined-variables
-  '("reply " "choice" "step" "sc_reply" "reply_" "help_subject" "oef_firstname" "oef_lastname" "oef_login" "oef_now" "oef_lang" ))
+  '("reply " "choice" "step" "sc_reply" "reply_" "help_subject" "oef_firstname" "oef_lastname" "oef_login" "oef_now" "oef_lang" )
+  "Used for highlighting."
+  )
 
-(defvar oef-comparison-operators
-  '("==" "<="  ">=" "isin" "notin" "iswordof" "notwordof" "isvarof" "notvarof" "isvariableof" "notvariableof" "isitemof" "notitemof" "islineof" "notlineof" "issamecase" "notsamecase" "issametext" "notsametext" "or" "and")) ;  "="  "<"  ">"  tested in another place
+(defvar oef-comparison-operators ;  "="  "<"  ">"  tested in another place
+  '("==" "<="  ">=" "isin" "notin" "iswordof" "notwordof" "isvarof" "notvarof" "isvariableof" "notvariableof" "isitemof" "notitemof" "islineof" "notlineof" "issamecase" "notsamecase" "issametext" "notsametext" "or" "and")
+  "Used for highlighting."
+  )
 
 (defvar oef-language-reserved-words
-  '("to" "of" "within" "in" "into" "by" "internal"))
+  '("to" "of" "within" "in" "into" "by" "internal")
+  "Used for highlighting."
+  )
 
 (defvar oef-wims-functions
-  '("append" "nonempty" "getopt" "replace" "embraced" "randitem" "text" "select" "upper" "nospace" "sort" "makelist" "for" "values" "rows2lines" "lines2items" "items2words" "tolower"))
+  '("append" "nonempty" "getopt" "replace" "embraced" "randitem" "text" "select" "upper" "nospace" "sort" "makelist" "for" "values" "rows2lines" "lines2items" "items2words" "tolower")
+  "Used for highlighting."
+  )
 
 (defvar oef-pari-functions
-  '("divrem"))
+  '("divrem")
+  "Used for highlighting."
+  )
 
 (defvar oef-maths-functions
-  '("evalue" "solve" "simplify" "diff" "int" "int=" "det" "abs" "sqrt" "binomial" "ceil" "floor" "rint" "e" "erf" "erfc" "Euler" "exp" "factorial" "Inf" "gcd" "lcm" "%" "max" "min" "lg" "lgamma" "ln" "log2" "pow" "sgn" "PI" "sin" "cos" "tg" "tan" "sec" "cot" "cotan" "ctg" "csc" "arccos" "acos" "arcsin" "asin" "arctan" "atan" "arctg" "sh" "sinh" "tanh" "tanh" "th" "ch" "cosh" "coth" "cotanh" "Argch"))
+  '("evalue" "solve" "simplify" "diff" "int" "int=" "det" "abs" "sqrt" "binomial" "ceil" "floor" "rint" "e" "erf" "erfc" "Euler" "exp" "factorial" "Inf" "gcd" "lcm" "%" "max" "min" "lg" "lgamma" "ln" "log2" "pow" "sgn" "PI" "sin" "cos" "tg" "tan" "sec" "cot" "cotan" "ctg" "csc" "arccos" "acos" "arcsin" "asin" "arctan" "atan" "arctg" "sh" "sinh" "tanh" "tanh" "th" "ch" "cosh" "coth" "cotanh" "Argch")
+  "Used for highlighting."
+  )
 
 (defvar oef-random-functions
-  '("random" "randint" "shuffle" "randomitem" "randomrow"))
+  '("random" "randint" "shuffle" "randomitem" "randomrow")
+    "Used for highlighting.")
 
 (defvar oef-mode-syntax-table
   (let ((table (make-syntax-table)))
@@ -495,7 +524,7 @@
    )) ; end of defun get-examples
 
 (defun get-oef-commands ()
- "This function create a submenu with ‘oef-commands’."
+ "This function create a submenu with ‘oef-commands’ from commands definitions in `oef-menu-commands'."
   (easy-menu-create-menu
    "Commands"
    (mapcar
@@ -576,7 +605,7 @@
 ;;    )) ; end of defun get-my-files
 
 (defun get-list-commands-names (list-commands-definitions)
-  "This function take LIST-COMMANDS-DEFINITIONS a list of commands definitions (with braces)and return a list of commands names (without braces)."
+  "This function takes a list of commands definitions  (for example  `oef-menu-commands') and return a list of commands names (for example `oef-commands')."
   (setq list-commands '())
   (dolist
       (command-definition list-commands-definitions)
