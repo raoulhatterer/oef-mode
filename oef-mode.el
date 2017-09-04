@@ -271,7 +271,7 @@
 
 ;;---- VARS --------------------------------------------------------------------
 
-(defvar oef-answers-options ; in the menu TODO
+(defvar oef-answers-options ; in the menu DONE
   '("type=" "option=" "weight=" "type=default"
     "type=raw"
     "option=noaccent" "option=nocase" "option=nodigit" "option=nomathop" "option=noparenthesis" "option=nopunct" "option=noquote" "option=nospace" "option=reaccent" "option=singlespace" "option=symtext"
@@ -339,38 +339,39 @@
     "type=sigunits"
     "type=symtext"
     "type=time"
-    ))
+    )
+  "Used for highlighting and for a dedicated submenu thanks to `get-oef-answers-options'.")
 
 (defvar oef-menu-commands ; in the menu DONE
   '("title{«exerciseTitle»}"
- "language{«en» or «fr»}"
- "author{«forename1»,«name1»;«forename2»,«name2»}"
- "email{«email1»,«email2»}"
- "format{html}"
- "css{<style></style>}"
- "keywords{«keyword1»,«keyword2»}"
- "credits{«acknowledgement of those who contributed to the document or exercice, whether through ideas or in a more direct sense»}"
- "description{«forTheStudent»}"
- "observation{«forTheTeacher»}"
- "precision{1000}"
- "range{«n1..n2»}"
- "computeanswer{«yes» or «no»}"
- "steps{&opt«choice1,»«reply1»
+    "language{«en» or «fr»}"
+    "author{«forename1»,«name1»;«forename2»,«name2»}"
+    "email{«email1»,«email2»}"
+    "format{html}"
+    "css{<style></style>}"
+    "keywords{«keyword1»,«keyword2»}"
+    "credits{«acknowledgement of those who contributed to the document or exercice, whether through ideas or in a more direct sense»}"
+    "description{«forTheStudent»}"
+    "observation{«forTheTeacher»}"
+    "precision{1000}"
+    "range{«n1..n2»}"
+    "computeanswer{«yes» or «no»}"
+    "steps{&opt«choice1,»«reply1»
 &opt«choice2,»«reply2»,«reply3»
 &opt«choice3»}"
- "nextstep{<>}"
- "statement{}"
- "answer{«message»}{«goodAnswer»}{&opt«type=»}{&opt«option=»}{&opt«weight=»}"
- "choice{«message»}{«goodAnswers»}{«badAnswers»}{&opt«option=»}{&opt«weight=»}"
- "condition{«message»}{«conditions»}{&opt«option=»}{&opt«weight=»}"
- "solution{«solution»}"
- "hint{«hint»}"
- "help{«popupHelp»}"
- "feedback{«condition»}{«message»}"
- "conditions{«conditionsNumbers»}"
- "latex{}"
- "embed{«reply1»,&opt«option»}"
- )
+    "nextstep{<>}"
+    "statement{}"
+    "answer{«message»}{«goodAnswer»}{&opt«type=»}{&opt«option=»}{&opt«weight=»}"
+    "choice{«message»}{«goodAnswers»}{«badAnswers»}{&opt«option=»}{&opt«weight=»}"
+    "condition{«message»}{«conditions»}{&opt«option=»}{&opt«weight=»}"
+    "solution{«solution»}"
+    "hint{«hint»}"
+    "help{«popupHelp»}"
+    "feedback{«condition»}{«message»}"
+    "conditions{«conditionsNumbers»}"
+    "latex{}"
+    "embed{«reply1»,&opt«option»}"
+    )
   "In this variable we have the definitions of `oef-commands'.  Used to get `oef-commands' (thanks to `get-list-commands-names') for highlighting.  Also used to get the 'Commands menu' (thanks to `get-oef-commands')."
   )
 
@@ -451,40 +452,40 @@
     "def{function }"
     "def{matrix }"
     )
- "In this variable we have the definitions of variables initialization commands to be used in a document.  Used to get the 'Initialization menu' (thanks to `get-oef-doc-init-types').  See also `oef-storage-types' and `oef-menu-exo-init-types'."
+  "In this variable we have the definitions of variables initialization commands to be used in a document.  Used to get the 'Initialization menu' (thanks to `get-oef-doc-init-types').  See also `oef-storage-types' and `oef-menu-exo-init-types'."
   )
 
-(defvar oef-defined-variables
+(defvar oef-defined-variables ; in the menu TODO
   '("reply " "choice" "step" "sc_reply" "reply_" "help_subject" "oef_firstname" "oef_lastname" "oef_login" "oef_now" "oef_lang" )
   "Used for highlighting."
   )
 
-(defvar oef-comparison-operators ;  "="  "<"  ">"  tested in another place
+(defvar oef-comparison-operators ;  "="  "<"  ">"  tested in another place ; in the menu TODO
   '("==" "<="  ">=" "isin" "notin" "iswordof" "notwordof" "isvarof" "notvarof" "isvariableof" "notvariableof" "isitemof" "notitemof" "islineof" "notlineof" "issamecase" "notsamecase" "issametext" "notsametext" "or" "and")
   "Used for highlighting."
   )
 
-(defvar oef-language-reserved-words
+(defvar oef-language-reserved-words ; in the menu TODO
   '("to" "of" "within" "in" "into" "by" "internal")
   "Used for highlighting."
   )
 
-(defvar oef-wims-functions
+(defvar oef-wims-functions ; in the menu TODO
   '("append" "nonempty" "getopt" "replace" "embraced" "randitem" "text" "select" "upper" "nospace" "sort" "makelist" "for" "values" "rows2lines" "lines2items" "items2words" "tolower")
   "Used for highlighting."
   )
 
-(defvar oef-pari-functions
+(defvar oef-pari-functions ; in the menu TODO
   '("divrem")
   "Used for highlighting."
   )
 
-(defvar oef-maths-functions
+(defvar oef-maths-functions ; in the menu TODO
   '("evalue" "solve" "simplify" "diff" "int" "int=" "det" "abs" "sqrt" "binomial" "ceil" "floor" "rint" "e" "erf" "erfc" "Euler" "exp" "factorial" "Inf" "gcd" "lcm" "%" "max" "min" "lg" "lgamma" "ln" "log2" "pow" "sgn" "PI" "sin" "cos" "tg" "tan" "sec" "cot" "cotan" "ctg" "csc" "arccos" "acos" "arcsin" "asin" "arctan" "atan" "arctg" "sh" "sinh" "tanh" "tanh" "th" "ch" "cosh" "coth" "cotanh" "Argch")
   "Used for highlighting."
   )
 
-(defvar oef-random-functions
+(defvar oef-random-functions ; in the menu TODO
   '("random" "randint" "shuffle" "randomitem" "randomrow")
     "Used for highlighting.")
 
