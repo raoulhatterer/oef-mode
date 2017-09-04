@@ -563,9 +563,24 @@
     ) ; end of mapcar
    )) ; end of defun get-oef-commands
 
+(defun get-oef-answers-options ()
+  "This function create a submenu with the types and options of an answer from `oef-answers-options'."
+  (easy-menu-create-menu
+   "Answers types and options"
+   (mapcar
+    (lambda (x);             
+      (vector  x ; each type or option in the submenu
+              `(lambda () (interactive)
+                 (insert ,x)
+                 t))
+      )               ; end of the lamda expression
+    oef-answers-options ; sequence : here a list of string
+    ) ; end of mapcar
+   )) ; end of defun get-oef-answers-options
 
+  
 (defun get-oef-exo-init-types ()
- "This function create a submenu for a variable initialization in an exercice."
+ "This function create a submenu for variables initialization in an exercice."
   (easy-menu-create-menu
    "Exercice"
    (mapcar
@@ -580,7 +595,7 @@
    )) ; end of defun get-oef-commands
 
 (defun get-oef-doc-init-types ()
- "This function create a submenu for a variable initialization in an document."
+ "This function create a submenu for variables initialization in an document."
   (easy-menu-create-menu
    "Document"
    (mapcar
@@ -593,9 +608,6 @@
     oef-menu-doc-init-types ; sequence : here a list of string
     ) ; end of mapcar
    )) ; end of defun get-oef-commands
-
-
-
 
 ;; (defun get-my-oef-files () ;; deactivated because it's too slow with a lot of files
 ;;  "This function create a submenu with my oef files"
@@ -707,6 +719,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Initializations") (get-oef-doc-init-types)) ; we add the submenu `Documents' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-commands)) ; we add the submenu `Commands' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '("Commands") (get-oef-special-commands)) ; we add the submenu `Special' in menu `Commands' to the oef-menu-bar.
+(easy-menu-add-item oef-menu-bar '() (get-oef-answers-options)) ; we add the submenu `Answers types and options' to the oef-menu-bar.
 
 ;; deactivated because slowdown aquamacs
 ;; (add-hook 'menu-bar-update-hook 'update-oef-menu) ;add the function update-oef-menu to a hook that runs each time the menu opens so the 'My Files' in oef menu is dynamic
