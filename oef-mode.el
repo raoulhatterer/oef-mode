@@ -39,6 +39,8 @@
 ;; accessible at the address http://wims.unice.fr.
 ;; oef-mode is a mode for editing exercises (online exercise format) files
 ;; witch should have ".oef" extension to be recognized.
+;; On linux you have to run `xdg-mime install oef-mime.xml' in a Terminal
+;; and then restart your session to define .oef as a  new type of files.
 ;;==============================================================================
 
 ;;; manually installation:
@@ -486,6 +488,14 @@
   '("random" "randint" "shuffle" "randomitem" "randomrow")
     "Used for highlighting.")
 
+(defvar oef-example-files
+  nil
+  "List of the oef examples files.  This variable is automatically set at Emacs launch.")
+
+(defvar list-commands
+  nil
+  "List of commands returned by the function `get-list-commands-names'.")
+
 (defvar oef-mode-syntax-table
   (let ((table (make-syntax-table)))
     (modify-syntax-entry ?< "_" table)  ;Symbol constituent
@@ -605,7 +615,7 @@
 ;;    )) ; end of defun get-my-files
 
 (defun get-list-commands-names (list-commands-definitions)
-  "This function takes a list of commands definitions  (for example  `oef-menu-commands') and return a list of commands names (for example `oef-commands')."
+  "This function takes a LIST-COMMANDS-DEFINITIONS  (for example  `oef-menu-commands') and return a list of commands names (for example `oef-commands')."
   (setq list-commands '())
   (dolist
       (command-definition list-commands-definitions)
@@ -623,7 +633,7 @@
 ;;   )
 
 (defun oef-mode-open-all ()
-  "Opens all files found in the list `oef-example-files' in read-only buffers.\n
+  "Opens all files found in the list `oef-example-files' in read-only buffers.
 You can add more examples in the examples folder in your `user-emacs-directory'"
   (interactive)
   (dolist (oef-example-file oef-example-files)
@@ -632,11 +642,11 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
   )
 
 (defun oef-mode-indent-region (start end)
-  "This fuction try to smartly indent the region selected.\n
-It uses `sgml-mode-syntax-table' because with `oef-mode-syntax-table' there are\n
-more problems with indentation.\n
-If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigidly' for re-indent manually\n
-the first line which has bad indentation. Then you can reuse `oef-mode-indent-region' for the rest of the code."
+  "This fuction try to smartly indent the region selected.
+
+It uses `sgml-mode-syntax-table' because with `oef-mode-syntax-table' there are more problems with indentation.
+If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigidly' for re-indent manually
+the first line which has bad indentation.  Then you can call `oef-mode-indent-region' again for the rest of the code."
   (interactive (if (use-region-p)
                    (list (region-beginning) (region-end))
                  ;; Operate on the current line if region is not to be used.
@@ -776,5 +786,4 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (add-to-list 'auto-mode-alist '("\\.oef?\\'" . oef-mode)) ;wims file
 
 (provide 'oef-mode)
-
-;;; oef.el ends here
+;;; oef-mode.el ends here
