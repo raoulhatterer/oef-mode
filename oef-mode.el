@@ -271,76 +271,79 @@
 
 ;;---- VARS --------------------------------------------------------------------
 
-(defvar oef-answers-options ; in the menu DONE
-  '("type=" "option=" "weight=" "type=default"
-    "type=raw"
-    "option=noaccent" "option=nocase" "option=nodigit" "option=nomathop" "option=noparenthesis" "option=nopunct" "option=noquote" "option=nospace" "option=reaccent" "option=singlespace" "option=symtext"
-    "type=numeric"
-    "option=comma" "option=absolute" "option=nonstop noanalyzeprint" "option=noanalyzeprint nonstop" "option=nonstop" "option=noanalyzeprint"
-    "type=function"
-    "option=integer"
-    "type=equation"
-    "option=eqsign=yes"
-    "type=algexp"
-    "type=litexp"
-    "type=formal"
-    "type=case"
-    "option=noreaccent"
-    "type=nocase"
-    "type=atext"
-    "type=checkbox"
-    "type=radio"
-    "type=flashcard"
-    "type=multipleclick"
-    "option=nolegend"
-    "option=split"
-    "option=shuffle"
-    "option=sort"
-    "option=eqweight"
-    "type=menu"
-    "option=shuffle multiple"
-    "option=sort multiple"
-    "type=mark"
-    "option=color"
-    "type=click"
-    "type=multipleclick"
-    "type=flashcard"
-    "option=show"
-    "type=chembrut"
-    "type=chemdraw"
-    "type=chemclick"
-    "type=chemeq"
-    "type=chset"
-    "type=clickfill"
-    "type=dragfill"
-    "type=clicktile"
-    "type=clock"
-    "type=compose"
-    "type=complex"
-    "type=coord"
-    "type=correspond"
-    "type=crossword"
-    "type=draw"
-    "type=geogebra"
-    "type=javacurve"
-    "type=jmolclick"
-    "type=jsxgraph"
-    "type=jsxgraphcurve"
-    "type=keyboard"
-    "type=matrix"
-    "type=numexp"
-    "type=puzzle"
-    "type=range"
-    "type=reorder"
-    "type=set"
-    "type=fset"
-    "type=aset"
-    "type=units"
-    "type=sigunits"
-    "type=symtext"
-    "type=time"
+(defvar oef-menu-answers-options ; "STAR BLANK TYPE" or "BLANK BLANK BLANK OPTION" in the menu DONE
+  '("type=" "option=" "weight=" "* type=default"
+    "* type=raw"
+    "   option=noaccent" "   option=nocase" "   option=nodigit" "   option=nomathop" "   option=noparenthesis" "   option=nopunct" "   option=noquote" "   option=nospace" "   option=reaccent" "   option=singlespace" "   option=symtext"
+    "* type=numeric"
+    "   option=comma" "   option=absolute" "   option=nonstop noanalyzeprint" "   option=noanalyzeprint nonstop" "   option=nonstop" "   option=noanalyzeprint"
+    "* type=function"
+    "   option=integer"
+    "* type=equation"
+    "   option=eqsign=yes"
+    "* type=algexp"
+    "* type=litexp"
+    "* type=formal"
+    "* type=case"
+    "   option=noreaccent"
+    "* type=nocase"
+    "* type=atext"
+    "* type=checkbox"
+    "* type=radio"
+    "* type=flashcard"
+    "* type=multipleclick"
+    "   option=nolegend"
+    "   option=split"
+    "   option=shuffle"
+    "   option=sort"
+    "   option=eqweight"
+    "* type=menu"
+    "   option=shuffle multiple"
+    "   option=sort multiple"
+    "* type=mark"
+    "   option=color"
+    "* type=click"
+    "* type=multipleclick"
+    "* type=flashcard"
+    "   option=show"
+    "* type=chembrut"
+    "* type=chemdraw"
+    "* type=chemclick"
+    "* type=chemeq"
+    "* type=chset"
+    "* type=clickfill"
+    "* type=dragfill"
+    "* type=clicktile"
+    "* type=clock"
+    "* type=compose"
+    "* type=complex"
+    "* type=coord"
+    "* type=correspond"
+    "* type=crossword"
+    "* type=draw"
+    "* type=geogebra"
+    "* type=javacurve"
+    "* type=jmolclick"
+    "* type=jsxgraph"
+    "* type=jsxgraphcurve"
+    "* type=keyboard"
+    "* type=matrix"
+    "* type=numexp"
+    "* type=puzzle"
+    "* type=range"
+    "* type=reorder"
+    "* type=set"
+    "* type=fset"
+    "* type=aset"
+    "* type=units"
+    "* type=sigunits"
+    "* type=symtext"
+    "* type=time"
     )
-  "Used for highlighting and for a dedicated submenu thanks to `get-oef-answers-options'.")
+  "Used for a dedicated submenu thanks to `get-oef-answers-options'.")
+
+(defvar oef-answers-options nil
+  "Used for highlighting `oef-answers-options' is automatically  build from `oef-menu-answer-options' a list of answers types and options.")
 
 (defvar oef-menu-commands ; in the menu DONE
   '("title{«exerciseTitle»}"
@@ -572,10 +575,10 @@
     (lambda (x);             
       (vector  x ; each type or option in the submenu
               `(lambda () (interactive)
-                 (insert ,x)
+                 (insert (replace-regexp-in-string "   " "" (replace-regexp-in-string "* " "" ,x)))
                  t))
       )               ; end of the lamda expression
-    oef-answers-options ; sequence : here a list of string
+    oef-menu-answers-options ; sequence : here a list of string
     ) ; end of mapcar
    )) ; end of defun get-oef-answers-options
 
@@ -640,6 +643,19 @@
    (nreverse list-commands)
   )
 
+(defun get-list-answers-options (list-options-definitions)
+  "This function takes a LIST-OPTIONS-DEFINITIONS  and return a list of options to be inserted and highlighted."
+  (setq list-options '())
+  (dolist
+      (option-definition list-options-definitions)
+    (add-to-list
+     'list-options
+     (replace-regexp-in-string "   " "" (replace-regexp-in-string "* " "" option-definition))
+     )
+    )
+   (nreverse list-options)
+  )
+
 ;; (defun update-oef-menu () ; ;; desactivate because slowdown aquamacs
 ;;   "This function update the oef-menu"
 ;;   (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files))
@@ -674,6 +690,7 @@ the first line which has bad indentation.  Then you can call `oef-mode-indent-re
 (setq oef-example-files (directory-files-recursively user-emacs-directory ".oef$")) ; list of strings (the oef examples files) needed to build the OEF menu
 (setq oef-commands (get-list-commands-names oef-menu-commands)) ; list of strings (the oef-commands like 'title' and 'author')
 (setq oef-special-commands (get-list-commands-names oef-menu-special-commands)) ; list of strings (the oef-special-commands)
+(setq oef-answers-options (get-list-answers-options  oef-menu-answers-options))
 
 (defvar oef-mode-map
   (let ((map (make-sparse-keymap)))
