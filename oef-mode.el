@@ -458,14 +458,14 @@
   "In this variable we have the definitions of variables initialization commands to be used in a document.  Used to get the 'Initialization menu' (thanks to `get-oef-doc-init-types').  See also `oef-storage-types' and `oef-menu-exo-init-types'."
   )
 
-(defvar oef-defined-variables ; in the menu TODO
+(defvar oef-defined-variables ; in the menu DONE
   '("reply " "choice" "step" "sc_reply" "reply_" "help_subject" "oef_firstname" "oef_lastname" "oef_login" "oef_now" "oef_lang" )
-  "Used for highlighting."
+  "Used for highlighting and for a submenu `Defined Variables'."
   )
 
-(defvar oef-comparison-operators ;  "="  "<"  ">"  tested in another place ; in the menu TODO
+(defvar oef-comparison-operators ;  "="  "<"  ">"  tested in another place ; in the menu DONE
   '("==" "<="  ">=" "isin" "notin" "iswordof" "notwordof" "isvarof" "notvarof" "isvariableof" "notvariableof" "isitemof" "notitemof" "islineof" "notlineof" "issamecase" "notsamecase" "issametext" "notsametext" "or" "and")
-  "Used for highlighting."
+  "Used for highlighting and for a submenu `Comparisons'."
   )
 
 (defvar oef-language-reserved-words ; in the menu TODO
@@ -570,7 +570,7 @@
 (defun get-oef-answers-options ()
   "This function create a submenu with the types and options of an answer from `oef-answers-options'."
   (easy-menu-create-menu
-   "Answers types and options"
+   "Answers Types and Options"
    (mapcar
     (lambda (x);             
       (vector  x ; each type or option in the submenu
@@ -612,6 +612,54 @@
     oef-menu-doc-init-types ; sequence : here a list of string
     ) ; end of mapcar
    )) ; end of defun get-oef-commands
+
+(defun get-oef-defined-variables ()
+ "This function create a submenu for `oef-defined-variables'."
+  (easy-menu-create-menu
+   "Defined Variables"
+   (mapcar
+    (lambda (x);             
+      (vector  x ; each type name in the submenu
+              `(lambda () (interactive)
+                 (insert  ,x)
+                 t))
+      )               ; end of the lamda expression
+    oef-defined-variables ; sequence : here a list of string
+    ) ; end of mapcar
+   )) ; end of defun get-oef-defined-variables
+
+(defun get-oef-comparison-operators ()
+ "This function create a submenu for `oef-comparison-operators'."
+  (easy-menu-create-menu
+   "Comparisons"
+   (mapcar
+    (lambda (x);             
+      (vector  x ; each type name in the submenu
+              `(lambda () (interactive)
+                 (insert  ,x)
+                 t))
+      )               ; end of the lamda expression
+    oef-comparison-operators ; sequence : here a list of string
+    ) ; end of mapcar
+   )) ; end of defun get-oef-comparison-operators
+
+(defun get-oef-language-reserved-words ()
+ "This function create a submenu for `oef-language-reserved-words'."
+  (easy-menu-create-menu
+   "Reserved Words"
+   (mapcar
+    (lambda (x);             
+      (vector  x ; each type name in the submenu
+              `(lambda () (interactive)
+                 (insert  ,x)
+                 t))
+      )               ; end of the lamda expression
+    oef-language-reserved-words ; sequence : here a list of string
+    ) ; end of mapcar
+   )) ; end of defun get-oef-language-reserved-words
+
+
+
 
 ;; (defun get-my-oef-files () ;; deactivated because it's too slow with a lot of files
 ;;  "This function create a submenu with my oef files"
@@ -738,6 +786,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '() (get-oef-commands)) ; we add the submenu `Commands' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '("Commands") (get-oef-special-commands)) ; we add the submenu `Special' in menu `Commands' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-answers-options)) ; we add the submenu `Answers types and options' to the oef-menu-bar.
+(easy-menu-add-item oef-menu-bar '() (get-oef-defined-variables)) ; we add the submenu `oef-defined-variables' to the oef-menu-bar.
+(easy-menu-add-item oef-menu-bar '() (get-oef-language-reserved-words)) ; we add the submenu `oef-language-reserved-words' to the oef-menu-bar.
 
 ;; deactivated because slowdown aquamacs
 ;; (add-hook 'menu-bar-update-hook 'update-oef-menu) ;add the function update-oef-menu to a hook that runs each time the menu opens so the 'My Files' in oef menu is dynamic
