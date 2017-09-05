@@ -468,15 +468,36 @@
   "Used for highlighting and for a submenu `Comparisons'."
   )
 
-(defvar oef-language-reserved-words ; in the menu TODO
+(defvar oef-language-reserved-words ; in the menu DONE
   '("to" "of" "within" "in" "into" "by" "internal")
-  "Used for highlighting."
+  "Used for highlighting and for a submenu `Comparisons'."
   )
 
-(defvar oef-wims-functions ; in the menu TODO
-  '("append" "nonempty" "getopt" "replace" "embraced" "randitem" "text" "select" "upper" "nospace" "sort" "makelist" "for" "values" "rows2lines" "lines2items" "items2words" "tolower")
-  "Used for highlighting."
+(defvar oef-menu-wims-functions ; in the menu DONE
+  '( "wims(append «parameters»)"
+     "wims(nonempty «parameters»)"
+     "wims(getopt «parameters»)"
+     "wims(replace «parameters»)"
+     "wims(embraced «parameters»)"
+     "wims(randitem «parameters»)"
+     "wims(text «parameters»)"
+     "wims(select «parameters»)"
+     "wims(upper «parameters»)"
+     "wims(nospace «parameters»)"
+     "wims(sort «parameters»)"
+     "wims(makelist «parameters»)"
+     "wims(for «parameters»)"
+     "wims(values «parameters»)"
+     "wims(rows2lines «parameters»)"
+     "wims(lines2items «parameters»)"
+     "wims(items2words «parameters»)"
+     "wims(tolower «parameters»)"
+     )
+  "Used for highlighting and for a submenu `Wims Functions'."
   )
+
+(defvar oef-wims-functions nil
+  "`oef-wims-functions' is automatically  build from `oef-menu-wims-functions' a list of wims functions definitions.")
 
 (defvar oef-pari-functions ; in the menu TODO
   '("divrem")
@@ -565,7 +586,22 @@
       )               ; end of the lamda expression
     oef-menu-special-commands ; sequence : here a list of string
     ) ; end of mapcar
-   )) ; end of defun get-oef-commands
+   )) ; end of defun get-oef-special-commands
+
+(defun get-oef-wims-functions ()
+ "This function create a submenu special with ‘oef-wims-functions’."
+  (easy-menu-create-menu
+   "Wims Functions"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "wims(" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each wims function name in the submenu
+              `(lambda () (interactive)
+                 (insert  (concat "\\" ,x))
+                 t))
+      )               ; end of the lamda expression
+    oef-menu-wims-functions ; sequence : here a list of string
+    ) ; end of mapcar
+   )) ; end of defun get-oef-wims-functions
 
 (defun get-oef-answers-options ()
   "This function create a submenu with the types and options of an answer from `oef-answers-options'."
@@ -581,7 +617,6 @@
     oef-menu-answers-options ; sequence : here a list of string
     ) ; end of mapcar
    )) ; end of defun get-oef-answers-options
-
   
 (defun get-oef-exo-init-types ()
  "This function create a submenu for variables initialization in an exercice."
@@ -658,9 +693,6 @@
     ) ; end of mapcar
    )) ; end of defun get-oef-language-reserved-words
 
-
-
-
 ;; (defun get-my-oef-files () ;; deactivated because it's too slow with a lot of files
 ;;  "This function create a submenu with my oef files"
 ;;   (easy-menu-create-menu
@@ -689,6 +721,19 @@
      )
     )
    (nreverse list-commands)
+  )
+
+(defun get-list-wims-functions (list-functions-definitions)
+  "This function takes a LIST-FUNCTIONS-DEFINITIONS  (for example  `oef-menu-wims-functions') and return a list of functions names (for example `oef-wims-functions')."
+  (setq list-functions '())
+  (dolist
+      (function-definition list-functions-definitions)
+    (add-to-list
+     'list-functions
+     (replace-regexp-in-string "wims(" "" (replace-regexp-in-string " «parameters»)" "" function-definition))
+     )
+    )
+   (nreverse list-functions)
   )
 
 (defun get-list-answers-options (list-options-definitions)
@@ -738,6 +783,7 @@ the first line which has bad indentation.  Then you can call `oef-mode-indent-re
 (setq oef-example-files (directory-files-recursively user-emacs-directory ".oef$")) ; list of strings (the oef examples files) needed to build the OEF menu
 (setq oef-commands (get-list-commands-names oef-menu-commands)) ; list of strings (the oef-commands like 'title' and 'author')
 (setq oef-special-commands (get-list-commands-names oef-menu-special-commands)) ; list of strings (the oef-special-commands)
+(setq oef-wims-functions (get-list-wims-functions oef-menu-wims-functions)) ; list of strings (the oef-wims-functions)
 (setq oef-answers-options (get-list-answers-options  oef-menu-answers-options))
 
 (defvar oef-mode-map
@@ -788,6 +834,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '() (get-oef-answers-options)) ; we add the submenu `Answers types and options' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-defined-variables)) ; we add the submenu `oef-defined-variables' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-language-reserved-words)) ; we add the submenu `oef-language-reserved-words' to the oef-menu-bar.
+(easy-menu-add-item oef-menu-bar '() (get-oef-wims-functions)) ; we add the submenu `Wims Functions' to the oef-menu-bar.
 
 ;; deactivated because slowdown aquamacs
 ;; (add-hook 'menu-bar-update-hook 'update-oef-menu) ;add the function update-oef-menu to a hook that runs each time the menu opens so the 'My Files' in oef menu is dynamic
@@ -831,6 +878,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 ;     ("^ *<\\(li\\)>.*?</\\(li\\)> *$"(1 'oef-font-litag-face)(2 'oef-font-litag-face)) ; <li> </li>
      ("<\\(li\\)[^>]*>"(1 'oef-font-litag-face)) ; <li>
      ("</\\(li\\)>"(1 'oef-font-litag-face)) ;  </li>
+     ("wims\\s(\\(for\\) " 1 'oef-font-keyword-face) ; command hint (for is a wims function)
      (,(regexp-opt oef-comparison-operators 'symbols) . 'oef-font-keyword-face)
      ("{[^}^{]*\\(>\\|<\\|!=\\)[^{]+}" 1 'oef-font-keyword-face) ;  "<" ">" "!=" comparison (must be after the precedent line)
      ;; There are text properties here: (face oef-font-keyword-face fontified t) see describe-char
@@ -840,7 +888,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("^\\\\answer{[^}]*}" . 'oef-font-answer-command-face) ; command answer
      ("^\\\\hint{[^}]*}" . 'oef-font-hint-command-face) ; command hint
      (,(regexp-opt oef-commands 'words) . 'oef-font-command-face) ; other oef-commands : embed...
-     (,(regexp-opt oef-doc-commands 'words) . 'oef-font-command-face) ;  oef-doc-commands : def...
+     (,(regexp-opt oef-doc-commands 'words) . 'oef-font-command-face) ;  oef-doc-commands : def... (for is a oef-doc-command)
      ("\\(\\\\special\\){[ \\\n]*\\(expandlines\\|imagefill\\|help\\|tabs2lines\\|rename\\|tooltip\\|codeinput\\|imageinput\\|mathmlinput\\|drawinput\\)" (1 'oef-font-function-name-face)(2 'oef-font-keyword-face)) ; special OEF
      ("\\\\\\(for\\|if\\|else\\) *{" 1 'oef-font-control-face)	     ;controls
      ("-[0-9]+\\(\\.[0-9]+\\)?" . 'oef-font-warning-face) ; warning negative number
