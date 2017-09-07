@@ -427,6 +427,33 @@
     "while")
   )
 
+(defvar oef-menu-doc-commands ; used for highlighting. ; in the menu TODO
+  '("calcform{calcu/int,alg/factor}"
+    "comment{Just a comment}"
+    "def{«type» «variable name»=«value»}"
+    "define{«type» «variable name»=«value»}"
+    "docform"
+    "form"
+    "draw"
+    "embed{path to a bloc or an exercice}{substitute title}{block=«bloc name»}{style=«style»}"
+    "exercise"
+    "tool"
+    "help"
+    "adm"
+    "fold{arg1: «name if the folder is another page» or « » if the folder opens in the curent page}{arg2: « » or «Text of the link to the folder»}{arg3 only used if arg1 is empty: «Content of the folder»}"
+    "for"
+    "form"
+    "if"
+    "ifval"
+    "link{«bloc name» or «  » for actual bloc}{&opt«title»}{&opt«anchor»}{&opt«param1= &param2= ... &param20=»}"
+    "ref{«bloc name» or «  » for actual bloc}{&opt«title»}{&opt«anchor»}{&opt«param1= &param2= ... &param20=»}"
+    "href"
+    "reload"
+    "slib"
+    "tooltip"
+    "while")
+  )
+
 (defvar oef-storage-types
   '("real" "complex" "text" "integer" "rational" "function" "matrix" )
   "List of Oef Variable Types.  Used for highlighting.  See also `oef-menu-exo-init-types' and `oef-menu-doc-init-types'."
