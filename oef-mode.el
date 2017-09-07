@@ -428,7 +428,7 @@
   )
 
 (defvar oef-menu-doc-commands ; used for highlighting. ; in the menu TODO
-  '("calcform{calcu/int,alg/factor}"
+  '("calcform{«path to form1»,«path to form1»,...}"
     "comment{Just a comment}"
     "def{«type» «variable name»=«value»}"
     "define{«type» «variable name»=«value»}"
@@ -790,6 +790,11 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
   (ido-switch-buffer)
   )
 
+(defun oef-mode-calcform ()
+  (interactive)
+  (insert "\\calcform{}")
+  )
+
 (defun oef-mode-indent-region (start end)
   "This fuction try to smartly indent the region selected.
 
@@ -862,7 +867,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '() (get-oef-defined-variables)) ; we add the submenu `oef-defined-variables' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-language-reserved-words)) ; we add the submenu `oef-language-reserved-words' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-wims-functions)) ; we add the submenu `Wims Functions' to the oef-menu-bar.
-
+(easy-menu-add-item oef-menu-bar '("Documents")["calform" oef-mode-calcform :help "Insert popup tool forms of WIMS.\n Variable number of arguments.\n Each argument must be the exact address of a form.\n (To find the address of forms, make a search of such forms in the home page of WIMS. Then the address of each form can be found in the source of the returned page.)"])
 ;; deactivated because slowdown aquamacs
 ;; (add-hook 'menu-bar-update-hook 'update-oef-menu) ;add the function update-oef-menu to a hook that runs each time the menu opens so the 'My Files' in oef menu is dynamic
 
