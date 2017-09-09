@@ -808,6 +808,14 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
   (interactive)
   (find-file (read-file-name "Enter block name: ")))
 
+
+
+(defun oef-insert-image ()
+  (interactive)
+  (insert "<img src=\"\\filedir/«file name»\" class=\"«class name»\"/>")
+  )
+
+
 (defun oef-insert-folder ()
   (interactive)
   (insert "\\fold{}{«description»}{«content»}")
@@ -866,6 +874,16 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
   (newline)
   (insert "<!--END: EXAMPLE INPUT FORM--> ")
   )
+
+(defun oef-link-new-tab ()
+  (interactive)
+  (insert "<a target=\"wims_external\" href=\"«external HTTP link»\">«description»</a>")
+  )
+
+; <a target="wims_external" href="http://www.unice.fr/">Nice University</a> 
+
+
+
 
 (defun oef-mode-indent-region (start end)
   "This fuction try to smartly indent the region selected.
@@ -940,11 +958,11 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '() (get-oef-defined-variables)) ; we add the submenu `oef-defined-variables' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-language-reserved-words)) ; we add the submenu `oef-language-reserved-words' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-wims-functions)) ; we add the submenu `Wims Functions' to the oef-menu-bar.
-;(easy-menu-add-item oef-menu-bar '("Documents")["Block" nil]) 
-(easy-menu-add-item oef-menu-bar '("Documents")["Files" nil]); create submenu `Files' in submenu `Block' in `Documents'
+(easy-menu-add-item oef-menu-bar '("Documents")["Files" nil]); create submenu `Files'  in `Documents'
 (easy-menu-add-item oef-menu-bar '("Documents" "Files")["Entrance" oef-find-main :help "The Entrance block of the document is always named `main'"])
 (easy-menu-add-item oef-menu-bar '("Documents" "Files")["Other" oef-find-block :help "Other block of the document"])
-(easy-menu-add-item oef-menu-bar '("Documents")["Insert" nil]); create submenu `Insert' in submenu `Block' in `Documents'
+(easy-menu-add-item oef-menu-bar '("Documents")["Insert" nil]); create submenu `Insert' in submenu  `Documents'
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Image" oef-insert-image :help "Insert an image.\nThe link `Other files' allows you to upload the image file to the wims server.\nCSS properties are defined online in properties of the main file."])
 (easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Folder" oef-insert-folder :help "Insert a folder in the current page by specifying content.\n  Attention : The foldable parts within a same block do not allow automatic formatting of mathematical formulas, nor execution of commands. "])
 (easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Block as Folder" oef-insert-block-as-folder :help "Insert a block as a folder in the current page by specifying the name of the block."])
 (easy-menu-add-item oef-menu-bar '("Documents" "Insert")["--" nil])
@@ -957,7 +975,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Documents" "Insert")["HTML input Form (example)" oef-insert-input-form :help "For example, the following form allows the input of an arbitrary numerical expression.\nThis expression is then evaluated in the document."])
 (easy-menu-add-item oef-menu-bar '("Documents" "Insert")["HTML Form (in block)" oef-insert-form-other-block :help "Insert  an HTML form within another block."])
 (easy-menu-add-item oef-menu-bar '("Documents" "Insert")["HTML Form (outside)" oef-insert-form-outside :help "Insert  an HTML form within a block in another document.\nThe path must be under the form serial/name,\n where serial is the serial number of the other document,\n and name the name of the block."])
-
+(easy-menu-add-item oef-menu-bar '("Documents")["Link" nil]); create submenu `Link' in submenu  `Documents'
+(easy-menu-add-item oef-menu-bar '("Documents" "Link")["External Target in New Tab" oef-link-new-tab :help "HTML link. External page will appear in a new Tab of the browser."])
 
 ;; deactivated because slowdown aquamacs
 ;; (add-hook 'menu-bar-update-hook 'update-oef-menu) ;add the function update-oef-menu to a hook that runs each time the menu opens so the 'My Files' in oef menu is dynamic
