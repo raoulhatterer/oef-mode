@@ -346,7 +346,7 @@
   "Used for highlighting `oef-answers-options' is automatically  build from `oef-menu-answer-options' a list of answers types and options.")
 
 (defvar oef-menu-commands ; in the menu DONE
-  '("title{«exerciseTitle»}"
+  '("title{«Exercise Title»}"
     "language{«en» or «fr»}"
     "author{«forename1»,«name1»;«forename2»,«name2»}"
     "email{«email1»,«email2»}"
@@ -569,7 +569,7 @@
 (defun oef-select-parameter ()
   (interactive)
   (move-beginning-of-line nil)
-  (re-search-forward "{\\(block=\\)?«")
+  (re-search-forward "«")
   (backward-char nil)
   (set-mark-command nil)
   (re-search-forward "»")
