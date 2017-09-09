@@ -359,21 +359,21 @@
     "precision{1000}"
     "range{«n1..n2»}"
     "computeanswer{«yes» or «no»}"
-    "steps{&opt«choice1,»«reply1»
-&opt«choice2,»«reply2»,«reply3»
-&opt«choice3»}"
+    "steps{«&opt:choice1,»«reply1»
+«&opt:choice2,»«reply2»,«reply3»
+«&opt:choice3»}"
     "nextstep{<>}"
     "statement{}"
-    "answer{«message»}{«goodAnswer»}{&opt«type=»}{&opt«option=»}{&opt«weight=»}"
-    "choice{«message»}{«goodAnswers»}{«badAnswers»}{&opt«option=»}{&opt«weight=»}"
-    "condition{«message»}{«conditions»}{&opt«option=»}{&opt«weight=»}"
+    "answer{«message»}{«goodAnswer»}{«&opt:type=»}{«&opt:option=»}{«&opt:weight=»}"
+    "choice{«message»}{«goodAnswers»}{«badAnswers»}{«&opt:option=»}{«&opt:weight=»}"
+    "condition{«message»}{«conditions»}{«&opt:option=»}{«&opt:weight=»}"
     "solution{«solution»}"
     "hint{«hint»}"
     "help{«popupHelp»}"
     "feedback{«condition»}{«message»}"
     "conditions{«conditionsNumbers»}"
     "latex{}"
-    "embed{«reply1»,&opt«option»}"
+    "embed{«reply1»,«&opt:option»}"
     )
   "In this variable we have the definitions of `oef-commands'.  Used to get `oef-commands' (thanks to `get-list-commands-names') for highlighting.  Also used to get the 'Commands menu' (thanks to `get-oef-commands')."
   )
@@ -428,7 +428,7 @@
   )
 
 (defvar oef-menu-doc-commands ; used for highlighting. ; in the menu TODO
-  '("calcform{«path to form1»,«path to form1»,...}"
+  '("calcform{«path to form1»,«path to form2»,...}"
     "comment{Just a comment}"
     "def{«type» «variable name»=«value»}"
     "define{«type» «variable name»=«value»}"
@@ -445,8 +445,8 @@
     "form"
     "if"
     "ifval"
-    "link{«bloc name» or «  » for actual bloc}{&opt«title»}{&opt«anchor»}{&opt«param1= &param2= ... &param20=»}"
-    "ref{«bloc name» or «  » for actual bloc}{&opt«title»}{&opt«anchor»}{&opt«param1= &param2= ... &param20=»}"
+    "link{«bloc name» or «  » for actual bloc}{«&opt:title»}{«&opt:anchor»}{«&opt:param1= &param2= ... &param20=»}"
+    "ref{«bloc name» or «  » for actual bloc}{«&opt:title»}{«&opt:anchor»}{«&opt:param1= &param2= ... &param20=»}"
     "href"
     "reload"
     "slib"
@@ -565,6 +565,15 @@
 ;; syntax-table text property.
 
 ;;---- DEFUNS ------------------------------------------------------------------
+
+(defun oef-select-parameter ()
+  (interactive)
+  (move-beginning-of-line nil)
+  (re-search-forward "{\\(block=\\)?«")
+  (backward-char nil)
+  (set-mark-command nil)
+  (re-search-forward "»")
+  )
 
 (defun get-examples ()
  "This function create a submenu with oef examples."
@@ -790,9 +799,72 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
   (ido-switch-buffer)
   )
 
-(defun oef-mode-calcform ()
+(defun oef-find-main ()
   (interactive)
-  (insert "\\calcform{}")
+  (find-file "main.oef")
+  )
+
+(defun oef-find-block ()
+  (interactive)
+  (find-file (read-file-name "Enter block name: ")))
+
+(defun oef-insert-folder ()
+  (interactive)
+  (insert "\\fold{}{«description»}{«content»}")
+  )
+
+(defun oef-insert-block-as-folder ()
+  (interactive)
+  (insert "\\fold{«block name»}{«&opt:description to replace the title»}{}")
+  )
+
+(defun oef-insert-block ()
+  (interactive)
+  (insert "\\embed{«block name»}{«&opt:description to replace the title»}{}")
+  )
+
+(defun oef-insert-public-block ()
+  (interactive)
+  (insert "\\embed{«path»}{}{block=«bloc name»}")
+  )
+
+(defun oef-insert-calcform ()
+  (interactive)
+  (insert "\\calcform{«path»}")
+  )
+
+(defun oef-insert-form-current-block ()
+  (interactive)
+  (insert "\\form{.}{«&opt:anchor»}{«HTML content»}")
+  )
+
+(defun oef-insert-form-other-block ()
+  (interactive)
+  (insert "\\form{«bloc name»}{«&opt:anchor»}{«HTML content»}")
+  )
+
+(defun oef-insert-form-outside ()
+  (interactive)
+  (insert "\\form{«path»}{«&opt:anchor»}{«HTML content»}")
+  )
+
+(defun oef-insert-input-form ()
+  (interactive)
+  (insert "<!--BEGIN: EXAMPLE INPUT FORM--> ")
+  (newline)
+  (insert "\\form{.}{expform}{")
+  (newline)
+  (insert "Enter your expression:")
+  (newline)
+  (insert "<input size=\"30\" name=\"parm1\" value=\"\\parm1\"/>")
+  (newline)
+  (insert "<input type=\"hidden\" value=\"OK\"/>")
+  (newline)
+  (insert "}")
+  (newline)
+  (insert "\\def{real value=\\parm1}The expression is evaluated to: \\value.")
+  (newline)
+  (insert "<!--END: EXAMPLE INPUT FORM--> ")
   )
 
 (defun oef-mode-indent-region (start end)
@@ -853,9 +925,10 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 ;; Add an OEF menu
 (easy-menu-define oef-menu-bar oef-mode-map "OEF-mode menu"
   '("OEF" ; we start by creating a menu that is initially empty. This menu will be called "OEF" in the menu-bar.
-       ;;["Open All OEF Examples" oef-mode-open-all t] ; item in the OEF menu
+					;    ["Select parameter" oef-select-parameter t] ; select the fist «parameter» ;
     ))
 
+(easy-menu-add-item oef-menu-bar '()["Select Parameter" oef-select-parameter :help "Select the fist «parameter»."])
 (easy-menu-add-item oef-menu-bar '("Files") (get-examples)) ; we add the submenu `Examples' to the oef-menu-bar. This menu is not dynamic.
 (easy-menu-add-item oef-menu-bar '("Files")["Open All OEF Examples" oef-mode-open-all t]) ; we add the command "Open All OEF Examples" to the submenu `Examples' in the oef-menu-bar.
 ;; (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; deactivatedd (too slow)
@@ -867,7 +940,25 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '() (get-oef-defined-variables)) ; we add the submenu `oef-defined-variables' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-language-reserved-words)) ; we add the submenu `oef-language-reserved-words' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-wims-functions)) ; we add the submenu `Wims Functions' to the oef-menu-bar.
-(easy-menu-add-item oef-menu-bar '("Documents")["calform" oef-mode-calcform :help "Insert popup tool forms of WIMS.\n Variable number of arguments.\n Each argument must be the exact address of a form.\n (To find the address of forms, make a search of such forms in the home page of WIMS. Then the address of each form can be found in the source of the returned page.)"])
+;(easy-menu-add-item oef-menu-bar '("Documents")["Block" nil]) 
+(easy-menu-add-item oef-menu-bar '("Documents")["Files" nil]); create submenu `Files' in submenu `Block' in `Documents'
+(easy-menu-add-item oef-menu-bar '("Documents" "Files")["Entrance" oef-find-main :help "The Entrance block of the document is always named `main'"])
+(easy-menu-add-item oef-menu-bar '("Documents" "Files")["Other" oef-find-block :help "Other block of the document"])
+(easy-menu-add-item oef-menu-bar '("Documents")["Insert" nil]); create submenu `Insert' in submenu `Block' in `Documents'
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Folder" oef-insert-folder :help "Insert a folder in the current page by specifying content.\n  Attention : The foldable parts within a same block do not allow automatic formatting of mathematical formulas, nor execution of commands. "])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Block as Folder" oef-insert-block-as-folder :help "Insert a block as a folder in the current page by specifying the name of the block."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["--" nil])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Block" oef-insert-block :help "Insert a block in the current page by specifying the name of the block."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Public Block" oef-insert-public-block :help "Insert a block of a public document in the current page\n by specifying the path to public document and the name of the block."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["---" nil])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Calcform" oef-insert-calcform :help " Insert popup tool forms of WIMS.\nTo find the address of forms, make a search of such forms in the home page of WIMS.\nThen the address of each form can be found in the source of the returned page."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["----" nil])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["HTML Form (here)" oef-insert-form-current-block :help "Insert  an HTML form within the current block."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["HTML input Form (example)" oef-insert-input-form :help "For example, the following form allows the input of an arbitrary numerical expression.\nThis expression is then evaluated in the document."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["HTML Form (in block)" oef-insert-form-other-block :help "Insert  an HTML form within another block."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["HTML Form (outside)" oef-insert-form-outside :help "Insert  an HTML form within a block in another document.\nThe path must be under the form serial/name,\n where serial is the serial number of the other document,\n and name the name of the block."])
+
+
 ;; deactivated because slowdown aquamacs
 ;; (add-hook 'menu-bar-update-hook 'update-oef-menu) ;add the function update-oef-menu to a hook that runs each time the menu opens so the 'My Files' in oef menu is dynamic
 
@@ -887,7 +978,9 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 
 
   ;; key binding
-  (define-key oef-mode-map (kbd "C-x RET RET") 'oef-mode-indent-region) ; indent-region with sgml-mode-syntax-table because with oef-syntax-table there are ploblems with the indentation
+  (define-key oef-mode-map (kbd "C-x RET RET") 'oef-mode-indent-region) ; indent-region with sgml-mode-syntax-table because with oef-syntax-table there are problems with the indentation
+  (define-key oef-mode-map (kbd "C-o") nil) ;
+  (define-key oef-mode-map (kbd "C-o C-p") 'oef-select-parameter) ; 
 
   ;; not working:
   ;; (define-key oef-mode-map (kbd "C-*") '(lambda ()
