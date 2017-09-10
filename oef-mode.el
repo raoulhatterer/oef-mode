@@ -345,7 +345,7 @@
 (defvar oef-answers-options nil
   "Used for highlighting `oef-answers-options' is automatically  build from `oef-menu-answer-options' a list of answers types and options.")
 
-(defvar oef-menu-commands ; in the menu DONE
+(defvar oef-definitions-commands ; in the menu DONE
   '("title{«Exercise Title»}"
     "language{«en» or «fr»}"
     "author{«forename1»,«name1»;«forename2»,«name2»}"
@@ -375,13 +375,13 @@
     "latex{}"
     "embed{«reply1»,«&opt:option»}"
     )
-  "In this variable we have the definitions of `oef-commands'.  Used to get `oef-commands' (thanks to `get-list-commands-names') for highlighting.  Also used to get the 'Commands menu' (thanks to `get-oef-commands')."
+  "In this variable we have the definitions of `oef-commands'.  Used to get `oef-commands' (thanks to `get-list-commands-names') for highlighting.  Also used to get the 'Commands menu' (thanks to `get-menu-oef-commands')."
   )
 
 (defvar oef-commands nil
-  "`oef-commands' is automatically  build from `oef-menu-commands' a list of commands definitions.")
+  "`oef-commands' is automatically  build from `oef-definitions-commands' a list of commands definitions.")
 
-(defvar oef-menu-special-commands ; in the menu DONE
+(defvar oef-definitions-special-commands ; in the menu DONE
   '(
     "special{imagefill «parameters»}"
     "special{expandlines «parameters»}"
@@ -394,13 +394,13 @@
     "special{mathmlinput «parameters»}"
     "special{drawinput «parameters»}"
     )
-  "In this variable we have the definitions of `oef-special-commands'.  Used to get `oef-special-commands' (thanks to `get-list-commands-names') for highlighting.  Also used to get the 'Commands menu' (thanks to `get-oef-special-commands')."
+  "In this variable we have the definitions of `oef-special-commands'.  Used to get `oef-special-commands' (thanks to `get-list-commands-names') for highlighting.  Also used to get the 'Special Commands menu' (thanks to `get-menu-oef-special-commands')."
   )
 
 (defvar oef-special-commands nil
-  "`oef-special-commands' is automatically  build from `oef-menu-special-commands' a list of special commands definitions.")
+  "`oef-special-commands' is automatically  build from `oef-definitions-special-commands' a list of special commands definitions.")
 
-(defvar oef-doc-commands ; used for highlighting. ; in the menu TODO
+(defvar oef-doc-commands ; used for highlighting DONE ; in the menu INPROGRESS
   '("calcform"
     "comment"
     "def"
@@ -473,7 +473,7 @@
   "Used for highlighting and for a submenu `Comparisons'."
   )
 
-(defvar oef-menu-wims-functions ; in the menu DONE
+(defvar oef-definitions-wims-functions ; in the menu DONE
   '( "wims(append «parameters»)"
      "wims(nonempty «parameters»)"
      "wims(getopt «parameters»)"
@@ -497,7 +497,7 @@
   )
 
 (defvar oef-wims-functions nil
-  "`oef-wims-functions' is automatically  build from `oef-menu-wims-functions' a list of wims functions definitions.")
+  "`oef-wims-functions' is automatically  build from `oef-definitions-wims-functions' a list of wims functions definitions.")
 
 (defvar oef-pari-functions ; in the menu TODO
   '("divrem")
@@ -567,8 +567,8 @@
     ) ; end of mapcar
    )) ; end of defun get-examples
 
-(defun get-oef-commands ()
- "This function create a submenu with ‘oef-commands’ from commands definitions in `oef-menu-commands'."
+(defun get-menu-oef-commands ()
+ "This function create a submenu with ‘oef-commands’ from commands definitions in `oef-definitions-commands'."
   (easy-menu-create-menu
    "Commands"
    (mapcar
@@ -578,11 +578,11 @@
                  (insert  (concat "\\" ,x))
                  t))
       )               ; end of the lamda expression
-    oef-menu-commands ; sequence : here a list of string
+    oef-definitions-commands ; sequence : here a list of string
     ) ; end of mapcar
-   )) ; end of defun get-oef-commands
+   )) ; end of defun get-menu-oef-commands
 
-(defun get-oef-special-commands ()
+(defun get-menu-oef-special-commands ()
  "This function create a submenu special with ‘oef-special-commands’."
   (easy-menu-create-menu
    "Special"
@@ -593,9 +593,9 @@
                  (insert  (concat "\\" ,x))
                  t))
       )               ; end of the lamda expression
-    oef-menu-special-commands ; sequence : here a list of string
+    oef-definitions-special-commands ; sequence : here a list of string
     ) ; end of mapcar
-   )) ; end of defun get-oef-special-commands
+   )) ; end of defun get-menu-oef-special-commands
 
 (defun get-oef-wims-functions ()
  "This function create a submenu special with ‘oef-wims-functions’."
@@ -608,7 +608,7 @@
                  (insert  (concat "\\" ,x))
                  t))
       )               ; end of the lamda expression
-    oef-menu-wims-functions ; sequence : here a list of string
+    oef-definitions-wims-functions ; sequence : here a list of string
     ) ; end of mapcar
    )) ; end of defun get-oef-wims-functions
 
@@ -640,7 +640,7 @@
       )               ; end of the lamda expression
     oef-menu-exo-init-types ; sequence : here a list of string
     ) ; end of mapcar
-   )) ; end of defun get-oef-commands
+   )) ; end of defun get-oef-exo-init-types
 
 (defun get-oef-doc-init-types ()
  "This function create a submenu for variables initialization in an document."
@@ -655,7 +655,7 @@
       )               ; end of the lamda expression
     oef-menu-doc-init-types ; sequence : here a list of string
     ) ; end of mapcar
-   )) ; end of defun get-oef-commands
+   )) ; end of defun get-oef-doc-init-types
 
 (defun get-oef-defined-variables ()
  "This function create a submenu for `oef-defined-variables'."
@@ -720,7 +720,7 @@
 ;;    )) ; end of defun get-my-files
 
 (defun get-list-commands-names (list-commands-definitions)
-  "This function takes a LIST-COMMANDS-DEFINITIONS  (for example  `oef-menu-commands') and return a list of commands names (for example `oef-commands')."
+  "This function takes a LIST-COMMANDS-DEFINITIONS  (for example  `oef-definitions-commands') and return a list of commands names (for example `oef-commands')."
   (setq list-commands '())
   (dolist
       (command-definition list-commands-definitions)
@@ -733,7 +733,7 @@
   )
 
 (defun get-list-wims-functions (list-functions-definitions)
-  "This function takes a LIST-FUNCTIONS-DEFINITIONS  (for example  `oef-menu-wims-functions') and return a list of functions names (for example `oef-wims-functions')."
+  "This function takes a LIST-FUNCTIONS-DEFINITIONS  (for example  `oef-definitions-wims-functions') and return a list of functions names (for example `oef-wims-functions')."
   (setq list-functions '())
   (dolist
       (function-definition list-functions-definitions)
@@ -899,9 +899,9 @@ the first line which has bad indentation.  Then you can call `oef-mode-indent-re
 ;;----------------MENU----------------------------------------
 
 (setq oef-example-files (directory-files-recursively user-emacs-directory ".oef$")) ; list of strings (the oef examples files) needed to build the OEF menu
-(setq oef-commands (get-list-commands-names oef-menu-commands)) ; list of strings (the oef-commands like 'title' and 'author')
-(setq oef-special-commands (get-list-commands-names oef-menu-special-commands)) ; list of strings (the oef-special-commands)
-(setq oef-wims-functions (get-list-wims-functions oef-menu-wims-functions)) ; list of strings (the oef-wims-functions)
+(setq oef-commands (get-list-commands-names oef-definitions-commands)) ; list of strings (the oef-commands like 'title' and 'author')
+(setq oef-special-commands (get-list-commands-names oef-definitions-special-commands)) ; list of strings (the oef-special-commands)
+(setq oef-wims-functions (get-list-wims-functions oef-definitions-wims-functions)) ; list of strings (the oef-wims-functions)
 (setq oef-answers-options (get-list-answers-options  oef-menu-answers-options))
 
 (defvar oef-mode-map
@@ -948,8 +948,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 ;; (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; deactivatedd (too slow)
 (easy-menu-add-item oef-menu-bar '("Initializations") (get-oef-exo-init-types)) ; we add the submenu `Exercices' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '("Initializations") (get-oef-doc-init-types)) ; we add the submenu `Documents' to the oef-menu-bar.
-(easy-menu-add-item oef-menu-bar '() (get-oef-commands)) ; we add the submenu `Commands' to the oef-menu-bar.
-(easy-menu-add-item oef-menu-bar '("Commands") (get-oef-special-commands)) ; we add the submenu `Special' in menu `Commands' to the oef-menu-bar.
+(easy-menu-add-item oef-menu-bar '() (get-menu-oef-commands)) ; we add the submenu `Commands' to the oef-menu-bar.
+(easy-menu-add-item oef-menu-bar '("Commands") (get-menu-oef-special-commands)) ; we add the submenu `Special' in menu `Commands' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-answers-options)) ; we add the submenu `Answers types and options' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-defined-variables)) ; we add the submenu `oef-defined-variables' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-language-reserved-words)) ; we add the submenu `oef-language-reserved-words' to the oef-menu-bar.
