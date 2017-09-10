@@ -427,33 +427,6 @@
     "while")
   )
 
-(defvar oef-menu-doc-commands ; used for highlighting. ; in the menu TODO
-  '("calcform{«path to form1»,«path to form2»,...}"
-    "comment{Just a comment}"
-    "def{«type» «variable name»=«value»}"
-    "define{«type» «variable name»=«value»}"
-    "docform"
-    "form"
-    "draw"
-    "embed{path to a bloc or an exercice}{substitute title}{block=«bloc name»}{style=«style»}"
-    "exercise"
-    "tool"
-    "help"
-    "adm"
-    "fold{arg1: «name if the folder is another page» or « » if the folder opens in the curent page}{arg2: « » or «Text of the link to the folder»}{arg3 only used if arg1 is empty: «Content of the folder»}"
-    "for"
-    "form"
-    "if"
-    "ifval"
-    "link{«bloc name» or «  » for actual bloc}{«&opt:title»}{«&opt:anchor»}{«&opt:param1= &param2= ... &param20=»}"
-    "ref{«bloc name» or «  » for actual bloc}{«&opt:title»}{«&opt:anchor»}{«&opt:param1= &param2= ... &param20=»}"
-    "href"
-    "reload"
-    "slib"
-    "tooltip"
-    "while")
-  )
-
 (defvar oef-storage-types
   '("real" "complex" "text" "integer" "rational" "function" "matrix" )
   "List of Oef Variable Types.  Used for highlighting.  See also `oef-menu-exo-init-types' and `oef-menu-doc-init-types'."
@@ -853,7 +826,7 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
 
 (defun oef-insert-form-outside ()
   (interactive)
-  (insert "\\form{«path»}{«&opt:anchor»}{«HTML content»}")
+  (insert "\\form{«path:serial/name»}{«&opt:anchor»}{«HTML content»}")
   )
 
 (defun oef-insert-input-form ()
@@ -880,8 +853,31 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
   (insert "<a target=\"wims_external\" href=\"«external HTTP link»\">«description»</a>")
   )
 
-; <a target="wims_external" href="http://www.unice.fr/">Nice University</a> 
+(defun oef-link-current-block ()
+  (interactive)
+  (insert "\\link{.}{«&opt:description&default:bloc title»}{«&opt:anchor»}{«&opt:param1= &param2= ... &param20=»}")
+  )
 
+(defun oef-link-other-block ()
+  (interactive)
+  (insert "\\link{«block name»}{«&opt:description&default:bloc title»}{«&opt:anchor»}{«&opt:param1= &param2= ... &param20=»}")
+  )
+
+
+(defun oef-link-other-document-block ()
+  (interactive)
+  (insert "\\link{«path:serial/name»}{«&opt:description&default:bloc title»}{«&opt:anchor»}{«&opt:param1= &param2= ... &param20=»}")
+  )
+
+(defun oef-link-file ()
+  (interactive)
+  (insert "\\href{«name»}{«path»}")
+  )
+
+(defun oef-reload ()
+  (interactive)
+  (insert "\\reload{«description»}{«&opt:anchor»}")
+  )
 
 
 
@@ -962,21 +958,27 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Documents" "Files")["Entrance" oef-find-main :help "The Entrance block of the document is always named `main'"])
 (easy-menu-add-item oef-menu-bar '("Documents" "Files")["Other" oef-find-block :help "Other block of the document"])
 (easy-menu-add-item oef-menu-bar '("Documents")["Insert" nil]); create submenu `Insert' in submenu  `Documents'
-(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Image" oef-insert-image :help "Insert an image.\nThe link `Other files' allows you to upload the image file to the wims server.\nCSS properties are defined online in properties of the main file."])
-(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Folder" oef-insert-folder :help "Insert a folder in the current page by specifying content.\n  Attention : The foldable parts within a same block do not allow automatic formatting of mathematical formulas, nor execution of commands. "])
-(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Block as Folder" oef-insert-block-as-folder :help "Insert a block as a folder in the current page by specifying the name of the block."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Image" oef-insert-image :help "Insert an image.\n\nThe link `Other files' allows you to upload the image file to the wims server.\nCSS properties are defined online in properties of the main file."])
 (easy-menu-add-item oef-menu-bar '("Documents" "Insert")["--" nil])
-(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Block" oef-insert-block :help "Insert a block in the current page by specifying the name of the block."])
-(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Public Block" oef-insert-public-block :help "Insert a block of a public document in the current page\n by specifying the path to public document and the name of the block."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Folder" oef-insert-folder :help "Insert a folder in the current page by specifying content.\n\nAttention : The foldable parts within a same block do not allow automatic formatting of mathematical formulas, nor execution of commands. "])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Block as Folder" oef-insert-block-as-folder :help "Insert a block as a folder in the current page by specifying the name of the block."])
 (easy-menu-add-item oef-menu-bar '("Documents" "Insert")["---" nil])
-(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Calcform" oef-insert-calcform :help " Insert popup tool forms of WIMS.\nTo find the address of forms, make a search of such forms in the home page of WIMS.\nThen the address of each form can be found in the source of the returned page."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Block" oef-insert-block :help "Insert a block in the current page by specifying the name of the block."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Public Block" oef-insert-public-block :help "Insert a block of a public document in the current page\n\nby specifying the path to public document and the name of the block."])
 (easy-menu-add-item oef-menu-bar '("Documents" "Insert")["----" nil])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Calcform" oef-insert-calcform :help " Insert popup tool forms of WIMS.\n\nTo find the address of forms, make a search of such forms in the home page of WIMS.\nThen the address of each form can be found in the source of the returned page."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["-----" nil])
 (easy-menu-add-item oef-menu-bar '("Documents" "Insert")["HTML Form (here)" oef-insert-form-current-block :help "Insert  an HTML form within the current block."])
 (easy-menu-add-item oef-menu-bar '("Documents" "Insert")["HTML input Form (example)" oef-insert-input-form :help "For example, the following form allows the input of an arbitrary numerical expression.\nThis expression is then evaluated in the document."])
 (easy-menu-add-item oef-menu-bar '("Documents" "Insert")["HTML Form (in block)" oef-insert-form-other-block :help "Insert  an HTML form within another block."])
-(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["HTML Form (outside)" oef-insert-form-outside :help "Insert  an HTML form within a block in another document.\nThe path must be under the form serial/name,\n where serial is the serial number of the other document,\n and name the name of the block."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["HTML Form (outside)" oef-insert-form-outside :help "Insert  an HTML form within a block in another document.\n\nThe path must be under the form serial/name,\n where serial is the serial number of the other document,\n and name the name of the block."])
 (easy-menu-add-item oef-menu-bar '("Documents")["Link" nil]); create submenu `Link' in submenu  `Documents'
 (easy-menu-add-item oef-menu-bar '("Documents" "Link")["External Target in New Tab" oef-link-new-tab :help "HTML link. External page will appear in a new Tab of the browser."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Link")["Current Block" oef-link-current-block :help "Link towards the current block.\n\nArgument 4 (optional) is for parameters transmission.\nParameters should be of the form parm1=...&parm2=...&parm3=...\nUp to 20 parameters can be used.\nThese parameters can then be used in the linked document,\n under the names of \\parm1, \\parm2, ..."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Link")["Other Block in Document" oef-link-other-block :help "Link towards an other block target by its name.\n\nArgument 4 (optional) is for parameters transmission.\nParameters should be of the form parm1=...&parm2=...&parm3=...\nUp to 20 parameters can be used.\nThese parameters can then be used in the linked document,\n under the names of \\parm1, \\parm2, ..."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Link")["Block in Another Document" oef-link-other-document-block :help "Link towards a block in another document.\n\n The block is target by serial/name,\nwhere serial is the serial number of the other document,\n and name the name of the block.\nArgument 4 (optional) is for parameters transmission.\nParameters should be of the form parm1=...&parm2=...&parm3=...\nUp to 20 parameters can be used.\nThese parameters can then be used in the linked document,\n under the names of \\parm1, \\parm2, ..."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Link")["Uploaded File" oef-link-file :help "Link towards an uploaded file.\n\nThe link `Other files' allows you to upload files to the wims server."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Link")["Reload" oef-reload :help " Reload the page.\n\nUp to 2 arguments: the text to show on the link and the position to go (anchor).\nReloading a page is interesting when it contains random variables.\nIn this case, to each reloading, the resulting page is different."])
 
 ;; deactivated because slowdown aquamacs
 ;; (add-hook 'menu-bar-update-hook 'update-oef-menu) ;add the function update-oef-menu to a hook that runs each time the menu opens so the 'My Files' in oef menu is dynamic
