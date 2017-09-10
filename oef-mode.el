@@ -828,6 +828,7 @@
 ;;---- DEFUNS ------------------------------------------------------------------
 
 (defun oef-select-parameter ()
+"Select the first «parameter» from the point."
   (interactive)
   (move-beginning-of-line nil)
   (re-search-forward "«")
@@ -1036,7 +1037,7 @@
   )
 
 (defun get-list-wims-functions (list-functions-definitions)
-  "This function takes `oef-definitions-wims-functions' and return  `oef-wims-functions'."
+  "This function is used with `oef-definitions-wims-functions' and will return  `oef-wims-functions'."
   (setq list-functions '())
   (dolist
       (function-definition list-functions-definitions)
@@ -1049,7 +1050,7 @@
   ) ; end get-list-wims-functions
 
 (defun get-list-slib-scripts (list-functions-definitions)
-  "This function takes  `oef-definitions-slib-scripts') and return  `oef-slib-scripts'."
+  "This function is used with  `oef-definitions-slib-scripts') and will return  `oef-slib-scripts'."
   (setq list-functions '())
   (dolist
       (function-definition list-functions-definitions)
@@ -1089,17 +1090,20 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
   )
 
 (defun oef-find-main ()
+  "This function find or create the main file."
   (interactive)
   (find-file "main.oef")
   )
 
 (defun oef-find-block ()
+  "This function find or create other block files."
   (interactive)
   (find-file (read-file-name "Enter block name: ")))
 
 
 
 (defun oef-insert-image ()
+  "This function insert an image."
   (interactive)
   (insert "<img src=\"\\filedir/«file name»\" class=\"«class name»\"/>")
   )
@@ -1195,6 +1199,10 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
   (insert "\\reload{«description»}{«&opt:anchor»}")
   )
 
+(defun oef-tooltip ()
+  (interactive)
+  (insert "\\tooltip{«description»}{«&opt:options»}{«tooltip text»}")
+  )
 
 
 (defun oef-mode-indent-region (start end)
@@ -1211,6 +1219,8 @@ the first line which has bad indentation.  Then you can call `oef-mode-indent-re
   (with-syntax-table sgml-mode-syntax-table
     (indent-region start end)
     ))
+
+
 
 ;;----------------MENU----------------------------------------
 
@@ -1297,6 +1307,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Documents" "Link")["Block in Another Document" oef-link-other-document-block :help "Link towards a block in another document.\n\n The block is target by serial/name,\nwhere serial is the serial number of the other document,\n and name the name of the block.\nArgument 4 (optional) is for parameters transmission.\nParameters should be of the form parm1=...&parm2=...&parm3=...\nUp to 20 parameters can be used.\nThese parameters can then be used in the linked document,\n under the names of \\parm1, \\parm2, ..."])
 (easy-menu-add-item oef-menu-bar '("Documents" "Link")["Uploaded File" oef-link-file :help "Link towards an uploaded file.\n\nThe link `Other files' allows you to upload files to the wims server."])
 (easy-menu-add-item oef-menu-bar '("Documents" "Link")["Reload" oef-reload :help " Reload the page.\n\nUp to 2 arguments: the text to show on the link and the position to go (anchor).\nReloading a page is interesting when it contains random variables.\nIn this case, to each reloading, the resulting page is different."])
+(easy-menu-add-item oef-menu-bar '("Documents")["Tooltip" oef-tooltip :help "Tooltip on words.\n\nUp to 3 arguments:\nArgument 1: the prompt. You may change the style of the prompt by using HTML tags\nor by defining the css style class span.tooltip.\nArgument 2 (optional): the options of the tooltip between [ ]. If the word nojs\nis added (outside the brackets), the used javascript is not reload (it is sufficient to load it once at the begining of the html page).\nArgument 3 : the text inside the tooltip."])
 
 ;; deactivated because slowdown aquamacs
 ;; (add-hook 'menu-bar-update-hook 'update-oef-menu) ;add the function update-oef-menu to a hook that runs each time the menu opens so the 'My Files' in oef menu is dynamic
