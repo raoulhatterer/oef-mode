@@ -499,6 +499,294 @@
 (defvar oef-wims-functions nil
   "`oef-wims-functions' is automatically  build from `oef-definitions-wims-functions' a list of wims functions definitions.")
 
+(defvar oef-definitions-slib-scripts ; in the menu DONE but has to be split (too big)
+  '("slib(algebra/partitionconj «parameters»)"
+    "slib(algebra/partitiondraw «parameters»)"
+    "slib(algebra/partitionlex «parameters»)"
+    "slib(algebra/slopedraw «parameters»)"
+    "slib(analysis/inversedomain «parameters»)"
+    "slib(analysis/odejs «parameters»)"
+    "slib(analysis/odejs2 «parameters»)"
+    "slib(analysis/odephase «parameters»)"
+    "slib(analysis/rungekutta «parameters»)"
+    "slib(analysis/slope.js «parameters»)"
+    "slib(analysis/slopefield «parameters»)"
+    "slib(analysis/slopefield_img «parameters»)"
+    "slib(analysis/slopefield_js «parameters»)"
+    "slib(chemistry/atom «parameters»)"
+    "slib(chemistry/brut2html «parameters»)"
+    "slib(chemistry/chemeq_add «parameters»)"
+    "slib(chemistry/chemeq_compare «parameters»)"
+    "slib(chemistry/chemeq_components «parameters»)"
+    "slib(chemistry/chemeq_el «parameters»)"
+    "slib(chemistry/chemeq_equilibrium «parameters»)"
+    "slib(chemistry/chemeq_mass «parameters»)"
+    "slib(chemistry/chemeq_rev «parameters»)"
+    "slib(chemistry/chemeq_rq «parameters»)"
+    "slib(chemistry/chemeq_tex «parameters»)"
+    "slib(chemistry/chemshow «parameters»)"
+    "slib(chemistry/cram «parameters»)"
+    "slib(chemistry/jmolbutton «parameters»)"
+    "slib(chemistry/jmolcheckbox «parameters»)"
+    "slib(chemistry/jmolradiogroup «parameters»)"
+    "slib(chemistry/jmolshow «parameters»)"
+    "slib(chemistry/jmolshow_init «parameters»)"
+    "slib(chemistry/leftind «parameters»)"
+    "slib(chemistry/molarmass «parameters»)"
+    "slib(chemistry/molecule «parameters»)"
+    "slib(chemistry/moleculeViewer «parameters»)"
+    "slib(chemistry/newman «parameters»)"
+    "slib(circuits/complist «parameters»)"
+    "slib(circuits/comppos «parameters»)"
+    "slib(circuits/draw «parameters»)"
+    "slib(circuits/drawcomp «parameters»)"
+    "slib(circuits/drawwire «parameters»)"
+    "slib(circuits/range «parameters»)"
+    "slib(data/columnsort «parameters»)"
+    "slib(data/randline «parameters»)"
+    "slib(data/random «parameters»)"
+    "slib(data/randrec «parameters»)"
+    "slib(draw/balance «parameters»)"
+    "slib(draw/brokenlinegraph «parameters»)"
+    "slib(draw/clock «parameters»)"
+    "slib(draw/convpixel «parameters»)"
+    "slib(draw/domino «parameters»)"
+    "slib(draw/drtgraduee «parameters»)"
+    "slib(draw/graphviz «parameters»)"
+    "slib(draw/graphvizpoints «parameters»)"
+    "slib(draw/meter «parameters»)"
+    "slib(draw/polygon «parameters»)"
+    "slib(draw/radar «parameters»)"
+    "slib(draw/randpolygon «parameters»)"
+    "slib(draw/range «parameters»)"
+    "slib(draw/repdroite «parameters»)"
+    "slib(draw/repere «parameters»)"
+    "slib(draw/thermometer «parameters»)"
+    "slib(function/bounds «parameters»)"
+    "slib(function/bounds2 «parameters»)"
+    "slib(function/integrate «parameters»)"
+    "slib(games/chessboard «parameters»)"
+    "slib(games/chessimage «parameters»)"
+    "slib(games/chessmv «parameters»)"
+    "slib(geo2D/geogebra «parameters»)"
+    "slib(geo2D/geogebra3 «parameters»)"
+    "slib(geo2D/geogebracommand «parameters»)"
+    "slib(geo2D/geogebraoption «parameters»)"
+    "slib(geo2D/ggb2jsxgraph «parameters»)"
+    "slib(geo2D/jsxgraph «parameters»)"
+    "slib(geo3D/3Dviewer «parameters»)"
+    "slib(geo3D/CaR «parameters»)"
+    "slib(geo3D/Convex3D «parameters»)"
+    "slib(geo3D/draw «parameters»)"
+    "slib(geo3D/drawtile «parameters»)"
+    "slib(geo3D/off2jmol «parameters»)"
+    "slib(geo3D/off2xyz «parameters»)"
+    "slib(geo3D/polyhedra «parameters»)"
+    "slib(geo3D/polyhedradual «parameters»)"
+    "slib(geo3D/threeD «parameters»)"
+    "slib(graph/connexcomponent «parameters»)"
+    "slib(graph/connexity «parameters»)"
+    "slib(graph/distance «parameters»)"
+    "slib(graph/draw «parameters»)"
+    "slib(graph/drawcc «parameters»)"
+    "slib(graph/drawtree «parameters»)"
+    "slib(graph/gpt «parameters»)"
+    "slib(graph/graphviz «parameters»)"
+    "slib(graph/path «parameters»)"
+    "slib(graph/randomconnex «parameters»)"
+    "slib(graph/randomeuler «parameters»)"
+    "slib(graph/randtree «parameters»)"
+    "slib(graph/shortpath «parameters»)"
+    "slib(graphpaper/correct_milli «parameters»)"
+    "slib(graphpaper/func «parameters»)"
+    "slib(graphpaper/func_milli «parameters»)"
+    "slib(graphpaper/imgpoints «parameters»)"
+    "slib(graphpaper/millimetre «parameters»)"
+    "slib(graphpaper/strings «parameters»)"
+    "slib(graphpaper/tograph «parameters»)"
+    "slib(graphpaper/whereclick «parameters»)"
+    "slib(lang/enword2ipa «parameters»)"
+    "slib(lang/epd2ipa «parameters»)"
+    "slib(lang/fname «parameters»)"
+    "slib(lang/fraccord «parameters»)"
+    "slib(lang/frapostrophe «parameters»)"
+    "slib(lang/frartdef «parameters»)"
+    "slib(lang/frcodcoi «parameters»)"
+    "slib(lang/frverbconj «parameters»)"
+    "slib(lang/images «parameters»)"
+    "slib(lang/randomword «parameters»)"
+    "slib(lang/sampa2ipa «parameters»)"
+    "slib(lang/swac «parameters»)"
+    "slib(life/frcommodity «parameters»)"
+    "slib(list/selshuf «parameters»)"
+    "slib(matrix/concate «parameters»)"
+    "slib(matrix/det «parameters»)"
+    "slib(matrix/givenrank «parameters»)"
+    "slib(matrix/inverse «parameters»)"
+    "slib(matrix/invertible «parameters»)"
+    "slib(matrix/itriangular «parameters»)"
+    "slib(matrix/non0 «parameters»)"
+    "slib(matrix/orthogonal «parameters»)"
+    "slib(matrix/random «parameters»)"
+    "slib(matrix/trace «parameters»)"
+    "slib(matrix/transpose «parameters»)"
+    "slib(matrix/triangular «parameters»)"
+    "slib(matrix/unimodular «parameters»)"
+    "slib(media/audio «parameters»)"
+    "slib(media/dewplayer «parameters»)"
+    "slib(media/player «parameters»)"
+    "slib(media/player_mp3_multi «parameters»)"
+    "slib(media/video «parameters»)"
+    "slib(numeration/babylonien «parameters»)"
+    "slib(numeration/basep «parameters»)"
+    "slib(numeration/ecriturenombre «parameters»)"
+    "slib(numeration/egyptien «parameters»)"
+    "slib(oef/blank «parameters»)"
+    "slib(oef/codelim «parameters»)"
+    "slib(oef/codename «parameters»)"
+    "slib(oef/env «parameters»)"
+    "slib(oef/insfilename «parameters»)"
+    "slib(oef/newfile «parameters»)"
+    "slib(oef/postsrc «parameters»)"
+    "slib(oef/presrc «parameters»)"
+    "slib(polynomial/random «parameters»)"
+    "slib(set/subset «parameters»)"
+    "slib(stat/1d «parameters»)"
+    "slib(stat/arithmean «parameters»)"
+    "slib(stat/beta «parameters»)"
+    "slib(stat/betacdf «parameters»)"
+    "slib(stat/betainv «parameters»)"
+    "slib(stat/betapdf «parameters»)"
+    "slib(stat/binomial «parameters»)"
+    "slib(stat/binomialcdf «parameters»)"
+    "slib(stat/binomialinv «parameters»)"
+    "slib(stat/binomialpdf «parameters»)"
+    "slib(stat/cauchy «parameters»)"
+    "slib(stat/cauchycdf «parameters»)"
+    "slib(stat/cauchyinv «parameters»)"
+    "slib(stat/cauchypdf «parameters»)"
+    "slib(stat/chi2 «parameters»)"
+    "slib(stat/chi2cdf «parameters»)"
+    "slib(stat/chi2inv «parameters»)"
+    "slib(stat/chi2pdf «parameters»)"
+    "slib(stat/correlation «parameters»)"
+    "slib(stat/covariance «parameters»)"
+    "slib(stat/dataproc «parameters»)"
+    "slib(stat/deviation «parameters»)"
+    "slib(stat/discretelaw «parameters»)"
+    "slib(stat/effectif «parameters»)"
+    "slib(stat/empiric «parameters»)"
+    "slib(stat/expo «parameters»)"
+    "slib(stat/exponential «parameters»)"
+    "slib(stat/exponentialcdf «parameters»)"
+    "slib(stat/exponentialinv «parameters»)"
+    "slib(stat/exponentialpdf «parameters»)"
+    "slib(stat/fisher «parameters»)"
+    "slib(stat/fishercdf «parameters»)"
+    "slib(stat/fisherinv «parameters»)"
+    "slib(stat/fisherpdf «parameters»)"
+    "slib(stat/freq «parameters»)"
+    "slib(stat/gamma «parameters»)"
+    "slib(stat/gammacdf «parameters»)"
+    "slib(stat/gammainv «parameters»)"
+    "slib(stat/gammapdf «parameters»)"
+    "slib(stat/geomean «parameters»)"
+    "slib(stat/geometric «parameters»)"
+    "slib(stat/geometric1 «parameters»)"
+    "slib(stat/geometric1cdf «parameters»)"
+    "slib(stat/geometric1inv «parameters»)"
+    "slib(stat/geometric1pdf «parameters»)"
+    "slib(stat/geometriccdf «parameters»)"
+    "slib(stat/geometricinv «parameters»)"
+    "slib(stat/geometricpdf «parameters»)"
+    "slib(stat/harmonic «parameters»)"
+    "slib(stat/histo «parameters»)"
+    "slib(stat/hypergeometric «parameters»)"
+    "slib(stat/hypergeometriccdf «parameters»)"
+    "slib(stat/hypergeometricinv «parameters»)"
+    "slib(stat/hypergeometricpdf «parameters»)"
+    "slib(stat/laplace «parameters»)"
+    "slib(stat/laplacecdf «parameters»)"
+    "slib(stat/laplaceinv «parameters»)"
+    "slib(stat/laplacepdf «parameters»)"
+    "slib(stat/linearcong «parameters»)"
+    "slib(stat/logistic «parameters»)"
+    "slib(stat/logisticcdf «parameters»)"
+    "slib(stat/logisticinv «parameters»)"
+    "slib(stat/logisticpdf «parameters»)"
+    "slib(stat/lognormal «parameters»)"
+    "slib(stat/lognormalcdf «parameters»)"
+    "slib(stat/lognormalinv «parameters»)"
+    "slib(stat/lognormalpdf «parameters»)"
+    "slib(stat/median «parameters»)"
+    "slib(stat/multinomial «parameters»)"
+    "slib(stat/nbin «parameters»)"
+    "slib(stat/nbincdf «parameters»)"
+    "slib(stat/nbininv «parameters»)"
+    "slib(stat/nbinpdf «parameters»)"
+    "slib(stat/normal «parameters»)"
+    "slib(stat/normalcdf «parameters»)"
+    "slib(stat/normalinv «parameters»)"
+    "slib(stat/normalpdf «parameters»)"
+    "slib(stat/pascal «parameters»)"
+    "slib(stat/pascalcdf «parameters»)"
+    "slib(stat/pascalinv «parameters»)"
+    "slib(stat/pascalpdf «parameters»)"
+    "slib(stat/poisson «parameters»)"
+    "slib(stat/poissoncdf «parameters»)"
+    "slib(stat/poissoninv «parameters»)"
+    "slib(stat/poissonpdf «parameters»)"
+    "slib(stat/posdiscretelaw «parameters»)"
+    "slib(stat/prod «parameters»)"
+    "slib(stat/quadratic «parameters»)"
+    "slib(stat/random «parameters»)"
+    "slib(stat/range «parameters»)"
+    "slib(stat/student «parameters»)"
+    "slib(stat/studentcdf «parameters»)"
+    "slib(stat/studentinv «parameters»)"
+    "slib(stat/studentpdf «parameters»)"
+    "slib(stat/sum «parameters»)"
+    "slib(stat/variance «parameters»)"
+    "slib(stat/weibull «parameters»)"
+    "slib(stat/weibullcdf «parameters»)"
+    "slib(stat/weibullinv «parameters»)"
+    "slib(stat/weibullpdf «parameters»)"
+    "slib(text/approximation «parameters»)"
+    "slib(text/balloon «parameters»)"
+    "slib(text/cdecomment «parameters»)"
+    "slib(text/comblin «parameters»)"
+    "slib(text/crossword «parameters»)"
+    "slib(text/cutchoice2 «parameters»)"
+    "slib(text/cutchoices «parameters»)"
+    "slib(text/markerror «parameters»)"
+    "slib(text/markgroup «parameters»)"
+    "slib(text/marktext «parameters»)"
+    "slib(text/marktextpartial «parameters»)"
+    "slib(text/markword «parameters»)"
+    "slib(text/matrixhtml «parameters»)"
+    "slib(text/matrixinsert «parameters»)"
+    "slib(text/matrixtex «parameters»)"
+    "slib(text/maximamatrix «parameters»)"
+    "slib(text/octavematrix «parameters»)"
+    "slib(text/sigunits «parameters»)"
+    "slib(text/spirale «parameters»)"
+    "slib(text/whitespace «parameters»)"
+    "slib(triplerelation/tabular «parameters»)"
+    "slib(utilities/mathcalc «parameters»)"
+    "slib(utilities/nopaste «parameters»)"
+    "slib(utilities/notepad «parameters»)"
+    "slib(utilities/notepad1.html «parameters»)"
+    "slib(utilities/notepad2.html «parameters»)"
+    "slib(utilities/notepad3.html «parameters»)"
+    "slib(utilities/tooltip «parameters»)"
+    "slib(utilities/trigo-calc «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Script Library'."
+  )
+
+(defvar oef-slib-scripts nil
+  "`oef-slib-scripts' is automatically  build from `oef-definitions-slib-scripts' a list of slib script definitions.")
+
 (defvar oef-pari-functions ; in the menu TODO
   '("divrem")
   "Used for highlighting."
@@ -583,7 +871,7 @@
    )) ; end of defun get-menu-oef-commands
 
 (defun get-menu-oef-special-commands ()
- "This function create a submenu special with ‘oef-special-commands’."
+ "This function create a submenu `Special' with ‘oef-special-commands’."
   (easy-menu-create-menu
    "Special"
    (mapcar
@@ -598,7 +886,7 @@
    )) ; end of defun get-menu-oef-special-commands
 
 (defun get-oef-wims-functions ()
- "This function create a submenu special with ‘oef-wims-functions’."
+ "This function create a submenu `Wims Functions' with ‘oef-wims-functions’."
   (easy-menu-create-menu
    "Wims Functions"
    (mapcar
@@ -611,6 +899,21 @@
     oef-definitions-wims-functions ; sequence : here a list of string
     ) ; end of mapcar
    )) ; end of defun get-oef-wims-functions
+
+(defun get-oef-slib-scripts ()
+ "This function create a submenu `Script Library' with ‘oef-slib-scripts’."
+  (easy-menu-create-menu
+   "Script Library"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+              `(lambda () (interactive)
+                 (insert  (concat "\\" ,x))
+                 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-scripts ; sequence : here a list of string
+    ) ; end of mapcar
+   )) ; end of defun get-oef-slib-scripts
 
 (defun get-oef-answers-options ()
   "This function create a submenu with the types and options of an answer from `oef-answers-options'."
@@ -733,7 +1036,7 @@
   )
 
 (defun get-list-wims-functions (list-functions-definitions)
-  "This function takes a LIST-FUNCTIONS-DEFINITIONS  (for example  `oef-definitions-wims-functions') and return a list of functions names (for example `oef-wims-functions')."
+  "This function takes `oef-definitions-wims-functions' and return  `oef-wims-functions'."
   (setq list-functions '())
   (dolist
       (function-definition list-functions-definitions)
@@ -743,7 +1046,20 @@
      )
     )
    (nreverse list-functions)
-  )
+  ) ; end get-list-wims-functions
+
+(defun get-list-slib-scripts (list-functions-definitions)
+  "This function takes  `oef-definitions-slib-scripts') and return  `oef-slib-scripts'."
+  (setq list-functions '())
+  (dolist
+      (function-definition list-functions-definitions)
+    (add-to-list
+     'list-functions
+     (replace-regexp-in-string "slib(" "" (replace-regexp-in-string " «parameters»)" "" function-definition))
+     )
+    )
+   (nreverse list-functions)
+  ) ; end get-list-slib-scripts
 
 (defun get-list-answers-options (list-options-definitions)
   "This function takes a LIST-OPTIONS-DEFINITIONS  and return a list of options to be inserted and highlighted."
@@ -902,6 +1218,7 @@ the first line which has bad indentation.  Then you can call `oef-mode-indent-re
 (setq oef-commands (get-list-commands-names oef-definitions-commands)) ; list of strings (the oef-commands like 'title' and 'author')
 (setq oef-special-commands (get-list-commands-names oef-definitions-special-commands)) ; list of strings (the oef-special-commands)
 (setq oef-wims-functions (get-list-wims-functions oef-definitions-wims-functions)) ; list of strings (the oef-wims-functions)
+(setq oef-slib-scripts (get-list-slib-scripts oef-definitions-slib-scripts)) ; for highlighting
 (setq oef-answers-options (get-list-answers-options  oef-menu-answers-options))
 
 (defvar oef-mode-map
@@ -954,6 +1271,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '() (get-oef-defined-variables)) ; we add the submenu `oef-defined-variables' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-language-reserved-words)) ; we add the submenu `oef-language-reserved-words' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-wims-functions)) ; we add the submenu `Wims Functions' to the oef-menu-bar.
+(easy-menu-add-item oef-menu-bar '() (get-oef-slib-scripts)) ; we add the submenu `Script Library' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '("Documents")["Files" nil]); create submenu `Files'  in `Documents'
 (easy-menu-add-item oef-menu-bar '("Documents" "Files")["Entrance" oef-find-main :help "The Entrance block of the document is always named `main'"])
 (easy-menu-add-item oef-menu-bar '("Documents" "Files")["Other" oef-find-block :help "Other block of the document"])
@@ -1024,7 +1342,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 ;     ("^ *<\\(li\\)>.*?</\\(li\\)> *$"(1 'oef-font-litag-face)(2 'oef-font-litag-face)) ; <li> </li>
      ("<\\(li\\)[^>]*>"(1 'oef-font-litag-face)) ; <li>
      ("</\\(li\\)>"(1 'oef-font-litag-face)) ;  </li>
-     ("wims\\s(\\(for\\) " 1 'oef-font-keyword-face) ; command hint (for is a wims function)
+     ("wims\\s(\\(for\\) " 1 'oef-font-keyword-face) ; exception (for is a wims function not only a oef-doc-command)
      (,(regexp-opt oef-comparison-operators 'symbols) . 'oef-font-keyword-face)
      ("{[^}^{]*\\(>\\|<\\|!=\\)[^{]+}" 1 'oef-font-keyword-face) ;  "<" ">" "!=" comparison (must be after the precedent line)
      ;; There are text properties here: (face oef-font-keyword-face fontified t) see describe-char
@@ -1044,6 +1362,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      (,(regexp-opt oef-answers-options 'symbols) . 'oef-font-answer-type-face)
      (,(regexp-opt oef-defined-variables 'words) . 'oef-font-variable-name-face)
      (,(regexp-opt oef-wims-functions 'words) . 'oef-font-keyword-face)
+     (,(regexp-opt oef-slib-scripts 'words) . 'oef-font-keyword-face)
      (,(regexp-opt oef-pari-functions 'words) . 'oef-font-keyword-face)
      (,(regexp-opt oef-maths-functions 'words) . 'oef-font-keyword-face)
      (,(regexp-opt oef-random-functions 'words) . 'oef-font-keyword-face)
