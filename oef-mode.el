@@ -894,7 +894,7 @@
     (lambda (x);             
       (vector (replace-regexp-in-string "wims(" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each wims function name in the submenu
               `(lambda () (interactive)
-                 (insert  (concat "\\" ,x))
+                 (insert   ,x)
                  t))
       )               ; end of the lamda expression
     oef-definitions-wims-functions ; sequence : here a list of string
@@ -909,7 +909,7 @@
     (lambda (x);             
       (vector (replace-regexp-in-string "slib(" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
               `(lambda () (interactive)
-                 (insert  (concat "\\" ,x))
+                 (insert   ,x)
                  t))
       )               ; end of the lamda expression
     oef-definitions-slib-scripts ; sequence : here a list of string
@@ -1220,7 +1220,28 @@ the first line which has bad indentation.  Then you can call `oef-mode-indent-re
     (indent-region start end)
     ))
 
-
+(defun oef-comment-toggle ()
+  "Turn a command on or off by adding comment on the beginning of the line."
+  (interactive)
+  (move-beginning-of-line nil)
+  (if (looking-at "\\\\comment{") ;if the line start with  \comment{
+      ;; then we remove the comment to restore  \command{
+      (progn
+	(forward-char)
+	(kill-word 1)
+	(delete-char 1)
+	(forward-word)
+	(delete-char 1)
+	(move-beginning-of-line nil)
+	)
+    ;; else if the line don't start with a comment
+    (when (string= (string (following-char)) "\\") ;if the line start with a command we turn the line as comment
+      (forward-char)
+      (insert "comment{")
+      (forward-word)
+      (insert "}")
+      (move-beginning-of-line nil)
+      )))
 
 ;;----------------MENU----------------------------------------
 
@@ -1266,7 +1287,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 ;; Add an OEF menu
 (easy-menu-define oef-menu-bar oef-mode-map "OEF-mode menu"
   '("OEF" ; we start by creating a menu that is initially empty. This menu will be called "OEF" in the menu-bar.
-					;    ["Select parameter" oef-select-parameter t] ; select the fist «parameter» ;
+    ["Comment (toogle)" oef-comment-toggle t] ; toogle a command as comment ;
     ))
 
 (easy-menu-add-item oef-menu-bar '()["Select Parameter" oef-select-parameter :help "Select the fist «parameter»."])
@@ -1330,7 +1351,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   ;; key binding
   (define-key oef-mode-map (kbd "C-x RET RET") 'oef-mode-indent-region) ; indent-region with sgml-mode-syntax-table because with oef-syntax-table there are problems with the indentation
   (define-key oef-mode-map (kbd "C-o") nil) ;
-  (define-key oef-mode-map (kbd "C-o C-p") 'oef-select-parameter) ; 
+  (define-key oef-mode-map (kbd "C-o C-p") 'oef-select-parameter) ;
+  (define-key oef-mode-map (kbd "C-o c") 'oef-comment-toggle) ; 
 
   ;; not working:
   ;; (define-key oef-mode-map (kbd "C-*") '(lambda ()
