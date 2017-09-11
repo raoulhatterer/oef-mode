@@ -135,20 +135,25 @@
 
 ;;---- FACES -------------------------------------------------------------------
 
-(defface oef-font-command-face
-  '((t :inherit font-lock-function-name-face))
-  "Face for commands"
+(defface oef-font-function-name-face
+  '((t (:foreground "orange red")))
+  "Face for functions"
   :group 'oef-mode-faces)
 
-(defface oef-font-function-name-face
-  '((t :inherit font-lock-function-name-face))
-  "Face for functions"
+(defface oef-font-equal-face
+  '((t :inherit oef-font-function-name-face))
+  "Face for equal sign"
+  :group 'oef-mode-faces)
+
+(defface oef-font-command-face
+  '((t :inherit oef-font-function-name-face))
+  "Face for commands"
   :group 'oef-mode-faces)
 
 (defface oef-font-answer-command-face
   '((t
      (:box
-      (:line-width 4 :color "blue" :style nil)
+      (:line-width 4 :color "orange red" :style nil)
       :inverse-video t :inherit
       (oef-font-command-face))))
   "Face for answer command"
@@ -157,7 +162,7 @@
 (defface oef-font-hint-command-face
   '((t
      (:box
-      (:line-width 2 :color "blue" :style nil)
+      (:line-width 2 :color "orange red" :style nil)
       :inverse-video t :inherit
       (oef-font-command-face))))
   "Face for hint command"
@@ -171,7 +176,7 @@
   :group 'oef-mode-faces)
 
 (defface oef-font-positivenumber-face
-  '((t (:foreground "#0000EE")))
+  '((t (:foreground "#555555")))
   "Face for positive number"
   :group 'oef-mode-faces)
 
@@ -1403,7 +1408,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("\\(\\\\\\w+\\){" 1 'oef-font-warning-face) ; unknown '\command{'
      ("\\(\\\\\\){" 1 'oef-font-positivenumber-face) ; latex expression \{}
      ("\\\\\\w+\\([0-9]?_?\\w?\\)*" . 'oef-font-variable-name-face) ; '\variable'
-     ("[^\\w]\\([0-9]+\\(\\.[0-9]+\\)?\\)" 1 'oef-font-positivenumber-face) ; a number in a variable name is not a number in blue (it's a part of the name)
+     ("[^\\w]\\([0-9]+\\(\\.[0-9]+\\)?\\)" 1 'oef-font-positivenumber-face) ; a number
+     ("=" . 'oef-font-equal-face) ; equal sign
      )
    )
   )
