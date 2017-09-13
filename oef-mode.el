@@ -832,6 +832,30 @@
 
 ;;---- DEFUNS ------------------------------------------------------------------
 
+(defun insert-url-as-org-link-sparse ()
+  "If there's a URL on the clipboard, insert it as an org-mode link in the form of [[url]]."
+  (interactive)
+  (let ((link (substring-no-properties (x-get-selection 'CLIPBOARD)))
+        (url  "\\(http[s]?://\\|www\\.\\)"))
+    (save-match-data
+      (if (string-match url link)
+          (insert (concat "[[" link "]]"))
+        (error "No URL on the clipboard")))))
+
+;(substring (replace-regexp-in-string ".*session=" "" my-url) 0 10)
+
+
+(defun oef-get-wims-session ()
+  "Extract the wims session if there's a URL from a wims session on the clipboard."
+  (interactive)
+  (let ((link (substring-no-properties (x-get-selection 'CLIPBOARD)))
+        (url  "http://wims.unice.fr/wims/wims.cgi\\?session="))
+    (save-match-data
+      (if (string-match url link)
+	  (insert  (substring-no-properties (replace-regexp-in-string ".*session=" "" (x-get-selection 'CLIPBOARD)) 0 10))
+        (error "No wims URL with session on the clipboard")))))
+
+
 (defun oef-select-parameter ()
 "Select the first «parameter» from the point."
   (interactive)
