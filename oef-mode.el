@@ -814,6 +814,10 @@
   nil
   "List of commands returned by the function `get-list-commands-names'.")
 
+(defvar oef-wims-session nil
+  "Active Wims Session in unice wims server."
+  )
+
 (defvar oef-mode-syntax-table
   (let ((table (make-syntax-table)))
     (modify-syntax-entry ?< "_" table)  ;Symbol constituent
@@ -832,29 +836,25 @@
 
 ;;---- DEFUNS ------------------------------------------------------------------
 
-(defun insert-url-as-org-link-sparse ()
-  "If there's a URL on the clipboard, insert it as an org-mode link in the form of [[url]]."
-  (interactive)
-  (let ((link (substring-no-properties (x-get-selection 'CLIPBOARD)))
-        (url  "\\(http[s]?://\\|www\\.\\)"))
-    (save-match-data
-      (if (string-match url link)
-          (insert (concat "[[" link "]]"))
-        (error "No URL on the clipboard")))))
-
-;(substring (replace-regexp-in-string ".*session=" "" my-url) 0 10)
-
+;; (defun insert-url-as-org-link-sparse ()
+;;   "If there's a URL on the clipboard, insert it as an org-mode link in the form of [[url]]."
+;;   (interactive)
+;;   (let ((link (substring-no-properties (x-get-selection 'CLIPBOARD)))
+;;         (url  "\\(http[s]?://\\|www\\.\\)"))
+;;     (save-match-data
+;;       (if (string-match url link)
+;;           (insert (concat "[[" link "]]"))
+;;         (error "No URL on the clipboard")))))
 
 (defun oef-get-wims-session ()
   "Extract the wims session if there's a URL from a wims session on the clipboard."
   (interactive)
-  (let ((link (substring-no-properties (x-get-selection 'CLIPBOARD)))
+  (let ((link (substring-no-properties (gui-get-selection 'CLIPBOARD)))
         (url  "http://wims.unice.fr/wims/wims.cgi\\?session="))
     (save-match-data
       (if (string-match url link)
-	  (insert  (substring-no-properties (replace-regexp-in-string ".*session=" "" (x-get-selection 'CLIPBOARD)) 0 10))
+	  (setq oef-wims-session  (substring-no-properties (replace-regexp-in-string ".*session=" "" (gui-get-selection 'CLIPBOARD)) 0 10))
         (error "No wims URL with session on the clipboard")))))
-
 
 (defun oef-select-parameter ()
 "Select the first «parameter» from the point."
@@ -1035,6 +1035,13 @@
     ) ; end of mapcar
    )) ; end of defun get-oef-language-reserved-words
 
+(defun prompt-wims-session()
+  "Prompt the wims session in the submenu Wims Session"
+  (easy-menu-create-menu
+   "Wims Session"
+   (vector oef-wims-session nil t)
+  ))
+
 ;; (defun get-my-oef-files () ;; deactivated because it's too slow with a lot of files
 ;;  "This function create a submenu with my oef files"
 ;;   (easy-menu-create-menu
@@ -1104,10 +1111,11 @@
    (nreverse list-options)
   )
 
-;; (defun update-oef-menu () ; ;; desactivate because slowdown aquamacs
-;;   "This function update the oef-menu"
-;;   (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files))
-;;   )
+(defun update-oef-menu ()
+  "This function update the oef-menu."
+  (easy-menu-add-item oef-menu-bar '("Wims Session")["my Wims Session" nil :help "actual reference to a  Wims Session ."])
+; (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; ; ;; desactivate because slowdown aquamacs
+  )
 
 (defun oef-mode-open-all ()
   "Opens all files found in the list `oef-example-files' in read-only buffers.
@@ -1320,6 +1328,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ))
 
 (easy-menu-add-item oef-menu-bar '()["Select Parameter" oef-select-parameter :help "Select the fist «parameter»."])
+(easy-menu-add-item oef-menu-bar '()["Wims Session" nil t]); it's not a real connection (It just extract the session id from the URL)
+(easy-menu-add-item oef-menu-bar '("Wims Session")["Connect to Wims Session" oef-get-wims-session :help "Connect emacs to the active Wims Session if the URL is in the CLIPBOARD."]); it's not a real connection (It just extract the session id from the URL)
 (easy-menu-add-item oef-menu-bar '("Files") (get-examples)) ; we add the submenu `Examples' to the oef-menu-bar. This menu is not dynamic.
 (easy-menu-add-item oef-menu-bar '("Files")["Open All OEF Examples" oef-mode-open-all t]) ; we add the command "Open All OEF Examples" to the submenu `Examples' in the oef-menu-bar.
 ;; (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; deactivatedd (too slow)
@@ -1359,8 +1369,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Documents" "Link")["Reload" oef-reload :help " Reload the page.\n\nUp to 2 arguments: the text to show on the link and the position to go (anchor).\nReloading a page is interesting when it contains random variables.\nIn this case, to each reloading, the resulting page is different."])
 (easy-menu-add-item oef-menu-bar '("Documents")["Tooltip" oef-tooltip :help "Tooltip on words.\n\nUp to 3 arguments:\nArgument 1: the prompt. You may change the style of the prompt by using HTML tags\nor by defining the css style class span.tooltip.\nArgument 2 (optional): the options of the tooltip between [ ]. If the word nojs\nis added (outside the brackets), the used javascript is not reload (it is sufficient to load it once at the begining of the html page).\nArgument 3 : the text inside the tooltip."])
 
-;; deactivated because slowdown aquamacs
-;; (add-hook 'menu-bar-update-hook 'update-oef-menu) ;add the function update-oef-menu to a hook that runs each time the menu opens so the 'My Files' in oef menu is dynamic
+
+(add-hook 'menu-bar-update-hook 'update-oef-menu) ;
 
 ;;-----------MAJOR MODE----------------------------------------
 ;;;###autoload
@@ -1381,7 +1391,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "C-x RET RET") 'oef-mode-indent-region) ; indent-region with sgml-mode-syntax-table because with oef-syntax-table there are problems with the indentation
   (define-key oef-mode-map (kbd "C-o") nil) ;
   (define-key oef-mode-map (kbd "C-o C-p") 'oef-select-parameter) ;
-  (define-key oef-mode-map (kbd "C-o c") 'oef-comment-toggle) ; 
+  (define-key oef-mode-map (kbd "C-o c") 'oef-comment-toggle) ;
+  (define-key oef-mode-map (kbd "C-o ws") 'oef-get-wims-session) ; 
 
   ;; not working:
   ;; (define-key oef-mode-map (kbd "C-*") '(lambda ()
