@@ -358,7 +358,7 @@
     "format{html}"
     "css{<style></style>}"
     "keywords{«keyword1»,«keyword2»}"
-    "credits{«acknowledgement of those who contributed to the document or exercice, whether through ideas or in a more direct sense»}"
+    "credits{«acknowledgement of those who contributed to the document or exercise, whether through ideas or in a more direct sense»}"
     "description{«forTheStudent»}"
     "observation{«forTheTeacher»}"
     "precision{1000}"
@@ -836,6 +836,18 @@
 
 ;;---- DEFUNS ------------------------------------------------------------------
 
+(defun oef-copy-all-or-region ()
+  "Put the whole buffer content to `kill-ring', or text selection if there's one."
+  (interactive)
+  (if (use-region-p)
+      (progn
+        (kill-new (buffer-substring (region-beginning) (region-end)))
+        (message "Text selection copied."))
+    (progn
+      (kill-new (buffer-string))
+      (message "Buffer content copied."))))
+
+
 ;; (defun insert-url-as-org-link-sparse ()
 ;;   "If there's a URL on the clipboard, insert it as an org-mode link in the form of [[url]]."
 ;;   (interactive)
@@ -853,8 +865,29 @@
         (url  "http://wims.unice.fr/wims/wims.cgi\\?session="))
     (save-match-data
       (if (string-match url link)
-	  (setq oef-wims-session  (substring-no-properties (replace-regexp-in-string ".*session=" "" (gui-get-selection 'CLIPBOARD)) 0 10))
+	  (progn
+	    (setq oef-wims-session  (substring-no-properties (replace-regexp-in-string ".*session=" "" (gui-get-selection 'CLIPBOARD)) 0 10))
+	    (momentary-string-display
+	     (concat "*** Connected to Wims Session : " oef-wims-session " ***")
+	     (point) ?\r
+	     "Type RET when done reading")
+	    )
         (error "No wims URL with session on the clipboard")))))
+
+(defun oef-edit-exercise-in-browser()
+  "Edit file in browser."
+  (interactive)
+  (let ((oef-filename (file-name-nondirectory (buffer-file-name))))
+    (browse-url (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".3&+lang=fr&+module=adm%2Fmodtool&+cmd=reply&+jobreq=edfile&+fname=src%2F" oef-filename))))
+
+(defun oef-edit-document-in-browser()
+  "Edit file in browser."
+  (interactive)
+  (oef-copy-all-or-region)
+  (let ((oef-filename (file-name-nondirectory (buffer-file-name))))
+    (browse-url (replace-regexp-in-string ".oef" "" (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".3&+lang=fr&+module=adm%2Fdoc&+cmd=reply&+job=edit&+doc=1&+block=" oef-filename)))))
+
+;http://wims.unice.fr/wims/wims.cgi?session=B6EB14AF5B.10&+lang=fr&+module=adm%2Fdoc&+cmd=reply&+job=edit&+doc=1&+block=Chapitre1
 
 (defun oef-select-parameter ()
 "Select the first «parameter» from the point."
@@ -961,9 +994,9 @@
    )) ; end of defun get-oef-answers-options
   
 (defun get-oef-exo-init-types ()
- "This function create a submenu for variables initialization in an exercice."
+ "This function create a submenu for variables initialization in an exercise."
   (easy-menu-create-menu
-   "Exercice"
+   "Exercise"
    (mapcar
     (lambda (x);             
       (vector (replace-regexp-in-string "{\\(.\\|\n\\)*}" "" x) ; each command name in the submenu
@@ -1113,7 +1146,9 @@
 
 (defun update-oef-menu ()
   "This function update the oef-menu."
-  (easy-menu-add-item oef-menu-bar '("Wims Session")["my Wims Session" nil :help "actual reference to a  Wims Session ."])
+  (easy-menu-add-item oef-menu-bar
+		      '("Wims Session")
+		      [(if oef-wims-session (concat "Connected to : " oef-wims-session) "Not connected") nil :help "Actual reference to a  Wims Session ."])
 ; (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; ; ;; desactivate because slowdown aquamacs
   )
 
@@ -1329,11 +1364,11 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 
 (easy-menu-add-item oef-menu-bar '()["Select Parameter" oef-select-parameter :help "Select the fist «parameter»."])
 (easy-menu-add-item oef-menu-bar '()["Wims Session" nil t]); it's not a real connection (It just extract the session id from the URL)
-(easy-menu-add-item oef-menu-bar '("Wims Session")["Connect to Wims Session" oef-get-wims-session :help "Connect emacs to the active Wims Session if the URL is in the CLIPBOARD."]); it's not a real connection (It just extract the session id from the URL)
+(easy-menu-add-item oef-menu-bar '("Wims Session")["Connect to a Wims Session" oef-get-wims-session :help "Connect emacs to the active Wims Session if the URL is in the CLIPBOARD."]); it's not a real connection (It just extract the session id from the URL)
 (easy-menu-add-item oef-menu-bar '("Files") (get-examples)) ; we add the submenu `Examples' to the oef-menu-bar. This menu is not dynamic.
 (easy-menu-add-item oef-menu-bar '("Files")["Open All OEF Examples" oef-mode-open-all t]) ; we add the command "Open All OEF Examples" to the submenu `Examples' in the oef-menu-bar.
 ;; (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; deactivatedd (too slow)
-(easy-menu-add-item oef-menu-bar '("Initializations") (get-oef-exo-init-types)) ; we add the submenu `Exercices' to the oef-menu-bar.
+(easy-menu-add-item oef-menu-bar '("Initializations") (get-oef-exo-init-types)) ; we add the submenu `Exercises' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '("Initializations") (get-oef-doc-init-types)) ; we add the submenu `Documents' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-menu-oef-commands)) ; we add the submenu `Commands' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '("Commands") (get-menu-oef-special-commands)) ; we add the submenu `Special' in menu `Commands' to the oef-menu-bar.
