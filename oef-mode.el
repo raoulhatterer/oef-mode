@@ -276,6 +276,9 @@
 
 ;;---- VARS --------------------------------------------------------------------
 
+(defvar oef-french-words-same-as-keywords
+  '("la solution" "une solution" "d'une solution"))
+
 (defvar oef-menu-answers-options ; "STAR BLANK TYPE" or "BLANK BLANK BLANK OPTION" in the menu DONE
   '("type=" "option=" "weight=" "* type=default"
     "* type=raw"
@@ -427,7 +430,7 @@
     "ref"
     "href"
     "reload"
-    "slib"
+    ;"slib"
     "tooltip"
     "while")
   )
@@ -867,16 +870,13 @@
       (if (string-match url link)
 	  (progn
 	    (setq oef-wims-session  (substring-no-properties (replace-regexp-in-string ".*session=" "" (gui-get-selection 'CLIPBOARD)) 0 10))
-	    (momentary-string-display
-	     (concat "*** Connected to Wims Session : " oef-wims-session " ***")
-	     (point) ?\r
-	     "Type RET when done reading")
-	    )
+	    (message (concat "Connected to Wims Session : " oef-wims-session)))
         (error "No wims URL with session on the clipboard")))))
 
 (defun oef-edit-exercise-in-browser()
   "Edit file in browser."
   (interactive)
+  (oef-copy-all-or-region)  
   (let ((oef-filename (file-name-nondirectory (buffer-file-name))))
     (browse-url (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".3&+lang=fr&+module=adm%2Fmodtool&+cmd=reply&+jobreq=edfile&+fname=src%2F" oef-filename))))
 
@@ -1447,6 +1447,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("^[:blank:]*#.*" . 'oef-font-comment-face) ; comments
      ("^[:blank:]*:%%.*" . 'oef-font-comment-face) ; comments
      ("«[^»]*\n?[^»]*»" . 'oef-font-documentation-face) ; documentation
+     (,(regexp-opt oef-french-words-same-as-keywords 'words) . 'default)
 ;     ("^ *<\\(li\\)>.*?</\\(li\\)> *$"(1 'oef-font-litag-face)(2 'oef-font-litag-face)) ; <li> </li>
      ("<\\(li\\)[^>]*>"(1 'oef-font-litag-face)) ; <li>
      ("</\\(li\\)>"(1 'oef-font-litag-face)) ;  </li>
@@ -1455,6 +1456,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("{[^}^{]*\\(>\\|<\\|!=\\)[^{]+}" 1 'oef-font-keyword-face) ;  "<" ">" "!=" comparison (must be after the precedent line)
      ;; There are text properties here: (face oef-font-keyword-face fontified t) see describe-char
      ("\\(real\\|complex\\|text\\|integer\\|rational\\|function\\|matrix\\){\\\\\\w* ?=" . 'oef-font-warning-face) ; warning '\varName=' instead of 'varName='
+     (,(regexp-opt oef-slib-scripts 'words) . 'oef-font-keyword-face) ; slib scripts (some scripts stats with text/) 
      (,(regexp-opt oef-storage-types 'words) . 'oef-font-type-face) ; types : text, integer, real...
      ("^\\\\statement{" . 'oef-font-statement-command-face) ; command statement
      ("^\\\\answer{[^}]*}" . 'oef-font-answer-command-face) ; command answer
@@ -1470,11 +1472,10 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      (,(regexp-opt oef-answers-options 'symbols) . 'oef-font-answer-type-face)
      (,(regexp-opt oef-defined-variables 'words) . 'oef-font-variable-name-face)
      (,(regexp-opt oef-wims-functions 'words) . 'oef-font-keyword-face)
-     (,(regexp-opt oef-slib-scripts 'words) . 'oef-font-keyword-face)
      (,(regexp-opt oef-pari-functions 'words) . 'oef-font-keyword-face)
      (,(regexp-opt oef-maths-functions 'words) . 'oef-font-keyword-face)
      (,(regexp-opt oef-random-functions 'words) . 'oef-font-keyword-face)
-     ("\\(\\w*\\)\\(pari\\|maxima\\|yacas\\|wims\\|draw\\|slib\\|teximg)\\)(" 2 'oef-font-function-name-face) ; advanced functions
+     ("\\(\\w*\\)\\(pari\\|maxima\\|yacas\\|wims\\|draw\\|slib\\|teximg)\\)(" 2 'oef-font-keyword-face) ; advanced functions
      ("\\(\\\\\\w+\\){" 1 'oef-font-warning-face) ; unknown '\command{'
      ("\\(\\\\\\){" 1 'oef-font-positivenumber-face) ; latex expression \{}
      ("\\\\\\w+\\([0-9]?_?\\w?\\)*" . 'oef-font-variable-name-face) ; '\variable'
