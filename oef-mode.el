@@ -1513,7 +1513,19 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "C-o C-p") 'oef-select-parameter) ;
   (define-key oef-mode-map (kbd "C-o c") 'oef-comment-toggle) ;
   (define-key oef-mode-map (kbd "C-o ws") 'oef-get-wims-session) ;
-  (define-key oef-mode-map (kbd "C-o hl") 'oef-highlight-variable) ;   
+  (define-key oef-mode-map (kbd "C-o hl") 'oef-highlight-variable) ;
+  (define-key oef-mode-map (kbd "<down-mouse-1>") ; toogle oef-variable highlighting on mouse click
+    (lambda (event)
+      (interactive "e")
+;      (message "%s" event)
+      (let ((posn (elt event 1)))		
+        (with-selected-window (posn-window posn)
+          (goto-char (posn-point posn))
+      	(oef-highlight-variable)))))
+
+
+
+  
 
   ;; not working:
   ;; (define-key oef-mode-map (kbd "C-*") '(lambda ()
