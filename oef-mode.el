@@ -926,24 +926,24 @@
 (defun oef-copy-all-or-region ()
   "Put the whole buffer content to `kill-ring', or text selection if there's one."
   (interactive)
-  (if (use-region-p)
+  (if (featurep 'aquamacs)
+      ;; aquamacs cop all or region
+      (if (use-region-p)
+	  (progn
+	    (clipboard-kill-ring-save-active-region (region-beginning)(region-end))
+	    (message "Text selection copied."))
+	(progn
+	  (mark-whole-buffer)
+	  (clipboard-kill-ring-save (point-min)(point-max))
+	  (message "Buffer content copied.")))
+    ;; emacs copy all or region 
+    (if (use-region-p)
+	(progn
+	  (kill-new (buffer-substring (region-beginning) (region-end)))
+	  (message "Text selection copied."))
       (progn
-        (kill-new (buffer-substring (region-beginning) (region-end)))
-        (message "Text selection copied."))
-    (progn
-      (kill-new (buffer-string))
-      (message "Buffer content copied."))))
-
-
-;; (defun insert-url-as-org-link-sparse ()
-;;   "If there's a URL on the clipboard, insert it as an org-mode link in the form of [[url]]."
-;;   (interactive)
-;;   (let ((link (substring-no-properties (x-get-selection 'CLIPBOARD)))
-;;         (url  "\\(http[s]?://\\|www\\.\\)"))
-;;     (save-match-data
-;;       (if (string-match url link)
-;;           (insert (concat "[[" link "]]"))
-;;         (error "No URL on the clipboard")))))
+	(kill-new (buffer-string))
+	(message "Buffer content copied.")))))
 
 (defun oef-get-wims-session ()
   "Extract the wims session if there's a URL from a wims session on the clipboard."
@@ -1450,6 +1450,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '()["Select Parameter" oef-select-parameter :help "Select the fist «parameter»."])
 (easy-menu-add-item oef-menu-bar '()["Wims Session" nil t]); it's not a real connection (It just extract the session id from the URL)
 (easy-menu-add-item oef-menu-bar '("Wims Session")["Connect to a Wims Session" oef-get-wims-session :help "Connect emacs to the active Wims Session if the URL is in the CLIPBOARD."]); it's not a real connection (It just extract the session id from the URL)
+(easy-menu-add-item oef-menu-bar '("Wims Session")["Edit Exercise in Browser" oef-edit-exercise-in-browser :help "If the connection with the server is active,\n edit the Exercice wich has the same name on the WIMS server.\n Also copy the buffer content in the CLIPBOARD."]);
+(easy-menu-add-item oef-menu-bar '("Wims Session")["Edit Document in Browser" oef-edit-document-in-browser :help "If the connection with the server is active,\n edit the Document wich has the same name on the WIMS server.\n Also copy the buffer content in the CLIPBOARD."]);
 (easy-menu-add-item oef-menu-bar '("Files") (get-examples)) ; we add the submenu `Examples' to the oef-menu-bar. This menu is not dynamic.
 (easy-menu-add-item oef-menu-bar '("Files")["Open All OEF Examples" oef-mode-open-all t]) ; we add the command "Open All OEF Examples" to the submenu `Examples' in the oef-menu-bar.
 ;; (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; deactivatedd (too slow)
@@ -1514,6 +1516,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "C-o c") 'oef-comment-toggle) ;
   (define-key oef-mode-map (kbd "C-o ws") 'oef-get-wims-session) ;
   (define-key oef-mode-map (kbd "C-o hl") 'oef-highlight-variable) ;
+  (define-key oef-mode-map (kbd "C-o ee") 'oef-edit-exercise-in-browser) ;
+  (define-key oef-mode-map (kbd "C-o ed") 'oef-edit-document-in-browser) ;
   (define-key oef-mode-map (kbd "<down-mouse-1>") ; toogle oef-variable highlighting on mouse click
     (lambda (event)
       (interactive "e")
