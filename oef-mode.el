@@ -103,6 +103,11 @@
 
 (require 'rainbow-mode) ;; Auto-start CSS colorization
 (require 'rainbow-delimiters) ;; Auto-start parens matching
+;(when (featurep 'aquamacs)
+;  (require 'osx-browse)
+;  (osx-browse-mode 1))
+
+
 (add-hook 'sgml-mode-hook 'oef-mode-hook)
 (defun oef-mode-hook ()
   "Activation of some usefull minor modes."
@@ -962,7 +967,7 @@
   (interactive)
   (oef-copy-all-or-region)  
   (let ((oef-filename (file-name-nondirectory (buffer-file-name))))
-    (browse-url (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".3&+lang=fr&+module=adm%2Fmodtool&+cmd=reply&+jobreq=edfile&+fname=src%2F" oef-filename))))
+    ( (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".3&+lang=fr&+module=adm%2Fmodtool&+cmd=reply&+jobreq=edfile&+fname=src%2F" oef-filename))))
 
 (defun oef-edit-document-in-browser()
   "Edit file in browser."
@@ -970,8 +975,6 @@
   (oef-copy-all-or-region)
   (let ((oef-filename (file-name-nondirectory (buffer-file-name))))
     (browse-url (replace-regexp-in-string ".oef" "" (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".3&+lang=fr&+module=adm%2Fdoc&+cmd=reply&+job=edit&+doc=1&+block=" oef-filename)))))
-
-;http://wims.unice.fr/wims/wims.cgi?session=B6EB14AF5B.10&+lang=fr&+module=adm%2Fdoc&+cmd=reply&+job=edit&+doc=1&+block=Chapitre1
 
 (defun oef-select-parameter ()
 "Select the first «parameter» from the point."
@@ -1507,7 +1510,6 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     (progn    ; if the background is dark
       (set-face-attribute 'oef-font-h1text-face nil :inherit 'oef-font-h1text-darkbg-face)
       (set-face-attribute 'oef-font-h2text-face nil :inherit 'oef-font-h2text-darkbg-face)))
-
 
   ;; key binding
   (define-key oef-mode-map (kbd "C-x RET RET") 'oef-mode-indent-region) ; indent-region with sgml-mode-syntax-table because with oef-syntax-table there are problems with the indentation
