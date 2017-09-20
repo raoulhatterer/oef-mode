@@ -360,7 +360,7 @@
 
 (defvar oef-definitions-commands ; in the menu DONE
   '("title{«Exercise Title»}"
-    "language{«en» or «fr»}"
+    "language{«en or fr»}"
     "author{«forename1»,«name1»;«forename2»,«name2»}"
     "email{«email1»,«email2»}"
     "format{html}"
@@ -967,7 +967,8 @@
   (interactive)
   (oef-copy-all-or-region)  
   (let ((oef-filename (file-name-nondirectory (buffer-file-name))))
-    ( (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".3&+lang=fr&+module=adm%2Fmodtool&+cmd=reply&+jobreq=edfile&+fname=src%2F" oef-filename))))
+    (browse-url  (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".3&+lang=fr&+module=adm%2Fmodtool&+cmd=reply&+jobreq=edfile&+fname=src%2F" oef-filename))))
+;http://wims.unice.fr/wims/wims.cgi?session=GMFC9EC783.24&+lang=fr&+module=adm%2Fmodtool&+cmd=reply&+jobreq=edfile&+fname=DistinguerPigmentColorant
 
 (defun oef-edit-document-in-browser()
   "Edit file in browser."
