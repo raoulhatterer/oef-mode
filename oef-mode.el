@@ -158,8 +158,8 @@
 (defface oef-font-answer-command-face
   '((t
      (:box
-      (:line-width 4 :color "orange red" :style nil)
-      :inverse-video t :inherit
+      (:line-width 1 :color "orange red" :style nil)
+      :inherit
       (oef-font-command-face))))
   "Face for answer command"
   :group 'oef-mode-faces)
@@ -167,8 +167,8 @@
 (defface oef-font-hint-command-face
   '((t
      (:box
-      (:line-width 2 :color "orange red" :style nil)
-      :inverse-video t :inherit
+      (:line-width 1 :color "orange red" :style nil)
+      :inherit
       (oef-font-command-face))))
   "Face for hint command"
   :group 'oef-mode-faces)
@@ -280,6 +280,9 @@
   :group 'oef-mode-faces)
 
 ;;---- VARS --------------------------------------------------------------------
+
+(defvar oef-line-spacing   0.1
+  "Additional space to put between lines when displaying a buffer.")
 
 (defvar oef-french-words-same-as-keywords
   '("la solution" "une solution" "d'une solution"))
@@ -1504,6 +1507,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   "oef-mode"
   "'Online Exercise Format' mode"
 
+  (setq line-spacing oef-line-spacing)
   (if (string= (frame-parameter nil 'background-mode) "light") ; test if the background is light (or dark)
       (progn      ; if the background is light
         (set-face-attribute 'oef-font-h1text-face nil :inherit 'oef-font-h1text-lightbg-face)
