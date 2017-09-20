@@ -1,0 +1,56 @@
+\title{«Exercise Title»}
+\language{ fr}
+\author{Raoul,Hatterer}
+\email{hatterer.raoul@gmail.com}
+\format{html}
+
+<!-- STYLE CSS juin 2017-->
+\css{
+<style type="text/css">
+h1 { 
+background-color: white;
+color: #2584AB; margin: 1% 1%; padding : 1%;}
+.énoncé { 
+background-color: #E7F7FF;
+color: black; margin: 1% 1%; padding : 1%;}
+.questions { 
+background-color: #CCF0FF;
+color: black; margin: 1% 1%; padding : 1%;}
+.solution { background-color: #D6E4C1;
+color : green  ;margin: 0; padding : 1% 5% 5% 5%;}
+.définition { background-color: #FFBF7F;
+color : black  ;margin: 0 10% 0 10%; padding : 1% 1% 1% 1%;}
+h1.solution { background-color: #C5E0A2;
+color: green; margin: 5% 0 1% -5pt; padding : 1%;}
+</style> 
+}
+
+\statement{
+
+<h1>Énoncé</h1>
+<div class="énoncé">
+  
+</div>
+
+<h1> Questions</h1>
+<div class="questions">
+  <ul>
+    <li> Quels sont ...? \embed{reply1}</li>
+    <li> Quels sont ...? \embed{reply2}</li>
+  </ul>
+</div>
+}
+
+\answer{«message»}{«goodAnswer»}{«&opt:type=»}{«&opt:option=»}{«&opt:weight=»}
+\answer{un commentaire}{\rep}{type=raw} <!-- texte brut -->
+\answer{un commentaire}{\rep}{type=numeric}
+\answer{un commentaire}{\rep}{type=numeric}{option=comma}
+\answer{Commentaire}{BonneRéponse|Synonyme1|Synonyme2;MauvaiseRéponse1|MauvaiseRéponse2}{type=atext}
+<!-- atext : éléments essentiels des textes -->
+\answer{Commentaire}{1,4;juste1,faux1,très faux,juste2,faux2,faux3}{type=radio}
+\answer{question 1}{1,4;juste1,faux1,très faux,juste2,faux2,faux3}{type=checkbox}
+\answer{Commentaire}{1,4;juste1,faux1,très faux,juste2,faux2,faux3}{type=menu}
+
+\solution{
+<p></p>
+}
