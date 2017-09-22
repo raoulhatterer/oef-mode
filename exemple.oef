@@ -23,7 +23,7 @@
 \text{choix = oui,non,on ne peut pas savoir}
 <!-- mouvement -->
 \text{mouvement = \facteur = 1? rectiligne uniforme: rectiligne varié}
-\text{\if{ \facteur > 1}{mouvement = rectiligne décéléré}}
+\text{mouvement = \facteur > 1? rectiligne accéléré}
 \text{mouvement = \facteur < 1? rectiligne accéléré}
 
 <!-- parachute déployé ? -->
@@ -148,15 +148,6 @@ text black,-1, 0, medium, S
     donc 2 chiffres significatifs. Une calculatrice en mode scientifique est capable d'afficher la réponse sous cette forme.
   </P>
 
-  <h1 class="solution">Les forces se compensent-elles ?</h1>
-  Le vecteur \{\vec{P}} représente l'action de la Terre (action à distance de la planète)
-  sur le système (parachutiste avec son équipement) sous la forme d'une force que l'on appelle le poids.
-  Le vecteur \{\vec{f}} représente l'action de l'air (action de contact)
-  sur le système sous la forme d'une force que l'on appelle la force de frottements.
-  Les deux vecteurs ont la même direction (verticale) et des sens opposés.
-  Si les forces se compensent, les vecteurs ont la même longueur.
-  Ici, les forces \if{\compensent = 1}{se compensent}{ne se compensent pas}.
-
   <h1 class="solution">Quelle est la nature du mouvement ?</h1>
   Le principe d'inertie permet de répondre à cette question.
   <h2>Le principe d'inertie dit que</h2>
@@ -180,7 +171,7 @@ text black,-1, 0, medium, S
       Par conséquent, son intensité finira par atteindre celle du poids.
       À partir de ce moment, les forces se compensent et le mouvement est uniforme. </li>
     <li> Lorsque le parachutiste déploie son parachute, la force de frottements augmente brutalement, la vitesse du parachutiste décroit.
-      À mesure que la vitesse décroit, la force de frottement décroit jusqu'à ce que son intensité atteigne celle du poids.
+      À mesure que la vitesse décroît, la force de frottement décroit jusqu'à ce que son intensité atteigne celle du poids.
       Le parachutiste cesse de ralentir et continue sa descente à vitesse constante.
     </li>
   </ul>
@@ -195,15 +186,15 @@ text black,-1, 0, medium, S
   \if{\mouvement issametext rectiligne décéléré}{Le mouvement est rectiligne décéléré
   donc le parachute est déployé.
   Explications: Lorsque le parachutiste déploie son parachute, la force de frottements augmente brutalement,
-  la vitesse du parachutiste décroit.
-  À mesure que la vitesse décroit, la force de frottement décroit jusqu'à ce que son intensité atteigne
+  la vitesse du parachutiste décroît.
+  À mesure que la vitesse décroît, la force de frottement décroit jusqu'à ce que son intensité atteigne
   celle du poids (mais on a pas encore atteint ce stade).
   Le parachutiste cesse de ralentir et continue sa descente à vitesse constante. }
 
   <h1 class="solution">Le parachutiste s'est posé au sol</h1>
-  Le vecteur \{\vec{P}} représente l'action de la Terre (action à distance de la planète)
+  Le vecteur \(\vec{P}) représente l'action de la Terre (action à distance de la planète)
   sur le système  sous la forme d'une force que l'on appelle le poids.
-  Le vecteur \{\vec{R}} représente l'action du sol (action de contact)
+  Le vecteur \(\vec{R}) représente l'action du sol (action de contact)
   sur le système sous la forme d'une force que l'on appelle la force de réaction.
   Le corps est immobile au sol. Donc, d'après le principe de l'inertie,
   les forces se compensent.

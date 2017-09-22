@@ -7,21 +7,21 @@
 <!-- STYLE CSS juin 2017-->
 \css{
 <style type="text/css">
-h1 { 
-background-color: white;
-color: #2584AB; margin: 1% 1%; padding : 1%;}
-.énoncé { 
-background-color: #E7F7FF;
-color: black; margin: 1% 1%; padding : 1%;}
-.questions { 
-background-color: #CCF0FF;
-color: black; margin: 1% 1%; padding : 1%;}
-.solution { background-color: #D6E4C1;
-color : green  ;margin: 0; padding : 1% 5% 5% 5%;}
-.définition { background-color: #FFBF7F;
-color : black  ;margin: 0 10% 0 10%; padding : 1% 1% 1% 1%;}
-h1.solution { background-color: #C5E0A2;
-color: green; margin: 5% 0 1% -5pt; padding : 1%;}
+  h1 { 
+  background-color: white;
+  color: #2584AB; margin: 1% 1%; padding : 1%;}
+  .énoncé { 
+  background-color: #E7F7FF;
+  color: black; margin: 1% 1%; padding : 1%;}
+  .questions { 
+  background-color: #CCF0FF;
+  color: black; margin: 1% 1%; padding : 1%;}
+  .solution { background-color: #D6E4C1;
+  color : green  ;margin: 0; padding : 1% 5% 5% 5%;}
+  .définition { background-color: #FFBF7F;
+  color : black  ;margin: 0 10% 0 10%; padding : 1% 1% 1% 1%;}
+  h1.solution { background-color: #C5E0A2;
+  color: green; margin: 5% 0 1% -5pt; padding : 1%;}
 </style> 
 }
 
@@ -51,6 +51,17 @@ color: green; margin: 5% 0 1% -5pt; padding : 1%;}
 \answer{question 1}{1,4;juste1,faux1,très faux,juste2,faux2,faux3}{type=checkbox}
 \answer{Commentaire}{1,4;juste1,faux1,très faux,juste2,faux2,faux3}{type=menu}
 
+
 \solution{
-<p></p>
+<div class="solution">
+
+  <h1 class="solution">Un titre</h1>
+  <h2>Un sous-titre</h2>
+  <div class="définition">
+    Une définition
+  </div>
+  <p class="wimscenter">
+    Un truc à center
+  </p>
+</div>
 }
