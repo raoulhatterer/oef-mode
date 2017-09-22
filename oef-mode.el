@@ -872,14 +872,14 @@
 (defun oef-hl-on()
   "The user wants to highlight the variable at point."
   (setq oef-highlighted-variable (word-at-point)) ; store word at point as the variable name
-  (highlight-phrase (concat "\\({" oef-highlighted-variable "\\b\\|\\\\" oef-highlighted-variable "\\b\\)")) ; highlight the variable
+  (highlight-phrase (concat "\\({" oef-highlighted-variable "\\b\\|\\b" oef-highlighted-variable "\\b\\|\\\\" oef-highlighted-variable "\\b\\)")) ; highlight the variable
   (message (concat "Highlight OEF variable " oef-highlighted-variable)) ; prompt a message
   )
 
 (defun oef-hl-off ()
   "The user wants to unhighlight the variable."
   (message (concat "Unhighlight OEF variable " oef-highlighted-variable))
-  (unhighlight-regexp (concat "\\({" oef-highlighted-variable "\\b\\|\\\\" oef-highlighted-variable "\\b\\)"))
+  (unhighlight-regexp (concat "\\({" oef-highlighted-variable "\\b\\|\\b" oef-highlighted-variable "\\b\\|\\\\" oef-highlighted-variable "\\b\\)"))
   (setq oef-highlighted-variable nil)
   )
 
@@ -890,8 +890,12 @@
   (if oef-highlighted-variable
       ;; a VARIABLE is HIGHLIGHTED
       ;; then we have to find out: is the point on a variable definition ?
-      (if  (looking-back "\\\\\\(real\\|complex\\|text\\|integer\\|rational\\|function\\|matrix\\){\\w*" (line-beginning-position))
-	  ;; the point is on an  oef-VARIABLE DEFINITION (exercise format)
+      (if  (or
+	    ;; is the point on an  oef-VARIABLE DEFINITION (exercise format) ?
+	    (looking-back "\\\\\\(real\\|complex\\|text\\|integer\\|rational\\|function\\|matrix\\){\\w*" (line-beginning-position))
+	    ;; or is the point on an  oef-VARIABLE DEFINITION (document format) ?
+	    (looking-back "\\\\def{\\(real\\|complex\\|text\\|integer\\|rational\\|function\\|matrix\\) *\\w*" (line-beginning-position))
+	    )
 	  ;; we have to check if the variable is the same
 	  (if (string-equal (word-at-point) oef-highlighted-variable)
 	      ;; THE VARIABLE IS THE SAME: the user wants to unhighlight the variable
@@ -913,14 +917,14 @@
 	      ;; IT'S AN OEF-VARIABLE
 	      ;; we have to check if the variable is the same
 	      (if (string-equal (word-at-point) oef-highlighted-variable)
-	      ;; THE VARIABLE IS THE SAME: the user wants to unhighlight the variable
+		  ;; THE VARIABLE IS THE SAME: the user wants to unhighlight the variable
 		  (oef-hl-off)
 		;; THE VARIABLE IS DIFFERENT: the user wants to highlight a new variable
-		 (progn
-	      (oef-hl-off) ; old variable
-	      (oef-hl-on)  ; new variable
-	      )
-		  )		
+		(progn
+		  (oef-hl-off) ; old variable
+		  (oef-hl-on)  ; new variable
+		  )
+		)		
 	      )
 	  ;;  no the point is neither on an oef-command `\commandName{' nor in an oef-variable `\variableName'
 	  (oef-hl-off)
@@ -928,21 +932,25 @@
 	); end if
     ;; else HIGHLIGHTING is OFF
     ;; then we have to find out: is the point on a variable definition ?
-    (if  (looking-back "\\\\\\(real\\|complex\\|text\\|integer\\|rational\\|function\\|matrix\\){\\w*" (line-beginning-position))
-	;; the point is on an  oef-VARIABLE DEFINITION (exercise format)
+    (if (or
+	 ;; is the point on an  oef-VARIABLE DEFINITION (exercise format) ?
+	 (looking-back "\\\\\\(real\\|complex\\|text\\|integer\\|rational\\|function\\|matrix\\){\\w*" (line-beginning-position))
+	 ;; or is the point on an  oef-VARIABLE DEFINITION (document format) ?
+	 (looking-back "\\\\def{\\(real\\|complex\\|text\\|integer\\|rational\\|function\\|matrix\\) *\\w*" (line-beginning-position))
+	 )
 	(oef-hl-on)
       ;; else the point is  NOT on an oef-VARIABLE DEFINITION (exercise format)
       ;; perhaps the point is on an oef-command `\commandName{' or oef-variable `\variableName'
-      	(if  (looking-back "\\\\[[:alpha:]]+[[:alnum:]]*" (line-beginning-position))
-	    ;;  yes the point is on an oef-command `\commandName{' or oef-variable `\variableName'
-	    ;; then we have to find-out if the point is on a command
-	    (if (looking-at "[[:alnum:]]*{")
-		;; IT'S AN OEF-COMMAND not an oef-variable
-		nil ; nothing to do (we keep the variables unlighted)
-	      ;; IT'S AN OEF-VARIABLE
-	      (oef-hl-on) 
-	      )
-	  )
+      (if  (looking-back "\\\\[[:alpha:]]+[[:alnum:]]*" (line-beginning-position))
+	  ;;  yes the point is on an oef-command `\commandName{' or oef-variable `\variableName'
+	  ;; then we have to find-out if the point is on a command
+	  (if (looking-at "[[:alnum:]]*{")
+	      ;; IT'S AN OEF-COMMAND not an oef-variable
+	      nil ; nothing to do (we keep the variables unlighted)
+	    ;; IT'S AN OEF-VARIABLE
+	    (oef-hl-on) 
+	    )
+	)
       );end if
     );end if
   )
@@ -1454,7 +1462,7 @@ On isolated blank line, delete that one.\n
 On nonblank line, delete any immediately following blank lines.")) ;`Delete Blank Lines' added to Text menu-bar
     (define-key map [menu-bar text clear delete-horizontal-space] '(menu-item "Delete All Spaces" delete-horizontal-space)) ;`Delete All Spaces' added to Text menu-bar
     (define-key map [menu-bar text clear just-one-space] '(menu-item "Just One Space" just-one-space)) ;`Just One Space' added to Text menu-bar
-    (define-key map [menu-bar text highlight] '(menu-item "Highlight oef Variable (toggle)" oef-highlight-variable)) ;`Highlight oef variable' added to Text menu-bar
+    (define-key map [menu-bar text highlight] '(menu-item "Highlight Variable at point (toggle)" oef-highlight-variable)) ;`Highlight oef variable' added to Text menu-bar
 
     ;;--------------------------------------------------------------------------
     ;; "C-c <LETTER>" are reserved for users
@@ -1468,6 +1476,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-define oef-menu-bar oef-mode-map "OEF-mode menu"
   '("OEF" ; we start by creating a menu that is initially empty. This menu will be called "OEF" in the menu-bar.
     ["Comment (toogle)" oef-comment-toggle t] ; toogle a command as comment ;
+    ["Highlight Variable at point (toggle)" oef-highlight-variable t] ;`Highlight oef variable' added to Text menu-bar
     ))
 
 (easy-menu-add-item oef-menu-bar '()["Select Parameter" oef-select-parameter :help "Select the fist «parameter»."])
@@ -1538,7 +1547,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "C-o C-p") 'oef-select-parameter) ;
   (define-key oef-mode-map (kbd "C-o c") 'oef-comment-toggle) ;
   (define-key oef-mode-map (kbd "C-o ws") 'oef-get-wims-session) ;
-  (define-key oef-mode-map (kbd "C-o hl") 'oef-highlight-variable) ;
+  (define-key oef-mode-map (kbd "C-o C-o") 'oef-highlight-variable) ;
   (define-key oef-mode-map (kbd "C-o ee") 'oef-edit-exercise-in-browser) ;
   (define-key oef-mode-map (kbd "C-o ed") 'oef-edit-document-in-browser) ;
   (define-key oef-mode-map (kbd "<down-mouse-1>") ; toogle oef-variable highlighting on mouse click
