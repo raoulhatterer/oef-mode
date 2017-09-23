@@ -1400,34 +1400,55 @@ the first line which has bad indentation.  Then you can call `oef-mode-indent-re
                    (list (region-beginning) (region-end))
                  ;; Operate on the current line if region is not to be used.
                  (list (line-beginning-position) (line-end-position))))
+  (with-syntax-table sgml-mode-syntax-table (indent-region start end))
+  )
 
-  (with-syntax-table sgml-mode-syntax-table
-    (indent-region start end)
-    ))
-
-(defun oef-comment-toggle ()
-  "Turn a command on or off by adding comment on the beginning of the line."
-  (interactive)
+(defun oef-comment-toggle (start end)
+  "Comment or uncomment a line a region or a command."
+  (interactive (if (use-region-p)
+                   (list (region-beginning) (region-end))
+                 ;; Operate on the current line if region is not to be used.
+                 (list (line-beginning-position) (line-end-position))))
   (move-beginning-of-line nil)
   (delete-horizontal-space)
   (if (looking-at "\\\\comment{") ;if the line start with  \comment{
       ;; then we remove the comment to restore  \command{
-      (progn
-	(forward-char)
-	(kill-word 1)
-	(delete-char 1)
-	(forward-word)
-	(delete-char 1)
-	;;(move-beginning-of-line nil)
-	(oef-mode-indent-region (line-beginning-position) (line-end-position)))
+      (if (looking-at "\\\\comment{\\w*}{") ;if the line start with  \comment{commandName}{
+	  ;; it's a commented command
+	  (progn
+	    (forward-char)
+	    (kill-word 1)
+	    (delete-char 1)
+	    (forward-word)
+	    (delete-char 1)
+	    (oef-mode-indent-region (line-beginning-position) (line-end-position)))
+	;;it's a commented text
+	(progn
+	  (kill-word 1)
+	  (delete-char 1)
+	  (move-end-of-line 1)
+	  (delete-char -1)
+	  ))
     ;; else if the line don't start with a comment
-    (when (string= (string (following-char)) "\\") ;if the line start with a command we turn the line as comment
-      (forward-char)
-      (insert "comment{")
-      (forward-word)
-      (insert "}")
-      (move-beginning-of-line nil)
-      )))
+    (if (string= (string (following-char)) "\\") ;
+	;;if the line start with a command we turn the line as comment
+	(progn
+	  (forward-char)
+	  (insert "comment{")
+	  (forward-word)
+	  (insert "}")
+	  )
+      ;; if not it's a line or a region to turn in comment 
+      (progn
+	(goto-char start)
+	(insert "\\\comment{")
+	(goto-char (+ 9 end))
+	(insert "}")
+	)
+      ))
+  (move-beginning-of-line nil)
+  (forward-line 1)
+  )
 
 ;;----------------MENU----------------------------------------
 
