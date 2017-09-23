@@ -103,9 +103,9 @@
 
 (require 'rainbow-mode) ;; Auto-start CSS colorization
 (require 'rainbow-delimiters) ;; Auto-start parens matching
-;(when (featurep 'aquamacs)
-;  (require 'osx-browse)
-;  (osx-browse-mode 1))
+					;(when (featurep 'aquamacs)
+					;  (require 'osx-browse)
+					;  (osx-browse-mode 1))
 
 
 (add-hook 'sgml-mode-hook 'oef-mode-hook)
@@ -186,7 +186,7 @@
   :group 'oef-mode-faces)
 
 (defface oef-font-documentation-face
-   '((t :inherit font-lock-doc-face))
+  '((t :inherit font-lock-doc-face))
   "Face for documentation"
   :group 'oef-mode-faces)
 
@@ -454,7 +454,7 @@
     "ref"
     "href"
     "reload"
-    ;"slib"
+    ;;"slib"
     "tooltip"
     "while")
   )
@@ -831,7 +831,7 @@
 
 (defvar oef-random-functions ; in the menu TODO
   '("random" "randint" "shuffle" "randomitem" "randomrow")
-    "Used for highlighting.")
+  "Used for highlighting.")
 
 (defvar oef-example-files
   nil
@@ -867,7 +867,6 @@
 (defvar oef-highlighted-variable
   nil
   )
-;"\\({m\\b\\|\\\\m\\b\\)"
 
 (defun oef-hl-on()
   "The user wants to highlight the variable at point."
@@ -995,7 +994,6 @@
   (oef-copy-all-or-region)  
   (let ((oef-filename (file-name-nondirectory (buffer-file-name))))
     (browse-url  (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".3&+lang=fr&+module=adm%2Fmodtool&+cmd=reply&+jobreq=edfile&+fname=src%2F" oef-filename))))
-;http://wims.unice.fr/wims/wims.cgi?session=GMFC9EC783.24&+lang=fr&+module=adm%2Fmodtool&+cmd=reply&+jobreq=edfile&+fname=DistinguerPigmentColorant
 
 (defun oef-edit-document-in-browser()
   "Edit file in browser."
@@ -1005,7 +1003,7 @@
     (browse-url (replace-regexp-in-string ".oef" "" (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".3&+lang=fr&+module=adm%2Fdoc&+cmd=reply&+job=edit&+doc=1&+block=" oef-filename)))))
 
 (defun oef-select-parameter ()
-"Select the first «parameter» from the point."
+  "Select the first «parameter» from the point."
   (interactive)
   (move-beginning-of-line nil)
   (re-search-forward "«")
@@ -1015,7 +1013,7 @@
   )
 
 (defun get-examples ()
- "This function create a submenu with oef examples."
+  "This function create a submenu with oef examples."
   (easy-menu-create-menu
    "Examples"
    (mapcar                   ; (mapcar function sequence) mapcar applies function to each element of sequence, and returns a list of the results.
@@ -1034,7 +1032,7 @@
    )) ; end of defun get-examples
 
 (defun get-menu-oef-commands ()
- "This function create a submenu with ‘oef-commands’ from commands definitions in `oef-definitions-commands'."
+  "This function create a submenu with ‘oef-commands’ from commands definitions in `oef-definitions-commands'."
   (easy-menu-create-menu
    "Commands"
    (mapcar
@@ -1049,7 +1047,7 @@
    )) ; end of defun get-menu-oef-commands
 
 (defun get-menu-oef-special-commands ()
- "This function create a submenu `Special' with ‘oef-special-commands’."
+  "This function create a submenu `Special' with ‘oef-special-commands’."
   (easy-menu-create-menu
    "Special"
    (mapcar
@@ -1064,7 +1062,7 @@
    )) ; end of defun get-menu-oef-special-commands
 
 (defun get-oef-wims-functions ()
- "This function create a submenu `Wims Functions' with ‘oef-wims-functions’."
+  "This function create a submenu `Wims Functions' with ‘oef-wims-functions’."
   (easy-menu-create-menu
    "Wims Functions"
    (mapcar
@@ -1079,7 +1077,7 @@
    )) ; end of defun get-oef-wims-functions
 
 (defun get-oef-slib-scripts ()
- "This function create a submenu `Script Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Script Library' with ‘oef-slib-scripts’."
   (easy-menu-create-menu
    "Script Library"
    (mapcar
@@ -1100,16 +1098,16 @@
    (mapcar
     (lambda (x);             
       (vector  x ; each type or option in the submenu
-              `(lambda () (interactive)
-                 (insert (replace-regexp-in-string "   " "" (replace-regexp-in-string "* " "" ,x)))
-                 t))
+	       `(lambda () (interactive)
+		  (insert (replace-regexp-in-string "   " "" (replace-regexp-in-string "* " "" ,x)))
+		  t))
       )               ; end of the lamda expression
     oef-menu-answers-options ; sequence : here a list of string
     ) ; end of mapcar
    )) ; end of defun get-oef-answers-options
-  
+
 (defun get-oef-exo-init-types ()
- "This function create a submenu for variables initialization in an exercise."
+  "This function create a submenu for variables initialization in an exercise."
   (easy-menu-create-menu
    "Exercise"
    (mapcar
@@ -1124,7 +1122,7 @@
    )) ; end of defun get-oef-exo-init-types
 
 (defun get-oef-doc-init-types ()
- "This function create a submenu for variables initialization in an document."
+  "This function create a submenu for variables initialization in an document."
   (easy-menu-create-menu
    "Document"
    (mapcar
@@ -1139,45 +1137,45 @@
    )) ; end of defun get-oef-doc-init-types
 
 (defun get-oef-defined-variables ()
- "This function create a submenu for `oef-defined-variables'."
+  "This function create a submenu for `oef-defined-variables'."
   (easy-menu-create-menu
    "Defined Variables"
    (mapcar
     (lambda (x);             
       (vector  x ; each type name in the submenu
-              `(lambda () (interactive)
-                 (insert  ,x)
-                 t))
+	       `(lambda () (interactive)
+		  (insert  ,x)
+		  t))
       )               ; end of the lamda expression
     oef-defined-variables ; sequence : here a list of string
     ) ; end of mapcar
    )) ; end of defun get-oef-defined-variables
 
 (defun get-oef-comparison-operators ()
- "This function create a submenu for `oef-comparison-operators'."
+  "This function create a submenu for `oef-comparison-operators'."
   (easy-menu-create-menu
    "Comparisons"
    (mapcar
     (lambda (x);             
       (vector  x ; each type name in the submenu
-              `(lambda () (interactive)
-                 (insert  ,x)
-                 t))
+	       `(lambda () (interactive)
+		  (insert  ,x)
+		  t))
       )               ; end of the lamda expression
     oef-comparison-operators ; sequence : here a list of string
     ) ; end of mapcar
    )) ; end of defun get-oef-comparison-operators
 
 (defun get-oef-language-reserved-words ()
- "This function create a submenu for `oef-language-reserved-words'."
+  "This function create a submenu for `oef-language-reserved-words'."
   (easy-menu-create-menu
    "Reserved Words"
    (mapcar
     (lambda (x);             
       (vector  x ; each type name in the submenu
-              `(lambda () (interactive)
-                 (insert  ,x)
-                 t))
+	       `(lambda () (interactive)
+		  (insert  ,x)
+		  t))
       )               ; end of the lamda expression
     oef-language-reserved-words ; sequence : here a list of string
     ) ; end of mapcar
@@ -1188,7 +1186,7 @@
   (easy-menu-create-menu
    "Wims Session"
    (vector oef-wims-session nil t)
-  ))
+   ))
 
 ;; (defun get-my-oef-files () ;; deactivated because it's too slow with a lot of files
 ;;  "This function create a submenu with my oef files"
@@ -1217,7 +1215,7 @@
      (replace-regexp-in-string "{\\(.\\|\n\\)+}" "" command-definition)
      )
     )
-   (nreverse list-commands)
+  (nreverse list-commands)
   )
 
 (defun get-list-wims-functions (list-functions-definitions)
@@ -1230,7 +1228,7 @@
      (replace-regexp-in-string "wims(" "" (replace-regexp-in-string " «parameters»)" "" function-definition))
      )
     )
-   (nreverse list-functions)
+  (nreverse list-functions)
   ) ; end get-list-wims-functions
 
 (defun get-list-slib-scripts (list-functions-definitions)
@@ -1243,7 +1241,7 @@
      (replace-regexp-in-string "slib(" "" (replace-regexp-in-string " «parameters»)" "" function-definition))
      )
     )
-   (nreverse list-functions)
+  (nreverse list-functions)
   ) ; end get-list-slib-scripts
 
 (defun get-list-answers-options (list-options-definitions)
@@ -1256,7 +1254,7 @@
      (replace-regexp-in-string "   " "" (replace-regexp-in-string "* " "" option-definition))
      )
     )
-   (nreverse list-options)
+  (nreverse list-options)
   )
 
 (defun update-oef-menu ()
@@ -1264,7 +1262,7 @@
   (easy-menu-add-item oef-menu-bar
 		      '("Wims Session")
 		      [(if oef-wims-session (concat "Connected to : " oef-wims-session) "Not connected") nil :help "Actual reference to a  Wims Session ."])
-; (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; ; ;; desactivate because slowdown aquamacs
+  ;; (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; ; ;; desactivate because slowdown aquamacs
   )
 
 (defun oef-mode-open-all ()
@@ -1411,6 +1409,7 @@ the first line which has bad indentation.  Then you can call `oef-mode-indent-re
   "Turn a command on or off by adding comment on the beginning of the line."
   (interactive)
   (move-beginning-of-line nil)
+  (delete-horizontal-space)
   (if (looking-at "\\\\comment{") ;if the line start with  \comment{
       ;; then we remove the comment to restore  \command{
       (progn
@@ -1419,8 +1418,8 @@ the first line which has bad indentation.  Then you can call `oef-mode-indent-re
 	(delete-char 1)
 	(forward-word)
 	(delete-char 1)
-	(move-beginning-of-line nil)
-	)
+	;;(move-beginning-of-line nil)
+	(oef-mode-indent-region (line-beginning-position) (line-end-position)))
     ;; else if the line don't start with a comment
     (when (string= (string (following-char)) "\\") ;if the line start with a command we turn the line as comment
       (forward-char)
@@ -1448,7 +1447,7 @@ the first line which has bad indentation.  Then you can call `oef-mode-indent-re
     (define-key map [menu-bar text center-region] 'undefined) ;Text menu-bar item `Center region' suppressed
     (define-key map [menu-bar text center-paragraph] 'undefined) ;Text menu-bar item `Center paragraph' suppressed
     (define-key map [menu-bar text center-line] 'undefined) ;Text menu-bar item `Center line' suppressed
-    (define-key map [menu-bar text indent]    (cons "Indent" (make-sparse-keymap)))
+    (define-key map [menu-bar text indent]    (cons "OEF Indentation" (make-sparse-keymap)))
     (define-key map [menu-bar text indent indent-line] '(menu-item "Smart Indent Line" oef-mode-indent-line)) ;`Smart Indent Line' added to Text menu-bar
     (define-key map [menu-bar text indent indent-region] '(menu-item "Smart Indent Region" oef-mode-indent-region)) ;`Smart Indent Region' added to Text menu-bar
     (define-key map [menu-bar text indent indent-rigidly] '(menu-item "Indent Region" indent-rigidly)) ;`Indent Region' added to Text menu-bar
@@ -1462,7 +1461,7 @@ On isolated blank line, delete that one.\n
 On nonblank line, delete any immediately following blank lines.")) ;`Delete Blank Lines' added to Text menu-bar
     (define-key map [menu-bar text clear delete-horizontal-space] '(menu-item "Delete All Spaces" delete-horizontal-space)) ;`Delete All Spaces' added to Text menu-bar
     (define-key map [menu-bar text clear just-one-space] '(menu-item "Just One Space" just-one-space)) ;`Just One Space' added to Text menu-bar
-    (define-key map [menu-bar text highlight] '(menu-item "Highlight Variable at point (toggle)" oef-highlight-variable)) ;`Highlight oef variable' added to Text menu-bar
+
 
     ;;--------------------------------------------------------------------------
     ;; "C-c <LETTER>" are reserved for users
