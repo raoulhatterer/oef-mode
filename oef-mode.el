@@ -395,7 +395,7 @@
 «&opt:choice2,»«reply2»,«reply3»
 «&opt:choice3»}"
     "nextstep{<>}"
-    "statement{}"
+    "statement{«message»}"
     "answer{«message»}{«goodAnswer»}{«&opt:type=»}{«&opt:option=»}{«&opt:weight=»}"
     "choice{«message»}{«goodAnswers»}{«badAnswers»}{«&opt:option=»}{«&opt:weight=»}"
     "condition{«message»}{«conditions»}{«&opt:option=»}{«&opt:weight=»}"
@@ -466,13 +466,13 @@
 
 (defvar oef-menu-exo-init-types ; in the menu DONE
   '(
-    "real{}"
-    "complex{}"
-    "text{}"
-    "integer{}"
-    "rational{}"
-    "function{}"
-    "matrix{}"
+    "real{=}"
+    "complex{=}"
+    "text{=}"
+    "integer{=}"
+    "rational{=}"
+    "function{=}"
+    "matrix{=}"
     )
   "In this variable we have the definitions of variables initialization commands to be used in an exercise.  Used to get the 'Initialization menu' (thanks to `get-oef-exo-init-types').  See also `oef-storage-types' and `oef-menu-doc-init-types'."
   )
@@ -1114,7 +1114,7 @@
     (lambda (x);             
       (vector (replace-regexp-in-string "{\\(.\\|\n\\)*}" "" x) ; each command name in the submenu
               `(lambda () (interactive)
-                 (insert  (concat "\\" ,x))
+		 (insert  (concat "\\" ,x))
                  t))
       )               ; end of the lamda expression
     oef-menu-exo-init-types ; sequence : here a list of string
@@ -1514,8 +1514,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Files") (get-examples)) ; we add the submenu `Examples' to the oef-menu-bar. This menu is not dynamic.
 (easy-menu-add-item oef-menu-bar '("Files")["Open All OEF Examples" oef-mode-open-all t]) ; we add the command "Open All OEF Examples" to the submenu `Examples' in the oef-menu-bar.
 ;; (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; deactivatedd (too slow)
-(easy-menu-add-item oef-menu-bar '("Initializations") (get-oef-exo-init-types)) ; we add the submenu `Exercises' to the oef-menu-bar.
-(easy-menu-add-item oef-menu-bar '("Initializations") (get-oef-doc-init-types)) ; we add the submenu `Documents' to the oef-menu-bar.
+(easy-menu-add-item oef-menu-bar '("Initializations of Variables") (get-oef-exo-init-types)) ; we add the submenu `Exercises' to the oef-menu-bar.
+(easy-menu-add-item oef-menu-bar '("Initializations of Variables") (get-oef-doc-init-types)) ; we add the submenu `Documents' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-menu-oef-commands)) ; we add the submenu `Commands' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '("Commands") (get-menu-oef-special-commands)) ; we add the submenu `Special' in menu `Commands' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-answers-options)) ; we add the submenu `Answers types and options' to the oef-menu-bar.
