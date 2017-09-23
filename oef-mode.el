@@ -479,13 +479,13 @@
 
 (defvar oef-menu-doc-init-types ; in the menu DONE
   '(
-    "def{real }"
-    "def{complex }"
-    "def{text }"
-    "def{integer }"
-    "def{rational }"
-    "def{function }"
-    "def{matrix }"
+    "def{real =}"
+    "def{complex =}"
+    "def{text =}"
+    "def{integer =}"
+    "def{rational =}"
+    "def{function =}"
+    "def{matrix =}"
     )
   "In this variable we have the definitions of variables initialization commands to be used in a document.  Used to get the 'Initialization menu' (thanks to `get-oef-doc-init-types').  See also `oef-storage-types' and `oef-menu-exo-init-types'."
   )
@@ -1112,10 +1112,12 @@
    "Exercise"
    (mapcar
     (lambda (x);             
-      (vector (replace-regexp-in-string "{\\(.\\|\n\\)*}" "" x) ; each command name in the submenu
+      (vector (replace-regexp-in-string "{.*=.*}" "" x) ; each command name in the submenu
               `(lambda () (interactive)
-		 (insert  (concat "\\" ,x))
-                 t))
+		 (progn
+		   (insert  (concat "\\" ,x))
+		   (forward-char -2))
+		 t))
       )               ; end of the lamda expression
     oef-menu-exo-init-types ; sequence : here a list of string
     ) ; end of mapcar
@@ -1127,9 +1129,11 @@
    "Document"
    (mapcar
     (lambda (x);             
-      (vector (replace-regexp-in-string "Def{" "" (replace-regexp-in-string " }" "" x)) ; each type name in the submenu
+      (vector (replace-regexp-in-string "Def{" "" (replace-regexp-in-string " =}" "" x)) ; each type name in the submenu
               `(lambda () (interactive)
-                 (insert  (concat "\\" ,x))
+		 (progn
+		   (insert  (concat "\\" ,x))
+		   (forward-char -2))
                  t))
       )               ; end of the lamda expression
     oef-menu-doc-init-types ; sequence : here a list of string
