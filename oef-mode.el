@@ -1408,9 +1408,10 @@ the first line which has bad indentation.  Then you can call `oef-mode-indent-re
   (interactive (if (use-region-p)
                    (list (region-beginning) (region-end))
                  ;; Operate on the current line if region is not to be used.
-                 (list (line-beginning-position) (line-end-position))))
-  (move-beginning-of-line nil)
-  (delete-horizontal-space)
+		 (progn
+		   (move-beginning-of-line nil)
+		   (delete-horizontal-space)
+		   (list (line-beginning-position) (line-end-position)))))
   (if (looking-at "\\\\comment{") ;if the line start with  \comment{
       ;; then we remove the comment to restore  \command{
       (if (looking-at "\\\\comment{\\w*}{") ;if the line start with  \comment{commandName}{
@@ -1428,6 +1429,7 @@ the first line which has bad indentation.  Then you can call `oef-mode-indent-re
 	  (delete-char 1)
 	  (move-end-of-line 1)
 	  (delete-char -1)
+	  (oef-mode-indent-region (line-beginning-position) (line-end-position))
 	  ))
     ;; else if the line don't start with a comment
     (if (string= (string (following-char)) "\\") ;
@@ -1438,17 +1440,22 @@ the first line which has bad indentation.  Then you can call `oef-mode-indent-re
 	  (forward-word)
 	  (insert "}")
 	  )
-      ;; if not it's a line or a region to turn in comment 
+      ;; if not, it's a line or a region to turn in comment 
       (progn
 	(goto-char start)
-	(insert "\\\comment{")
+	(insert "\\comment{")
 	(goto-char (+ 9 end))
 	(insert "}")
 	)
       ))
-  (move-beginning-of-line nil)
-  (forward-line 1)
-  )
+  (if (= start end)
+      ;; if the line was empty put the cursor between the {} brackets so the user can start typing
+      (forward-char -1)
+    ;; else go to the beginning of the next line
+    (progn
+      (move-beginning-of-line nil)
+      (forward-line 1)
+      )))
 
 ;;----------------MENU----------------------------------------
 
