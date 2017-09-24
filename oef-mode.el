@@ -71,13 +71,38 @@
 ;; not in  ~/.emacs  witch is deprecated -- meaning 'should not be used for new installations,
 ;; but will continue to be supported' -- in Aquamacs on OS X)
 ;;vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-;;  (add-to-list 'load-path "~/Library/Preferences/Aquamacs Emacs/Packages/lisp/oef-mode/") ;; Tell Emacs where is your personal elisp lib dir
-;;  (load "oef-mode") ;; load the packaged named oef-mode (best not to include the ending “.el” or “.elc”)
+;;  (add-to-list 'load-path "~/Library/Preferences/Aquamacs Emacs/Packages/lisp/oef-mode/")
+;;  ;Tell Emacs where is your personal elisp lib dir
+;;  (load "oef-mode")
+;;  ; load the packaged named oef-mode (best not to include the ending “.el” or “.elc”)
 ;;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ;; before the line (package-initialize).
 ;; How to Debug Aquamacs if you need to:
 ;; Past the following command in a terminal:
 ;; /Applications/Aquamacs.app/Contents/MacOS/Aquamacs -nw --debug-init
+;;==============================================================================
+
+;;; Recommended packages:
+
+;;==============================================================================
+;; * emmet-mode
+;; oef-mode is derived from sgml-mode so if you have installed emmet-mode
+;; and added to your innit file:
+;;    (require 'emmet-mode)
+;;    (add-hook 'sgml-mode-hook 'emmet-mode) ; Auto-start on any markup modes
+;; `emmet-mode' will automatically start with oef-mode
+;; * company
+;; `Company' is a modular completion framework.  I recommend it.
+;; Enable `company-mode' in all buffers with M-x global-company-mode.
+;; * rainbow-delimiters
+;; add to your init file:
+;;    (require 'rainbow-delimiters)
+;;    (add-hook 'oef-mode-hook 'rainbow-delimiters-mode) ; Auto-start parens matching
+;; * rainbow-mode
+;; add to your init file:
+;;    (require 'rainbow-mode)
+;;    (add-to-list 'rainbow-html-colors-major-mode-list 'oef-mode) ; 
+;;    (add-hook 'oef-mode-hook 'rainbow-mode) ; Auto-start CSS colorization
 
 ;;==============================================================================
 
@@ -101,23 +126,10 @@
 
 ;;---- AUTO-START --------------------------------------------------------------
 
-(require 'rainbow-mode) ;; Auto-start CSS colorization
-(require 'rainbow-delimiters) ;; Auto-start parens matching
-					;(when (featurep 'aquamacs)
-					;  (require 'osx-browse)
-					;  (osx-browse-mode 1))
-
-
 (add-hook 'sgml-mode-hook 'oef-mode-hook)
 (defun oef-mode-hook ()
   "Activation of some usefull minor modes."
-  (setq rainbow-html-colors t)
-  (rainbow-mode 1)
-  (rainbow-delimiters-mode 1)
   )
-
-(require 'emmet-mode) ;; Auto-start emmet-mode
-(emmet-mode 1)
 
 ;;---- CONSTS ------------------------------------------------------------------
 
@@ -1521,6 +1533,9 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["Comment (toogle)" oef-comment-toggle t] ; toogle a command as comment ;
     ["Highlight Variable at point (toggle)" oef-highlight-variable t] ;`Highlight oef variable' added to Text menu-bar
     ))
+(easy-menu-add-item oef-menu-bar '()["Rainbow" nil t])
+(easy-menu-add-item oef-menu-bar '("Rainbow")["Delimiters (toogle)" rainbow-delimiters-mode])
+(easy-menu-add-item oef-menu-bar '("Rainbow")["Colors (toogle)" rainbow-mode])
 (easy-menu-add-item oef-menu-bar '()["Indent" nil t])
 (easy-menu-add-item oef-menu-bar '("Indent")["Indent line" oef-mode-indent-line])
 (easy-menu-add-item oef-menu-bar '("Indent")["Indent Region" indent-region])
