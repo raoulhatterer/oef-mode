@@ -140,6 +140,12 @@
 
 ;;---- FACES -------------------------------------------------------------------
 
+(defface oef-namespace
+  '((t (:inherit font-lock-builtin-face)))
+  "`oef-mode' face used to highlight the namespace part of identifiers."
+  :group 'oef-mode)
+(defvar oef-namespace-face 'oef-namespace)
+
 (defface oef-font-function-name-face
   '((t (:foreground "orange red")))
   "Face for functions"
@@ -871,7 +877,7 @@
 (defun oef-hl-on()
   "The user wants to highlight the variable at point."
   (setq oef-highlighted-variable (word-at-point)) ; store word at point as the variable name
-  (highlight-phrase (concat "\\({" oef-highlighted-variable "\\b\\|\\b" oef-highlighted-variable "\\b\\|\\\\" oef-highlighted-variable "\\b\\)")) ; highlight the variable
+  (highlight-regexp  (concat "\\({" oef-highlighted-variable "\\b\\|\\b" oef-highlighted-variable "\\b\\|\\\\" oef-highlighted-variable "\\b\\)")) ; highlight the variable
   (message (concat "Highlight OEF variable " oef-highlighted-variable)) ; prompt a message
   )
 
