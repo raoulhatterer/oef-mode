@@ -1399,19 +1399,26 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
   (insert "\\tooltip{«description»}{«&opt:options»}{«tooltip text»}")
   )
 
-
-(defun oef-mode-indent-region (start end)
-  "This fuction try to smartly indent the region selected.
+(defun oef-mode-indent-line ()
+  "This function try to smartly indent the line.
 
 It uses `sgml-mode-syntax-table' because with `oef-mode-syntax-table' there are more problems with indentation.
-If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigidly' for re-indent manually
-the first line which has bad indentation.  Then you can call `oef-mode-indent-region' again for the rest of the code."
-  (interactive (if (use-region-p)
-                   (list (region-beginning) (region-end))
-                 ;; Operate on the current line if region is not to be used.
-                 (list (line-beginning-position) (line-end-position))))
-  (with-syntax-table sgml-mode-syntax-table (indent-region start end))
-  )
+If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigidly' for re-indent manually"
+  (interactive)
+  (with-syntax-table sgml-mode-syntax-table (sgml-indent-line)))
+
+;; No more usefull since indent-line-function targets oef-mode-indent-line
+;; (defun oef-mode-indent-region (start end)
+;;   "This fuction try to smartly indent the region selected.
+;; It uses `sgml-mode-syntax-table' because with `oef-mode-syntax-table' there are more problems with indentation.
+;; If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigidly' for re-indent manually
+;; the first line which has bad indentation.  Then you can call `oef-mode-indent-region' again for the rest of the code."
+;;   (interactive (if (use-region-p)
+;;                    (list (region-beginning) (region-end))
+;;                  ;; Operate on the current line if region is not to be used.
+;;                  (list (line-beginning-position) (line-end-position))))
+;;   (with-syntax-table sgml-mode-syntax-table (indent-region start end))
+;;   )
 
 (defun oef-comment-toggle (start end)
   "Comment or uncomment a line a region or a command."
@@ -1432,14 +1439,17 @@ the first line which has bad indentation.  Then you can call `oef-mode-indent-re
 	    (delete-char 1)
 	    (forward-word)
 	    (delete-char 1)
-	    (oef-mode-indent-region (line-beginning-position) (line-end-position)))
+	    ;;(oef-mode-indent-region (line-beginning-position) (line-end-position)) 
+	    (indent-region (line-beginning-position) (line-end-position))
+	    )
 	;;it's a commented text
 	(progn
 	  (kill-word 1)
 	  (delete-char 1)
 	  (move-end-of-line 1)
 	  (delete-char -1)
-	  (oef-mode-indent-region (line-beginning-position) (line-end-position))
+	  ;;(oef-mode-indent-region (line-beginning-position) (line-end-position))
+	  (indent-region (line-beginning-position) (line-end-position))	  
 	  ))
     ;; else if the line don't start with a comment
     (if (string= (string (following-char)) "\\") ;
@@ -1485,10 +1495,6 @@ the first line which has bad indentation.  Then you can call `oef-mode-indent-re
     (define-key map [menu-bar text center-region] 'undefined) ;Text menu-bar item `Center region' suppressed
     (define-key map [menu-bar text center-paragraph] 'undefined) ;Text menu-bar item `Center paragraph' suppressed
     (define-key map [menu-bar text center-line] 'undefined) ;Text menu-bar item `Center line' suppressed
-    (define-key map [menu-bar text indent]    (cons "OEF Indentation" (make-sparse-keymap)))
-    (define-key map [menu-bar text indent indent-line] '(menu-item "Smart Indent Line" oef-mode-indent-line)) ;`Smart Indent Line' added to Text menu-bar
-    (define-key map [menu-bar text indent indent-region] '(menu-item "Smart Indent Region" oef-mode-indent-region)) ;`Smart Indent Region' added to Text menu-bar
-    (define-key map [menu-bar text indent indent-rigidly] '(menu-item "Indent Region" indent-rigidly)) ;`Indent Region' added to Text menu-bar
     (define-key map [menu-bar text transpose]    (cons "Transpose" (make-sparse-keymap)))
     (define-key map [menu-bar text transpose transpose-lines] '(menu-item "Transpose Lines" transpose-lines)) ;`Transpose Lines' added to Text menu-bar
     (define-key map [menu-bar text transpose transpose-words] '(menu-item "Transpose Words" transpose-words)) ;`Transpose Words' added to Text menu-bar
@@ -1515,7 +1521,10 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["Comment (toogle)" oef-comment-toggle t] ; toogle a command as comment ;
     ["Highlight Variable at point (toggle)" oef-highlight-variable t] ;`Highlight oef variable' added to Text menu-bar
     ))
-
+(easy-menu-add-item oef-menu-bar '()["Indent" nil t])
+(easy-menu-add-item oef-menu-bar '("Indent")["Indent line" oef-mode-indent-line])
+(easy-menu-add-item oef-menu-bar '("Indent")["Indent Region" indent-region])
+(easy-menu-add-item oef-menu-bar '("Indent")["Indent Rigidly" indent-rigidly])
 (easy-menu-add-item oef-menu-bar '()["Select Parameter" oef-select-parameter :help "Select the fist «parameter»."])
 (easy-menu-add-item oef-menu-bar '()["Wims Session" nil t]); it's not a real connection (It just extract the session id from the URL)
 (easy-menu-add-item oef-menu-bar '("Wims Session")["Connect to a Wims Session" oef-get-wims-session :help "Connect emacs to the active Wims Session if the URL is in the CLIPBOARD."]); it's not a real connection (It just extract the session id from the URL)
@@ -1568,8 +1577,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (define-derived-mode oef-mode sgml-mode
   "oef-mode"
   "'Online Exercise Format' mode"
-
-  (setq line-spacing oef-line-spacing)
+  (setq-local indent-line-function 'oef-mode-indent-line)
+  (setq-local line-spacing oef-line-spacing)
   (if (string= (frame-parameter nil 'background-mode) "light") ; test if the background is light (or dark)
       (progn      ; if the background is light
         (set-face-attribute 'oef-font-h1text-face nil :inherit 'oef-font-h1text-lightbg-face)
@@ -1579,7 +1588,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
       (set-face-attribute 'oef-font-h2text-face nil :inherit 'oef-font-h2text-darkbg-face)))
 
   ;; key binding
-  (define-key oef-mode-map (kbd "C-x RET RET") 'oef-mode-indent-region) ; indent-region with sgml-mode-syntax-table because with oef-syntax-table there are problems with the indentation
+  ;;(define-key oef-mode-map (kbd "C-x RET RET") 'oef-mode-indent-region) ; indent-region with sgml-mode-syntax-table because with oef-syntax-table there are problems with the indentation
   (define-key oef-mode-map (kbd "C-o") nil) ;
   (define-key oef-mode-map (kbd "C-o C-p") 'oef-select-parameter) ;
   (define-key oef-mode-map (kbd "C-o c") 'oef-comment-toggle) ;
@@ -1595,15 +1604,6 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
         (with-selected-window (posn-window posn)
           (goto-char (posn-point posn))
       	(oef-highlight-variable)))))
-
-
-
-  
-
-  ;; not working:
-  ;; (define-key oef-mode-map (kbd "C-*") '(lambda ()
-  ;;          (interactive)
-  ;;          (with-syntax-table sgml-mode-syntax-table (newline-and-indent))))
 
   ;; Warning: Major mode commands must not call font-lock-add-keywords under any
   ;; circumstances, either directly or indirectly, except through their mode hooks. (Doing
