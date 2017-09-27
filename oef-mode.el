@@ -847,7 +847,7 @@
   "Used for highlighting."
   )
 
-(defvar oef-random-functions ; in the menu TODO
+(defvar oef-random-functions ; in the menu DONE
   '("random" "randint" "shuffle" "randomitem" "randomrow")
   "Used for highlighting.")
 
@@ -1533,6 +1533,13 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["Comment (toogle)" oef-comment-toggle t] ; toogle a command as comment ;
     ["Highlight Variable at point (toggle)" oef-highlight-variable t] ;`Highlight oef variable' added to Text menu-bar
     ))
+(easy-menu-add-item oef-menu-bar '()["Random" nil t])
+(easy-menu-add-item oef-menu-bar '("Random")["Random Integer" (lambda () (interactive) (insert "randint(..)") (forward-char -3)) :help "Syntax: randint(n1..n2)\n\nReturns a random integer between n1 and n2 (inclusive)."])
+(easy-menu-add-item oef-menu-bar '("Random")["Random Float" (lambda () (interactive) (insert "random(..)") (forward-char -3)) :help "Syntax: random(n1..n2)\n\nReturns a random float between n1 and n2 (inclusive)."])
+(easy-menu-add-item oef-menu-bar '("Random")["Random Item" (lambda () (interactive) (insert "randitem()") (forward-char -1)) :help "Syntax: randitem(n1,n2,n3,n4) or random(n1,n2,n3,n4) or randomitem(n1,n2,n3,n4)\n\nReturns a random item of a list (comma separated values)."])
+(easy-menu-add-item oef-menu-bar '("Random")["Random Row" (lambda () (interactive) (insert "randomrow()") (forward-char -1)) :help "Syntax: randomrow(\\mat)\n\nReturns a random line of a matrix."])
+(easy-menu-add-item oef-menu-bar '("Random")["Shuffle" (lambda () (interactive) (insert "shuffle()") (forward-char -1)) :help "Syntax: shuffle(n)\n\nReturns a randomly permuted list  of the n first positive integers."])
+(easy-menu-add-item oef-menu-bar '("Random")["Shuffle List" (lambda () (interactive) (insert "shuffle()") (forward-char -1)) :help "Syntax: shuffle(\\list)\n\nA new list with randomly permuted items in list is returned."])
 (easy-menu-add-item oef-menu-bar '()["Rainbow" nil t])
 (easy-menu-add-item oef-menu-bar '("Rainbow")["Delimiters (toogle)" rainbow-delimiters-mode])
 (easy-menu-add-item oef-menu-bar '("Rainbow")["Colors (toogle)" rainbow-mode])
