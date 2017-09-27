@@ -106,6 +106,7 @@
 ;; * yafolding-mode
 ;; Folding code blocks based on indentation
 ;; Automatically installed and launch
+;; * LaTeX-math-mode
 
 ;;==============================================================================
 
@@ -130,10 +131,13 @@
 ;;---- AUTO-START --------------------------------------------------------------
 
 (add-hook 'sgml-mode-hook 'oef-mode-hook)
+
 (defun oef-mode-hook ()
   "(De)Activation of some (un)usefull minor modes."
   (auto-fill-mode -1)
   (yafolding-mode 1)
+  (autoload 'LaTeX-math-mode "latex" "LaTeX-math-mode" t)
+  (LaTeX-math-mode)
   )
 
 ;;---- CONSTS ------------------------------------------------------------------
@@ -1548,6 +1552,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["Comment (toogle)" oef-comment-toggle t]
     ["Defined Variables" nil t]
     ["Documents" nil t]
+    ["Greek" nil t]
     ["Initializations of Variables" nil t]
     ["Random" nil t]
     ["Reserved Words" nil t]
@@ -1582,6 +1587,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Random")["Random Row" (lambda () (interactive) (insert "randomrow()") (forward-char -1)) :help "Syntax: randomrow(\\mat)\n\nReturns a random line of a matrix."])
 (easy-menu-add-item oef-menu-bar '("Random")["Shuffle" (lambda () (interactive) (insert "shuffle()") (forward-char -1)) :help "Syntax: shuffle(n)\n\nReturns a randomly permuted list  of the n first positive integers."])
 (easy-menu-add-item oef-menu-bar '("Random")["Shuffle List" (lambda () (interactive) (insert "shuffle()") (forward-char -1)) :help "Syntax: shuffle(\\list)\n\nA new list with randomly permuted items in list is returned."])
+(easy-menu-add-item oef-menu-bar '("Greek")["Ɣ" (lambda () (interactive) (insert "Ɣ"))])
 (easy-menu-add-item oef-menu-bar '()["Rainbow" nil t])
 (easy-menu-add-item oef-menu-bar '("Initializations of Variables") (get-oef-exo-init-types)) ; we add the submenu `Exercises' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '("Initializations of Variables") (get-oef-doc-init-types)) ; we add the submenu `Documents' to the oef-menu-bar.
