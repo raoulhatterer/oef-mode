@@ -102,7 +102,10 @@
 ;; add to your init file:
 ;;    (require 'rainbow-mode)
 ;;    (add-to-list 'rainbow-html-colors-major-mode-list 'oef-mode) ; 
-;;    (add-hook 'oef-mode-hook 'rainbow-mode) ; Auto-start CSS colorization
+;;    (add-hook 'oef-mode-hook 'rainbow-mode) ; Auto-start HTML and CSS colorization
+;; * yafolding-mode
+;; Folding code blocks based on indentation
+;; Automatically installed and launch
 
 ;;==============================================================================
 
@@ -128,7 +131,9 @@
 
 (add-hook 'sgml-mode-hook 'oef-mode-hook)
 (defun oef-mode-hook ()
-  "Activation of some usefull minor modes."
+  "(De)Activation of some (un)usefull minor modes."
+  (auto-fill-mode -1)
+  (yafolding-mode 1)
   )
 
 ;;---- CONSTS ------------------------------------------------------------------
@@ -484,26 +489,26 @@
 
 (defvar oef-menu-exo-init-types ; in the menu DONE
   '(
-    "real{=}"
     "complex{=}"
-    "text{=}"
-    "integer{=}"
-    "rational{=}"
     "function{=}"
+    "integer{=}"
     "matrix{=}"
+    "rational{=}"
+    "real{=}"
+    "text{=}"
     )
   "In this variable we have the definitions of variables initialization commands to be used in an exercise.  Used to get the 'Initialization menu' (thanks to `get-oef-exo-init-types').  See also `oef-storage-types' and `oef-menu-doc-init-types'."
   )
 
 (defvar oef-menu-doc-init-types ; in the menu DONE
   '(
-    "def{real =}"
     "def{complex =}"
-    "def{text =}"
-    "def{integer =}"
-    "def{rational =}"
     "def{function =}"
+    "def{integer =}"
     "def{matrix =}"
+    "def{rational =}"
+    "def{real =}"
+    "def{text =}"
     )
   "In this variable we have the definitions of variables initialization commands to be used in a document.  Used to get the 'Initialization menu' (thanks to `get-oef-doc-init-types').  See also `oef-storage-types' and `oef-menu-exo-init-types'."
   )
@@ -1503,7 +1508,7 @@ If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigi
     ;;    (define-key map [menu-bar sgml] 'undefined) ;SGML menu-bar item suppressed
     ;; menu-bar Text
     (define-key map [menu-bar text paragraph-indent-minor-mode] 'undefined) ;Text menu-bar item `Paragraph indent' suppressed
-    (define-key map [menu-bar text toggle-text-mode-auto-fill] 'undefined) ;Text menu-bar item `Auto Fill' suppressed
+					;    (define-key map [menu-bar text toggle-text-mode-auto-fill] 'undefined) ;Text menu-bar item `Auto Fill' suppressed
     (define-key map [menu-bar text center-region] 'undefined) ;Text menu-bar item `Center region' suppressed
     (define-key map [menu-bar text center-paragraph] 'undefined) ;Text menu-bar item `Center paragraph' suppressed
     (define-key map [menu-bar text center-line] 'undefined) ;Text menu-bar item `Center line' suppressed
@@ -1530,9 +1535,46 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 ;; Add an OEF menu
 (easy-menu-define oef-menu-bar oef-mode-map "OEF-mode menu"
   '("OEF" ; we start by creating a menu that is initially empty. This menu will be called "OEF" in the menu-bar.
-    ["Comment (toogle)" oef-comment-toggle t] ; toogle a command as comment ;
-    ["Highlight Variable at point (toggle)" oef-highlight-variable t] ;`Highlight oef variable' added to Text menu-bar
+    ["Files" nil t]
+    ["---" nil t]    
+    ["Highlight Variable at point (toggle)" oef-highlight-variable t] ;`Highlight oef variable' added to Text menu-bar    
+    ["Indent" nil t]
+    ["Rainbow" nil t]
+    ["Select Parameter" nil t]
+    ["Tag Folding" nil t]    
+    ["---" nil t]
+    ["Answers Types and Options" nil t]
+    ["Commands" nil t]
+    ["Comment (toogle)" oef-comment-toggle t]
+    ["Defined Variables" nil t]
+    ["Documents" nil t]
+    ["Initializations of Variables" nil t]
+    ["Random" nil t]
+    ["Reserved Words" nil t]
+    ["Script Library" nil t]
+    ["Wims Functions" nil t]
+    ["---" nil t]
+    ["Wims Session" nil t]
     ))
+
+(easy-menu-add-item oef-menu-bar '("Files") (get-examples)) ; we add the submenu `Examples' to the oef-menu-bar. This menu is not dynamic.
+(easy-menu-add-item oef-menu-bar '("Files")["Open All OEF Examples" oef-mode-open-all t]) ; we add the command "Open All OEF Examples" to the submenu `Examples' in the oef-menu-bar.
+;; (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; deactivatedd (too slow)
+(easy-menu-add-item oef-menu-bar '("Tag Folding")["Toogle Element" yafolding-toggle-element])
+(easy-menu-add-item oef-menu-bar '("Tag Folding")["Hide All" yafolding-hide-all])
+(easy-menu-add-item oef-menu-bar '("Tag Folding")["Show All" yafolding-show-all])
+(easy-menu-add-item oef-menu-bar '("Tag Folding")["Hide All" yafolding-hide-all])
+(easy-menu-add-item oef-menu-bar '("Rainbow")["Delimiters (toogle)" rainbow-delimiters-mode])
+(easy-menu-add-item oef-menu-bar '("Rainbow")["Colors (toogle)" rainbow-mode])
+(easy-menu-add-item oef-menu-bar '("Indent")["Indent line" oef-mode-indent-line])
+(easy-menu-add-item oef-menu-bar '("Indent")["Indent Region       ^:    or..." indent-region])
+(easy-menu-add-item oef-menu-bar '("Indent")["Indent Rigidly" indent-rigidly])
+(easy-menu-add-item oef-menu-bar '()["Select Parameter" oef-select-parameter :help "Select the fist «parameter»."])
+(easy-menu-add-item oef-menu-bar '()["Wims Session" nil t]); it's not a real connection (It just extract the session id from the URL)
+(easy-menu-add-item oef-menu-bar '("Wims Session")["Connect to a Wims Session" oef-get-wims-session :help "Connect emacs to the active Wims Session if the URL is in the CLIPBOARD."]); it's not a real connection (It just extract the session id from the URL)
+(easy-menu-add-item oef-menu-bar '("Wims Session")["Edit Exercise in Browser" oef-edit-exercise-in-browser :help "If the connection with the server is active,\n edit the Exercice wich has the same name on the WIMS server.\n Also copy the buffer content in the CLIPBOARD."]);
+(easy-menu-add-item oef-menu-bar '("Wims Session")["Edit Document in Browser" oef-edit-document-in-browser :help "If the connection with the server is active,\n edit the Document wich has the same name on the WIMS server.\n Also copy the buffer content in the CLIPBOARD."]);
+
 (easy-menu-add-item oef-menu-bar '()["Random" nil t])
 (easy-menu-add-item oef-menu-bar '("Random")["Random Integer" (lambda () (interactive) (insert "randint(..)") (forward-char -3)) :help "Syntax: randint(n1..n2)\n\nReturns a random integer between n1 and n2 (inclusive)."])
 (easy-menu-add-item oef-menu-bar '("Random")["Random Float" (lambda () (interactive) (insert "random(..)") (forward-char -3)) :help "Syntax: random(n1..n2)\n\nReturns a random float between n1 and n2 (inclusive)."])
@@ -1541,20 +1583,6 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Random")["Shuffle" (lambda () (interactive) (insert "shuffle()") (forward-char -1)) :help "Syntax: shuffle(n)\n\nReturns a randomly permuted list  of the n first positive integers."])
 (easy-menu-add-item oef-menu-bar '("Random")["Shuffle List" (lambda () (interactive) (insert "shuffle()") (forward-char -1)) :help "Syntax: shuffle(\\list)\n\nA new list with randomly permuted items in list is returned."])
 (easy-menu-add-item oef-menu-bar '()["Rainbow" nil t])
-(easy-menu-add-item oef-menu-bar '("Rainbow")["Delimiters (toogle)" rainbow-delimiters-mode])
-(easy-menu-add-item oef-menu-bar '("Rainbow")["Colors (toogle)" rainbow-mode])
-(easy-menu-add-item oef-menu-bar '()["Indent" nil t])
-(easy-menu-add-item oef-menu-bar '("Indent")["Indent line" oef-mode-indent-line])
-(easy-menu-add-item oef-menu-bar '("Indent")["Indent Region" indent-region])
-(easy-menu-add-item oef-menu-bar '("Indent")["Indent Rigidly" indent-rigidly])
-(easy-menu-add-item oef-menu-bar '()["Select Parameter" oef-select-parameter :help "Select the fist «parameter»."])
-(easy-menu-add-item oef-menu-bar '()["Wims Session" nil t]); it's not a real connection (It just extract the session id from the URL)
-(easy-menu-add-item oef-menu-bar '("Wims Session")["Connect to a Wims Session" oef-get-wims-session :help "Connect emacs to the active Wims Session if the URL is in the CLIPBOARD."]); it's not a real connection (It just extract the session id from the URL)
-(easy-menu-add-item oef-menu-bar '("Wims Session")["Edit Exercise in Browser" oef-edit-exercise-in-browser :help "If the connection with the server is active,\n edit the Exercice wich has the same name on the WIMS server.\n Also copy the buffer content in the CLIPBOARD."]);
-(easy-menu-add-item oef-menu-bar '("Wims Session")["Edit Document in Browser" oef-edit-document-in-browser :help "If the connection with the server is active,\n edit the Document wich has the same name on the WIMS server.\n Also copy the buffer content in the CLIPBOARD."]);
-(easy-menu-add-item oef-menu-bar '("Files") (get-examples)) ; we add the submenu `Examples' to the oef-menu-bar. This menu is not dynamic.
-(easy-menu-add-item oef-menu-bar '("Files")["Open All OEF Examples" oef-mode-open-all t]) ; we add the command "Open All OEF Examples" to the submenu `Examples' in the oef-menu-bar.
-;; (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; deactivatedd (too slow)
 (easy-menu-add-item oef-menu-bar '("Initializations of Variables") (get-oef-exo-init-types)) ; we add the submenu `Exercises' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '("Initializations of Variables") (get-oef-doc-init-types)) ; we add the submenu `Documents' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-menu-oef-commands)) ; we add the submenu `Commands' to the oef-menu-bar.
@@ -1597,8 +1625,16 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 ;;-----------MAJOR MODE----------------------------------------
 ;;;###autoload
 (define-derived-mode oef-mode sgml-mode
-  "oef-mode"
+		     "oef-mode"
   "'Online Exercise Format' mode"
+  (mapc
+   (lambda (package)
+     (or (package-installed-p package)
+	 (package-install package)))
+   '(emmet-mode company rainbow-delimiters rainbow-mode yafolding))
+
+
+  
   (setq-local indent-line-function 'oef-mode-indent-line)
   (setq-local line-spacing oef-line-spacing)
   (if (string= (frame-parameter nil 'background-mode) "light") ; test if the background is light (or dark)
@@ -1610,7 +1646,9 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
       (set-face-attribute 'oef-font-h2text-face nil :inherit 'oef-font-h2text-darkbg-face)))
 
   ;; key binding
-  ;;(define-key oef-mode-map (kbd "C-x RET RET") 'oef-mode-indent-region) ; indent-region with sgml-mode-syntax-table because with oef-syntax-table there are problems with the indentation
+  (define-key oef-mode-map (kbd "TAB") 'yafolding-toggle-element)
+  (define-key oef-mode-map (kbd "<S-tab>") 'yafolding-show-all)
+  (define-key oef-mode-map (kbd "C-:") 'indent-region) ; alias for indent-region because C-\ is not working in Aquamacs with french keyboard 
   (define-key oef-mode-map (kbd "C-o") nil) ;
   (define-key oef-mode-map (kbd "C-o C-p") 'oef-select-parameter) ;
   (define-key oef-mode-map (kbd "C-o c") 'oef-comment-toggle) ;
@@ -1621,11 +1659,11 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "<down-mouse-1>") ; toogle oef-variable highlighting on mouse click
     (lambda (event)
       (interactive "e")
-;      (message "%s" event)
+					;      (message "%s" event)
       (let ((posn (elt event 1)))		
-        (with-selected-window (posn-window posn)
-          (goto-char (posn-point posn))
-      	(oef-highlight-variable)))))
+	(with-selected-window (posn-window posn)
+	  (goto-char (posn-point posn))
+	  (oef-highlight-variable)))))
 
   ;; Warning: Major mode commands must not call font-lock-add-keywords under any
   ;; circumstances, either directly or indirectly, except through their mode hooks. (Doing
@@ -1641,7 +1679,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("^[:blank:]*:%%.*" . 'oef-font-comment-face) ; comments
      ("«[^»]*\n?[^»]*»" . 'oef-font-documentation-face) ; documentation
      (,(regexp-opt oef-french-words-same-as-keywords 'words) . 'default)
-;     ("^ *<\\(li\\)>.*?</\\(li\\)> *$"(1 'oef-font-litag-face)(2 'oef-font-litag-face)) ; <li> </li>
+					;     ("^ *<\\(li\\)>.*?</\\(li\\)> *$"(1 'oef-font-litag-face)(2 'oef-font-litag-face)) ; <li> </li>
      ("<\\(li\\)[^>]*>"(1 'oef-font-litag-face)) ; <li>
      ("</\\(li\\)>"(1 'oef-font-litag-face)) ;  </li>
      ("wims\\s(\\(for\\) " 1 'oef-font-keyword-face) ; exception (for is a wims function not only a oef-doc-command)
