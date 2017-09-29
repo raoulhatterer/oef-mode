@@ -306,6 +306,11 @@
   "Face for variables"
   :group 'oef-mode-faces)
 
+(defface oef-font-formula-braces-face
+  '((t  :background "LemonChiffon2"))
+  "Face for mathematical formulas"
+  :group 'oef-mode-faces)
+
 ;;---- VARS --------------------------------------------------------------------
 
 (defvar oef-line-spacing   0.1
@@ -1039,6 +1044,13 @@
   (re-search-forward "»")
   )
 
+(defun oef-insert-math()
+  "This function insert a mathematical expression"
+  (interactive)
+  (insert "\\(\\)")
+  (backward-char 2)
+  )
+
 (defun get-examples ()
   "This function create a submenu with oef examples."
   (easy-menu-create-menu
@@ -1554,6 +1566,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["Documents" nil t]
     ["Greek" nil t]
     ["Initializations of Variables" nil t]
+    ["Mathematical Expression" oef-insert-math t]
     ["Random" nil t]
     ["Reserved Words" nil t]
     ["Script Library" nil t]
@@ -1654,9 +1667,11 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   ;; key binding
   (define-key oef-mode-map (kbd "TAB") 'yafolding-toggle-element)
   (define-key oef-mode-map (kbd "<S-tab>") 'yafolding-show-all)
+  (define-key oef-mode-map (kbd "<backtab>") 'yafolding-show-all)
   (define-key oef-mode-map (kbd "C-:") 'indent-region) ; alias for indent-region because C-\ is not working in Aquamacs with french keyboard 
   (define-key oef-mode-map (kbd "C-o") nil) ;
   (define-key oef-mode-map (kbd "C-o C-p") 'oef-select-parameter) ;
+  (define-key oef-mode-map (kbd "C-o m") 'oef-insert-math) ;  
   (define-key oef-mode-map (kbd "C-o c") 'oef-comment-toggle) ;
   (define-key oef-mode-map (kbd "C-o ws") 'oef-get-wims-session) ;
   (define-key oef-mode-map (kbd "C-o C-o") 'oef-highlight-variable) ;
@@ -1714,6 +1729,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      (,(regexp-opt oef-random-functions 'words) . 'oef-font-keyword-face)
      ("\\(\\w*\\)\\(pari\\|maxima\\|yacas\\|wims\\|draw\\|slib\\|teximg)\\)(" 2 'oef-font-keyword-face) ; advanced functions
      ("\\(\\\\\\w+\\){" 1 'oef-font-warning-face) ; unknown '\command{'
+     ("\\(\\\\(\\)\\([^ ]*\\)\\(\\\\)\\)" (1 'oef-font-formula-braces-face)(3 'oef-font-formula-braces-face)) ;  \(mathematical formula\)
      ("\\(\\\\\\){" 1 'oef-font-positivenumber-face) ; latex expression \{}
      ("\\\\\\w+\\([0-9]?_?\\w?\\)*" . 'oef-font-variable-name-face) ; '\variable'
      ("[^\\w]\\([0-9]+\\(\\.[0-9]+\\)?\\)" 1 'oef-font-positivenumber-face) ; a number
