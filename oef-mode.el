@@ -107,6 +107,10 @@
 ;; Folding code blocks based on indentation
 ;; Automatically installed and launch
 ;; * LaTeX-math-mode
+;; * wrap-region-mode
+;; add to your init file:
+;;    (require 'wrap-region)
+;;    (add-hook 'oef-mode-hook 'wrap-region-mode)
 
 ;;==============================================================================
 
@@ -1046,10 +1050,19 @@
 
 (defun oef-insert-math()
   "This function insert a mathematical expression"
-  (interactive)
-  (insert "\\(\\)")
-  (backward-char 2)
-  )
+  (interactive  (if (use-region-p)
+		    (progn
+		      (setq start (region-beginning))
+		      (setq end (region-end))
+		      (message (string end))
+		      (goto-char start)
+		      (insert "\\(")
+		      (goto-char (+ 2 end))
+		      (insert "\\)"))
+		  (progn
+		    (insert "\\(\\)")
+		    (backward-char 2)
+		    ))))
 
 (defun get-examples ()
   "This function create a submenu with oef examples."
@@ -1557,7 +1570,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["Indent" nil t]
     ["Rainbow" nil t]
     ["Select Parameter" nil t]
-    ["Tag Folding" nil t]    
+    ["Tag Folding" nil t]
     ["---" nil t]
     ["Answers Types and Options" nil t]
     ["Commands" nil t]
@@ -1652,8 +1665,6 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 	 (package-install package)))
    '(emmet-mode company rainbow-delimiters rainbow-mode yafolding))
 
-
-  
   (setq-local indent-line-function 'oef-mode-indent-line)
   (setq-local line-spacing oef-line-spacing)
   (if (string= (frame-parameter nil 'background-mode) "light") ; test if the background is light (or dark)
@@ -1665,6 +1676,10 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
       (set-face-attribute 'oef-font-h2text-face nil :inherit 'oef-font-h2text-darkbg-face)))
 
   ;; key binding
+  (define-key oef-mode-map (kbd "M-[") 'insert-pair)
+  (define-key oef-mode-map (kbd "M-{") 'insert-pair)
+  (define-key oef-mode-map (kbd "M-\"") 'insert-pair)
+
   (define-key oef-mode-map (kbd "TAB") 'yafolding-toggle-element)
   (define-key oef-mode-map (kbd "<S-tab>") 'yafolding-show-all)
   (define-key oef-mode-map (kbd "<backtab>") 'yafolding-show-all)
