@@ -10,7 +10,7 @@
 ;; Created: July 2017
 ;; Keywords: languages
 ;; URL: http://github.com/raoulhatterer/oef-mode
-;; Package-Requires: ((rainbow-mode)(emmet-mode)(rainbow-delimiters))
+;; Package-Requires: ((rainbow-mode)(emmet-mode)(rainbow-delimiters)(expand-region))
 ;; News: First publication on elpa
 ;; Package-Type: multi
 
@@ -111,6 +111,10 @@
 ;; add to your init file:
 ;;    (require 'wrap-region)
 ;;    (add-hook 'oef-mode-hook 'wrap-region-mode)
+;; * expand-region
+;; add to your init file:
+;;    (require 'expand-region)
+;;    (global-set-key (kbd "C-=") 'er/expand-region)
 
 ;;==============================================================================
 
@@ -230,7 +234,6 @@
   '((t (:foreground "magenta")))
   "Face for li tags"
   :group 'oef-mode-faces)
-
 
 (defface oef-font-h1text-lightbg-face
   '((t
@@ -567,12 +570,17 @@
 (defvar oef-wims-functions nil
   "`oef-wims-functions' is automatically  build from `oef-definitions-wims-functions' a list of wims functions definitions.")
 
-(defvar oef-definitions-slib-scripts ; in the menu DONE but has to be split (too big)
+(defvar oef-definitions-slib-algebra ; in the menu DONE
   '("slib(algebra/partitionconj «parameters»)"
     "slib(algebra/partitiondraw «parameters»)"
     "slib(algebra/partitionlex «parameters»)"
     "slib(algebra/slopedraw «parameters»)"
-    "slib(analysis/inversedomain «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Algebra Library'."
+  )
+
+(defvar oef-definitions-slib-analysis ; in the menu DONE
+  '("slib(analysis/inversedomain «parameters»)"
     "slib(analysis/odejs «parameters»)"
     "slib(analysis/odejs2 «parameters»)"
     "slib(analysis/odephase «parameters»)"
@@ -581,7 +589,12 @@
     "slib(analysis/slopefield «parameters»)"
     "slib(analysis/slopefield_img «parameters»)"
     "slib(analysis/slopefield_js «parameters»)"
-    "slib(chemistry/atom «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Analysis Library'."
+  )
+
+(defvar oef-definitions-slib-chemistry ; in the menu DONE
+  '("slib(chemistry/atom «parameters»)"
     "slib(chemistry/brut2html «parameters»)"
     "slib(chemistry/chemeq_add «parameters»)"
     "slib(chemistry/chemeq_compare «parameters»)"
@@ -604,17 +617,32 @@
     "slib(chemistry/molecule «parameters»)"
     "slib(chemistry/moleculeViewer «parameters»)"
     "slib(chemistry/newman «parameters»)"
-    "slib(circuits/complist «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Chemistry Library'."
+  )
+
+(defvar oef-definitions-slib-circuits ; in the menu DONE
+  '("slib(circuits/complist «parameters»)"
     "slib(circuits/comppos «parameters»)"
     "slib(circuits/draw «parameters»)"
     "slib(circuits/drawcomp «parameters»)"
     "slib(circuits/drawwire «parameters»)"
     "slib(circuits/range «parameters»)"
-    "slib(data/columnsort «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Circuits Library'."
+  )
+
+(defvar oef-definitions-slib-data ; in the menu DONE
+  '("slib(data/columnsort «parameters»)"
     "slib(data/randline «parameters»)"
     "slib(data/random «parameters»)"
     "slib(data/randrec «parameters»)"
-    "slib(draw/balance «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Data Library'."
+  )
+
+(defvar oef-definitions-slib-draw ; in the menu DONE
+  '("slib(draw/balance «parameters»)"
     "slib(draw/brokenlinegraph «parameters»)"
     "slib(draw/clock «parameters»)"
     "slib(draw/convpixel «parameters»)"
@@ -630,13 +658,28 @@
     "slib(draw/repdroite «parameters»)"
     "slib(draw/repere «parameters»)"
     "slib(draw/thermometer «parameters»)"
-    "slib(function/bounds «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Draw Library'."
+  )
+
+(defvar oef-definitions-slib-function ; in the menu DONE
+  '("slib(function/bounds «parameters»)"
     "slib(function/bounds2 «parameters»)"
     "slib(function/integrate «parameters»)"
-    "slib(games/chessboard «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Function Library'."
+  )
+
+(defvar oef-definitions-slib-games ; in the menu DONE
+  '("slib(games/chessboard «parameters»)"
     "slib(games/chessimage «parameters»)"
     "slib(games/chessmv «parameters»)"
-    "slib(geo2D/geogebra «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Games Library'."
+  )
+
+(defvar oef-definitions-slib-geogebra ; in the menu DONE
+  '("slib(geo2D/geogebra «parameters»)"
     "slib(geo2D/geogebra3 «parameters»)"
     "slib(geo2D/geogebracommand «parameters»)"
     "slib(geo2D/geogebraoption «parameters»)"
@@ -652,7 +695,12 @@
     "slib(geo3D/polyhedra «parameters»)"
     "slib(geo3D/polyhedradual «parameters»)"
     "slib(geo3D/threeD «parameters»)"
-    "slib(graph/connexcomponent «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Geogebra Library'."
+  )
+
+(defvar oef-definitions-slib-graph ; in the menu DONE
+  '("slib(graph/connexcomponent «parameters»)"
     "slib(graph/connexity «parameters»)"
     "slib(graph/distance «parameters»)"
     "slib(graph/draw «parameters»)"
@@ -665,7 +713,12 @@
     "slib(graph/randomeuler «parameters»)"
     "slib(graph/randtree «parameters»)"
     "slib(graph/shortpath «parameters»)"
-    "slib(graphpaper/correct_milli «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Graph Library'."
+  )
+
+(defvar oef-definitions-slib-graphpaper ; in the menu DONE
+  '("slib(graphpaper/correct_milli «parameters»)"
     "slib(graphpaper/func «parameters»)"
     "slib(graphpaper/func_milli «parameters»)"
     "slib(graphpaper/imgpoints «parameters»)"
@@ -673,7 +726,12 @@
     "slib(graphpaper/strings «parameters»)"
     "slib(graphpaper/tograph «parameters»)"
     "slib(graphpaper/whereclick «parameters»)"
-    "slib(lang/enword2ipa «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Graphpaper Library'."
+  )
+
+(defvar oef-definitions-slib-lang ; in the menu DONE
+  '("slib(lang/enword2ipa «parameters»)"
     "slib(lang/epd2ipa «parameters»)"
     "slib(lang/fname «parameters»)"
     "slib(lang/fraccord «parameters»)"
@@ -685,9 +743,24 @@
     "slib(lang/randomword «parameters»)"
     "slib(lang/sampa2ipa «parameters»)"
     "slib(lang/swac «parameters»)"
-    "slib(life/frcommodity «parameters»)"
-    "slib(list/selshuf «parameters»)"
-    "slib(matrix/concate «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Lang Library'."
+  )
+
+(defvar oef-definitions-slib-life ; in the menu DONE
+  '("slib(life/frcommodity «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Life Library'."
+  )
+
+(defvar oef-definitions-slib-list ; in the menu DONE
+  '("slib(list/selshuf «parameters»)"
+    )
+  "Used for highlighting and for a submenu `List Library'."
+  )
+
+(defvar oef-definitions-slib-matrix ; in the menu DONE
+  '("slib(matrix/concate «parameters»)"
     "slib(matrix/det «parameters»)"
     "slib(matrix/givenrank «parameters»)"
     "slib(matrix/inverse «parameters»)"
@@ -700,16 +773,31 @@
     "slib(matrix/transpose «parameters»)"
     "slib(matrix/triangular «parameters»)"
     "slib(matrix/unimodular «parameters»)"
-    "slib(media/audio «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Matrix Library'."
+  )
+
+(defvar oef-definitions-slib-media ; in the menu DONE
+  '("slib(media/audio «parameters»)"
     "slib(media/dewplayer «parameters»)"
     "slib(media/player «parameters»)"
     "slib(media/player_mp3_multi «parameters»)"
     "slib(media/video «parameters»)"
-    "slib(numeration/babylonien «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Media Library'."
+  )
+
+(defvar oef-definitions-slib-numeration ; in the menu DONE
+  '("slib(numeration/babylonien «parameters»)"
     "slib(numeration/basep «parameters»)"
     "slib(numeration/ecriturenombre «parameters»)"
     "slib(numeration/egyptien «parameters»)"
-    "slib(oef/blank «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Numeration Library'."
+  )
+
+(defvar oef-definitions-slib-oef ; in the menu DONE
+  '("slib(oef/blank «parameters»)"
     "slib(oef/codelim «parameters»)"
     "slib(oef/codename «parameters»)"
     "slib(oef/env «parameters»)"
@@ -717,9 +805,24 @@
     "slib(oef/newfile «parameters»)"
     "slib(oef/postsrc «parameters»)"
     "slib(oef/presrc «parameters»)"
-    "slib(polynomial/random «parameters»)"
-    "slib(set/subset «parameters»)"
-    "slib(stat/1d «parameters»)"
+    )
+  "Used for highlighting and for a submenu `OEF Library'."
+  )
+
+(defvar oef-definitions-slib-polynomial ; in the menu DONE
+  '("slib(polynomial/random «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Polynomial Library'."
+  )
+
+(defvar oef-definitions-slib-set ; in the menu DONE
+  '("slib(set/subset «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Set Library'."
+  )
+
+(defvar oef-definitions-slib-stat ; in the menu DONE
+  '("slib(stat/1d «parameters»)"
     "slib(stat/arithmean «parameters»)"
     "slib(stat/beta «parameters»)"
     "slib(stat/betacdf «parameters»)"
@@ -819,7 +922,12 @@
     "slib(stat/weibullcdf «parameters»)"
     "slib(stat/weibullinv «parameters»)"
     "slib(stat/weibullpdf «parameters»)"
-    "slib(text/approximation «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Stat Library'."
+  )
+
+(defvar oef-definitions-slib-text ; in the menu DONE
+  '("slib(text/approximation «parameters»)"
     "slib(text/balloon «parameters»)"
     "slib(text/cdecomment «parameters»)"
     "slib(text/comblin «parameters»)"
@@ -839,8 +947,18 @@
     "slib(text/sigunits «parameters»)"
     "slib(text/spirale «parameters»)"
     "slib(text/whitespace «parameters»)"
-    "slib(triplerelation/tabular «parameters»)"
-    "slib(utilities/mathcalc «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Text Library'."
+  )
+
+(defvar oef-definitions-slib-triplerelation ; in the menu DONE
+  '("slib(triplerelation/tabular «parameters»)"
+    )
+  "Used for highlighting and for a submenu `Triplerelation Library'."
+  )
+
+(defvar oef-definitions-slib-utilities ; in the menu DONE
+  '("slib(utilities/mathcalc «parameters»)"
     "slib(utilities/nopaste «parameters»)"
     "slib(utilities/notepad «parameters»)"
     "slib(utilities/notepad1.html «parameters»)"
@@ -849,11 +967,16 @@
     "slib(utilities/tooltip «parameters»)"
     "slib(utilities/trigo-calc «parameters»)"
     )
-  "Used for highlighting and for a submenu `Script Library'."
+  "Used for highlighting and for a submenu `Utilities Library'."
   )
 
+(defvar oef-definitions-slib-scripts (append oef-definitions-slib-algebra oef-definitions-slib-analysis  oef-definitions-slib-chemistry oef-definitions-slib-circuits oef-definitions-slib-data oef-definitions-slib-draw oef-definitions-slib-function oef-definitions-slib-games oef-definitions-slib-geogebra oef-definitions-slib-graph oef-definitions-slib-graphpaper oef-definitions-slib-lang oef-definitions-slib-life oef-definitions-slib-list oef-definitions-slib-matrix oef-definitions-slib-media oef-definitions-slib-numeration oef-definitions-slib-oef oef-definitions-slib-polynomial oef-definitions-slib-set oef-definitions-slib-stat oef-definitions-slib-text oef-definitions-slib-triplerelation oef-definitions-slib-utilities)
+    "Used for highlighting and for a submenu `Utilities Library'.
+
+Automatically build from following lists: `oef-definitions-slib-algebra' `oef-definitions-slib-analysis' `oef-definitions-slib-chemistry' `oef-definitions-slib-circuits' `oef-definitions-slib-data' `oef-definitions-slib-draw' `oef-definitions-slib-function' `oef-definitions-slib-games' `oef-definitions-slib-geogebra' `oef-definitions-slib-graph' `oef-definitions-slib-graphpaper' `oef-definitions-slib-lang' `oef-definitions-slib-life' `oef-definitions-slib-list' `oef-definitions-slib-matrix' `oef-definitions-slib-media' `oef-definitions-slib-numeration' `oef-definitions-slib-oef' `oef-definitions-slib-polynomial' `oef-definitions-slib-set' `oef-definitions-slib-stat' `oef-definitions-slib-text' `oef-definitions-slib-triplerelation' `oef-definitions-slib-utilities'")
+
 (defvar oef-slib-scripts nil
-  "`oef-slib-scripts' is automatically  build from `oef-definitions-slib-scripts' a list of slib script definitions.")
+  "`oef-slib-scripts' is used for highlighting.  It is automatically  build from `oef-definitions-slib-scripts' a list of slib script definitions.")
 
 (defvar oef-pari-functions ; in the menu TODO
   '("divrem")
@@ -1131,17 +1254,402 @@
 (defun get-oef-slib-scripts ()
   "This function create a submenu `Script Library' with ‘oef-slib-scripts’."
   (easy-menu-create-menu
-   "Script Library"
+   "All"
    (mapcar
     (lambda (x);             
       (vector (replace-regexp-in-string "slib(" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-              `(lambda () (interactive)
-                 (insert   ,x)
-                 t))
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
       )               ; end of the lamda expression
     oef-definitions-slib-scripts ; sequence : here a list of string
     ) ; end of mapcar
-   )) ; end of defun get-oef-slib-scripts
+   )
+  ) ; end of defun get-oef-slib-scripts
+
+(defun get-oef-slib-algebra ()
+  "This function create a submenu `Algebra Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Algebra"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(algebra/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-algebra ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+  ) ; end of defun get-oef-slib-algebra
+
+(defun get-oef-slib-analysis ()
+  "This function create a submenu `Analysis Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Analysis"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(analysis/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-analysis ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-analysis
+
+(defun get-oef-slib-chemistry ()
+  "This function create a submenu `Chemistry Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Chemistry"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(chemistry/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-chemistry ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-chemistry
+
+(defun get-oef-slib-circuits ()
+  "This function create a submenu `Circuits Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Circuits"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(circuits/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-circuits ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-circuits
+
+(defun get-oef-slib-data ()
+  "This function create a submenu `Data Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Data"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(data/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-data ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-data
+
+(defun get-oef-slib-draw ()
+  "This function create a submenu `Draw Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Draw"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(draw/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-draw ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-draw
+
+(defun get-oef-slib-function ()
+  "This function create a submenu `Function Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Function"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(function/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-function ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-function
+
+(defun get-oef-slib-games ()
+  "This function create a submenu `Games Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Games"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(games/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-games ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-games
+
+(defun get-oef-slib-geogebra ()
+  "This function create a submenu `Geogebra Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Geogebra"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-geogebra ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-geogebra
+
+(defun get-oef-slib-graph ()
+  "This function create a submenu `Graph Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Graph"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(graph/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-graph ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-graph
+
+(defun get-oef-slib-graphpaper ()
+  "This function create a submenu `Graphpaper Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Graphpaper"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(graphpaper/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-graphpaper ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-graphpaper
+
+(defun get-oef-slib-lang ()
+  "This function create a submenu `Lang Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Lang"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(lang/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-lang ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-lang
+
+(defun get-oef-slib-life ()
+  "This function create a submenu `Life Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Life"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(life/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-life ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-life
+
+(defun get-oef-slib-list ()
+  "This function create a submenu `List Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "List"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(list/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-list ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-list
+
+(defun get-oef-slib-matrix ()
+  "This function create a submenu `Matrix Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Matrix"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(matrix/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-matrix ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-matrix
+
+(defun get-oef-slib-media ()
+  "This function create a submenu `Media Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Media"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(media/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-media ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-media
+
+(defun get-oef-slib-numeration ()
+  "This function create a submenu `Numeration Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Numeration"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(numeration/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-numeration ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-numeration
+
+(defun get-oef-slib-oef ()
+  "This function create a submenu `OEF Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "OEF"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(oef/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-oef ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-oef
+
+(defun get-oef-slib-polynomial ()
+  "This function create a submenu `Polynomial Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Polynomial"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(polynomial/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-polynomial ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-polynomial
+
+(defun get-oef-slib-set ()
+  "This function create a submenu `Set Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Set"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(set/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-set ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-set
+
+(defun get-oef-slib-stat ()
+  "This function create a submenu `Stat Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Stat"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(stat/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-stat ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-stat
+
+(defun get-oef-slib-text ()
+  "This function create a submenu `Text Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Text"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(text/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lamda expression
+      oef-definitions-slib-text ; sequence : here a list of string
+      ) ; end of mapcar
+     )
+    ) ; end of defun get-oef-slib-text
+
+(defun get-oef-slib-triplerelation ()
+  "This function create a submenu `Triplerelation Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Triplerelation"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(triplerelation/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lambda expression
+      oef-definitions-slib-triplerelation ; sequence : here a list of string
+      ) ; end of triplerelation
+     )
+    ) ; end of defun get-oef-slib-triplerelation
+
+(defun get-oef-slib-utilities ()
+  "This function create a submenu `Utilities Library' with ‘oef-slib-scripts’."
+    (easy-menu-create-menu
+     "Utilities"
+     (mapcar
+      (lambda (x);             
+	(vector (replace-regexp-in-string "slib(utilities/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+		`(lambda () (interactive)
+		   (insert   ,x)
+		   t))
+	)               ; end of the lambda expression
+      oef-definitions-slib-utilities ; sequence : here a list of string
+      ) ; end of triplerelation
+     )
+    ) ; end of defun get-oef-slib-utilities
 
 (defun get-oef-answers-options ()
   "This function create a submenu with the types and options of an answer from `oef-answers-options'."
@@ -1523,6 +2031,35 @@ If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigi
       (forward-line 1)
       )))
 
+(defun  oef-insert-endash()
+"Insert a character."
+  (interactive)
+  (insert "–")
+  )
+(defun  oef-insert-french-opening-guillemet()
+"Insert a character."
+  (interactive)
+  (insert "« ")
+  )
+(defun  oef-insert-french-closing-guillemet()
+"Insert a character."
+  (interactive)
+  (insert " »")
+  )
+(defun  oef-insert-french-guillemets()
+"Insert a character."
+  (interactive)
+  (insert "«»")
+  (backward-char)
+  )
+
+(defun  oef-insert-non-breaking-space()
+"Insert a character."
+  (interactive)
+  (insert " ")
+  (backward-char)
+  )
+
 ;;----------------MENU----------------------------------------
 
 (setq oef-example-files (directory-files-recursively user-emacs-directory ".oef$")) ; list of strings (the oef examples files) needed to build the OEF menu
@@ -1565,11 +2102,12 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-define oef-menu-bar oef-mode-map "OEF-mode menu"
   '("OEF" ; we start by creating a menu that is initially empty. This menu will be called "OEF" in the menu-bar.
     ["Files" nil t]
-    ["---" nil t]    
+    ["---" nil t]
+    ["Characters" nil t]
     ["Highlight Variable at point (toggle)" oef-highlight-variable t] ;`Highlight oef variable' added to Text menu-bar    
     ["Indent" nil t]
     ["Rainbow" nil t]
-    ["Select Parameter" nil t]
+    ["Select «Parameter»" nil t]
     ["Tag Folding" nil t]
     ["---" nil t]
     ["Answers Types and Options" nil t]
@@ -1582,7 +2120,34 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["Mathematical Expression" oef-insert-math t]
     ["Random" nil t]
     ["Reserved Words" nil t]
-    ["Script Library" nil t]
+    ("Script Library"
+     ["All" nil t]
+     ["---" nil t]
+     ["Algebra" nil t]
+     ["Analysis" nil t]
+     ["Chemistry" nil t]
+     ["Circuits" nil t]
+     ["Data" nil t]
+     ["Draw" nil t]
+     ["Function" nil t]
+     ["Games" nil t]
+     ["Geogebra" nil t]
+     ["Graph" nil t]
+     ["Graphpaper" nil t]
+     ["Lang" nil t]
+     ["Life" nil t]
+     ["List" nil t]
+     ["Matrix" nil t]
+     ["Media" nil t]
+     ["Numeration" nil t]
+     ["OEF" nil t]
+     ["Polynomial" nil t]
+     ["Set" nil t]
+     ["Stat" nil t]
+     ["Text" nil t]
+     ["Triplerelation" nil t]
+     ["Utilities" nil t])
+
     ["Wims Functions" nil t]
     ["---" nil t]
     ["Wims Session" nil t]
@@ -1591,6 +2156,11 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Files") (get-examples)) ; we add the submenu `Examples' to the oef-menu-bar. This menu is not dynamic.
 (easy-menu-add-item oef-menu-bar '("Files")["Open All OEF Examples" oef-mode-open-all t]) ; we add the command "Open All OEF Examples" to the submenu `Examples' in the oef-menu-bar.
 ;; (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; deactivatedd (too slow)
+(easy-menu-add-item oef-menu-bar '("Characters")["en dash –" oef-insert-endash])
+(easy-menu-add-item oef-menu-bar '("Characters")["« " oef-insert-french-opening-guillemet])
+(easy-menu-add-item oef-menu-bar '("Characters")[" »" oef-insert-french-closing-guillemet])
+(easy-menu-add-item oef-menu-bar '("Characters")["« »" oef-insert-french-guillemets])
+(easy-menu-add-item oef-menu-bar '("Characters")["Non Breaking Space  " oef-insert-non-breaking-space])
 (easy-menu-add-item oef-menu-bar '("Tag Folding")["Toogle Element" yafolding-toggle-element])
 (easy-menu-add-item oef-menu-bar '("Tag Folding")["Hide All" yafolding-hide-all])
 (easy-menu-add-item oef-menu-bar '("Tag Folding")["Show All" yafolding-show-all])
@@ -1623,7 +2193,31 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '() (get-oef-defined-variables)) ; we add the submenu `oef-defined-variables' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-language-reserved-words)) ; we add the submenu `oef-language-reserved-words' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-wims-functions)) ; we add the submenu `Wims Functions' to the oef-menu-bar.
-(easy-menu-add-item oef-menu-bar '() (get-oef-slib-scripts)) ; we add the submenu `Script Library' to the oef-menu-bar.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-scripts)) ; we add the submenu `All' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-algebra)) ; we add the submenu `Algebra' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-analysis)) ; we add the submenu `Analysis' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-chemistry)) ; we add the submenu `Chemistry' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-circuits)) ; we add the submenu `Circuits' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-data)) ; we add the submenu `Data' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-draw)) ; we add the submenu `Draw' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-function)) ; we add the submenu `Function' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-games)) ; we add the submenu `Games' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-geogebra)) ; we add the submenu `Geogebra' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-graph)) ; we add the submenu `Graph' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-graphpaper)) ; we add the submenu `Graphpaper' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-lang)) ; we add the submenu `Lang' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-life)) ; we add the submenu `Life' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-list)) ; we add the submenu `List' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-matrix)) ; we add the submenu `Matrix' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-media)) ; we add the submenu `Media' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-numeration)) ; we add the submenu `Numeration' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-oef)) ; we add the submenu `OEF' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-polynomial)) ; we add the submenu `Polynomial' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-set)) ; we add the submenu `Set' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-stat)) ; we add the submenu `Stat' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-text)) ; we add the submenu `Text' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-triplerelation)) ; we add the submenu `Triplerelation' to the `Script Library' menu.
+(easy-menu-add-item oef-menu-bar '("Script Library") (get-oef-slib-utilities)) ; we add the submenu `Utilities' to the `Script Library' menu.
 (easy-menu-add-item oef-menu-bar '("Documents")["Files" nil]); create submenu `Files'  in `Documents'
 (easy-menu-add-item oef-menu-bar '("Documents" "Files")["Entrance" oef-find-main :help "The Entrance block of the document is always named `main'"])
 (easy-menu-add-item oef-menu-bar '("Documents" "Files")["Other" oef-find-block :help "Other block of the document"])
@@ -1663,7 +2257,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
    (lambda (package)
      (or (package-installed-p package)
 	 (package-install package)))
-   '(emmet-mode company rainbow-delimiters rainbow-mode yafolding))
+   '(emmet-mode company rainbow-delimiters rainbow-mode yafolding expand-region))
 
   (setq-local indent-line-function 'oef-mode-indent-line)
   (setq-local line-spacing oef-line-spacing)
@@ -1680,6 +2274,12 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "M-{") 'insert-pair)
   (define-key oef-mode-map (kbd "M-\"") 'insert-pair)
 
+  (define-key oef-mode-map (kbd "M--") 'oef-insert-endash)
+  (define-key oef-mode-map (kbd "C-<") 'oef-insert-french-opening-guillemet)
+  (define-key oef-mode-map (kbd "C->") 'oef-insert-french-closing-guillemet)
+  (define-key oef-mode-map (kbd "C-M-<") 'oef-insert-french-guillemets)
+  (define-key oef-mode-map (kbd "C-M-SPC") 'oef-insert-non-breaking-space)
+  
   (define-key oef-mode-map (kbd "TAB") 'yafolding-toggle-element)
   (define-key oef-mode-map (kbd "<S-tab>") 'yafolding-show-all)
   (define-key oef-mode-map (kbd "<backtab>") 'yafolding-show-all)
