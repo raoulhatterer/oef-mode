@@ -2057,7 +2057,6 @@ If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigi
 "Insert a character."
   (interactive)
   (insert " ")
-  (backward-char)
   )
 
 ;;----------------MENU----------------------------------------
@@ -2280,9 +2279,10 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "C-M-<") 'oef-insert-french-guillemets)
   (define-key oef-mode-map (kbd "C-M-SPC") 'oef-insert-non-breaking-space)
   
-  (define-key oef-mode-map (kbd "TAB") 'yafolding-toggle-element)
+  (define-key oef-mode-map (kbd "TAB") 'oef-mode-indent-line)
   (define-key oef-mode-map (kbd "<S-tab>") 'yafolding-show-all)
   (define-key oef-mode-map (kbd "<backtab>") 'yafolding-show-all)
+  (define-key oef-mode-map (kbd "<C-tab>") 'yafolding-hide-all)
   (define-key oef-mode-map (kbd "C-:") 'indent-region) ; alias for indent-region because C-\ is not working in Aquamacs with french keyboard 
   (define-key oef-mode-map (kbd "C-o") nil) ;
   (define-key oef-mode-map (kbd "C-o C-p") 'oef-select-parameter) ;
