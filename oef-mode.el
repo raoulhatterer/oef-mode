@@ -1150,16 +1150,22 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
 (defun oef-edit-exercise-in-browser()
   "Edit file in browser."
   (interactive)
-  (oef-copy-all-or-region)  
-  (let ((oef-filename (file-name-nondirectory (buffer-file-name))))
-    (browse-url  (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".3&+lang=fr&+module=adm%2Fmodtool&+cmd=reply&+jobreq=edfile&+fname=src%2F" oef-filename))))
-
+  (if oef-wims-session
+      (progn
+	(oef-copy-all-or-region)  
+	(let ((oef-filename (file-name-nondirectory (buffer-file-name))))
+	  (browse-url  (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".3&+lang=fr&+module=adm%2Fmodtool&+cmd=reply&+jobreq=edfile&+fname=src%2F" oef-filename))))
+    (message-box "You are not connected. You have to connect to a wims session first.")))
+  
 (defun oef-edit-document-in-browser()
   "Edit file in browser."
   (interactive)
-  (oef-copy-all-or-region)
-  (let ((oef-filename (file-name-nondirectory (buffer-file-name))))
-    (browse-url (replace-regexp-in-string ".oef" "" (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".3&+lang=fr&+module=adm%2Fdoc&+cmd=reply&+job=edit&+doc=1&+block=" oef-filename)))))
+  (if oef-wims-session
+      (progn
+	(oef-copy-all-or-region)
+	(let ((oef-filename (file-name-nondirectory (buffer-file-name))))
+	  (browse-url (replace-regexp-in-string ".oef" "" (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".3&+lang=fr&+module=adm%2Fdoc&+cmd=reply&+job=edit&+doc=1&+block=" oef-filename)))))
+    (message-box "You are not connected. You have to connect to a wims session first.\n\nIn your browser :\n- Connect to Modtool\n- Go to the main page of your document\n- Select and copy the url in the clipboard\n\nIn emacs :\n- Connect to a wims session")))
 
 (defun oef-select-parameter ()
   "Select the first «parameter» from the point."
