@@ -1,12 +1,12 @@
 
 
 oef-mode
-==================================
+========
 
 provide oef-mode (Online Exercise Format for wims) to emacs  
 
-Features (Non-exhaustive):
---------------------------
+Features (Non-exhaustive)
+-------------------------
 
 * Syntax highlighting 
 * Automatic indentation
