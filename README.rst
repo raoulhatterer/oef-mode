@@ -1,3 +1,5 @@
+
+
 oef-mode
 ==================================
 
@@ -6,12 +8,12 @@ provide oef-mode (Online Exercise Format for wims) to emacs
 Features (Non-exhaustive):
 --------------------------
 
-* Syntax higligtment 
+* Syntax highlighting 
 * Automatic indentation
-* Connction to a wims session
+* Connection to a wims session
 * OEF Menu with:
  * Examples
- * Usefull Characters shortcuts
+ * Useful Characters Shortcuts
  * OEF Commands and Keywords
 
 Licence
