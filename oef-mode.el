@@ -1154,7 +1154,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
       (progn
 	(oef-copy-all-or-region)  
 	(let ((oef-filename (file-name-nondirectory (buffer-file-name))))
-	  (browse-url  (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".3&+lang=fr&+module=adm%2Fmodtool&+cmd=reply&+jobreq=edfile&+fname=src%2F" oef-filename))))
+	  (browse-url  (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".6&+lang=fr&+module=adm%2Fmodtool&+cmd=reply&+jobreq=edfile&+fname=src%2F" oef-filename))))
     (message-box "You are not connected. You have to connect to a wims session first.")))
   
 (defun oef-edit-document-in-browser()
@@ -1164,7 +1164,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
       (progn
 	(oef-copy-all-or-region)
 	(let ((oef-filename (file-name-nondirectory (buffer-file-name))))
-	  (browse-url (replace-regexp-in-string ".oef" "" (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".3&+lang=fr&+module=adm%2Fdoc&+cmd=reply&+job=edit&+doc=1&+block=" oef-filename)))))
+	  (browse-url (replace-regexp-in-string ".oef" "" (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".6&+lang=fr&+module=adm%2Fdoc&+cmd=reply&+job=edit&+doc=1&+block=" oef-filename)))))
     (message-box "You are not connected. You have to connect to a wims session first.\n\nIn your browser :\n- Connect to Modtool\n- Go to the main page of your document\n- Select and copy the url in the clipboard\n\nIn emacs :\n- Connect to a wims session")))
 
 (defun oef-select-parameter ()
@@ -2037,10 +2037,10 @@ If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigi
       (forward-line 1)
       )))
 
-(defun  oef-insert-endash()
+(defun  oef-chemistry-simple-bond()
 "Insert a character."
   (interactive)
-  (insert "–")
+  (insert " – ")
   )
 (defun  oef-insert-french-opening-guillemet()
 "Insert a character."
@@ -2063,6 +2063,18 @@ If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigi
 "Insert a character."
   (interactive)
   (insert " ")
+  )
+
+(defun  oef-chemistry-double-bond()
+"Insert a character."
+  (interactive)
+  (insert " = ")
+  )
+
+(defun  oef-chemistry-triple-bond()
+"Insert a character."
+  (interactive)
+  (insert " ≡ ")
   )
 
 ;;----------------MENU----------------------------------------
@@ -2108,7 +2120,9 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   '("OEF" ; we start by creating a menu that is initially empty. This menu will be called "OEF" in the menu-bar.
     ["Files" nil t]
     ["---" nil t]
-    ["Characters" nil t]
+    ("Characters"
+     ["Chemistry Bond" nil t])
+    ["Expand Emmet Line" emmet-expand-line t]
     ["Highlight Variable at point (toggle)" oef-highlight-variable t] ;`Highlight oef variable' added to Text menu-bar    
     ["Indent" nil t]
     ["Rainbow" nil t]
@@ -2161,7 +2175,9 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Files") (get-examples)) ; we add the submenu `Examples' to the oef-menu-bar. This menu is not dynamic.
 (easy-menu-add-item oef-menu-bar '("Files")["Open All OEF Examples" oef-mode-open-all t]) ; we add the command "Open All OEF Examples" to the submenu `Examples' in the oef-menu-bar.
 ;; (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; deactivatedd (too slow)
-(easy-menu-add-item oef-menu-bar '("Characters")["en dash –" oef-insert-endash])
+(easy-menu-add-item oef-menu-bar '("Characters" "Chemistry Bond")["Simple Bond –" oef-chemistry-simple-bond])
+(easy-menu-add-item oef-menu-bar '("Characters" "Chemistry Bond")["Double Bond =" oef-chemistry-double-bond])
+(easy-menu-add-item oef-menu-bar '("Characters" "Chemistry Bond")["Triple Bond ≡" oef-chemistry-triple-bond])
 (easy-menu-add-item oef-menu-bar '("Characters")["« " oef-insert-french-opening-guillemet])
 (easy-menu-add-item oef-menu-bar '("Characters")[" »" oef-insert-french-closing-guillemet])
 (easy-menu-add-item oef-menu-bar '("Characters")["« »" oef-insert-french-guillemets])
@@ -2278,17 +2294,18 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "M-[") 'insert-pair)
   (define-key oef-mode-map (kbd "M-{") 'insert-pair)
   (define-key oef-mode-map (kbd "M-\"") 'insert-pair)
-
+  (define-key emmet-mode-keymap (kbd "C-o j") 'electric-newline-and-maybe-indent)
+  (define-key emmet-mode-keymap (kbd "C-j") 'electric-newline-and-maybe-indent)
+  (define-key emmet-mode-keymap (kbd "C-o x") 'emmet-expand-line)
   (define-key oef-mode-map (kbd "M--") 'oef-insert-endash)
   (define-key oef-mode-map (kbd "C-<") 'oef-insert-french-opening-guillemet)
   (define-key oef-mode-map (kbd "C->") 'oef-insert-french-closing-guillemet)
   (define-key oef-mode-map (kbd "C-M-<") 'oef-insert-french-guillemets)
   (define-key oef-mode-map (kbd "C-M-SPC") 'oef-insert-non-breaking-space)
-  
   (define-key oef-mode-map (kbd "TAB") 'oef-mode-indent-line)
-  (define-key oef-mode-map (kbd "<S-tab>") 'yafolding-show-all)
-  (define-key oef-mode-map (kbd "<backtab>") 'yafolding-show-all)
-  (define-key oef-mode-map (kbd "<C-tab>") 'yafolding-hide-all)
+  (define-key oef-mode-map (kbd "C-o tt>") 'yafolding-toggle-element)
+  (define-key oef-mode-map (kbd "C-o ts") 'yafolding-show-all)
+  (define-key oef-mode-map (kbd "C-o th") 'yafolding-hide-all)
   (define-key oef-mode-map (kbd "C-:") 'indent-region) ; alias for indent-region because C-\ is not working in Aquamacs with french keyboard 
   (define-key oef-mode-map (kbd "C-o") nil) ;
   (define-key oef-mode-map (kbd "C-o C-p") 'oef-select-parameter) ;
