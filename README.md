@@ -63,3 +63,5 @@ Totally GPL
 
 
 
+
+[cask]: http://cask.readthedocs.org/en/latest/
