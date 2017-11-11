@@ -1,17 +1,17 @@
-;;; oef-mode.el --- Major mode for editing oef templates
+;;; oef-mode.el --- Major mode for editing oef (wims) templates
 ;;; -*- coding: utf-8 -*-
 
 ;; Copyright 2017-2017 Raoul HATTERER
 
 ;; Author: Raoul Hatterer <hatterer.raoul@gmail.com>
-;; Version: 0.0.1
+;; Version: 0.1
 ;; Maintainer: Raoul Hatterer <hatterer.raoul@gmail.com>
 
 ;; Created: July 2017
 ;; Keywords: languages
 ;; URL: http://github.com/raoulhatterer/oef-mode
 ;; Package-Requires: ((rainbow-mode)(emmet-mode)(rainbow-delimiters)(expand-region))
-;; News: First publication on elpa
+;; News: 
 ;; Package-Type: multi
 
 ;; License: GNU General Public License >= 2
