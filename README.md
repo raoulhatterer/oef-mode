@@ -45,10 +45,10 @@ installed before. You'll need [Cask][cask] to install the dependencies.
 
 I usually use the following workflow when I develop this package:
 
-1. `$ git clone git://github.com/codingteam/pacmacs.el.git && cd pacmacs.el`;
+1. `$ git clone git://github.com/raoulhatterer/oef-mode && cd oef-mode`;
 2. `$ cask install`;
 3. `$ cask exec emacs`;
-4. `M-x find-file RET /path/to/pacmacs.el/pacmacs.el RET`;
+4. `M-x find-file RET /path/to/oef-mode.el/oef-mode.el RET`;
 5. `M-x eval-expression RET (add-to-list 'load-path default-directory) RET`;
 6. `M-x eval-buffer RET`;
 7. `M-x pacmacs-start RET`;
