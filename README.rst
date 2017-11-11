@@ -29,10 +29,10 @@ Installation
 eof-mode available on [MELPA](http://melpa.org/). Add the following to
 your emacs config file somewhere (.emacs, init.el, whatever):
 
-.. code:: guess
-   (require 'package)
-   (add-to-list 'package-archives
-              '("melpa" . "https://melpa.org/packages/") t)
+.. code:: python
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
 
 
 Then use `M-x package-install RET pacmacs RET` to install the game.
