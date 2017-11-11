@@ -465,7 +465,7 @@
     "special{mathmlinput «parameters»}"
     "special{drawinput «parameters»}"
     )
-  "In this variable we have the definitions of `oef-special-commands'.  Used to get `oef-special-commands' (thanks to `get-list-commands-names') for highlighting.  Also used to get the 'Special Commands menu' (thanks to `get-menu-oef-special-commands')."
+  "In this variable we have the definitions of `oef-special-commands'.  Used to get `oef-special-commands' (thanks to `get-list-commands-names') for highlighting.  Also used to get the 'Special Commands menu' (thanks to `oef-get-menu-special-commands')."
   )
 
 (defvar oef-special-commands nil
@@ -1227,7 +1227,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of mapcar
    )) ; end of defun oef-get-menu-commands
 
-(defun get-menu-oef-special-commands ()
+(defun oef-get-menu-special-commands ()
   "This function create a submenu `Special' with ‘oef-special-commands’."
   (easy-menu-create-menu
    "Special"
@@ -1240,7 +1240,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
       )               ; end of the lamda expression
     oef-definitions-special-commands ; sequence : here a list of string
     ) ; end of mapcar
-   )) ; end of defun get-menu-oef-special-commands
+   )) ; end of defun oef-get-menu-special-commands
 
 (defun get-oef-wims-functions ()
   "This function create a submenu `Wims Functions' with ‘oef-wims-functions’."
@@ -2209,7 +2209,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Initializations of Variables") (get-oef-exo-init-types)) ; we add the submenu `Exercises' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '("Initializations of Variables") (get-oef-doc-init-types)) ; we add the submenu `Documents' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (oef-get-menu-commands)) ; we add the submenu `Commands' to the oef-menu-bar.
-(easy-menu-add-item oef-menu-bar '("Commands") (get-menu-oef-special-commands)) ; we add the submenu `Special' in menu `Commands' to the oef-menu-bar.
+(easy-menu-add-item oef-menu-bar '("Commands") (oef-get-menu-special-commands)) ; we add the submenu `Special' in menu `Commands' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-answers-options)) ; we add the submenu `Answers types and options' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-defined-variables)) ; we add the submenu `oef-defined-variables' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (get-oef-language-reserved-words)) ; we add the submenu `oef-language-reserved-words' to the oef-menu-bar.
