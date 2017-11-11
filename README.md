@@ -46,6 +46,7 @@ installed before. You'll need [Cask][cask] to install the dependencies.
 I usually use the following workflow when I develop this package:
 
 1. `$ git clone git://github.com/raoulhatterer/oef-mode && cd oef-mode`;
+2. `$ cask init`;
 2. `$ cask install`;
 3. `$ cask exec emacs`;
 4. `M-x find-file RET /path/to/oef-mode.el/oef-mode.el RET`;
