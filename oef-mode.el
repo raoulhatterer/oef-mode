@@ -446,7 +446,7 @@
     "latex{}"
     "embed{«reply1»,«&opt:option»}"
     )
-  "In this variable we have the definitions of `oef-commands'.  Used to get `oef-commands' (thanks to `get-list-commands-names') for highlighting.  Also used to get the 'Commands menu' (thanks to `oef-get-menu-commands')."
+  "In this variable we have the definitions of `oef-commands'.  Used to get `oef-commands' (thanks to `oef-get-list-commands-names') for highlighting.  Also used to get the 'Commands menu' (thanks to `oef-get-menu-commands')."
   )
 
 (defvar oef-commands nil
@@ -465,7 +465,7 @@
     "special{mathmlinput «parameters»}"
     "special{drawinput «parameters»}"
     )
-  "In this variable we have the definitions of `oef-special-commands'.  Used to get `oef-special-commands' (thanks to `get-list-commands-names') for highlighting.  Also used to get the 'Special Commands menu' (thanks to `oef-get-menu-special-commands')."
+  "In this variable we have the definitions of `oef-special-commands'.  Used to get `oef-special-commands' (thanks to `oef-get-list-commands-names') for highlighting.  Also used to get the 'Special Commands menu' (thanks to `oef-get-menu-special-commands')."
   )
 
 (defvar oef-special-commands nil
@@ -998,7 +998,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
 
 (defvar oef-list-commands
   nil
-  "List of commands returned by the function `get-list-commands-names'.")
+  "List of commands returned by the function `oef-get-list-commands-names'.")
 
 (defvar oef-wims-session nil
   "Active Wims Session in unice wims server."
@@ -1756,7 +1756,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
   (easy-menu-create-menu
    "Wims Session"
    (vector oef-wims-session nil t)
-   )) ; end of defun oef-prompt-wims≤-session
+   )) ; end of defun oef-prompt-wims-session
 
 ;; (defun get-my-oef-files () ;; deactivated because it's too slow with a lot of files
 ;;  "This function create a submenu with my oef files"
@@ -1775,7 +1775,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
 ;;     ) ; end of mapcar
 ;;    )) ; end of defun get-my-files
 
-(defun get-list-commands-names (list-commands-definitions)
+(defun oef-get-list-commands-names (list-commands-definitions)
   "This function takes a LIST-COMMANDS-DEFINITIONS  (for example  `oef-definitions-commands') and return a list of commands names (for example `oef-commands')."
   (setq oef-list-commands '())
   (dolist
@@ -1788,7 +1788,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
   (nreverse oef-list-commands)
   )
 
-(defun get-list-wims-functions (list-functions-definitions)
+(defun oef-get-list-wims-functions (list-functions-definitions)
   "This function is used with `oef-definitions-wims-functions' and will return  `oef-wims-functions'."
   (setq list-functions '())
   (dolist
@@ -1799,9 +1799,9 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
      )
     )
   (nreverse list-functions)
-  ) ; end get-list-wims-functions
+  ) ; end oef-get-list-wims-functions
 
-(defun get-list-slib-scripts (list-functions-definitions)
+(defun oef-get-list-slib-scripts (list-functions-definitions)
   "This function is used with  `oef-definitions-slib-scripts') and will return  `oef-slib-scripts'."
   (setq list-functions '())
   (dolist
@@ -1812,9 +1812,9 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
      )
     )
   (nreverse list-functions)
-  ) ; end get-list-slib-scripts
+  ) ; end oef-get-list-slib-scripts
 
-(defun get-list-answers-options (list-options-definitions)
+(defun oef-get-list-answers-options (list-options-definitions)
   "This function takes a LIST-OPTIONS-DEFINITIONS  and return a list of options to be inserted and highlighted."
   (setq list-options '())
   (dolist
@@ -2080,11 +2080,11 @@ If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigi
 ;;----------------MENU----------------------------------------
 
 (setq oef-example-files (directory-files-recursively user-emacs-directory ".oef$")) ; list of strings (the oef examples files) needed to build the OEF menu
-(setq oef-commands (get-list-commands-names oef-definitions-commands)) ; list of strings (the oef-commands like 'title' and 'author')
-(setq oef-special-commands (get-list-commands-names oef-definitions-special-commands)) ; list of strings (the oef-special-commands)
-(setq oef-wims-functions (get-list-wims-functions oef-definitions-wims-functions)) ; list of strings (the oef-wims-functions)
-(setq oef-slib-scripts (get-list-slib-scripts oef-definitions-slib-scripts)) ; for highlighting
-(setq oef-answers-options (get-list-answers-options  oef-menu-answers-options))
+(setq oef-commands (oef-get-list-commands-names oef-definitions-commands)) ; list of strings (the oef-commands like 'title' and 'author')
+(setq oef-special-commands (oef-get-list-commands-names oef-definitions-special-commands)) ; list of strings (the oef-special-commands)
+(setq oef-wims-functions (oef-get-list-wims-functions oef-definitions-wims-functions)) ; list of strings (the oef-wims-functions)
+(setq oef-slib-scripts (oef-get-list-slib-scripts oef-definitions-slib-scripts)) ; for highlighting
+(setq oef-answers-options (oef-get-list-answers-options  oef-menu-answers-options))
 
 (defvar oef-mode-map
   (let ((map (make-sparse-keymap)))
