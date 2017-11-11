@@ -996,7 +996,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
   nil
   "List of the oef examples files.  This variable is automatically set at Emacs launch.")
 
-(defvar list-commands
+(defvar oef-list-commands
   nil
   "List of commands returned by the function `get-list-commands-names'.")
 
@@ -1777,15 +1777,15 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
 
 (defun get-list-commands-names (list-commands-definitions)
   "This function takes a LIST-COMMANDS-DEFINITIONS  (for example  `oef-definitions-commands') and return a list of commands names (for example `oef-commands')."
-  (setq list-commands '())
+  (setq oef-list-commands '())
   (dolist
       (command-definition list-commands-definitions)
     (add-to-list
-     'list-commands
+     'oef-list-commands
      (replace-regexp-in-string "{\\(.\\|\n\\)+}" "" command-definition)
      )
     )
-  (nreverse list-commands)
+  (nreverse oef-list-commands)
   )
 
 (defun get-list-wims-functions (list-functions-definitions)
