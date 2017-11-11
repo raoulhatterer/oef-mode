@@ -1827,7 +1827,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
   (nreverse list-options)
   )
 
-(defun update-oef-menu ()
+(defun oef-update-menu ()
   "This function update the oef-menu."
   (easy-menu-add-item oef-menu-bar
 		      '("Wims Session")
@@ -2267,7 +2267,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Documents")["Tooltip" oef-tooltip :help "Tooltip on words.\n\nUp to 3 arguments:\nArgument 1: the prompt. You may change the style of the prompt by using HTML tags\nor by defining the css style class span.tooltip.\nArgument 2 (optional): the options of the tooltip between [ ]. If the word nojs\nis added (outside the brackets), the used javascript is not reload (it is sufficient to load it once at the begining of the html page).\nArgument 3 : the text inside the tooltip."])
 
 
-(add-hook 'menu-bar-update-hook 'update-oef-menu) ;
+(add-hook 'menu-bar-update-hook 'oef-update-menu) ;
 
 ;;-----------MAJOR MODE----------------------------------------
 ;;;###autoload
