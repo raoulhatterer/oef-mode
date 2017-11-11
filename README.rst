@@ -29,9 +29,9 @@ Installation
 eof-mode available on [MELPA](http://melpa.org/). Add the following to
 your emacs config file somewhere (.emacs, init.el, whatever):
 
-.. code:: python
- (require 'package)
- (add-to-list 'package-archives
+.. code:: guess
+   (require 'package)
+   (add-to-list 'package-archives
               '("melpa" . "https://melpa.org/packages/") t)
 
 
