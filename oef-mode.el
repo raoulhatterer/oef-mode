@@ -1751,12 +1751,12 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of mapcar
    )) ; end of defun oef-get-language-reserved-words
 
-(defun prompt-wims-session()
+(defun oef-prompt-wims-session()
   "Prompt the wims session in the submenu Wims Session"
   (easy-menu-create-menu
    "Wims Session"
    (vector oef-wims-session nil t)
-   ))
+   )) ; end of defun oef-prompt-wims≤-session
 
 ;; (defun get-my-oef-files () ;; deactivated because it's too slow with a lot of files
 ;;  "This function create a submenu with my oef files"
