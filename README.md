@@ -23,7 +23,8 @@ Requirements
 - Emacs should have displaying images support
 - Emacs should have the [XPM](https://en.wikipedia.org/wiki/X_PixMap) image format support
 
-## Installation ##
+Installation
+------------
 
 Pacmacs available on [MELPA](http://melpa.org/). Add the following to
 your emacs config file somewhere (.emacs, init.el, whatever):
