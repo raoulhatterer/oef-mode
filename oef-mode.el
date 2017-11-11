@@ -10,7 +10,7 @@
 ;; Created: July 2017
 ;; Keywords: languages
 ;; URL: http://github.com/raoulhatterer/oef-mode
-;; Package-Requires: ((rainbow-mode)(emmet-mode)(rainbow-delimiters)(expand-region))
+;; Package-Requires: ((rainbow-mode "0.13")(emmet-mode "1.0.8")(rainbow-delimiters "2.1.3")(expand-region "0.11.0"))
 ;; News: 
 ;; Package-Type: multi
 
@@ -155,7 +155,7 @@
 
 ;;---- GROUPS ------------------------------------------------------------------
 
-(defgroup oef-mode nil
+(defgroup oef nil
   "Mode for editing OEF (wims) files"
   :group 'languages
   :prefix "oef-mode"
@@ -172,23 +172,23 @@
 (defface oef-namespace
   '((t (:inherit font-lock-builtin-face)))
   "`oef-mode' face used to highlight the namespace part of identifiers."
-  :group 'oef-mode)
+  :group 'oef)
 (defvar oef-namespace-face 'oef-namespace)
 
 (defface oef-font-function-name-face
   '((t (:foreground "orange red")))
   "Face for functions"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-equal-face
   '((t :inherit oef-font-function-name-face))
   "Face for equal sign"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-command-face
   '((t :inherit oef-font-function-name-face))
   "Face for commands"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-answer-command-face
   '((t
@@ -197,7 +197,7 @@
       :inherit
       (oef-font-command-face))))
   "Face for answer command"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-hint-command-face
   '((t
@@ -206,34 +206,34 @@
       :inherit
       (oef-font-command-face))))
   "Face for hint command"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-statement-command-face
   '((t
      (:height 1.2 :weight extra-bold :inherit
 	      (oef-font-answer-command-face))))
   "Face for statement command"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-positivenumber-face
   '((t (:foreground "#555555")))
   "Face for positive number"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-documentation-face
   '((t :inherit font-lock-doc-face))
   "Face for documentation"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-htag-face
   '((t (:foreground "snow4")))
   "Face for h1 h2 h3 tags"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-litag-face
   '((t (:foreground "magenta")))
   "Face for li tags"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-h1text-lightbg-face
   '((t
@@ -241,7 +241,7 @@
              (:color foreground-color :style line)
              :foreground "black")))
   "Face for h1 (sections) tag when the background is light"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-h1text-darkbg-face
   '((t
@@ -249,74 +249,74 @@
              (:color foreground-color :style line)
              :foreground "white")))
   "Face for h1 (sections) tag when the background is dark"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-h1text-face
   '((t
      (:inherit
       (oef-font-h1text-lightbg-face))))
   "Face for h1 (sections) tag"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 
 (defface oef-font-h2text-lightbg-face
   '((t
      (:width normal :height 1.05 :weight bold :foreground "black")))
   "Face for h2 (sections) tag when the background is light"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-h2text-darkbg-face
   '((t
      (:width normal :height 1.05 :weight bold :foreground "white")))
   "Face for h2 (sections) tag when the background is dark"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-h2text-face
   '((t
      (:inherit
       (oef-font-h2text-lightbg-face))))
   "Face for h2 (sub-sections) tag"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-answer-type-face
   '((t (:foreground "#CC9900")))
   "Face for answer type and options"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-control-face
   '((t (:foreground "#FF8C00")))
   "dark orange"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-comment-face
   '((t :inherit font-lock-comment-face))
   "Face for comments"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-warning-face
   '((t :inherit font-lock-warning-face))
   "Face for warning"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-type-face
   '((t :inherit font-lock-type-face))
   "Face for type"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-keyword-face
   '((t :inherit font-lock-keyword-face))
   "Face for keywords"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-variable-name-face
   '((t :inherit font-lock-variable-name-face))
   "Face for variables"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 (defface oef-font-formula-braces-face
   '((t  :background "LemonChiffon2"))
   "Face for mathematical formulas"
-  :group 'oef-mode-faces)
+  :group 'oef-faces)
 
 ;;---- VARS --------------------------------------------------------------------
 
