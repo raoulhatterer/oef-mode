@@ -1193,7 +1193,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
 		    (backward-char 2)
 		    ))))
 
-(defun get-examples ()
+(defun oef-get-examples ()
   "This function create a submenu with oef examples."
   (easy-menu-create-menu
    "Examples"
@@ -1210,7 +1210,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
       )               ; end of the lamda expression
     oef-example-files ; sequence : here a list of strings (the oef examples files)
     ) ; end of mapcar
-   )) ; end of defun get-examples
+   )) ; end of defun oef-get-examples
 
 (defun get-menu-oef-commands ()
   "This function create a submenu with ‘oef-commands’ from commands definitions in `oef-definitions-commands'."
@@ -2172,7 +2172,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["Wims Session" nil t]
     ))
 
-(easy-menu-add-item oef-menu-bar '("Files") (get-examples)) ; we add the submenu `Examples' to the oef-menu-bar. This menu is not dynamic.
+(easy-menu-add-item oef-menu-bar '("Files") (oef-get-examples)) ; we add the submenu `Examples' to the oef-menu-bar. This menu is not dynamic.
 (easy-menu-add-item oef-menu-bar '("Files")["Open All OEF Examples" oef-mode-open-all t]) ; we add the command "Open All OEF Examples" to the submenu `Examples' in the oef-menu-bar.
 ;; (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; deactivatedd (too slow)
 (easy-menu-add-item oef-menu-bar '("Characters" "Chemistry Bond")["Simple Bond –" oef-chemistry-simple-bond])
