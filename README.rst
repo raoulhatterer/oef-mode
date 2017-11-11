@@ -30,9 +30,9 @@ eof-mode available on [MELPA](http://melpa.org/). Add the following to
 your emacs config file somewhere (.emacs, init.el, whatever):
 
 .. code:: elisp
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
+  (require 'package)
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/") t)
 
 
 Then use `M-x package-install RET pacmacs RET` to install the game.
