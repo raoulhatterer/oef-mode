@@ -40,7 +40,7 @@ Then use `M-x package-install RET pacmacs RET` to install the game.
 Development
 -----------
 
-Before developing the game please remove it from Emacs if it was
+Before developing this package please remove it from Emacs if it was
 installed before. You'll need [Cask][cask] to install the dependencies.
 
 I usually use the following workflow when I develop this package:
