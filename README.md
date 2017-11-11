@@ -51,10 +51,9 @@ I usually use the following workflow when I develop this package:
 4. `M-x find-file RET /path/to/oef-mode.el/oef-mode.el RET`;
 5. `M-x eval-expression RET (add-to-list 'load-path default-directory) RET`;
 6. `M-x eval-buffer RET`;
-7. `M-x pacmacs-start RET`;
-8. `M-x pacmacs-quit RET`;
-9. Change something in the source code;
-10. Go to the step `6`.
+7. `M-x find-file RET /path/to/oef-mode.el/exemple.oef RET`;
+8. Change something in the source code;
+9. Go to the step `6`.
 
 Licence
 -------
