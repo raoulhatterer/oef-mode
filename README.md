@@ -33,7 +33,7 @@ your emacs config file somewhere (.emacs, init.el, whatever):
              '("melpa" . "https://melpa.org/packages/") t)
 ```
 
-Then use `M-x package-install RET pacmacs RET` to install the game.
+Then use `M-x package-install RET oef-mode RET` to install the package.
  
 Development
 -----------
