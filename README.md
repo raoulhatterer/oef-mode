@@ -12,9 +12,9 @@ Features (Non-exhaustive)
 * Automatic indentation
 * Connection to a wims session
 * OEF Menu with:
-** Examples
-** Useful Characters Shortcuts
-** OEF Commands and Keywords
+- Examples
+- Useful Characters Shortcuts
+- OEF Commands and Keywords
  
 Requirements
 ------------
