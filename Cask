@@ -1,6 +1,9 @@
 (source gnu)
 (source melpa)
 
+(package-file "oef-mode.el")
+
+
 (depends-on "bind-key")
 (depends-on "cask")
 (depends-on "dash")
