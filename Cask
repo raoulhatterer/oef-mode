@@ -3,6 +3,12 @@
 
 (package-file "oef-mode.el")
 
+(files "*.el"
+       "*.xml"
+       "*.md"
+       ("examples" ("fr" "examples/fr/*.oef")))
+
+
 
 (depends-on "bind-key")
 (depends-on "cask")
