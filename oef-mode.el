@@ -1139,7 +1139,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
   "Extract the wims session if there's a URL from a wims session on the clipboard."
   (interactive)
   (let ((link (substring-no-properties (gui-get-selection 'CLIPBOARD)))
-        (url  "http://wims.unice.fr/wims/wims.cgi\\?session="))
+        (url  "https://wims.unice.fr/wims/wims.cgi\\?session="))
     (save-match-data
       (if (string-match url link)
 	  (progn
@@ -1154,7 +1154,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
       (progn
 	(oef-copy-all-or-region)  
 	(let ((oef-filename (file-name-nondirectory (buffer-file-name))))
-	  (browse-url  (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".6&+lang=fr&+module=adm%2Fmodtool&+cmd=reply&+jobreq=edfile&+fname=src%2F" oef-filename))))
+	  (browse-url  (concat "https://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".6&+lang=fr&+module=adm%2Fmodtool&+cmd=reply&+jobreq=edfile&+fname=src%2F" oef-filename))))
     (message-box "You are not connected. You have to connect to a wims session first.")))
   
 (defun oef-edit-document-in-browser()
