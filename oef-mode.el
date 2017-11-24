@@ -1139,9 +1139,10 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
   "Extract the wims session if there's a URL from a wims session on the clipboard."
   (interactive)
   (let ((link (substring-no-properties (gui-get-selection 'CLIPBOARD)))
-        (url  "http://wims.unice.fr/wims/wims.cgi\\?session="))
+        (url1  "http://wims.unice.fr/wims/wims.cgi\\?session=")
+	(url2  "https://wims.unice.fr/wims/wims.cgi\\?session="))
     (save-match-data
-      (if (string-match url link)
+      (if (or (string-match url1 link)(string-match url2 link))
 	  (progn
 	    (setq oef-wims-session  (substring-no-properties (replace-regexp-in-string ".*session=" "" (gui-get-selection 'CLIPBOARD)) 0 10))
 	    (message (concat "Connected to Wims Session : " oef-wims-session)))
