@@ -1856,14 +1856,23 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
   (interactive)
   (find-file (read-file-name "Enter block name: ")))
 
-
-
-(defun oef-insert-image ()
-  "This function insert an image."
+(defun oef-insert-image-in-document ()
+  "This function insert an image. The image has first to be uploaded in doc/files."
   (interactive)
-  (insert "<img src=\"\\filedir/«file name»\" class=\"«class name»\"/>")
+  (insert "<img src=\"\\filedir/«file name»\" class=\"«class name»\" alt=\"«alternate text»\"/>")
   )
 
+(defun oef-insert-image-in-exercise ()
+  "This function insert an image. The image has first to be uploaded in images."
+  (interactive)
+  (insert "<img src=\"\\imagedir/«file name»\" class=\"«class name»\" alt=\"«alternate text»\"/>")
+  )
+
+(defun oef-insert-image-by-url ()
+  "This function insert an image by url."
+  (interactive)
+  (insert "<img src=\"«url»\" class=\"«class name»\" alt=\"«alternate text»\"/>")
+  )
 
 (defun oef-insert-flash (location)
   (interactive)
@@ -1916,7 +1925,7 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
   (oef-insert-flash "filedir")
   )
 
-(defun oef-insert-flash-in-exercice ()
+(defun oef-insert-flash-in-exercise ()
   (interactive)
   (oef-insert-flash "imagedir")
   )
@@ -2252,7 +2261,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '()["Select Parameter" oef-select-parameter :help "Select the fist «parameter»."])
 (easy-menu-add-item oef-menu-bar '()["Wims Session" nil t]); it's not a real connection (It just extract the session id from the URL)
 (easy-menu-add-item oef-menu-bar '("Wims Session")["Connect to a Wims Session" oef-get-wims-session :help "Connect emacs to the active Wims Session if the URL is in the CLIPBOARD."]); it's not a real connection (It just extract the session id from the URL)
-(easy-menu-add-item oef-menu-bar '("Wims Session")["Edit Exercise in Browser" oef-edit-exercise-in-browser :help "If the connection with the server is active,\n edit the Exercice wich has the same name on the WIMS server.\n Also copy the buffer content in the CLIPBOARD."]);
+(easy-menu-add-item oef-menu-bar '("Wims Session")["Edit Exercise in Browser" oef-edit-exercise-in-browser :help "If the connection with the server is active,\n edit the Exercise wich has the same name on the WIMS server.\n Also copy the buffer content in the CLIPBOARD."]);
 (easy-menu-add-item oef-menu-bar '("Wims Session")["Edit Document in Browser" oef-edit-document-in-browser :help "If the connection with the server is active,\n edit the Document wich has the same name on the WIMS server.\n Also copy the buffer content in the CLIPBOARD."]);
 
 (easy-menu-add-item oef-menu-bar '()["Random" nil t])
@@ -2301,10 +2310,13 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Documents" "Files")["Entrance" oef-find-main :help "The Entrance block of the document is always named `main'"])
 (easy-menu-add-item oef-menu-bar '("Documents" "Files")["Other" oef-find-block :help "Other block of the document"])
 (easy-menu-add-item oef-menu-bar '("Documents")["Insert" nil]); create submenu `Insert' in submenu  `Documents'
-(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Image" oef-insert-image :help "Insert an image.\n\nThe link `Other files' allows you to upload the image file to the wims server.\nCSS properties are defined online in properties of the main file."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Image in Document" oef-insert-image-in-document :help "Insert an image.\n\nThe link `Other files' allows you to upload the image file to the wims server.\nCSS properties are defined online in properties of the main file."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Image in Exercise" oef-insert-image-in-exercise :help "Insert an image.\n\nThe link `Other files' allows you to upload the image file to the wims server.\nCSS properties are defined online in properties of the main file."])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Image by URL" oef-insert-image-by-url :help "Insert an image by url."])
 (easy-menu-add-item oef-menu-bar '("Documents" "Insert")["--" nil])
 (easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Flash in Document" oef-insert-flash-in-document :help "Insert a flash animation  in the current page by specifying content"])
-(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Flash in Exercice" oef-insert-flash-in-exercice :help "Insert a flash animation  in the current exercice by specifying content"])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Flash in Exercise" oef-insert-flash-in-exercise :help "Insert a flash animation  in the current exercise by specifying content"])
+(easy-menu-add-item oef-menu-bar '("Documents" "Insert")["---" nil])
 (easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Folder" oef-insert-folder :help "Insert a folder in the current page by specifying content.\n\nAttention : The foldable parts within a same block do not allow automatic formatting of mathematical formulas, nor execution of commands. "])
 (easy-menu-add-item oef-menu-bar '("Documents" "Insert")["Block as Folder" oef-insert-block-as-folder :help "Insert a block as a folder in the current page by specifying the name of the block."])
 (easy-menu-add-item oef-menu-bar '("Documents" "Insert")["---" nil])
