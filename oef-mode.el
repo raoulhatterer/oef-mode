@@ -318,6 +318,12 @@
   "Face for mathematical formulas"
   :group 'oef-faces)
 
+(defface oef-font-mark-face
+  '((t  :background "Yellow"))
+  "Face for html mark tag"
+  :group 'oef-faces)
+
+
 ;;---- VARS --------------------------------------------------------------------
 
 (defvar oef-line-spacing   0.1
@@ -2440,6 +2446,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("\\(\\w*\\)\\(pari\\|maxima\\|yacas\\|wims\\|draw\\|slib\\|teximg)\\)(" 2 'oef-font-keyword-face) ; advanced functions
      ("\\(\\\\\\w+\\){" 1 'oef-font-warning-face) ; unknown '\command{'
      ("\\(\\\\(\\)\\([^ ]*\\)\\(\\\\)\\)" (1 'oef-font-formula-braces-face)(3 'oef-font-formula-braces-face)) ;  \(mathematical formula\)
+     ("<mark>\\([^>]*\\)</mark>" (1 'oef-font-mark-face)) ;  <mark></mark>
+
      ("\\(\\\\\\){" 1 'oef-font-positivenumber-face) ; latex expression \{}
      ("\\\\\\w+\\([0-9]?_?\\w?\\)*" . 'oef-font-variable-name-face) ; '\variable'
      ("[^\\w]\\([0-9]+\\(\\.[0-9]+\\)?\\)" 1 'oef-font-positivenumber-face) ; a number
