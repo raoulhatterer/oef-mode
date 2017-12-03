@@ -330,7 +330,7 @@
   "Additional space to put between lines when displaying a buffer.")
 
 (defvar oef-french-words-same-as-keywords
-  '("la solution" "une solution" "d'une solution"))
+  '("la solution" "une solution" "d'une solution" "des conditions"))
 
 (defvar oef-menu-answers-options ; "STAR BLANK TYPE" or "BLANK BLANK BLANK OPTION" in the menu DONE
   '("type=" "option=" "weight=" "* type=default"
