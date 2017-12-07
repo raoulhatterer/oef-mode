@@ -2415,6 +2415,9 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("^[:blank:]*#.*" . 'oef-font-comment-face) ; comments
      ("^[:blank:]*:%%.*" . 'oef-font-comment-face) ; comments
      ("«[^»]*\n?[^»]*»" . 'oef-font-documentation-face) ; documentation
+     ("<\\(h1\\)\\( \\(class\\|id\\) ?=.*\\)?>\\(.+\\)<\\(/h1\\)>" (1 'oef-font-htag-face)(4 'oef-font-h1text-face)(5 'oef-font-htag-face)) ; sections
+     ("<\\(h2\\)\\( \\(class\\|id\\) ?=.*\\)?>\\(.+\\)<\\(/h2\\)>" (1 'oef-font-htag-face)(4 'oef-font-h2text-face)(5 'oef-font-htag-face)) ; sub-sections
+
      (,(regexp-opt oef-french-words-same-as-keywords 'words) . 'default)
 					;     ("^ *<\\(li\\)>.*?</\\(li\\)> *$"(1 'oef-font-litag-face)(2 'oef-font-litag-face)) ; <li> </li>
      ("<\\(li\\)[^>]*>"(1 'oef-font-litag-face)) ; <li>
@@ -2434,8 +2437,6 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("\\(\\\\special\\){[ \\\n]*\\(expandlines\\|imagefill\\|help\\|tabs2lines\\|rename\\|tooltip\\|codeinput\\|imageinput\\|mathmlinput\\|drawinput\\)" (1 'oef-font-function-name-face)(2 'oef-font-keyword-face)) ; special OEF
      ("\\\\\\(for\\|if\\|else\\) *{" 1 'oef-font-control-face)	     ;controls
      ("-[0-9]+\\(\\.[0-9]+\\)?" . 'oef-font-warning-face) ; warning negative number
-     ("<\\(h1\\)\\( \\(class\\|id\\) ?=.*\\)?>\\(.+\\)<\\(/h1\\)>" (1 'oef-font-htag-face)(4 'oef-font-h1text-face)(5 'oef-font-htag-face)) ; sections
-     ("<\\(h2\\)\\( \\(class\\|id\\) ?=.*\\)?>\\(.+\\)<\\(/h2\\)>" (1 'oef-font-htag-face)(4 'oef-font-h2text-face)(5 'oef-font-htag-face)) ; sub-sections
      (,(regexp-opt oef-language-reserved-words 'words) . 'oef-font-keyword-face)
      (,(regexp-opt oef-answers-options 'symbols) . 'oef-font-answer-type-face)
      (,(regexp-opt oef-defined-variables 'words) . 'oef-font-variable-name-face)
