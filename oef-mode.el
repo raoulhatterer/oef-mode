@@ -323,6 +323,11 @@
   "Face for html mark tag"
   :group 'oef-faces)
 
+(defface oef-font-canvasdraw-face
+  '((t  :background "Green"))
+  "Face for canvasdraw commands"
+  :group 'oef-faces)
+
 
 ;;---- VARS --------------------------------------------------------------------
 
@@ -996,6 +1001,10 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
 
 (defvar oef-random-functions ; in the menu DONE
   '("random" "randint" "shuffle" "randomitem" "randomrow")
+  "Used for highlighting.")
+
+(defvar oef-canvasdraw-commands ; in the menu TODO
+  '("affine" "angle" "animate" "arc" "arrow" "arrow2" "arrowhead" "arrows" "arrows2" "audio" "axis" "axisnumbering" "barchart" "bezier" "bgcolor" "bgimage" "blink" "boxplot" "boxplotdata" "canvasdraw" "canvastype" "centerstring" "circle" "circles" "clearbutton" "clock" "copy" "copyresized" "crosshair" "crosshairs" "crosshairsize" "cursor" "curve" "dashed" "dashtype" "delete" "demiline" "demilines" "diamondfill" "disks" "display" "dotfill" "drag" "ellipse" "erase" "fill" "fillcolor" "filled" "filltoborder" "floodfill" "fontcolor" "fontfamily" "fontsize" "functionlabel" "grid" "gridfill" "halfline" "halflines" "hatchfill" "highlight" "hline" "hlines" "horizontalline" "horizontallines" "html" "http" "imagefill" "input" "inputstyle" "intooltip" "jscurve" "jsmath" "jsplot" "killaffine" "killrotate" "killslider" "killtranslate" "killtranslation" "lattice" "legend" "legendcolors" "levelcurve" "line" "linegraph" "lines" "linewidth" "mathml" "mouse" "mouse_degree" "mousex" "mousey" "multidash" "multidraw" "multifill" "multifillcolors" "multifillopacity" "multilabel" "multilinewidth" "multisnaptogrid" "multistrokecolors" "multistrokeopacity" "multiuserinput" "noaxis" "noayis" "note:" "onclick" "opacity" "parallel" "piechart" "pixels" "pixelsize" "plotsteps" "point" "pointer" "points" "poly" "polyline" "popup" "precision" "protractor" "ranget" "rangex" "rangey" "rays" "rect" "rects" "replyformat" "rotate" "rotationcenter" "roundrect" "roundrects" "ruler" "seg" "segment" "segments" "segs" "setlimits" "setpixel" "sgraph" "size" "slider" "sliderfunction_x" "sliderfunction_y" "snaptofun" "snaptofunction" "snaptogrid" "snaptopoints" "square" "status" "string" "stringup" "strokecolor" "text" "textarea" "textup" "trace_jscurve" "trange" "translate" "translation" "transparent" "triangle" "triangles" "userboxplot" "userboxplotdata" "userdraw" "userinput" "userinput_function" "userinput_function" "userinput_textarea" "userinput_xy" "userinput_xy" "usertextarea_xy" "vector" "vectors" "verticalline" "verticallines" "video" "vline" "vlines" "xaxis" "xaxistext" "xaxistextup" "xaxisup" "xerrorbars" "xlabel" "xlogbase" "xlogscale" "xrange" "xsnaptogrid" "xunit" "xylogscale" "yaxis" "yerrorbars" "ylabel" "ylogbase" "ylogscale" "yrange" "ysnaptogrid" "yunit" "zoom")
   "Used for highlighting.")
 
 (defvar oef-example-files
@@ -2448,7 +2457,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("\\(\\\\\\w+\\){" 1 'oef-font-warning-face) ; unknown '\command{'
      ("\\(\\\\(\\)\\([^ ]*\\)\\(\\\\)\\)" (1 'oef-font-formula-braces-face)(3 'oef-font-formula-braces-face)) ;  \(mathematical formula\)
      ("<mark>\\([^>]*\\)</mark>" (1 'oef-font-mark-face)) ;  <mark></mark>
-
+     (,(regexp-opt oef-canvasdraw-commands 'words) . 'oef-font-canvasdraw-face)     
      ("\\(\\\\\\){" 1 'oef-font-positivenumber-face) ; latex expression \{}
      ("\\\\\\w+\\([0-9]?_?\\w?\\)*" . 'oef-font-variable-name-face) ; '\variable'
      ("[^\\w]\\([0-9]+\\(\\.[0-9]+\\)?\\)" 1 'oef-font-positivenumber-face) ; a number
