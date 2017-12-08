@@ -2213,6 +2213,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["---" nil t]
     ["Answers Types and Options" nil t]
     ["Commands" nil t]
+    ["Canvasdraw" nil t]
     ["Comment (toogle)" oef-comment-toggle t]
     ["Defined Variables" nil t]
     ["Documents" nil t]
