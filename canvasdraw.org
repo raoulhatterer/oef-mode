@@ -17,9 +17,9 @@
 * DONE blink
 * DONE boxplot
 * DONE boxplotdata
-canvasdraw
-canvastype
-centerstring
+* DONE canvasdraw
+* DONE canvastype
+* DONE centerstring
 circle
 circles
 clearbutton
