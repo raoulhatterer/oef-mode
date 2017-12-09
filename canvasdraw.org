@@ -1,22 +1,22 @@
-affine
-angle
-animate
-arc
-arrow
-arrow2
-arrowhead
-arrows
-arrows2
-audio
-axis
-axisnumbering
-barchart
-bezier
-bgcolor
-bgimage
-blink
-boxplot
-boxplotdata
+* DONE affine
+* DONE angle
+* DONE animate
+* DONE arc
+* DONE arrow
+* DONE arrow2
+* DONE arrowhead
+* DONE arrows
+* DONE arrows2
+* DONE audio
+* DONE axis
+* DONE axisnumbering
+* DONE barchart
+* DONE bezier
+* DONE bgcolor
+* DONE bgimage
+* DONE blink
+* DONE boxplot
+* DONE boxplotdata
 canvasdraw
 canvastype
 centerstring
