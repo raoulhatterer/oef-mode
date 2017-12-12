@@ -40,6 +40,10 @@ Development
 
 Before developing this package please remove it from Emacs if it was
 installed before. You'll need [Cask][cask] to install the dependencies.
+After cask installation I added in my ~/.profile file:
+# cask
+ export PATH="/home/hatterer/.cask/bin:$PATH"
+
 
 I usually use the following workflow when I develop this package:
 
