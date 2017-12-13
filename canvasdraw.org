@@ -177,9 +177,7 @@ userboxplotdata
 userdraw
 userinput
 userinput_function
-userinput_function
 userinput_textarea
-userinput_xy
 userinput_xy
 usertextarea_xy
 vector
