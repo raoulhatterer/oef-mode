@@ -238,9 +238,9 @@
 (defface oef-font-h1text-lightbg-face
   '((t
      (:width normal :height 1.1 :weight bold :underline
-             (:color foreground-color :style line)
+             (:color "red" :style line)
              :foreground "black")))
-  "Face for h1 (sections) tag when the background is light"
+  "Face for sections between h1 tags when the background is light"
   :group 'oef-faces)
 
 (defface oef-font-h1text-darkbg-face
@@ -248,35 +248,44 @@
      (:width normal :height 1.1 :weight bold :underline
              (:color foreground-color :style line)
              :foreground "white")))
-  "Face for h1 (sections) tag when the background is dark"
+  "Face for sections between h1 tags when the background is dark"
   :group 'oef-faces)
 
 (defface oef-font-h1text-face
   '((t
      (:inherit
       (oef-font-h1text-lightbg-face))))
-  "Face for h1 (sections) tag"
+  "Face for sections between h1 tags"
   :group 'oef-faces)
 
 
 (defface oef-font-h2text-lightbg-face
   '((t
-     (:width normal :height 1.05 :weight bold :foreground "black")))
-  "Face for h2 (sections) tag when the background is light"
+     (:width normal :height 1.1 :weight bold :foreground "black")))
+  "Face for sub-sections between h2 tags when the background is light"
   :group 'oef-faces)
 
 (defface oef-font-h2text-darkbg-face
   '((t
      (:width normal :height 1.05 :weight bold :foreground "white")))
-  "Face for h2 (sections) tag when the background is dark"
+  "Face for sub-sections between h2 tags when the background is dark"
   :group 'oef-faces)
 
 (defface oef-font-h2text-face
   '((t
      (:inherit
       (oef-font-h2text-lightbg-face))))
-  "Face for h2 (sub-sections) tag"
+  "Face for sub-sections between h2 tags"
   :group 'oef-faces)
+
+(defface oef-font-h3text-face
+  '((t
+     (:width normal :underline
+             (:color foreground-color :style line)
+             )))
+  "Face for sub-sub-sections between h3 tags"
+  :group 'oef-faces)
+
 
 (defface oef-font-answer-type-face
   '((t (:foreground "#CC9900")))
@@ -2663,6 +2672,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("«[^»]*\n?[^»]*»" . 'oef-font-documentation-face) ; documentation
      ("<\\(h1\\)\\( \\(class\\|id\\) ?=.*\\)?>\\(.+\\)<\\(/h1\\)>" (1 'oef-font-htag-face)(4 'oef-font-h1text-face)(5 'oef-font-htag-face)) ; sections
      ("<\\(h2\\)\\( \\(class\\|id\\) ?=.*\\)?>\\(.+\\)<\\(/h2\\)>" (1 'oef-font-htag-face)(4 'oef-font-h2text-face)(5 'oef-font-htag-face)) ; sub-sections
+     ("<\\(h3\\)\\( \\(class\\|id\\) ?=.*\\)?>\\(.+\\)<\\(/h3\\)>" (1 'oef-font-htag-face)(4 'oef-font-h3text-face)(5 'oef-font-htag-face)) ; sub-sections     
 
      (,(regexp-opt oef-french-words-same-as-keywords 'words) . 'default)
 					;     ("^ *<\\(li\\)>.*?</\\(li\\)> *$"(1 'oef-font-litag-face)(2 'oef-font-litag-face)) ; <li> </li>
