@@ -1218,6 +1218,55 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
 		    (backward-char 2)
 		    ))))
 
+(defun oef-insert-electron()
+  "This function insert the full isotope symbol for the electron"
+  (interactive)
+  (insert "{}_{-1}^{\\phantom{-}0}\\mathrm{e}")
+  )
+
+(defun oef-insert-proton()
+  "This function insert the full isotope symbol for the electron"
+  (interactive)
+  (insert "{}_{1}^{1}\\mathrm{p}")
+  )
+
+(defun oef-insert-neutron()
+  "This function insert the full isotope symbol for the neutron"
+  (interactive)
+  (insert "{}_{0}^{1}\\mathrm{n}")
+  )
+
+(defun oef-insert-positron()
+  "This function insert the full isotope symbol for the positron"
+  (interactive)
+  (insert "{}_{1}^{0}\\mathrm{e}")
+  )
+
+(defun oef-insert-alpha-particle()
+  "This function insert the full isotope symbol for the alpha particule"
+  (interactive)
+  (insert "{}_{2}^{4}\\mathrm{He}")
+  )
+
+(defun oef-insert-isotope()
+  "This function insert the full isotope symbol"
+  (interactive)
+  (insert "{}_{Z}^{A}\\mathrm{X}")
+  )
+;; voir le code de oef-insert-flash pour saisir A Z et X.
+
+(defun oef-insert-uranium()
+  "This function insert the full isotope symbol"
+  (interactive)
+  (insert "{}_{\\phantom{2}92}^{238}\\mathrm{U}")
+  )
+
+(defun oef-insert-carbon()
+  "This function insert the full isotope symbol"
+  (interactive)
+  (insert "{}_{\\phantom{1}6}^{14}\\mathrm{C}")
+  )
+
 (defun oef-get-examples ()
   "This function create a submenu with oef examples."
   (easy-menu-create-menu
@@ -2151,7 +2200,7 @@ If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigi
   )
 
 (defun  oef-insert-non-breaking-space()
-"Insert a character."
+"Insert a non breaking space character."
   (interactive)
   (insert " ")
   )
@@ -2166,6 +2215,18 @@ If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigi
 "Insert a character."
   (interactive)
   (insert " ≡ ")
+  )
+
+(defun  oef-insert-rightarrow()
+"Insert a character."
+  (interactive)
+  (insert "\\rightarrow")
+  )
+
+(defun  oef-insert-longrightarrow()
+"Insert a character."
+  (interactive)
+  (insert "\\longrightarrow")
   )
 
 ;;----------------MENU----------------------------------------
@@ -2212,12 +2273,16 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["Files" nil t]
     ["---" nil t]
     ("Characters"
-     ["Chemistry Bond" nil t])
+     ["Arrows" nil t]     
+     ["Chemistry Bond" nil t]
+     ["Guillemets" nil t]     
+     ["Nuclear Reaction" nil t]
+     )
     ["Expand Emmet Line" emmet-expand-line t]
     ["Highlight Variable at point (toggle)" oef-highlight-variable t] ;`Highlight oef variable' added to Text menu-bar    
     ["Indent" nil t]
     ["Rainbow" nil t]
-    ["Select «Parameter»" nil t]
+    ["Select «Parameter»" oef-select-parameter t]
     ["Tag Folding" nil t]
     ["---" nil t]
     ["Answers Types and Options" nil t]
@@ -2254,7 +2319,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["Documents" nil t]
     ["Greek" nil t]
     ["Initializations of Variables" nil t]
-    ["Mathematical Expression" oef-insert-math t]
+    ["Mathematical Expression" oef-insert-math t] 
     ["Random" nil t]
     ["Reserved Words" nil t]
     ("Script Library"
@@ -2296,9 +2361,19 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Characters" "Chemistry Bond")["Simple Bond –" oef-chemistry-simple-bond])
 (easy-menu-add-item oef-menu-bar '("Characters" "Chemistry Bond")["Double Bond =" oef-chemistry-double-bond])
 (easy-menu-add-item oef-menu-bar '("Characters" "Chemistry Bond")["Triple Bond ≡" oef-chemistry-triple-bond])
-(easy-menu-add-item oef-menu-bar '("Characters")["« " oef-insert-french-opening-guillemet])
-(easy-menu-add-item oef-menu-bar '("Characters")[" »" oef-insert-french-closing-guillemet])
-(easy-menu-add-item oef-menu-bar '("Characters")["« »" oef-insert-french-guillemets])
+(easy-menu-add-item oef-menu-bar '("Characters" "Arrows")["Right Arrow" oef-insert-rightarrow])
+(easy-menu-add-item oef-menu-bar '("Characters" "Arrows")["Long Right Arrow" oef-insert-longrightarrow])
+(easy-menu-add-item oef-menu-bar '("Characters" "Nuclear Reaction")["Alpha Particle" oef-insert-alpha-particle])
+(easy-menu-add-item oef-menu-bar '("Characters" "Nuclear Reaction")["Carbon-14" oef-insert-carbon])
+(easy-menu-add-item oef-menu-bar '("Characters" "Nuclear Reaction")["Electron" oef-insert-electron])
+(easy-menu-add-item oef-menu-bar '("Characters" "Nuclear Reaction")["Isotope" oef-insert-isotope])
+(easy-menu-add-item oef-menu-bar '("Characters" "Nuclear Reaction")["Neutron" oef-insert-neutron])
+(easy-menu-add-item oef-menu-bar '("Characters" "Nuclear Reaction")["Positron" oef-insert-positron])
+(easy-menu-add-item oef-menu-bar '("Characters" "Nuclear Reaction")["Proton" oef-insert-proton])
+(easy-menu-add-item oef-menu-bar '("Characters" "Nuclear Reaction")["Uranium-238" oef-insert-uranium])
+(easy-menu-add-item oef-menu-bar '("Characters" "Guillemets")["« " oef-insert-french-opening-guillemet])
+(easy-menu-add-item oef-menu-bar '("Characters" "Guillemets")[" »" oef-insert-french-closing-guillemet])
+(easy-menu-add-item oef-menu-bar '("Characters" "Guillemets")["« »" oef-insert-french-guillemets])
 (easy-menu-add-item oef-menu-bar '("Characters")["Non Breaking Space  " oef-insert-non-breaking-space])
 (easy-menu-add-item oef-menu-bar '("Tag Folding")["Toogle Element" yafolding-toggle-element])
 (easy-menu-add-item oef-menu-bar '("Tag Folding")["Hide All" yafolding-hide-all])
@@ -2309,7 +2384,6 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Indent")["Indent line" oef-mode-indent-line])
 (easy-menu-add-item oef-menu-bar '("Indent")["Indent Region       ^:    or..." indent-region])
 (easy-menu-add-item oef-menu-bar '("Indent")["Indent Rigidly" indent-rigidly])
-(easy-menu-add-item oef-menu-bar '()["Select Parameter" oef-select-parameter :help "Select the fist «parameter»."])
 (easy-menu-add-item oef-menu-bar '()["Wims Session" nil t]); it's not a real connection (It just extract the session id from the URL)
 (easy-menu-add-item oef-menu-bar '("Wims Session")["Connect to a Wims Session" oef-get-wims-session :help "Connect emacs to the active Wims Session if the URL is in the CLIPBOARD."]); it's not a real connection (It just extract the session id from the URL)
 (easy-menu-add-item oef-menu-bar '("Wims Session")["Edit Exercise in Browser" oef-edit-exercise-in-browser :help "If the connection with the server is active,\n edit the Exercise wich has the same name on the WIMS server.\n Also copy the buffer content in the CLIPBOARD."]);
