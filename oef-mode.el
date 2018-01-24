@@ -344,7 +344,7 @@
   "Additional space to put between lines when displaying a buffer.")
 
 (defvar oef-french-words-same-as-keywords
-  '("la solution" "une solution" "d'une solution" "des conditions"))
+  '("la solution" "une solution" "d'une solution" "des conditions" "tout point" "du point" "plusieurs points" "ses points" "un point"))
 
 (defvar oef-menu-answers-options ; "STAR BLANK TYPE" or "BLANK BLANK BLANK OPTION" in the menu DONE
   '("type=" "option=" "weight=" "* type=default"
@@ -2778,6 +2778,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("\\(\\\\\\w+\\){" 1 'oef-font-warning-face) ; unknown '\command{'
      ("\\(\\\\(\\)\\([^ ]*\\)\\(\\\\)\\)" (1 'oef-font-formula-braces-face)(3 'oef-font-formula-braces-face)) ;  \(mathematical formula\)
      ("<mark>\\([^>]*\\)</mark>" (1 'oef-font-mark-face)) ;  <mark></mark>
+     ("\\(^ *<p class=\"mark\">\\)" (1 'oef-font-mark-face)) ;  <p class="mark"></p>     
      (,(regexp-opt oef-canvasdraw-commands 'words) . 'oef-font-canvasdraw-face)     
      ("\\(\\\\\\){" 1 'oef-font-positivenumber-face) ; latex expression \{}
      ("\\\\\\w+\\([0-9]?_?\\w?\\)*" . 'oef-font-variable-name-face) ; '\variable'
