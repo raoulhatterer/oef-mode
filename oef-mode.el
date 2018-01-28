@@ -1218,6 +1218,70 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
 		    (backward-char 2)
 		    ))))
 
+(defun oef-insert-tag-b()
+  "This function insert the tag <b>"
+  (interactive  (if (use-region-p)
+		    (progn
+		      (setq start (region-beginning))
+		      (setq end (region-end))
+		      (message (string end))
+		      (goto-char start)
+		      (insert "<b>")
+		      (goto-char (+ 3 end))
+		      (insert "</b>"))
+		  (progn
+		    (insert "<b></b>")
+		    (backward-char 4)
+		    ))))
+
+(defun oef-insert-tag-mark()
+  "This function insert the tag <mark>"
+  (interactive  (if (use-region-p)
+		    (progn
+		      (setq start (region-beginning))
+		      (setq end (region-end))
+		      (message (string end))
+		      (goto-char start)
+		      (insert "<mark>")
+		      (goto-char (+ 6 end))
+		      (insert "</mark>"))
+		  (progn
+		    (insert "<mark></mark>")
+		    (backward-char 7)
+		    ))))
+
+(defun oef-insert-tag-sub()
+  "This function insert the tag <sub>"
+  (interactive  (if (use-region-p)
+		    (progn
+		      (setq start (region-beginning))
+		      (setq end (region-end))
+		      (message (string end))
+		      (goto-char start)
+		      (insert "<sub>")
+		      (goto-char (+ 5 end))
+		      (insert "</sub>"))
+		  (progn
+		    (insert "<sub></sub>")
+		    (backward-char 6)
+		    ))))
+
+(defun oef-insert-tag-sup()
+  "This function insert the tag <sup>"
+  (interactive  (if (use-region-p)
+		    (progn
+		      (setq start (region-beginning))
+		      (setq end (region-end))
+		      (message (string end))
+		      (goto-char start)
+		      (insert "<sup>")
+		      (goto-char (+ 5 end))
+		      (insert "</sup>"))
+		  (progn
+		    (insert "<sup></sup>")
+		    (backward-char 6)
+		    ))))
+
 (defun oef-insert-electron()
   "This function insert the full isotope symbol for the electron"
   (interactive)
@@ -2272,18 +2336,21 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   '("OEF" ; we start by creating a menu that is initially empty. This menu will be called "OEF" in the menu-bar.
     ["Files" nil t]
     ["---" nil t]
-    ("Characters"
-     ["Arrows" nil t]     
-     ["Chemistry Bond" nil t]
-     ["Guillemets" nil t]     
-     ["Nuclear Reaction" nil t]
-     )
     ["Expand Emmet Line" emmet-expand-line t]
     ["Highlight Variable at point (toggle)" oef-highlight-variable t] ;`Highlight oef variable' added to Text menu-bar    
     ["Indent" nil t]
     ["Rainbow" nil t]
     ["Select «Parameter»" oef-select-parameter t]
-    ["Tag Folding" nil t]
+    ("Symbol"
+     ["Arrows" nil t]     
+     ["Chemistry Bond" nil t]
+     ["Greek" nil t]     
+     ["Guillemets" nil t]     
+     ["Nuclear Reaction" nil t]
+     )
+    ("Tag"
+     ["Tag Folding" nil t]
+     )
     ["---" nil t]
     ["Answers Types and Options" nil t]
     ["Commands" nil t]
@@ -2317,7 +2384,6 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["Comment (toogle)" oef-comment-toggle t]
     ["Defined Variables" nil t]
     ["Documents" nil t]
-    ["Greek" nil t]
     ["Initializations of Variables" nil t]
     ["Mathematical Expression" oef-insert-math t] 
     ["Random" nil t]
@@ -2358,27 +2424,31 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Files") (oef-get-examples)) ; we add the submenu `Examples' to the oef-menu-bar. This menu is not dynamic.
 (easy-menu-add-item oef-menu-bar '("Files")["Open All OEF Examples" oef-mode-open-all t]) ; we add the command "Open All OEF Examples" to the submenu `Examples' in the oef-menu-bar.
 ;; (easy-menu-add-item oef-menu-bar '("Files") (get-my-oef-files)) ; deactivatedd (too slow)
-(easy-menu-add-item oef-menu-bar '("Characters" "Chemistry Bond")["Simple Bond –" oef-chemistry-simple-bond])
-(easy-menu-add-item oef-menu-bar '("Characters" "Chemistry Bond")["Double Bond =" oef-chemistry-double-bond])
-(easy-menu-add-item oef-menu-bar '("Characters" "Chemistry Bond")["Triple Bond ≡" oef-chemistry-triple-bond])
-(easy-menu-add-item oef-menu-bar '("Characters" "Arrows")["Right Arrow" oef-insert-rightarrow])
-(easy-menu-add-item oef-menu-bar '("Characters" "Arrows")["Long Right Arrow" oef-insert-longrightarrow])
-(easy-menu-add-item oef-menu-bar '("Characters" "Nuclear Reaction")["Alpha Particle" oef-insert-alpha-particle])
-(easy-menu-add-item oef-menu-bar '("Characters" "Nuclear Reaction")["Carbon-14" oef-insert-carbon])
-(easy-menu-add-item oef-menu-bar '("Characters" "Nuclear Reaction")["Electron" oef-insert-electron])
-(easy-menu-add-item oef-menu-bar '("Characters" "Nuclear Reaction")["Isotope" oef-insert-isotope])
-(easy-menu-add-item oef-menu-bar '("Characters" "Nuclear Reaction")["Neutron" oef-insert-neutron])
-(easy-menu-add-item oef-menu-bar '("Characters" "Nuclear Reaction")["Positron" oef-insert-positron])
-(easy-menu-add-item oef-menu-bar '("Characters" "Nuclear Reaction")["Proton" oef-insert-proton])
-(easy-menu-add-item oef-menu-bar '("Characters" "Nuclear Reaction")["Uranium-238" oef-insert-uranium])
-(easy-menu-add-item oef-menu-bar '("Characters" "Guillemets")["« " oef-insert-french-opening-guillemet])
-(easy-menu-add-item oef-menu-bar '("Characters" "Guillemets")[" »" oef-insert-french-closing-guillemet])
-(easy-menu-add-item oef-menu-bar '("Characters" "Guillemets")["« »" oef-insert-french-guillemets])
-(easy-menu-add-item oef-menu-bar '("Characters")["Non Breaking Space  " oef-insert-non-breaking-space])
-(easy-menu-add-item oef-menu-bar '("Tag Folding")["Toogle Element" yafolding-toggle-element])
-(easy-menu-add-item oef-menu-bar '("Tag Folding")["Hide All" yafolding-hide-all])
-(easy-menu-add-item oef-menu-bar '("Tag Folding")["Show All" yafolding-show-all])
-(easy-menu-add-item oef-menu-bar '("Tag Folding")["Hide All" yafolding-hide-all])
+(easy-menu-add-item oef-menu-bar '("Symbol" "Chemistry Bond")["Simple Bond –" oef-chemistry-simple-bond])
+(easy-menu-add-item oef-menu-bar '("Symbol" "Chemistry Bond")["Double Bond =" oef-chemistry-double-bond])
+(easy-menu-add-item oef-menu-bar '("Symbol" "Chemistry Bond")["Triple Bond ≡" oef-chemistry-triple-bond])
+(easy-menu-add-item oef-menu-bar '("Symbol" "Arrows")["Right Arrow" oef-insert-rightarrow])
+(easy-menu-add-item oef-menu-bar '("Symbol" "Arrows")["Long Right Arrow" oef-insert-longrightarrow])
+(easy-menu-add-item oef-menu-bar '("Symbol" "Nuclear Reaction")["Alpha Particle" oef-insert-alpha-particle])
+(easy-menu-add-item oef-menu-bar '("Symbol" "Nuclear Reaction")["Carbon-14" oef-insert-carbon])
+(easy-menu-add-item oef-menu-bar '("Symbol" "Nuclear Reaction")["Electron" oef-insert-electron])
+(easy-menu-add-item oef-menu-bar '("Symbol" "Nuclear Reaction")["Isotope" oef-insert-isotope])
+(easy-menu-add-item oef-menu-bar '("Symbol" "Nuclear Reaction")["Neutron" oef-insert-neutron])
+(easy-menu-add-item oef-menu-bar '("Symbol" "Nuclear Reaction")["Positron" oef-insert-positron])
+(easy-menu-add-item oef-menu-bar '("Symbol" "Nuclear Reaction")["Proton" oef-insert-proton])
+(easy-menu-add-item oef-menu-bar '("Symbol" "Nuclear Reaction")["Uranium-238" oef-insert-uranium])
+(easy-menu-add-item oef-menu-bar '("Symbol" "Guillemets")["« " oef-insert-french-opening-guillemet])
+(easy-menu-add-item oef-menu-bar '("Symbol" "Guillemets")[" »" oef-insert-french-closing-guillemet])
+(easy-menu-add-item oef-menu-bar '("Symbol" "Guillemets")["« »" oef-insert-french-guillemets])
+(easy-menu-add-item oef-menu-bar '("Symbol")["Non Breaking Space  " oef-insert-non-breaking-space])
+(easy-menu-add-item oef-menu-bar '("Tag")["<b> bold" oef-insert-tag-b]) ;
+(easy-menu-add-item oef-menu-bar '("Tag")["<mark> marked text" oef-insert-tag-mark]) ;
+(easy-menu-add-item oef-menu-bar '("Tag")["<sub> superscript" oef-insert-tag-sub]) ;
+(easy-menu-add-item oef-menu-bar '("Tag")["<sup> subscript" oef-insert-tag-sup]) ;
+(easy-menu-add-item oef-menu-bar '("Tag" "Tag Folding")["Toogle Element" yafolding-toggle-element])
+(easy-menu-add-item oef-menu-bar '("Tag" "Tag Folding")["Hide All" yafolding-hide-all])
+(easy-menu-add-item oef-menu-bar '("Tag" "Tag Folding")["Show All" yafolding-show-all])
+(easy-menu-add-item oef-menu-bar '("Tag" "Tag Folding")["Hide All" yafolding-hide-all])
 (easy-menu-add-item oef-menu-bar '("Rainbow")["Delimiters (toogle)" rainbow-delimiters-mode])
 (easy-menu-add-item oef-menu-bar '("Rainbow")["Colors (toogle)" rainbow-mode])
 (easy-menu-add-item oef-menu-bar '("Indent")["Indent line" oef-mode-indent-line])
@@ -2396,7 +2466,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Random")["Random Row" (lambda () (interactive) (insert "randomrow()") (forward-char -1)) :help "Syntax: randomrow(\\mat)\n\nReturns a random line of a matrix."])
 (easy-menu-add-item oef-menu-bar '("Random")["Shuffle" (lambda () (interactive) (insert "shuffle()") (forward-char -1)) :help "Syntax: shuffle(n)\n\nReturns a randomly permuted list  of the n first positive integers."])
 (easy-menu-add-item oef-menu-bar '("Random")["Shuffle List" (lambda () (interactive) (insert "shuffle()") (forward-char -1)) :help "Syntax: shuffle(\\list)\n\nA new list with randomly permuted items in list is returned."])
-(easy-menu-add-item oef-menu-bar '("Greek")["Ɣ" (lambda () (interactive) (insert "Ɣ"))])
+(easy-menu-add-item oef-menu-bar '("Symbol" "Greek")["Ɣ" (lambda () (interactive) (insert "Ɣ"))])
 (easy-menu-add-item oef-menu-bar '()["Rainbow" nil t])
 (easy-menu-add-item oef-menu-bar '("Initializations of Variables") (oef-get-exo-init-types)) ; we add the submenu `Exercises' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '("Initializations of Variables") (oef-get-doc-init-types)) ; we add the submenu `Documents' to the oef-menu-bar.
@@ -2704,10 +2774,10 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "C-o j") 'electric-newline-and-maybe-indent)
   (define-key oef-mode-map (kbd "C-j") 'electric-newline-and-maybe-indent)
   (define-key oef-mode-map (kbd "C-o x") 'emmet-expand-line)
-  (define-key oef-mode-map (kbd "M--") 'oef-insert-endash)
-  (define-key oef-mode-map (kbd "C-<") 'oef-insert-french-opening-guillemet)
-  (define-key oef-mode-map (kbd "C->") 'oef-insert-french-closing-guillemet)
-  (define-key oef-mode-map (kbd "C-M-<") 'oef-insert-french-guillemets)
+  (define-key oef-mode-map (kbd "M--") 'oef-insert-endash)                   ; —
+  (define-key oef-mode-map (kbd "C-<") 'oef-insert-french-opening-guillemet) ; french «
+  (define-key oef-mode-map (kbd "C->") 'oef-insert-french-closing-guillemet) ; french »
+  (define-key oef-mode-map (kbd "C-M-<") 'oef-insert-french-guillemets)      ; french «»
   (define-key oef-mode-map (kbd "C-M-SPC") 'oef-insert-non-breaking-space)
   (define-key oef-mode-map (kbd "TAB") 'oef-mode-indent-line)
   (define-key oef-mode-map (kbd "C-o tt>") 'yafolding-toggle-element)
@@ -2716,7 +2786,11 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "C-:") 'indent-region) ; alias for indent-region because C-\ is not working in Aquamacs with french keyboard 
   (define-key oef-mode-map (kbd "C-o") nil) ;
   (define-key oef-mode-map (kbd "C-o C-p") 'oef-select-parameter) ;
-  (define-key oef-mode-map (kbd "C-o m") 'oef-insert-math) ;  
+  (define-key oef-mode-map (kbd "C-o m") 'oef-insert-math) ;
+  (define-key oef-mode-map (kbd "C-o tb") 'oef-insert-tag-b) ;
+  (define-key oef-mode-map (kbd "C-o tm") 'oef-insert-tag-mark) ;      
+  (define-key oef-mode-map (kbd "C-o t_") 'oef-insert-tag-sub) ;      
+  (define-key oef-mode-map (kbd "C-o t^") 'oef-insert-tag-sup) ;    
   (define-key oef-mode-map (kbd "C-o c") 'oef-comment-toggle) ;
   (define-key oef-mode-map (kbd "C-o ws") 'oef-get-wims-session) ;
   (define-key oef-mode-map (kbd "C-o C-o") 'oef-highlight-variable) ;
