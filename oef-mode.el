@@ -1996,19 +1996,19 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
 (defun oef-insert-image-in-document ()
   "This function insert an image. The image has first to be uploaded in doc/files."
   (interactive)
-  (insert "<img src=\"\\filedir/«file name»\" class=\"«class name»\" alt=\"«alternate text»\"/>")
+  (insert "<img src=\"\\filedir/«file name»\" class=\"«class name»\" width=\"«width»\" height=\"«height»\" alt=\"«alternate text»\"/>")
   )
 
 (defun oef-insert-image-in-exercise ()
   "This function insert an image. The image has first to be uploaded in images."
   (interactive)
-  (insert "<img src=\"\\imagedir/«file name»\" class=\"«class name»\" alt=\"«alternate text»\"/>")
+  (insert "<img src=\"\\imagedir/«file name»\" class=\"«class name»\" width=\"«width»\" height=\"«height»\" alt=\"«alternate text»\"/>")
   )
 
 (defun oef-insert-image-by-url ()
   "This function insert an image by url."
   (interactive)
-  (insert "<img src=\"«url»\" class=\"«class name»\" alt=\"«alternate text»\"/>")
+  (insert "<img src=\"«url»\" class=\"«class name»\" width=\"«width»\" height=\"«height»\" alt=\"«alternate text»\"/>")
   )
 
 (defun oef-insert-flash (location)
