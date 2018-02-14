@@ -344,7 +344,7 @@
   "Additional space to put between lines when displaying a buffer.")
 
 (defvar oef-french-words-same-as-keywords
-  '("la solution" "une solution" "d'une solution" "des conditions" "tout point" "du point" "plusieurs points" "ses points" "un point"))
+  '("la solution" "de solution" "en solution" "une solution" "d'une solution" "des conditions" "tout point" "du point" "plusieurs points" "ses points" "un point"))
 
 (defvar oef-menu-answers-options ; "STAR BLANK TYPE" or "BLANK BLANK BLANK OPTION" in the menu DONE
   '("type=" "option=" "weight=" "* type=default"
@@ -2284,13 +2284,19 @@ If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigi
 (defun  oef-insert-rightarrow()
 "Insert a character."
   (interactive)
-  (insert "\\rightarrow")
+  (insert "&rarr;")
   )
 
 (defun  oef-insert-longrightarrow()
 "Insert a character."
   (interactive)
   (insert "\\longrightarrow")
+  )
+
+(defun  oef-insert-harpoons()
+"Insert a character."
+  (interactive)
+  (insert "⇌")
   )
 
 ;;----------------MENU----------------------------------------
@@ -2429,6 +2435,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Symbol" "Chemistry Bond")["Triple Bond ≡" oef-chemistry-triple-bond])
 (easy-menu-add-item oef-menu-bar '("Symbol" "Arrows")["Right Arrow" oef-insert-rightarrow])
 (easy-menu-add-item oef-menu-bar '("Symbol" "Arrows")["Long Right Arrow" oef-insert-longrightarrow])
+(easy-menu-add-item oef-menu-bar '("Symbol" "Arrows")["Harpoons" oef-insert-harpoons])
 (easy-menu-add-item oef-menu-bar '("Symbol" "Nuclear Reaction")["Alpha Particle" oef-insert-alpha-particle])
 (easy-menu-add-item oef-menu-bar '("Symbol" "Nuclear Reaction")["Carbon-14" oef-insert-carbon])
 (easy-menu-add-item oef-menu-bar '("Symbol" "Nuclear Reaction")["Electron" oef-insert-electron])
