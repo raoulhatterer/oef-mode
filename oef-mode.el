@@ -2458,6 +2458,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Symbol" "Guillemets")["« »" oef-insert-french-guillemets])
 (easy-menu-add-item oef-menu-bar '("Symbol")["Non Breaking Space  " oef-insert-non-breaking-space])
 (easy-menu-add-item oef-menu-bar '("Tag")["Select Tag Pair" oef-mode-mark-sgml-tag-pair :help"Mark the current opening and closing tag"]) ;
+(easy-menu-add-item oef-menu-bar '("Tag")["Select Inner Tag" er/mark-inner-tag :help"Mark the content between current opening and closing tag"]) ;
 (easy-menu-add-item oef-menu-bar '("Tag")["<b> bold" oef-insert-tag-b]) ;
 (easy-menu-add-item oef-menu-bar '("Tag")["<mark> marked text" oef-insert-tag-mark]) ;
 (easy-menu-add-item oef-menu-bar '("Tag")["<sub> superscript" oef-insert-tag-sub]) ;
@@ -2806,6 +2807,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "C-o C-p") 'oef-select-parameter) ;
   (define-key oef-mode-map (kbd "C-o m") 'oef-insert-math) ;
   (define-key oef-mode-map (kbd "C-o tp") 'oef-mode-mark-sgml-tag-pair) ;
+  (define-key oef-mode-map (kbd "C-o ts") 'er/mark-inner-tag) ;  
   (define-key oef-mode-map (kbd "C-o tb") 'oef-insert-tag-b) ;  
   (define-key oef-mode-map (kbd "C-o tm") 'oef-insert-tag-mark) ;      
   (define-key oef-mode-map (kbd "C-o t_") 'oef-insert-tag-sub) ;      
