@@ -2319,6 +2319,7 @@ If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigi
 (defvar oef-mode-map
   (let ((map (make-sparse-keymap)))
     ;;    (define-key map [menu-bar sgml] 'undefined) ;SGML menu-bar item suppressed
+    (define-key map [menu-bar sgml sgml-close-tag] '(menu-item "Close Tag" sgml-close-tag)) ; `Close Tag' added to Sgml menu-bar    
     ;; menu-bar Text
     (define-key map [menu-bar text paragraph-indent-minor-mode] 'undefined) ;Text menu-bar item `Paragraph indent' suppressed
 					;    (define-key map [menu-bar text toggle-text-mode-auto-fill] 'undefined) ;Text menu-bar item `Auto Fill' suppressed
