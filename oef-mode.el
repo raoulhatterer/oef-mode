@@ -2163,6 +2163,14 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
   (insert "\\tooltip{«description»}{«&opt:options»}{«tooltip text»}")
   )
 
+(defun oef-mode-mark-sgml-tag-pair ()
+  "Mark the current opening and closing tag.
+
+This function calls `mc/mark-sgml-tag-pair' a `multiple-cursors' command. 
+This function uses `sgml-mode-syntax-table' because with `oef-mode-syntax-table' there are  problems with tag selection."
+  (interactive)
+  (with-syntax-table sgml-mode-syntax-table (mc/mark-sgml-tag-pair)))
+
 (defun oef-mode-indent-line ()
   "This function try to smartly indent the line.
 
@@ -2448,6 +2456,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Symbol" "Guillemets")[" »" oef-insert-french-closing-guillemet])
 (easy-menu-add-item oef-menu-bar '("Symbol" "Guillemets")["« »" oef-insert-french-guillemets])
 (easy-menu-add-item oef-menu-bar '("Symbol")["Non Breaking Space  " oef-insert-non-breaking-space])
+(easy-menu-add-item oef-menu-bar '("Tag")["Select Tag Pair" oef-mode-mark-sgml-tag-pair :help"Mark the current opening and closing tag"]) ;
 (easy-menu-add-item oef-menu-bar '("Tag")["<b> bold" oef-insert-tag-b]) ;
 (easy-menu-add-item oef-menu-bar '("Tag")["<mark> marked text" oef-insert-tag-mark]) ;
 (easy-menu-add-item oef-menu-bar '("Tag")["<sub> superscript" oef-insert-tag-sub]) ;
@@ -2775,7 +2784,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
       (set-face-attribute 'oef-font-h2text-face nil :inherit 'oef-font-h2text-darkbg-face)))
 
   ;; key binding
-  (define-key oef-mode-map (kbd "M-[") 'insert-pair)
+  (define-key oef-mode-map (kbd "/") nil) ; to have forward-slash with multiple-cursors
+  (define-key oef-mode-map (kbd "M-[") 'insert-pair)  
   (define-key oef-mode-map (kbd "M-{") 'insert-pair)
   (define-key oef-mode-map (kbd "M-\"") 'insert-pair)
   (define-key oef-mode-map (kbd "C-o j") 'electric-newline-and-maybe-indent)
@@ -2794,7 +2804,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "C-o") nil) ;
   (define-key oef-mode-map (kbd "C-o C-p") 'oef-select-parameter) ;
   (define-key oef-mode-map (kbd "C-o m") 'oef-insert-math) ;
-  (define-key oef-mode-map (kbd "C-o tb") 'oef-insert-tag-b) ;
+  (define-key oef-mode-map (kbd "C-o tp") 'oef-mode-mark-sgml-tag-pair) ;
+  (define-key oef-mode-map (kbd "C-o tb") 'oef-insert-tag-b) ;  
   (define-key oef-mode-map (kbd "C-o tm") 'oef-insert-tag-mark) ;      
   (define-key oef-mode-map (kbd "C-o t_") 'oef-insert-tag-sub) ;      
   (define-key oef-mode-map (kbd "C-o t^") 'oef-insert-tag-sup) ;    
