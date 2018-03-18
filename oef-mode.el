@@ -2163,6 +2163,14 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
   (insert "\\tooltip{«description»}{«&opt:options»}{«tooltip text»}")
   )
 
+(defun oef-close-tag ()
+  "Close current element.
+
+Depending on context, inserts a matching close-tag, or closes
+the current start-tag or the current comment or the current cdata, ..."
+  (interactive)
+  (with-syntax-table sgml-mode-syntax-table (sgml-close-tag)))
+
 (defun oef-mode-mark-sgml-tag-pair ()
   "Mark the current opening and closing tag.
 
@@ -2319,7 +2327,7 @@ If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigi
 (defvar oef-mode-map
   (let ((map (make-sparse-keymap)))
     ;;    (define-key map [menu-bar sgml] 'undefined) ;SGML menu-bar item suppressed
-    (define-key map [menu-bar sgml sgml-close-tag] '(menu-item "Close Tag" sgml-close-tag)) ; `Close Tag' added to Sgml menu-bar    
+    (define-key map [menu-bar sgml oef-close-tag] '(menu-item "Close Tag" oef-close-tag)) ; `Close Tag' added to Sgml menu-bar    
     ;; menu-bar Text
     (define-key map [menu-bar text paragraph-indent-minor-mode] 'undefined) ;Text menu-bar item `Paragraph indent' suppressed
 					;    (define-key map [menu-bar text toggle-text-mode-auto-fill] 'undefined) ;Text menu-bar item `Auto Fill' suppressed
@@ -2787,7 +2795,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 
   ;; key binding
   (define-key oef-mode-map (kbd "/") nil) ; to have forward-slash with multiple-cursors
-  (define-key oef-mode-map (kbd "M-[") 'insert-pair)  
+  (define-key oef-mode-map (kbd "C-C C-e") 'oef-close-tag)
+  (define-key oef-mode-map (kbd "M-[") 'insert-pair)    
   (define-key oef-mode-map (kbd "M-{") 'insert-pair)
   (define-key oef-mode-map (kbd "M-\"") 'insert-pair)
   (define-key oef-mode-map (kbd "C-o j") 'electric-newline-and-maybe-indent)
