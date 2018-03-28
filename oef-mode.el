@@ -1331,6 +1331,12 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
   (insert "{}_{\\phantom{1}6}^{14}\\mathrm{C}")
   )
 
+(defun oef-canvasdraw-example()
+  "Insert a canvasdraw example"
+  (interactive)
+  (insert "\\canvasdraw{400,400}{\nxrange -10,10\nyrange -10,10\nmathml 0,0,0,0,\\M\nstrokecolor blue\nmathml -5,5,0,0,\\N\nopacity 255,30\nfcircle 0,0,130,green\nfrect 0,0,5,-5,orange\n}")
+  )
+
 (defun oef-get-examples ()
   "This function create a submenu with oef examples."
   (easy-menu-create-menu
@@ -2378,6 +2384,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["Answers Types and Options" nil t]
     ["Commands" nil t]
     ("Canvasdraw"
+     ["example" oef-canvasdraw-example t]
      ["A" nil t]
      ["B" nil t]
      ["C" nil t]
@@ -2404,7 +2411,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ["X" nil t]                                                                                                              
      ["Y" nil t]
      ["Z" nil t])    
-    ["Comment (toogle)" oef-comment-toggle t]
+    ["Comment (toggle)" oef-comment-toggle t]
     ["Defined Variables" nil t]
     ["Documents" nil t]
     ["Initializations of Variables" nil t]
