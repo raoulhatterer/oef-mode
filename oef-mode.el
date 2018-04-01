@@ -2620,12 +2620,18 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["copy" (lambda () (interactive) (insert "copy x,y,x1,y1,x2,y2,[filename URL] ")) :help "copy x,y,x1,y1,x2,y2,[filename URL]\n\n\t○ The image may be \"bitmap\" or \"SVG\"\n\t○ Insert the region from (x1,y1) to (x2,y2) (in pixels) of [filename] to (x,y) in x/y-range\n\t○ If x1=y1=x2=y2=-1, the whole [filename URL] is copied.\n\t○ [filename] is the URL of the image\n\t○ URL is normal URL of network reachable image file location\n\t○ if command 'drag x/y/xy' is set before command 'copy', the images will be draggable\n\t○ if keyword 'onclick' is set before command 'copy' the image(s) is clickable (marked with a green rectangle around the image)\n\t○ 'onclick' for external images may be mixed with canvas generated stuff (like lines,curves etc)\n\t○ you may draw / userdraw / drag other stuff on top of an \"imported\" image"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["copyresized" (lambda () (interactive) (insert "copyresized ")) :help "Sorry. There is no help for copyresized "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["crosshair" (lambda () (interactive) (insert "crosshair ")) :help "Sorry. There is no help for crosshair "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["crosshairs" (lambda () (interactive) (insert "crosshairs ")) :help "Sorry. There is no help for crosshairs "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["crosshairsize" (lambda () (interactive) (insert "crosshairsize ")) :help "Sorry. There is no help for crosshairsize "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["cursor" (lambda () (interactive) (insert "cursor ")) :help "Sorry. There is no help for cursor "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["curve" (lambda () (interactive) (insert "curve ")) :help "Sorry. There is no help for curve "])
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["copyresized" (lambda () (interactive) (insert "copyresized x1,y2,x2,y2,dx1,dy1,dx2,dy2,image_file_url ")) :help "Insert the region from (x1,y1) to (x2,y2) (in pixels) of [ filename], possibly resized, to the region of (dx1,dy1) to (dx2,dy2) in x/y-range "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["crosshair" (lambda () (interactive) (insert "crosshair x,y,color ")) :help "use command 'crosshairsize int' and / or 'linewidth int' to adjust "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["crosshairs" (lambda () (interactive) (insert "crosshairs color,x1,y1,x2,y2,...,x_n,y_n ")) :help "use command 'crosshairsize int' and / or 'linewidth int' to adjust "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["crosshairsize" (lambda () (interactive) (insert "crosshairsize int ")) :help "default 8 (px) "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["cursor" (lambda () (interactive) (insert "cursor 'some CSS cursor_style' ")) :help "style can be any valid CSS property value, like crosshair, grabbing, move etc "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["curve" (lambda () (interactive) (insert "curve color,formula(x) ")) :help "use only basic math in your curve: sqrt,^,asin,acos,atan,log,pi,abs,sin,cos,tan,e "])
+
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["dashed" (lambda () (interactive) (insert "dashed ")) :help "Sorry. There is no help for dashed "])
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["dashtype" (lambda () (interactive) (insert "dashtype ")) :help "Sorry. There is no help for dashtype "])
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["delete" (lambda () (interactive) (insert "delete ")) :help "Sorry. There is no help for delete "])
