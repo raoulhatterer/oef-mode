@@ -2697,18 +2697,30 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["functionlabel" (lambda () (interactive) (insert "functionlabel some_string ")) :help "define the inputfield text : default value 'f(x)=' "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "G")["grid" (lambda () (interactive) (insert "grid ")) :help "Sorry. There is no help for grid "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "G")["gridfill" (lambda () (interactive) (insert "gridfill ")) :help "Sorry. There is no help for gridfill "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["halfline" (lambda () (interactive) (insert "halfline ")) :help "Sorry. There is no help for halfline "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["halflines" (lambda () (interactive) (insert "halflines ")) :help "Sorry. There is no help for halflines "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["hatchfill" (lambda () (interactive) (insert "hatchfill ")) :help "Sorry. There is no help for hatchfill "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["highlight" (lambda () (interactive) (insert "highlight ")) :help "Sorry. There is no help for highlight "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["hline" (lambda () (interactive) (insert "hline ")) :help "Sorry. There is no help for hline "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["hlines" (lambda () (interactive) (insert "hlines ")) :help "Sorry. There is no help for hlines "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["horizontalline" (lambda () (interactive) (insert "horizontalline ")) :help "Sorry. There is no help for horizontalline "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["horizontallines" (lambda () (interactive) (insert "horizontallines ")) :help "Sorry. There is no help for horizontallines "])
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "G")["grid" (lambda () (interactive) (insert "grid step_x,step_y,gridcolor ")) :help "if keywords "axis" or "axisnumbering" are set, use : grid step_x,step_y,major_color,minor_x,minor_y,tics height in px,axis_color \nwhere minor x step = step_x / minor_x "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "G")["gridfill" (lambda () (interactive) (insert "gridfill x0,y0,dx,dy,color ")) :help "distances dx,dy in pixels "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["halfline" (lambda () (interactive) (insert "halfline x1,y1,x2,y2,color ")) :help "draws a halfline starting in (x1:y1) and through (x2:y2) in color 'color' (colorname or hex) "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["halflines" (lambda () (interactive) (insert "halflines color,x1,y1,x2,y2,.... ")) :help "draws halflines starting in (x1:y1) and through (x2:y2) in color 'color' (colorname or hex) etc etc "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["hatchfill" (lambda () (interactive) (insert "hatchfill x0,y0,dx,dy,color ")) :help "distances dx,dy in pixels"])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["highlight" (lambda () (interactive) (insert "highlight color,opacity,linewidth ")) :help "NOT IMPLEMENTED "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["hline" (lambda () (interactive) (insert "hline x,y,color ")) :help "draw a horizontal line through point (x:y) in color 'color' "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["hlines" (lambda () (interactive) (insert "hlines color,x1,y1,x2,y2,... ")) :help "draw horizontal lines through points (x1:y1)...(xn:yn) in color 'color' "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["horizontalline" (lambda () (interactive) (insert "horizontalline x,y,color ")) :help "draw a horizontal line through point (x:y) in color 'color' "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["horizontallines" (lambda () (interactive) (insert "horizontallines color,x1,y1,x2,y2,... ")) :help "draw horizontal lines through points (x1:y1)...(xn:yn) in color 'color' "])
+
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["html" (lambda () (interactive) (insert "html x1,y1,x2,y2,html_string ")) :help "all tags are allowed "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["http" (lambda () (interactive) (insert "http ")) :help "Sorry. There is no help for http "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["http" (lambda () (interactive) (insert "http x1,y1,x2,y2,http://some_adress.com ")) :help "an active html-page will be displayed in an "iframe" rectangle left top (x1:y1) , right bottom (x2:y2) "])
+
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "I")["imagefill" (lambda () (interactive) (insert "imagefill ")) :help "Sorry. There is no help for imagefill "])
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "I")["input" (lambda () (interactive) (insert "input ")) :help "Sorry. There is no help for input "])
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "I")["inputstyle" (lambda () (interactive) (insert "inputstyle ")) :help "Sorry. There is no help for inputstyle "])
