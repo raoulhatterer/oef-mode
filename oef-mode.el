@@ -2721,13 +2721,20 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["http" (lambda () (interactive) (insert "http x1,y1,x2,y2,http://some_adress.com ")) :help "an active html-page will be displayed in an "iframe" rectangle left top (x1:y1) , right bottom (x2:y2) "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "I")["imagefill" (lambda () (interactive) (insert "imagefill ")) :help "Sorry. There is no help for imagefill "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "I")["input" (lambda () (interactive) (insert "input ")) :help "Sorry. There is no help for input "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "I")["inputstyle" (lambda () (interactive) (insert "inputstyle ")) :help "Sorry. There is no help for inputstyle "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "I")["intooltip" (lambda () (interactive) (insert "intooltip ")) :help "Sorry. There is no help for intooltip "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "J")["jscurve" (lambda () (interactive) (insert "jscurve ")) :help "Sorry. There is no help for jscurve "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "J")["jsmath" (lambda () (interactive) (insert "jsmath ")) :help "Sorry. There is no help for jsmath "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "J")["jsplot" (lambda () (interactive) (insert "jsplot ")) :help "Sorry. There is no help for jsplot "])
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "I")["imagefill" (lambda () (interactive) (insert "imagefill dx,dy,image_url ")) :help "The next suitable filled object will be filled with 'image_url' tiled. \nIf dx,dy is larger than the image, the whole image will be background to the next object. "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "I")["input" (lambda () (interactive) (insert "input x,y,size,editable,value ")) :help "only active inputfields (editable = 1) will be read with read_canvas() "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "I")["inputstyle" (lambda () (interactive) (insert "inputstyle style_description ")) :help "example: inputstyle color:blue;font-weight:bold;font-style:italic;font-size:16pt "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "I")["intooltip" (lambda () (interactive) (insert "intooltip link_text ")) :help "link_text is a single line (span-element) "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "J")["jscurve" (lambda () (interactive) (insert "jscurve color,formula(x) ")) :help "use only basic math in your curve: sqrt,^,asin,acos,atan,log,pi,abs,sin,cos,tan,e "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "J")["jsmath" (lambda () (interactive) (insert "jsmath formula(x) ")) :help "use command 'jsmath formula(x)` for calculating and displaying indiviual points on the curve "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "J")["jsplot" (lambda () (interactive) (insert "jsplot color,formula(x) ")) :help "use only basic math in your curve: sqrt,^,asin,acos,atan,log,pi,abs,sin,cos,tan,e "])
+
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "K")["killaffine" (lambda () (interactive) (insert "killaffine ")) :help "Sorry. There is no help for killaffine "])
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "K")["killrotate" (lambda () (interactive) (insert "killrotate ")) :help "Sorry. There is no help for killrotate "])
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "K")["killslider" (lambda () (interactive) (insert "killslider ")) :help "Sorry. There is no help for killslider "])
