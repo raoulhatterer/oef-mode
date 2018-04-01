@@ -2632,39 +2632,71 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["curve" (lambda () (interactive) (insert "curve color,formula(x) ")) :help "use only basic math in your curve: sqrt,^,asin,acos,atan,log,pi,abs,sin,cos,tan,e "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["dashed" (lambda () (interactive) (insert "dashed ")) :help "Sorry. There is no help for dashed "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["dashtype" (lambda () (interactive) (insert "dashtype ")) :help "Sorry. There is no help for dashtype "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["delete" (lambda () (interactive) (insert "delete ")) :help "Sorry. There is no help for delete "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["demiline" (lambda () (interactive) (insert "demiline ")) :help "Sorry. There is no help for demiline "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["demilines" (lambda () (interactive) (insert "demilines ")) :help "Sorry. There is no help for demilines "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["diamondfill" (lambda () (interactive) (insert "diamondfill ")) :help "Sorry. There is no help for diamondfill "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["disk" (lambda () (interactive) (insert "disk ")) :help "Sorry. There is no help for disk "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["disks" (lambda () (interactive) (insert "disks ")) :help "Sorry. There is no help for disks "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["disks" (lambda () (interactive) (insert "disks ")) :help "Sorry. There is no help for disks "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["display" (lambda () (interactive) (insert "display ")) :help "Sorry. There is no help for display "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["dotfill" (lambda () (interactive) (insert "dotfill ")) :help "Sorry. There is no help for dotfill "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["drag" (lambda () (interactive) (insert "drag ")) :help "Sorry. There is no help for drag "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "E")["ellipse" (lambda () (interactive) (insert "ellipse ")) :help "Sorry. There is no help for ellipse "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "E")["erase" (lambda () (interactive) (insert "erase ")) :help "Sorry. There is no help for erase "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fcircle" (lambda () (interactive) (insert "fcircle ")) :help "Sorry. There is no help for fcircle "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fcircles" (lambda () (interactive) (insert "fcircles ")) :help "Sorry. There is no help for fcircles "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fill" (lambda () (interactive) (insert "fill ")) :help "Sorry. There is no help for fill "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fillcolor" (lambda () (interactive) (insert "fillcolor ")) :help "Sorry. There is no help for fillcolor "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["filled" (lambda () (interactive) (insert "filled ")) :help "Sorry. There is no help for filled "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["filltoborder" (lambda () (interactive) (insert "filltoborder ")) :help "Sorry. There is no help for filltoborder "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["floodfill" (lambda () (interactive) (insert "floodfill ")) :help "Sorry. There is no help for floodfill "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fontcolor" (lambda () (interactive) (insert "fontcolor ")) :help "Sorry. There is no help for fontcolor "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fontfamily" (lambda () (interactive) (insert "fontfamily ")) :help "Sorry. There is no help for fontfamily "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fontsize" (lambda () (interactive) (insert "fontsize ")) :help "Sorry. There is no help for fontsize "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fpoly" (lambda () (interactive) (insert "fpoly ")) :help "Sorry. There is no help for fpoly "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["frect" (lambda () (interactive) (insert "frect ")) :help "Sorry. There is no help for frect "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["frects" (lambda () (interactive) (insert "frects ")) :help "Sorry. There is no help for frects "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["froundrect" (lambda () (interactive) (insert "froundrect ")) :help "Sorry. There is no help for froundrect "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["froundrects" (lambda () (interactive) (insert "froundrects ")) :help "Sorry. There is no help for froundrects "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fsquare" (lambda () (interactive) (insert "fsquare ")) :help "Sorry. There is no help for fsquare "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["ftriangle" (lambda () (interactive) (insert "ftriangle ")) :help "Sorry. There is no help for ftriangle "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["ftriangles" (lambda () (interactive) (insert "ftriangles ")) :help "Sorry. There is no help for ftriangles "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["functionlabel" (lambda () (interactive) (insert "functionlabel ")) :help "Sorry. There is no help for functionlabel "])
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["dashed" (lambda () (interactive) (insert "dashed ")) :help "next object will be drawn with a dashed line "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["dashtype" (lambda () (interactive) (insert "dashtype line_width_px,space_width_px ")) :help "default value "dashtype 2,2" e.g. 2px line and 2px space "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["delete" (lambda () (interactive) (insert "delete value")) :help "adds a button to clear the userdraw canvas with text 'value' "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["demiline" (lambda () (interactive) (insert "demiline x1,y1,x2,y2,color ")) :help "draws a halfline starting in (x1:y1) and through (x2:y2) in color 'color' (colorname or hex)
+ "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["demilines" (lambda () (interactive) (insert "demilines color,x1,y1,x2,y2,.... ")) :help "draws halflines starting in (x1:y1) and through (x2:y2) in color 'color' (colorname or hex) etc etc "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["diamondfill" (lambda () (interactive) (insert "diamondfill x0,y0,dx,dy,color ")) :help "distances dx,dy in pixels "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["disk" (lambda () (interactive) (insert "disk xc,yc,width (2*r in pixels),color ")) :help "filled circle "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["disks" (lambda () (interactive) (insert "disks color,xc1,yc1,r1,xc2,yc2,r2...xc_n,yc_n,r_n ")) :help "filled circles "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["display" (lambda () (interactive) (insert "display TYPE,color,fontsize ")) :help "will display the mouse cursor coordinates. TYPE may be x | y | xy | degree | radian | radius "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["dotfill" (lambda () (interactive) (insert "dotfill x0,y0,dx,dy,color ")) :help "distances dx,dy in pixels "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["drag" (lambda () (interactive) (insert "drag [x][y][xy] ")) :help "the next object will be draggable in x / y / xy direction "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "E")["ellipse" (lambda () (interactive) (insert "ellipse xc,yc,radius_x,radius_y,color ")) :help "radius_x and radius_y are in pixels "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "E")["erase" (lambda () (interactive) (insert "erase value ")) :help "adds a button to clear the userdraw canvas with text 'value' "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fcircle" (lambda () (interactive) (insert "fcircle xc,yc,width (2*r in pixels),color ")) :help "alternative: disk for a filled circle "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fcircles" (lambda () (interactive) (insert "fcircles color,xc1,yc1,r1,xc2,yc2,r2...xc_n,yc_n,r_n ")) :help "alternative command: disks for filled circles "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fill" (lambda () (interactive) (insert "fill x,y,color ")) :help "fill the region of point (x:y) with color 'color'. \nNote: filltoborder is a very (client) CPU intensive operation! Filling is done pixel by pixel. "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fillcolor" (lambda () (interactive) (insert "fillcolor colorname or #hex ")) :help "set the color for a filled object "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["filled" (lambda () (interactive) (insert "filled ")) :help "the next 'fillable' object (only) will be filled "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["filltoborder" (lambda () (interactive) (insert "filltoborder x,y,bordercolor,color ")) :help "fill the region of point (x:y) with color 'color'. \nNote: filltoborder is a very (client) CPU intensive operation! Filling is done pixel by pixel. "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["floodfill" (lambda () (interactive) (insert "floodfill x,y,color ")) :help "fill the region of point (x:y) with color 'color'. \nNote: floodfill is a very (client) cpu intensive operation! "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fontcolor" (lambda () (interactive) (insert "fontcolor color(hexcolor or colorname) ")) :help "default: black "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fontfamily" (lambda () (interactive) (insert "fontfamily 'font style' 'font size'px 'fontfamily'")) :help "like 'fontfamily italic 24px Ariel' "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fontsize" (lambda () (interactive) (insert "fontsize int")) :help "default 12px "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fpoly" (lambda () (interactive) (insert "fpoly color,x1,y1,x2,y2...x_n,y_n")) :help "filled polygon "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["frect" (lambda () (interactive) (insert "frect x1,y1,x2,y2,color ")) :help "filled rectangle "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["frects" (lambda () (interactive) (insert "frects color,x1,y1,x2,y2,..... ")) :help "filled rectangles "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["froundrect" (lambda () (interactive) (insert "froundrect x1,y1,x2,y2,radius in px,color ")) :help "filled rectangle "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["froundrects" (lambda () (interactive) (insert "froundrects color,radius in px,x1,y1,x2,y2,x3,y3,x4,y4,.... ")) :help "filled rectangles "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fsquare" (lambda () (interactive) (insert "fsquare x,y,side (px) ,color ")) :help "draw a filled square with left top corner (x:y) with side 'side' in color 'color' "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["ftriangle" (lambda () (interactive) (insert " x1,y1,x2,y2,x3,y3,color ")) :help "filled triangle "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["ftriangles" (lambda () (interactive) (insert "ftriangles color,x1,y1,x2,y2,x3,y3,... ")) :help "filled triangles "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["functionlabel" (lambda () (interactive) (insert "functionlabel some_string ")) :help "define the inputfield text : default value 'f(x)=' "])
+
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "G")["grid" (lambda () (interactive) (insert "grid ")) :help "Sorry. There is no help for grid "])
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "G")["gridfill" (lambda () (interactive) (insert "gridfill ")) :help "Sorry. There is no help for gridfill "])
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["halfline" (lambda () (interactive) (insert "halfline ")) :help "Sorry. There is no help for halfline "])
