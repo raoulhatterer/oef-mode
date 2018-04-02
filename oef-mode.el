@@ -1337,6 +1337,35 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
   (insert "\\canvasdraw{400,400}{\nxrange -10,10\nyrange -10,10\nmathml 0,0,0,0,\\M\nstrokecolor blue\nmathml -5,5,0,0,\\N\nopacity 255,30\nfcircle 0,0,130,green\nfrect 0,0,5,-5,orange\n}")
   )
 
+(defun oef-flydraw-commands()
+  "Browse Flydraw commands in emacs (english version)"
+  (interactive)
+  (add-hook 'eww-after-render-hook #'oef-flydraw-commands-highlight)  ;oef-flydraw-commands-highlight is called after EWW is done rendering because eww is asynchronous
+  (eww "https://subversion.renater.fr/wimsdev/trunk/wims/src/Flydraw/commands")
+  )
+
+(defun oef-flydraw-commands-highlight()
+  "Called after EWW is done rendering because eww is asynchronous."
+  (set-word-wrap)
+  (show-newlines-mode 0)
+  (highlight-regexp "^:\\w*")
+  (remove-hook 'eww-after-render-hook #'oef-flydraw-commands-highlight)  
+  )
+
+(defun oef-flydraw-commands-fr()
+  "Browse Flydraw commands in emacs (french version)"
+  (interactive)
+  (add-hook 'eww-after-render-hook #'oef-flydraw-commands-latin-1)  
+  (eww "https://subversion.renater.fr/wimsdev/trunk/wims/src/Flydraw/commands.fr")
+  )
+
+(defun oef-flydraw-commands-latin-1()
+  "Render french documentation in latin-1. Called after EWW is done rendering in UTF8 because eww is asynchronous."
+  (remove-hook 'eww-after-render-hook #'oef-flydraw-commands-latin-1)
+  (add-hook 'eww-after-render-hook #'oef-flydraw-commands-highlight)    
+  (eww-set-character-encoding 'latin-1)  
+  )
+
 (defun oef-get-examples ()
   "This function create a submenu with oef examples."
   (easy-menu-create-menu
@@ -2385,6 +2414,10 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["Commands" nil t]
     ("Canvasdraw"
      ["example" oef-canvasdraw-example t]
+     ("Flydraw doc"
+      ["English" oef-flydraw-commands t]
+      ["French" oef-flydraw-commands-fr t]      
+      )
      ["A" nil t]
      ["B" nil t]
      ["C" nil t]
@@ -2735,12 +2768,17 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "J")["jsplot" (lambda () (interactive) (insert "jsplot color,formula(x) ")) :help "use only basic math in your curve: sqrt,^,asin,acos,atan,log,pi,abs,sin,cos,tan,e "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "K")["killaffine" (lambda () (interactive) (insert "killaffine ")) :help "Sorry. There is no help for killaffine "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "K")["killrotate" (lambda () (interactive) (insert "killrotate ")) :help "Sorry. There is no help for killrotate "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "K")["killslider" (lambda () (interactive) (insert "killslider ")) :help "Sorry. There is no help for killslider "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "K")["killtranslate" (lambda () (interactive) (insert "killtranslate ")) :help "Sorry. There is no help for killtranslate "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "K")["killtranslation" (lambda () (interactive) (insert "killtranslation ")) :help "Sorry. There is no help for killtranslation "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "L")["lattice" (lambda () (interactive) (insert "lattice ")) :help "Sorry. There is no help for lattice "])
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "K")["killaffine" (lambda () (interactive) (insert "killaffine ")) :help "resets the transformation matrix to 1,0,0,1,0,0 "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "K")["killrotate" (lambda () (interactive) (insert "killrotate ")) :help "will reset the command rotationcenter xc,yc. \nA following rotate command will have the first object point as rotation center "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "K")["killslider" (lambda () (interactive) (insert "killslider ")) :help "ends grouping of object under a previously defined slider "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "K")["killtranslate" (lambda () (interactive) (insert "killtranslate ")) :help "resets the translation matrix to 1,0,0,1,0,0 "])
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "K")["killtranslation" (lambda () (interactive) (insert "killtranslation ")) :help "resets the translation matrix to 1,0,0,1,0,0 "])
+
+(easy-menu-add-item oef-menu-bar '("Canvasdraw" "L")["lattice" (lambda () (interactive) (insert "lattice x0,y0,xv1,yv1,xv2,yv2,n1,n2,color ")) :help "A lattice of n1xn2 points starting with (x0,y0), with n1 rows in direction of (xv1,yv1) and n2 rows in direction of (xv2,yv2). "])
+
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "L")["legend" (lambda () (interactive) (insert "legend ")) :help "Sorry. There is no help for legend "])
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "L")["legendcolors" (lambda () (interactive) (insert "legendcolors ")) :help "Sorry. There is no help for legendcolors "])
 (easy-menu-add-item oef-menu-bar '("Canvasdraw" "L")["levelcurve" (lambda () (interactive) (insert "levelcurve ")) :help "Sorry. There is no help for levelcurve "])
