@@ -2350,6 +2350,12 @@ If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigi
   (insert "⇌")
   )
 
+(defun  oef-insert-ell()
+"Insert a character."
+  (interactive)
+  (insert "ℓ")
+  )
+
 ;;----------------MENU----------------------------------------
 
 (setq oef-example-files (directory-files-recursively user-emacs-directory ".oef$")) ; list of strings (the oef examples files) needed to build the OEF menu
@@ -2493,6 +2499,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Symbol" "Arrows")["Right Arrow" oef-insert-rightarrow])
 (easy-menu-add-item oef-menu-bar '("Symbol" "Arrows")["Long Right Arrow" oef-insert-longrightarrow])
 (easy-menu-add-item oef-menu-bar '("Symbol" "Arrows")["Harpoons" oef-insert-harpoons])
+(easy-menu-add-item oef-menu-bar '("Symbol")["ℓ" oef-insert-ell])
 (easy-menu-add-item oef-menu-bar '("Symbol" "Nuclear Reaction")["Alpha Particle" oef-insert-alpha-particle])
 (easy-menu-add-item oef-menu-bar '("Symbol" "Nuclear Reaction")["Carbon-14" oef-insert-carbon])
 (easy-menu-add-item oef-menu-bar '("Symbol" "Nuclear Reaction")["Electron" oef-insert-electron])
