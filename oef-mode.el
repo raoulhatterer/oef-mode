@@ -430,6 +430,7 @@
     "* type=sigunits"
     "* type=symtext"
     "* type=time"
+    "* type=wlist"    
     )
   "Used for a dedicated submenu thanks to `oef-get-answers-options'.")
 
