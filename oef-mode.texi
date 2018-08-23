@@ -6,6 +6,17 @@
 @documentlanguage fr_FR
 @c %**end of header
 
+@dircategory Languages
+@direntry
+* oef-mode: (oef-mode)     Using oef-mode to 
+@end direntry
+
+
+@node Top
+@top oef-mode User Manual 
+Ce manuel va vous expliquer comment utiliser le package oef-mode.
+
+
 @titlepage
 @title oef-mode : Online Exercise Format for emacs
 @subtitle v0.1-fr 9 août 2018
@@ -13,17 +24,66 @@
 @end titlepage
 
 
-@node Top
-@top oef-mode
-Ce manuel va vous expliquer comment utiliser le package oef-mode.
-
 @menu
+* Introduction::
 * Installation:: Comment installer oef-mode
 @end menu
 
+@node Introduction, Installation, , Top
+@comment  node-name,  next,  previous,  up
+@chapter Introduction
+
+
 @node Installation, , , Top
 @comment  node-name,  next,  previous,  up
+@chapter Installation
 
+@node Linux, MacOSX, , Installation
+@comment  node-name,  next,  previous,  up
+@section Linux
+
+If you want Emacs to load the file 'oef-mode.el' when it starts, put the file 'oef-mode.el'
+in the dir "~/.emacs.d/lisp/", (create that directory if it doesn't exist).
+By convention, the dir ~/.emacs.d/lisp/ is for packages you manually installed.
+Then put the following in your Emacs init file "~/.emacs"
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+ (add-to-list 'load-path "~/.emacs.d/lisp/") ;; Tell Emacs where is your personal elisp lib dir
+ (load "oef") ;; load the packaged named oef (best not to include the ending “.el” or “.elc”)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+before the line (package-initialize).
+
+
+
+
+@node MacOSX, Windows, Linux, Installation
+@section MacOSX
+
+* aquamacs (OSX):
+If you want aquamacs to load the file 'oef-mode.el' when it starts, put the file 'oef-mode.el'
+in the dir "~/Library/Preferences/Aquamacs Emacs/Packages/lisp/"
+(create that directory if it doesn't exist).
+Then put the following (without ;;) in your aquamacs init file
+"~/Library/Preferences/Aquamacs Emacs/Preferences.el"
+not in  ~/.emacs  witch is deprecated -- meaning 'should not be used for new installations,
+but will continue to be supported' -- in Aquamacs on OS X)
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+ (add-to-list 'load-path "~/Library/Preferences/Aquamacs Emacs/Packages/lisp/oef-mode/")
+ ;Tell Emacs where is your personal elisp lib dir
+ (load "oef-mode")
+ ; load the packaged named oef-mode (best not to include the ending “.el” or “.elc”)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+before the line (package-initialize).
+
+How to Debug Aquamacs if you need to:
+Past the following command in a terminal:
+/Applications/Aquamacs.app/Contents/MacOS/Aquamacs -nw --debug-init
+
+
+
+@comment  node-name,  next,  previous,  up
+
+@node Windows, , MacOSX, Installation
+@comment  node-name,  next,  previous,  up
 
 
 @bye
