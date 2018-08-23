@@ -1,0 +1,29 @@
+\input texinfo  @c -*-texinfo-*-
+@c %**start of header 
+@setfilename oef-mode.info
+@settitle Manuel oef-mode
+@documentencoding UTF-8
+@documentlanguage fr_FR
+@c %**end of header
+
+@titlepage
+@title oef-mode : Online Exercise Format for emacs
+@subtitle v0.1-fr 9 août 2018
+@author Raoul Hatterer
+@end titlepage
+
+
+@node Top
+@top oef-mode
+Ce manuel va vous expliquer comment utiliser le package oef-mode.
+
+@menu
+* Installation:: Comment installer oef-mode
+@end menu
+
+@node Installation, , , Top
+@comment  node-name,  next,  previous,  up
+
+
+
+@bye
