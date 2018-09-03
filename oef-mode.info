@@ -3,7 +3,7 @@ oef-mode.texi.
 
 INFO-DIR-SECTION Languages
 START-INFO-DIR-ENTRY
-* oef-mode: (oef-mode)     Using oef-mode to
+* oef-mode: (oef-mode).     Using oef-mode to
 END-INFO-DIR-ENTRY
 
 
@@ -86,12 +86,12 @@ File: oef-mode.info,  Node: Windows,  Prev: MacOSX,  Up: Installation
 
 
 Tag Table:
-Node: Top190
-Node: Introduction439
-Node: Installation557
-Node: Linux673
-Node: MacOSX1512
-Node: Windows2761
+Node: Top191
+Node: Introduction440
+Node: Installation558
+Node: Linux674
+Node: MacOSX1513
+Node: Windows2762
 
 End Tag Table
 

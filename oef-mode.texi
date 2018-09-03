@@ -8,12 +8,13 @@
 
 @dircategory Languages
 @direntry
-* oef-mode: (oef-mode)     Using oef-mode to 
+* oef-mode: (oef-mode).     Using oef-mode to 
 @end direntry
 
 
 @node Top
-@top oef-mode User Manual 
+@top oef-mode User Manual
+
 Ce manuel va vous expliquer comment utiliser le package oef-mode.
 
 
