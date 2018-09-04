@@ -2404,6 +2404,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["Expand Emmet Line" emmet-expand-line t]
     ["Highlight Variable at point (toggle)" oef-highlight-variable t] ;`Highlight oef variable' added to Text menu-bar    
     ["Indent" nil t]
+    ["Newline (in Multiple-Cursors mode)" electric-newline-and-maybe-indent t]
     ["Rainbow" nil t]
     ["Select «Parameter»" oef-select-parameter t]
     ("Symbol"
@@ -2936,9 +2937,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "M-[") 'insert-pair)    
   (define-key oef-mode-map (kbd "M-{") 'insert-pair)
   (define-key oef-mode-map (kbd "M-\"") 'insert-pair)
-  (define-key oef-mode-map (kbd "C-o j") 'electric-newline-and-maybe-indent)
-  (define-key oef-mode-map (kbd "C-j") 'electric-newline-and-maybe-indent)
-  (define-key oef-mode-map (kbd "C-o x") 'emmet-expand-line)
+  (define-key oef-mode-map (kbd "M-RET") 'electric-newline-and-maybe-indent)
   (define-key oef-mode-map (kbd "M--") 'oef-insert-endash)                   ; —
   (define-key oef-mode-map (kbd "C-<") 'oef-insert-french-opening-guillemet) ; french «
   (define-key oef-mode-map (kbd "C->") 'oef-insert-french-closing-guillemet) ; french »
