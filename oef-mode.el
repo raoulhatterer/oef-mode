@@ -1173,8 +1173,17 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
 	    (message (concat "Connected to Wims Session : " oef-wims-session)))
         (error "No wims URL with session on the clipboard")))))
 
+(defun oef-edit-in-browser()
+  "Edit file in browser. There are two kind of files: exercises and documents. If the file contain 'statement{' it will be considered as an exercise otherwise as a document."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (if (search-forward "\\statement{" nil t)
+	(oef-edit-exercise-in-browser)
+	(oef-edit-document-in-browser))))
+
 (defun oef-edit-exercise-in-browser()
-  "Edit file in browser."
+  "Edit exercise in browser."
   (interactive)
   (if oef-wims-session
       (progn
@@ -1184,7 +1193,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     (message-box "You are not connected. You have to connect to a wims session first.")))
   
 (defun oef-edit-document-in-browser()
-  "Edit file in browser."
+  "Edit document in browser."
   (interactive)
   (if oef-wims-session
       (progn
@@ -2403,6 +2412,9 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["---" nil t]
     ["Expand Emmet Line" emmet-expand-line t]
     ["Highlight Variable at point (toggle)" oef-highlight-variable t] ;`Highlight oef variable' added to Text menu-bar    
+    ("Html Tag"
+     ["Tag Folding" nil t]
+     )
     ["Indent" nil t]
     ["Newline (in Multiple-Cursors mode)" electric-newline-and-maybe-indent t]
     ["Rainbow" nil t]
@@ -2413,9 +2425,6 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ["Greek" nil t]     
      ["Guillemets" nil t]     
      ["Nuclear Reaction" nil t]
-     )
-    ("Tag"
-     ["Tag Folding" nil t]
      )
     ["---" nil t]
     ["Answers Types and Options" nil t]
@@ -2489,6 +2498,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 
     ["Wims Functions" nil t]
     ["---" nil t]
+    ["Edit in browser" oef-edit-in-browser t]
     ["Wims Session" nil t]
     ))
 
@@ -2514,16 +2524,16 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Symbol" "Guillemets")[" »" oef-insert-french-closing-guillemet])
 (easy-menu-add-item oef-menu-bar '("Symbol" "Guillemets")["« »" oef-insert-french-guillemets])
 (easy-menu-add-item oef-menu-bar '("Symbol")["Non Breaking Space  " oef-insert-non-breaking-space])
-(easy-menu-add-item oef-menu-bar '("Tag")["Select Tag Pair" oef-mode-mark-sgml-tag-pair :help"Mark the current opening and closing tag"]) ;
-(easy-menu-add-item oef-menu-bar '("Tag")["Select Inner Tag" er/mark-inner-tag :help"Mark the content between current opening and closing tag"]) ;
-(easy-menu-add-item oef-menu-bar '("Tag")["<b> bold" oef-insert-tag-b]) ;
-(easy-menu-add-item oef-menu-bar '("Tag")["<mark> marked text" oef-insert-tag-mark]) ;
-(easy-menu-add-item oef-menu-bar '("Tag")["<sub> superscript" oef-insert-tag-sub]) ;
-(easy-menu-add-item oef-menu-bar '("Tag")["<sup> subscript" oef-insert-tag-sup]) ;
-(easy-menu-add-item oef-menu-bar '("Tag" "Tag Folding")["Toogle Element" yafolding-toggle-element])
-(easy-menu-add-item oef-menu-bar '("Tag" "Tag Folding")["Hide All" yafolding-hide-all])
-(easy-menu-add-item oef-menu-bar '("Tag" "Tag Folding")["Show All" yafolding-show-all])
-(easy-menu-add-item oef-menu-bar '("Tag" "Tag Folding")["Hide All" yafolding-hide-all])
+(easy-menu-add-item oef-menu-bar '("Html Tag")["Select Tag Pair" oef-mode-mark-sgml-tag-pair :help"Mark the current opening and closing tag"]) ;
+(easy-menu-add-item oef-menu-bar '("Html Tag")["Select Inner Tag" er/mark-inner-tag :help"Mark the content between current opening and closing tag"]) ;
+(easy-menu-add-item oef-menu-bar '("Html Tag")["<b> bold" oef-insert-tag-b]) ;
+(easy-menu-add-item oef-menu-bar '("Html Tag")["<mark> marked text" oef-insert-tag-mark]) ;
+(easy-menu-add-item oef-menu-bar '("Html Tag")["<sub> superscript" oef-insert-tag-sub]) ;
+(easy-menu-add-item oef-menu-bar '("Html Tag")["<sup> subscript" oef-insert-tag-sup]) ;
+(easy-menu-add-item oef-menu-bar '("Html Tag" "Tag Folding")["Toogle Element" yafolding-toggle-element])
+(easy-menu-add-item oef-menu-bar '("Html Tag" "Tag Folding")["Hide All" yafolding-hide-all])
+(easy-menu-add-item oef-menu-bar '("Html Tag" "Tag Folding")["Show All" yafolding-show-all])
+(easy-menu-add-item oef-menu-bar '("Html Tag" "Tag Folding")["Hide All" yafolding-hide-all])
 (easy-menu-add-item oef-menu-bar '("Rainbow")["Delimiters (toogle)" rainbow-delimiters-mode])
 (easy-menu-add-item oef-menu-bar '("Rainbow")["Colors (toogle)" rainbow-mode])
 (easy-menu-add-item oef-menu-bar '("Indent")["Indent line" oef-mode-indent-line])
@@ -2962,6 +2972,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "C-o C-o") 'oef-highlight-variable) ;
   (define-key oef-mode-map (kbd "C-o ee") 'oef-edit-exercise-in-browser) ;
   (define-key oef-mode-map (kbd "C-o ed") 'oef-edit-document-in-browser) ;
+  (define-key oef-mode-map (kbd "C-c C-c") 'oef-edit-in-browser) ;  
   (define-key oef-mode-map (kbd "<down-mouse-1>") ; toogle oef-variable highlighting on mouse click
     (lambda (event)
       (interactive "e")
