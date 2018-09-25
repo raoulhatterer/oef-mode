@@ -1292,6 +1292,19 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
 		    (backward-char 6)
 		    ))))
 
+(defun oef-insert-embed-reply()
+    "This fonction insert embed answer in statement."
+  (interactive)
+  (insert "\\embed{reply}")
+  (backward-char 1)
+ )
+
+(defun oef-insert-answer()
+  "this function instert an answer blueprint"
+  (interactive)
+  (insert "\\answer{«Description»}{«bonne réponse»;«propositions»}{type=}{option=}")
+  )
+
 (defun oef-insert-electron()
   "This function insert the full isotope symbol for the electron"
   (interactive)
@@ -2966,7 +2979,9 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "C-o tb") 'oef-insert-tag-b) ;  
   (define-key oef-mode-map (kbd "C-o tm") 'oef-insert-tag-mark) ;      
   (define-key oef-mode-map (kbd "C-o t_") 'oef-insert-tag-sub) ;      
-  (define-key oef-mode-map (kbd "C-o t^") 'oef-insert-tag-sup) ;    
+  (define-key oef-mode-map (kbd "C-o t^") 'oef-insert-tag-sup) ;
+  (define-key oef-mode-map (kbd "C-o a") 'oef-insert-answer) ;
+  (define-key oef-mode-map (kbd "C-o er") 'oef-insert-embed-reply) ;  
   (define-key oef-mode-map (kbd "C-o c") 'oef-comment-toggle) ;
   (define-key oef-mode-map (kbd "C-o ws") 'oef-get-wims-session) ;
   (define-key oef-mode-map (kbd "C-o C-o") 'oef-highlight-variable) ;
