@@ -24,17 +24,8 @@ Requirements
 Installation
 ------------
 
-oef-mode available on [MELPA](http://melpa.org/). Add the following to
-your emacs config file somewhere (.emacs, init.el, whatever):
+I would recommend El-get http://wikemacs.org/wiki/El-get to install oef-mode
 
-```
-(require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
-```
-
-Then use `M-x package-install RET oef-mode RET` to install the package.
- 
 Development
 -----------
 
