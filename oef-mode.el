@@ -86,10 +86,21 @@
 
 ;;==============================================================================
 ;; * emmet-mode
-;; oef-mode is derived from sgml-mode so if you have installed emmet-mode
-;; and added to your innit file:
-;;    (require 'emmet-mode)
-;;    (add-hook 'sgml-mode-hook 'emmet-mode) ; Auto-start on any markup modes
+;; Minor mode for writing HTML and CSS markup.
+;; `oef-edit-in-browser' is bound to `C-c C-c' and emmet-mode is bound to `C-c C-c w'
+;;  Which means it's going to block `oef-edit-in-browser'. To fix this add this in your init file: 
+;; (defvar emmet-mode-keymap
+;;   (let
+;;       ((map (make-sparse-keymap)))
+;;     (define-key map (kbd "C-j") 'emmet-expand-line)
+;;     (define-key map (kbd "<C-return>") 'emmet-expand-line)
+;;     (define-key map (kbd "<C-M-right>") 'emmet-next-edit-point)
+;;     (define-key map (kbd "<C-M-left>") 'emmet-prev-edit-point)
+;;     (define-key map (kbd "C-c w") 'emmet-wrap-with-markup)
+;;     map)
+;;   "Keymap for emmet minor mode.")
+;; (require 'emmet-mode)
+;; (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
 ;; `emmet-mode' will automatically start with oef-mode
 ;; * company
 ;; `Company' is a modular completion framework.  I recommend it.
