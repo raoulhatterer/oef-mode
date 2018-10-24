@@ -11,7 +11,7 @@
 ;; Keywords: languages
 ;; URL: http://github.com/raoulhatterer/oef-mode
 ;; Package-Requires: ((emacs "24.3")(rainbow-mode "0.13")(emmet-mode "1.0.8")(rainbow-delimiters "2.1.3")(expand-region "0.11.0"))
-;; News: 
+;; News:
 ;; Package-Type: multi
 
 ;; License: GNU General Public License >= 2
@@ -88,7 +88,7 @@
 ;; * emmet-mode
 ;; Minor mode for writing HTML and CSS markup.
 ;; `oef-edit-in-browser' is bound to `C-c C-c' and emmet-mode is bound to `C-c C-c w'
-;;  Which means it's going to block `oef-edit-in-browser'. To fix this add this in your init file: 
+;;  Which means it's going to block `oef-edit-in-browser'.  To fix this add this in your init file:
 ;; (defvar emmet-mode-keymap
 ;;   (let
 ;;       ((map (make-sparse-keymap)))
@@ -441,7 +441,7 @@
     "* type=sigunits"
     "* type=symtext"
     "* type=time"
-    "* type=wlist"    
+    "* type=wlist"
     )
   "Used for a dedicated submenu thanks to `oef-get-answers-options'.")
 
@@ -551,7 +551,7 @@
 (defvar oef-menu-doc-init-types ; in the menu DONE
   '(
     "def{complex =}"
-    "def{function =}"   
+    "def{function =}"
     "def{integer =}"
     "def{matrix =}"
     "def{rational =}"
@@ -1094,7 +1094,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
 	  (if (string-equal (word-at-point) oef-highlighted-variable)
 	      ;; THE VARIABLE IS THE SAME: the user wants to unhighlight the variable
 	      (oef-hl-off)
-	    ;; THE VARIABLE IS DIFFERENT: the user wants to highlight a new variable 
+	    ;; THE VARIABLE IS DIFFERENT: the user wants to highlight a new variable
 	    (progn
 	      (oef-hl-off) ; old variable
 	      (oef-hl-on)  ; new variable
@@ -1118,7 +1118,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
 		  (oef-hl-off) ; old variable
 		  (oef-hl-on)  ; new variable
 		  )
-		)		
+		)
 	      )
 	  ;;  no the point is neither on an oef-command `\commandName{' nor in an oef-variable `\variableName'
 	  (oef-hl-off)
@@ -1142,7 +1142,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
 	      ;; IT'S AN OEF-COMMAND not an oef-variable
 	      nil ; nothing to do (we keep the variables unlighted)
 	    ;; IT'S AN OEF-VARIABLE
-	    (oef-hl-on) 
+	    (oef-hl-on)
 	    )
 	)
       );end if
@@ -1162,7 +1162,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
 	  (mark-whole-buffer)
 	  (clipboard-kill-ring-save (point-min)(point-max))
 	  (message "Buffer content copied.")))
-    ;; emacs copy all or region 
+    ;; emacs copy all or region
     (if (use-region-p)
 	(progn
 	  (kill-new (buffer-substring (region-beginning) (region-end)))
@@ -1198,7 +1198,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
   (interactive)
   (if oef-wims-session
       (progn
-	(oef-copy-all-or-region)  
+	(oef-copy-all-or-region)
 	(let ((oef-filename (file-name-nondirectory (buffer-file-name))))
 	  (browse-url  (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".6&+lang=fr&+module=adm%2Fmodtool&+cmd=reply&+jobreq=edfile&+fname=src%2F" oef-filename))))
     (message-box "You are not connected. You have to connect to a wims session first.")))
@@ -1383,21 +1383,21 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
   (set-word-wrap)
   (show-newlines-mode 0)
   (highlight-regexp "^:\\w*")
-  (remove-hook 'eww-after-render-hook #'oef-flydraw-commands-highlight)  
+  (remove-hook 'eww-after-render-hook #'oef-flydraw-commands-highlight)
   )
 
 (defun oef-flydraw-commands-fr()
   "Browse Flydraw commands in emacs (french version)"
   (interactive)
-  (add-hook 'eww-after-render-hook #'oef-flydraw-commands-latin-1)  
+  (add-hook 'eww-after-render-hook #'oef-flydraw-commands-latin-1)
   (eww "https://subversion.renater.fr/wimsdev/trunk/wims/src/Flydraw/commands.fr")
   )
 
 (defun oef-flydraw-commands-latin-1()
   "Render french documentation in latin-1. Called after EWW is done rendering in UTF8 because eww is asynchronous."
   (remove-hook 'eww-after-render-hook #'oef-flydraw-commands-latin-1)
-  (add-hook 'eww-after-render-hook #'oef-flydraw-commands-highlight)    
-  (eww-set-character-encoding 'latin-1)  
+  (add-hook 'eww-after-render-hook #'oef-flydraw-commands-highlight)
+  (eww-set-character-encoding 'latin-1)
   )
 
 (defun oef-get-examples ()
@@ -2063,13 +2063,13 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
   (find-file (read-file-name "Enter block name: ")))
 
 (defun oef-insert-image-in-document ()
-  "This function insert an image. The image has first to be uploaded in doc/files."
+  "This function insert an image.  The image has first to be uploaded in doc/files."
   (interactive)
   (insert "<img src=\"\\filedir/«file name»\" class=\"«class name»\" width=\"«width»\" height=\"«height»\" alt=\"«alternate text»\"/>")
   )
 
 (defun oef-insert-image-in-exercise ()
-  "This function insert an image. The image has first to be uploaded in images."
+  "This function insert an image.  The image has first to be uploaded in images."
   (interactive)
   (insert "<img src=\"\\imagedir/«file name»\" class=\"«class name»\" width=\"«width»\" height=\"«height»\" alt=\"«alternate text»\"/>")
   )
@@ -2081,6 +2081,7 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
   )
 
 (defun oef-insert-flash (location)
+  "This function insert flash file at point.  LOCATION is `filedir' if we are editing a document and it's `imagedir' if we are editing an exercise."
   (interactive)
   (defvar flash_file "your_file.swf")
   (setq flash_file (read-string "Name of the flash file (your_file.swf has to be upload in \\filedir): " flash_file))
@@ -2127,11 +2128,13 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
 
 
 (defun oef-insert-flash-in-document ()
+  "This function specifies the location of the flash file."
   (interactive)
   (oef-insert-flash "filedir")
   )
 
 (defun oef-insert-flash-in-exercise ()
+  "This function specifies the location of the flash file."
   (interactive)
   (oef-insert-flash "imagedir")
   )
@@ -2243,7 +2246,7 @@ the current start-tag or the current comment or the current cdata, ..."
 (defun oef-mode-mark-sgml-tag-pair ()
   "Mark the current opening and closing tag.
 
-This function calls `mc/mark-sgml-tag-pair' a `multiple-cursors' command. 
+This function calls `mc/mark-sgml-tag-pair' a `multiple-cursors' command.
 This function uses `sgml-mode-syntax-table' because with `oef-mode-syntax-table' there are  problems with tag selection."
   (interactive)
   (with-syntax-table sgml-mode-syntax-table (mc/mark-sgml-tag-pair)))
@@ -2288,7 +2291,7 @@ If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigi
 	    (delete-char 1)
 	    (forward-word)
 	    (delete-char 1)
-	    ;;(oef-mode-indent-region (line-beginning-position) (line-end-position)) 
+	    ;;(oef-mode-indent-region (line-beginning-position) (line-end-position))
 	    (indent-region (line-beginning-position) (line-end-position))
 	    )
 	;;it's a commented text
@@ -2298,7 +2301,7 @@ If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigi
 	  (move-end-of-line 1)
 	  (delete-char -1)
 	  ;;(oef-mode-indent-region (line-beginning-position) (line-end-position))
-	  (indent-region (line-beginning-position) (line-end-position))	  
+	  (indent-region (line-beginning-position) (line-end-position))
 	  ))
     ;; else if the line don't start with a comment
     (if (string= (string (following-char)) "\\") ;
@@ -2309,7 +2312,7 @@ If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigi
 	  (forward-word)
 	  (insert "}")
 	  )
-      ;; if not, it's a line or a region to turn in comment 
+      ;; if not, it's a line or a region to turn in comment
       (progn
 	(goto-char start)
 	(insert "\\comment{")
@@ -2402,7 +2405,7 @@ If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigi
 (defvar oef-mode-map
   (let ((map (make-sparse-keymap)))
     ;;    (define-key map [menu-bar sgml] 'undefined) ;SGML menu-bar item suppressed
-    (define-key map [menu-bar sgml oef-close-tag] '(menu-item "Close Tag" oef-close-tag)) ; `Close Tag' added to Sgml menu-bar    
+    (define-key map [menu-bar sgml oef-close-tag] '(menu-item "Close Tag" oef-close-tag)) ; `Close Tag' added to Sgml menu-bar
     ;; menu-bar Text
     (define-key map [menu-bar text paragraph-indent-minor-mode] 'undefined) ;Text menu-bar item `Paragraph indent' suppressed
 					;    (define-key map [menu-bar text toggle-text-mode-auto-fill] 'undefined) ;Text menu-bar item `Auto Fill' suppressed
@@ -2435,7 +2438,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["Files" nil t]
     ["---" nil t]
     ["Expand Emmet Line" emmet-expand-line t]
-    ["Highlight Variable at point (toggle)" oef-highlight-variable t] ;`Highlight oef variable' added to Text menu-bar    
+    ["Highlight Variable at point (toggle)" oef-highlight-variable t] ;`Highlight oef variable' added to Text menu-bar
     ("Html Tag"
      ["Tag Folding" nil t]
      )
@@ -2444,10 +2447,10 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["Rainbow" nil t]
     ["Select «Parameter»" oef-select-parameter t]
     ("Symbol"
-     ["Arrows" nil t]     
+     ["Arrows" nil t]
      ["Chemistry Bond" nil t]
-     ["Greek" nil t]     
-     ["Guillemets" nil t]     
+     ["Greek" nil t]
+     ["Guillemets" nil t]
      ["Nuclear Reaction" nil t]
      )
     ["---" nil t]
@@ -2457,7 +2460,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ["example" oef-canvasdraw-example t]
      ("Flydraw doc"
       ["English" oef-flydraw-commands t]
-      ["French" oef-flydraw-commands-fr t]      
+      ["French" oef-flydraw-commands-fr t]
       )
      ["A" nil t]
      ["B" nil t]
@@ -2482,14 +2485,14 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ["U" nil t]
      ["V" nil t]
      ["W" nil t]
-     ["X" nil t]                                                                                                              
+     ["X" nil t]
      ["Y" nil t]
-     ["Z" nil t])    
+     ["Z" nil t])
     ["Comment (toggle)" oef-comment-toggle t]
     ["Defined Variables" nil t]
     ["Documents" nil t]
     ["Initializations of Variables" nil t]
-    ["Mathematical Expression" oef-insert-math t] 
+    ["Mathematical Expression" oef-insert-math t]
     ["Random" nil t]
     ["Reserved Words" nil t]
     ("Script Library"
@@ -2968,7 +2971,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   ;; key binding
   (define-key oef-mode-map (kbd "/") nil) ; to have forward-slash with multiple-cursors
   (define-key oef-mode-map (kbd "C-C C-e") 'oef-close-tag)
-  (define-key oef-mode-map (kbd "M-[") 'insert-pair)    
+  (define-key oef-mode-map (kbd "M-[") 'insert-pair)
   (define-key oef-mode-map (kbd "M-{") 'insert-pair)
   (define-key oef-mode-map (kbd "M-\"") 'insert-pair)
   (define-key oef-mode-map (kbd "M-RET") 'electric-newline-and-maybe-indent)
@@ -2981,7 +2984,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "C-o tt>") 'yafolding-toggle-element)
   (define-key oef-mode-map (kbd "C-o ts") 'yafolding-show-all)
   (define-key oef-mode-map (kbd "C-o th") 'yafolding-hide-all)
-  (define-key oef-mode-map (kbd "C-:") 'indent-region) ; alias for indent-region because C-\ is not working in Aquamacs with french keyboard 
+  (define-key oef-mode-map (kbd "C-:") 'indent-region) ; alias for indent-region because C-\ is not working in Aquamacs with french keyboard
   (define-key oef-mode-map (kbd "C-o") nil) ;
   (define-key oef-mode-map (kbd "C-o C-p") 'oef-select-parameter) ;
   (define-key oef-mode-map (kbd "C-o m") 'oef-insert-math) ;
@@ -2998,12 +3001,12 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "C-o C-o") 'oef-highlight-variable) ;
   (define-key oef-mode-map (kbd "C-o ee") 'oef-edit-exercise-in-browser) ;
   (define-key oef-mode-map (kbd "C-o ed") 'oef-edit-document-in-browser) ;
-  (define-key oef-mode-map (kbd "C-c C-c") 'oef-edit-in-browser) ;  
+  (define-key oef-mode-map (kbd "C-c C-c") 'oef-edit-in-browser) ;
   (define-key oef-mode-map (kbd "<down-mouse-1>") ; toogle oef-variable highlighting on mouse click
     (lambda (event)
       (interactive "e")
 					;      (message "%s" event)
-      (let ((posn (elt event 1)))		
+      (let ((posn (elt event 1)))
 	(with-selected-window (posn-window posn)
 	  (goto-char (posn-point posn))
 	  (oef-highlight-variable)))))
@@ -3023,7 +3026,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("«[^»]*\n?[^»]*»" . 'oef-font-documentation-face) ; documentation
      ("<\\(h1\\)\\( \\(class\\|id\\) ?=.*\\)?>\\(.+\\)<\\(/h1\\)>" (1 'oef-font-htag-face)(4 'oef-font-h1text-face)(5 'oef-font-htag-face)) ; sections
      ("<\\(h2\\)\\( \\(class\\|id\\) ?=.*\\)?>\\(.+\\)<\\(/h2\\)>" (1 'oef-font-htag-face)(4 'oef-font-h2text-face)(5 'oef-font-htag-face)) ; sub-sections
-     ("<\\(h3\\)\\( \\(class\\|id\\) ?=.*\\)?>\\(.+\\)<\\(/h3\\)>" (1 'oef-font-htag-face)(4 'oef-font-h3text-face)(5 'oef-font-htag-face)) ; sub-sections     
+     ("<\\(h3\\)\\( \\(class\\|id\\) ?=.*\\)?>\\(.+\\)<\\(/h3\\)>" (1 'oef-font-htag-face)(4 'oef-font-h3text-face)(5 'oef-font-htag-face)) ; sub-sections
 
      (,(regexp-opt oef-french-words-same-as-keywords 'words) . 'default)
 					;     ("^ *<\\(li\\)>.*?</\\(li\\)> *$"(1 'oef-font-litag-face)(2 'oef-font-litag-face)) ; <li> </li>
@@ -3034,7 +3037,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("{[^}^{]*\\(>\\|<\\|!=\\)[^{]+}" 1 'oef-font-keyword-face) ;  "<" ">" "!=" comparison (must be after the precedent line)
      ;; There are text properties here: (face oef-font-keyword-face fontified t) see describe-char
      ("\\(real\\|complex\\|text\\|integer\\|rational\\|function\\|matrix\\){\\\\\\w* ?=" . 'oef-font-warning-face) ; warning '\varName=' instead of 'varName='
-     (,(regexp-opt oef-slib-scripts 'words) . 'oef-font-keyword-face) ; slib scripts (some scripts stats with text/) 
+     (,(regexp-opt oef-slib-scripts 'words) . 'oef-font-keyword-face) ; slib scripts (some scripts stats with text/)
      (,(regexp-opt oef-storage-types 'words) . 'oef-font-type-face) ; types : text, integer, real...
      ("^\\\\statement{" . 'oef-font-statement-command-face) ; command statement
      ("^\\\\answer{[^}]*}" . 'oef-font-answer-command-face) ; command answer
@@ -3055,8 +3058,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("\\(\\\\\\w+\\){" 1 'oef-font-warning-face) ; unknown '\command{'
      ("\\(\\\\(\\)\\([^ ]*\\)\\(\\\\)\\)" (1 'oef-font-formula-braces-face)(3 'oef-font-formula-braces-face)) ;  \(mathematical formula\)
      ("<mark>\\([^>]*\\)</mark>" (1 'oef-font-mark-face)) ;  <mark></mark>
-     ("\\(^ *<p class=\"mark\">\\)" (1 'oef-font-mark-face)) ;  <p class="mark"></p>     
-     (,(regexp-opt oef-canvasdraw-commands 'words) . 'oef-font-canvasdraw-face)     
+     ("\\(^ *<p class=\"mark\">\\)" (1 'oef-font-mark-face)) ;  <p class="mark"></p>
+     (,(regexp-opt oef-canvasdraw-commands 'words) . 'oef-font-canvasdraw-face)
      ("\\(\\\\\\){" 1 'oef-font-positivenumber-face) ; latex expression \{}
      ("\\\\\\w+\\([0-9]?_?\\w?\\)*" . 'oef-font-variable-name-face) ; '\variable'
      ("[^\\w]\\([0-9]+\\(\\.[0-9]+\\)?\\)" 1 'oef-font-positivenumber-face) ; a number
