@@ -174,18 +174,18 @@
   :link '(url-link :tag "Site" "http://wims.unice.fr")
   :link '(url-link :tag "Repository" "https://github.com/raoulhatterer/oef-mode"))
 
-(defgroup oef-mode-faces nil
+(defgroup oef-faces nil
   "Faces for syntax highlighting."
-  :group 'oef-mode
-  :group 'faces)
+  :group 'oef    ; CUSTOMIZE > PROGRAMMING > LANGUAGE > OEF > OEF-FACES 
+  :group 'faces) ; CUSTOMIZE > FACES > OEF-FACES
 
 ;;---- FACES -------------------------------------------------------------------
+(defvar oef-namespace-face 'oef-namespace)
 
 (defface oef-namespace
   '((t (:inherit font-lock-builtin-face)))
   "`oef-mode' face used to highlight the namespace part of identifiers."
-  :group 'oef)
-(defvar oef-namespace-face 'oef-namespace)
+  :group 'oef-faces)
 
 (defface oef-font-function-name-face
   '((t (:foreground "orange red")))
@@ -352,9 +352,10 @@
 
 ;;---- VARS --------------------------------------------------------------------
 
-(defvar oef-line-spacing   0.1
-  "Additional space to put between lines when displaying a buffer.")
-
+(defcustom oef-line-spacing 0.1
+  "Additional space to put between lines when displaying an `oef-mode' buffer."
+  :group 'oef)
+  
 (defvar oef-french-words-same-as-keywords
   '("la solution" "de solution" "en solution" "une solution" "d'une solution" "des conditions" "tout point" "du point" "plusieurs points" "ses points" "un point"))
 
@@ -1041,6 +1042,10 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
   "Active Wims Session in unice wims server."
   )
 
+(defvar oef-highlighted-variable
+  nil
+  )
+
 (defvar oef-mode-syntax-table
   (let ((table (make-syntax-table)))
     (modify-syntax-entry ?< "_" table)  ;Symbol constituent
@@ -1058,11 +1063,6 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
 ;; syntax-table text property.
 
 ;;---- DEFUNS ------------------------------------------------------------------
-
-
-(defvar oef-highlighted-variable
-  nil
-  )
 
 (defun oef-hl-on()
   "The user wants to highlight the variable at point."
@@ -1215,7 +1215,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     (message-box "You are not connected. You have to connect to a wims session first.\n\nIn your browser :\n- Connect to Modtool\n- Go to the main page of your document\n- Select and copy the url in the clipboard\n\nIn emacs :\n- Connect to a wims session")))
 
 (defun oef-select-parameter ()
-  "Select the first «parameter» from the point."
+  "Select the first «parameter» from the beginning of line."
   (interactive)
   (move-beginning-of-line nil)
   (re-search-forward "«")
@@ -1402,15 +1402,15 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
   )
 
 (defun oef-get-examples ()
-  "This function create a submenu with oef examples."
+  "This function create a submenu `Examples' with oef examples."
   (easy-menu-create-menu
    "Examples"
-   (mapcar                   ; (mapcar function sequence) mapcar applies function to each element of sequence, and returns a list of the results.
+   (mapcar                   ; (`mapcar' `function' `sequence') `mapcar' applies `function' to each element of `sequence', and returns a list of the results.
     (lambda                  ; here start the fuction: a lambda expression (witch is an anonymous function object). The first element of a lambda expression is always the symbol lambda.
       (x)                    ; The second element is a list of symbols—the argument variable names. This is called the lambda list.
-                                        ; The next element could be The documentation string
-                                        ; The next element could be (interactive code-string). This declares how to provide arguments if the function is used interactively.Functions with this declaration are called commands; they can be called using M-x or bound to a key.
-                                        ; The rest of the elements are the body of the function: the Lisp code to do the work of the function. The value returned by the function is the value returned by the last element of the body: The rest of the elements in MENU are menu items. A menu item can be a vector of three elements:  [NAME CALLBACK ENABLE]
+                             ; The next element could be The documentation string
+                             ; The next element could be (interactive code-string). This declares how to provide arguments if the function is used interactively.Functions with this declaration are called commands; they can be called using M-x or bound to a key.
+                             ; The rest of the elements are the body of the function: the Lisp code to do the work of the function. The value returned by the function is the value returned by the last element of the body: The rest of the elements in MENU are menu items. A menu item can be a vector of three elements:  [NAME CALLBACK ENABLE]
       (vector (file-name-nondirectory x) ;NAME
               `(lambda () (interactive) (find-file-read-only ,x) ; CALLBACK
                  t) ;ENABLE
@@ -1421,7 +1421,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
    )) ; end of defun oef-get-examples
 
 (defun oef-get-menu-commands ()
-  "This function create a submenu with ‘oef-commands’ from commands definitions in `oef-definitions-commands'."
+  "This function create a submenu `Commands' with ‘oef-commands’ without parameters from commands definitions with parameters in `oef-definitions-commands'."
   (easy-menu-create-menu
    "Commands"
    (mapcar
@@ -1451,7 +1451,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
    )) ; end of defun oef-get-menu-special-commands
 
 (defun oef-get-wims-functions ()
-  "This function create a submenu `Wims Functions' with ‘oef-wims-functions’."
+  "This function create a submenu `Wims_Functions' with ‘oef-wims-functions’."
   (easy-menu-create-menu
    "Wims Functions"
    (mapcar
@@ -1466,7 +1466,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
    )) ; end of defun oef-get-wims-functions
 
 (defun oef-get-slib-scripts ()
-  "This function create a submenu `Script Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `All' for all the Scripts from ‘oef-slib-scripts’."
   (easy-menu-create-menu
    "All"
    (mapcar
@@ -1482,7 +1482,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
   ) ; end of defun oef-get-slib-scripts
 
 (defun oef-get-slib-algebra ()
-  "This function create a submenu `Algebra Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Algebra' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Algebra"
      (mapcar
@@ -1498,7 +1498,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
   ) ; end of defun oef-get-slib-algebra
 
 (defun oef-get-slib-analysis ()
-  "This function create a submenu `Analysis Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Analysis' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Analysis"
      (mapcar
@@ -1514,7 +1514,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-analysis
 
 (defun oef-get-slib-chemistry ()
-  "This function create a submenu `Chemistry Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Chemistry' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Chemistry"
      (mapcar
@@ -1530,7 +1530,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-chemistry
 
 (defun oef-get-slib-circuits ()
-  "This function create a submenu `Circuits Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Circuits' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Circuits"
      (mapcar
@@ -1546,7 +1546,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-circuits
 
 (defun oef-get-slib-data ()
-  "This function create a submenu `Data Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Data' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Data"
      (mapcar
@@ -1562,7 +1562,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-data
 
 (defun oef-get-slib-draw ()
-  "This function create a submenu `Draw Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Draw' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Draw"
      (mapcar
@@ -1578,7 +1578,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-draw
 
 (defun oef-get-slib-function ()
-  "This function create a submenu `Function Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Function' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Function"
      (mapcar
@@ -1594,7 +1594,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-function
 
 (defun oef-get-slib-games ()
-  "This function create a submenu `Games Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Games' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Games"
      (mapcar
@@ -1610,7 +1610,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-games
 
 (defun oef-get-slib-geogebra ()
-  "This function create a submenu `Geogebra Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Geogebra' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Geogebra"
      (mapcar
@@ -1626,7 +1626,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-geogebra
 
 (defun oef-get-slib-graph ()
-  "This function create a submenu `Graph Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Graph' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Graph"
      (mapcar
@@ -1642,7 +1642,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-graph
 
 (defun oef-get-slib-graphpaper ()
-  "This function create a submenu `Graphpaper Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Graphpaper' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Graphpaper"
      (mapcar
@@ -1658,7 +1658,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-graphpaper
 
 (defun oef-get-slib-lang ()
-  "This function create a submenu `Lang Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Lang' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Lang"
      (mapcar
@@ -1674,7 +1674,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-lang
 
 (defun oef-get-slib-life ()
-  "This function create a submenu `Life Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Life' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Life"
      (mapcar
@@ -1690,7 +1690,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-life
 
 (defun oef-get-slib-list ()
-  "This function create a submenu `List Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `List' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "List"
      (mapcar
@@ -1706,7 +1706,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-list
 
 (defun oef-get-slib-matrix ()
-  "This function create a submenu `Matrix Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Matrix' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Matrix"
      (mapcar
@@ -1722,7 +1722,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-matrix
 
 (defun oef-get-slib-media ()
-  "This function create a submenu `Media Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Media' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Media"
      (mapcar
@@ -1738,7 +1738,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-media
 
 (defun oef-get-slib-numeration ()
-  "This function create a submenu `Numeration Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Numeration' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Numeration"
      (mapcar
@@ -1754,7 +1754,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-numeration
 
 (defun oef-get-slib-oef ()
-  "This function create a submenu `OEF Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `OEF' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "OEF"
      (mapcar
@@ -1770,7 +1770,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-oef
 
 (defun oef-get-slib-polynomial ()
-  "This function create a submenu `Polynomial Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Polynomial' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Polynomial"
      (mapcar
@@ -1786,7 +1786,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-polynomial
 
 (defun oef-get-slib-set ()
-  "This function create a submenu `Set Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Set' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Set"
      (mapcar
@@ -1802,7 +1802,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-set
 
 (defun oef-get-slib-stat ()
-  "This function create a submenu `Stat Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Stat' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Stat"
      (mapcar
@@ -1818,7 +1818,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-stat
 
 (defun oef-get-slib-text ()
-  "This function create a submenu `Text Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Text' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Text"
      (mapcar
@@ -1834,7 +1834,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-text
 
 (defun oef-get-slib-triplerelation ()
-  "This function create a submenu `Triplerelation Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Triplerelation' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Triplerelation"
      (mapcar
@@ -1850,7 +1850,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-triplerelation
 
 (defun oef-get-slib-utilities ()
-  "This function create a submenu `Utilities Library' with ‘oef-slib-scripts’."
+  "This function create a submenu `Utilities' with ‘oef-slib-scripts’."
     (easy-menu-create-menu
      "Utilities"
      (mapcar
@@ -1866,7 +1866,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
     ) ; end of defun oef-get-slib-utilities
 
 (defun oef-get-answers-options ()
-  "This function create a submenu with the types and options of an answer from `oef-answers-options'."
+  "This function create a submenu `Answers_Types_and_Options' with the types and options of an answer from `oef-answers-options'."
   (easy-menu-create-menu
    "Answers Types and Options"
    (mapcar
@@ -1881,7 +1881,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
    )) ; end of defun oef-get-answers-options
 
 (defun oef-get-exo-init-types ()
-  "This function create a submenu for variables initialization in an exercise."
+  "This function create a submenu `Exercise' for variables initialization in an exercise." 
   (easy-menu-create-menu
    "Exercise"
    (mapcar
@@ -1898,7 +1898,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
    )) ; end of defun oef-get-exo-init-types
 
 (defun oef-get-doc-init-types ()
-  "This function create a submenu for variables initialization in an document."
+  "This function create a submenu `Document' for variables initialization in an document."
   (easy-menu-create-menu
    "Document"
    (mapcar
@@ -1915,7 +1915,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
    )) ; end of defun oef-get-doc-init-types
 
 (defun oef-get-defined-variables ()
-  "This function create a submenu for `oef-defined-variables'."
+  "This function create a submenu `Defined_Variables' for `oef-defined-variables'."
   (easy-menu-create-menu
    "Defined Variables"
    (mapcar
@@ -1930,7 +1930,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
    )) ; end of defun oef-get-defined-variables
 
 (defun oef-get-comparison-operators ()
-  "This function create a submenu for `oef-comparison-operators'."
+  "This function create a submenu `Comparison' for `oef-comparison-operators'."
   (easy-menu-create-menu
    "Comparisons"
    (mapcar
@@ -1945,7 +1945,7 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
    )) ; end of defun oef-get-comparison-operators
 
 (defun oef-get-language-reserved-words ()
-  "This function create a submenu for `oef-language-reserved-words'."
+  "This function create a submenu `Reserved_Word' for `oef-language-reserved-words'."
   (easy-menu-create-menu
    "Reserved Words"
    (mapcar
@@ -2127,7 +2127,6 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
   (newline)
   )
 
-
 (defun oef-insert-flash-in-document ()
   "This function specifies the location of the flash file."
   (interactive)
@@ -2214,7 +2213,6 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
   (interactive)
   (insert "\\link{«block name»}{«&opt:description&default:bloc title»}{«&opt:anchor»}{«&opt:param1= &param2= ... &param20=»}")
   )
-
 
 (defun oef-link-other-document-block ()
   (interactive)
@@ -2393,6 +2391,33 @@ If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigi
   (interactive)
   (insert "ℓ")
   )
+
+;;----------------COMPANY BACKEND-----------------------------
+
+;; (defconst oef-mode-completions
+;;   '("alan" "john" "ada" "don" "foot" "footeux" "alors" "aluminium" "allumette" "donner" "integer" "real" "matrix"))
+(defvar oef-mode-completions
+  oef-answers-options
+  )
+
+(defun company-oef-mode-backend (command &optional arg &rest ignored)
+  (interactive (list 'interactive))
+
+  (case command
+    (interactive (company-begin-backend 'company-oef-mode-backend))
+    (prefix
+     (and (eq major-mode 'oef-mode)
+     	  (company-grab-word))
+     )
+    (candidates
+    (remove-if-not
+      (lambda (c) (string-prefix-p arg c))
+      oef-mode-completions))
+;;    (meta (format "This value is named %s" arg))    
+    )
+  )
+
+(add-to-list 'company-backends 'company-oef-mode-backend)
 
 ;;----------------MENU----------------------------------------
 
