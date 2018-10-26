@@ -10,7 +10,7 @@
 ;; Created: July 2017
 ;; Keywords: languages
 ;; URL: http://github.com/raoulhatterer/oef-mode
-;; Package-Requires: ((emacs "24.3")(rainbow-mode "0.13")(emmet-mode "1.0.8")(rainbow-delimiters "2.1.3")(expand-region "0.11.0"))
+;; Package-Requires: ((rainbow-mode)(emmet-mode)(rainbow-delimiters)(expand-region)(cl-li)(company))
 ;; News:
 ;; Package-Type: multi
 
@@ -103,8 +103,12 @@
 ;; (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
 ;; `emmet-mode' will automatically start with oef-mode
 ;; * company
-;; `Company' is a modular completion framework.  I recommend it.
-;; Enable `company-mode' in all buffers with M-x global-company-mode.
+;; `Company' is a modular completion framework.
+;; add to your init file:
+;; (require 'cl-lib)
+;; (require 'company)
+;; To use company-mode in all buffers, add the following line to your init file:
+;; (add-hook 'after-init-hook 'global-company-mode)
 ;; * rainbow-delimiters
 ;; add to your init file:
 ;;    (require 'rainbow-delimiters)
