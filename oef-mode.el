@@ -180,12 +180,6 @@
   :group 'faces) ; CUSTOMIZE > FACES > OEF-FACES
 
 ;;---- FACES -------------------------------------------------------------------
-(defvar oef-namespace-face 'oef-namespace)
-
-(defface oef-namespace
-  '((t (:inherit font-lock-builtin-face)))
-  "`oef-mode' face used to highlight the namespace part of identifiers."
-  :group 'oef-faces)
 
 (defface oef-font-function-name-face
   '((t (:foreground "orange red")))
@@ -356,8 +350,10 @@
   "Additional space to put between lines when displaying an `oef-mode' buffer."
   :group 'oef)
   
-(defvar oef-french-words-same-as-keywords
-  '("la solution" "de solution" "en solution" "une solution" "d'une solution" "des conditions" "tout point" "du point" "plusieurs points" "ses points" "un point"))
+(defcustom oef-these-phrases-are-made-of-words-not-keywords
+  '("la solution" "de solution" "en solution" "une solution" "d'une solution" "des conditions" "tout point" "du point" "plusieurs points" "ses points" "un point")
+  "You can add your own phases here."
+  :group 'oef)
 
 (defvar oef-menu-answers-options ; "STAR BLANK TYPE" or "BLANK BLANK BLANK OPTION" in the menu DONE
   '("type=" "option=" "weight=" "* type=default"
@@ -448,7 +444,7 @@
   "Used for a dedicated submenu thanks to `oef-get-answers-options'.")
 
 (defvar oef-answers-options nil
-  "Used for highlighting `oef-answers-options' is automatically  build from `oef-menu-answer-options' a list of answers types and options.")
+  "Used for highlighting `oef-answers-options' and for completion `oef-mode-completions'.  It is automatically build from the variable `oef-menu-answers-options' a list of answers types and options.")
 
 (defvar oef-definitions-commands ; in the menu DONE
   '("title{«Exercise Title»}"
@@ -484,7 +480,7 @@
   )
 
 (defvar oef-commands nil
-  "`oef-commands' is automatically  build from `oef-definitions-commands' a list of commands definitions.")
+  "`oef-commands' is automatically  build for highlighting and completion from `oef-definitions-commands' a list of commands definitions.")
 
 (defvar oef-definitions-special-commands ; in the menu DONE
   '(
@@ -2392,32 +2388,6 @@ If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigi
   (insert "ℓ")
   )
 
-;;----------------COMPANY BACKEND-----------------------------
-
-;; (defconst oef-mode-completions
-;;   '("alan" "john" "ada" "don" "foot" "footeux" "alors" "aluminium" "allumette" "donner" "integer" "real" "matrix"))
-(defvar oef-mode-completions
-  oef-answers-options
-  )
-
-(defun company-oef-mode-backend (command &optional arg &rest ignored)
-  (interactive (list 'interactive))
-
-  (case command
-    (interactive (company-begin-backend 'company-oef-mode-backend))
-    (prefix
-     (and (eq major-mode 'oef-mode)
-     	  (company-grab-word))
-     )
-    (candidates
-    (remove-if-not
-      (lambda (c) (string-prefix-p arg c))
-      oef-mode-completions))
-;;    (meta (format "This value is named %s" arg))    
-    )
-  )
-
-(add-to-list 'company-backends 'company-oef-mode-backend)
 
 ;;----------------MENU----------------------------------------
 
@@ -2973,6 +2943,83 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 
 (add-hook 'menu-bar-update-hook 'oef-update-menu) ; 
 
+
+;;----------------COMPANY BACKEND-----------------------------
+
+(defvar oef-mode-completions '()
+"The content of this  variable is generated automatically." 
+)
+
+(setq oef-mode-completions
+      (append  oef-answers-options
+	       oef-definitions-commands
+	       oef-commands
+	       oef-definitions-special-commands
+	       oef-doc-commands
+	       oef-storage-types
+	       oef-menu-exo-init-types
+	       oef-menu-doc-init-types
+	       oef-defined-variables
+	       oef-comparison-operators
+	       oef-language-reserved-words
+	       oef-definitions-wims-functions
+	       oef-wims-functions
+	       oef-definitions-slib-algebra
+	       oef-definitions-slib-analysis
+	       oef-definitions-slib-chemistry
+	       oef-definitions-slib-circuits
+	       oef-definitions-slib-data
+	       oef-definitions-slib-draw
+	       oef-definitions-slib-function
+	       oef-definitions-slib-games
+	       oef-definitions-slib-geogebra
+	       oef-definitions-slib-graph
+	       oef-definitions-slib-graphpaper
+	       oef-definitions-slib-lang
+	       oef-definitions-slib-life
+	       oef-definitions-slib-list
+	       oef-definitions-slib-matrix
+	       oef-definitions-slib-media
+	       oef-definitions-slib-numeration
+	       oef-definitions-slib-oef
+	       oef-definitions-slib-polynomial
+	       oef-definitions-slib-set
+	       oef-definitions-slib-stat
+	       oef-definitions-slib-text
+	       oef-definitions-slib-triplerelation
+	       oef-definitions-slib-utilities
+	       oef-definitions-slib-scripts
+	       oef-slib-scripts
+	       oef-pari-functions
+	       oef-maths-functions
+	       oef-random-functions
+	       oef-canvasdraw-commands))
+
+(defun company-oef-mode-backend (command &optional arg &rest ignored)
+  (interactive (list 'interactive))
+
+  (case command
+    (interactive (company-begin-backend 'company-oef-mode-backend))
+    (prefix
+     (and (eq major-mode 'oef-mode)
+     	  (company-grab-word))
+     )
+    (candidates
+    (remove-if-not
+      (lambda (c) (string-prefix-p arg c))
+      oef-mode-completions))
+;;    (meta (format "This value is named %s" arg))    
+    )
+  )
+
+(add-to-list 'company-backends 'company-oef-mode-backend)
+
+
+
+
+
+
+
 ;;-----------MAJOR MODE----------------------------------------
 ;;;###autoload
 (define-derived-mode oef-mode sgml-mode
@@ -3028,8 +3075,9 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "C-o ee") 'oef-edit-exercise-in-browser) ;
   (define-key oef-mode-map (kbd "C-o ed") 'oef-edit-document-in-browser) ;
   (define-key oef-mode-map (kbd "C-c C-c") 'oef-edit-in-browser) ;
-  (define-key oef-mode-map (kbd "<down-mouse-1>") ; toogle oef-variable highlighting on mouse click
+  (define-key oef-mode-map (kbd "<down-mouse-1>") 
     (lambda (event)
+      "Toogle `oef-variable' highlighting on mouse click"
       (interactive "e")
 					;      (message "%s" event)
       (let ((posn (elt event 1)))
@@ -3054,7 +3102,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("<\\(h2\\)\\( \\(class\\|id\\) ?=.*\\)?>\\(.+\\)<\\(/h2\\)>" (1 'oef-font-htag-face)(4 'oef-font-h2text-face)(5 'oef-font-htag-face)) ; sub-sections
      ("<\\(h3\\)\\( \\(class\\|id\\) ?=.*\\)?>\\(.+\\)<\\(/h3\\)>" (1 'oef-font-htag-face)(4 'oef-font-h3text-face)(5 'oef-font-htag-face)) ; sub-sections
 
-     (,(regexp-opt oef-french-words-same-as-keywords 'words) . 'default)
+     (,(regexp-opt oef-these-phrases-are-made-of-words-not-keywords 'words) . 'default)
 					;     ("^ *<\\(li\\)>.*?</\\(li\\)> *$"(1 'oef-font-litag-face)(2 'oef-font-litag-face)) ; <li> </li>
      ("<\\(li\\)[^>]*>"(1 'oef-font-litag-face)) ; <li>
      ("</\\(li\\)>"(1 'oef-font-litag-face)) ;  </li>
