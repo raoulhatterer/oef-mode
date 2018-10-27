@@ -444,7 +444,7 @@
   "Used for a dedicated submenu thanks to `oef-get-answers-options'.")
 
 (defvar oef-answers-options nil
-  "Used for highlighting (`oef-answers-options') and for completion (`oef-mode-completions').  It is automatically build from the variable `oef-menu-answers-options' a list of answers types and options.")
+  "`oef-answers-options' used for highlighting and for completion (`oef-mode-completions').  It is automatically build from the variable `oef-menu-answers-options' a list of answers types and options.")
 
 (defvar oef-definitions-commands ; in the menu DONE
   '("title{«Exercise Title»}"
@@ -1038,8 +1038,8 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
   "Active Wims Session in unice wims server."
   )
 
-(defvar oef-highlighted-variable
-  nil
+(defvar oef-highlighted-variable nil
+  "Keep the name of the highlighted variable.  Used by the function `oef-highlight-variable'."
   )
 
 (defvar oef-mode-syntax-table
@@ -1060,22 +1060,31 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
 
 ;;---- DEFUNS ------------------------------------------------------------------
 
-(defun oef-hl-on()
-  "The user wants to highlight the variable at point."
+(defun oef-hl-on ()
+  "The user wants to highlight the variable at point.  
+Put the name of the variable at point in `oef-highlighted-variable'.  
+Used by the function `oef-highlight-variable'.  
+This function call `oef-add-variable-as-keyword-for-completion'."
   (setq oef-highlighted-variable (word-at-point)) ; store word at point as the variable name
   (highlight-regexp  (concat "\\({" oef-highlighted-variable "\\b\\|\\b" oef-highlighted-variable "\\b\\|\\\\" oef-highlighted-variable "\\b\\)")) ; highlight the variable
+  (oef-add-variable-as-keyword-for-completion)
   (message (concat "Highlight OEF variable " oef-highlighted-variable)) ; prompt a message
   )
 
 (defun oef-hl-off ()
-  "The user wants to unhighlight the variable."
+  "The user wants to unhighlight the variable at point.  Set `oef-highlighted-variable' to nil.  Used by the function `oef-highlight-variable'."
   (message (concat "Unhighlight OEF variable " oef-highlighted-variable))
   (unhighlight-regexp (concat "\\({" oef-highlighted-variable "\\b\\|\\b" oef-highlighted-variable "\\b\\|\\\\" oef-highlighted-variable "\\b\\)"))
   (setq oef-highlighted-variable nil)
   )
 
+(defun oef-add-variable-as-keyword-for-completion ()
+  "Add the variable in `oef-mode-completions' for completion."
+  (interactive)
+  (add-to-list 'oef-mode-completions (substring-no-properties oef-highlighted-variable)))
+  
 (defun oef-highlight-variable ()
-  "Highlight a variable or unhighlight an highlighted variable."
+  "Highlight a variable (with the function `oef-hl-on') or unhighlight an highlighted variable (with the function `oef-hl-off')."
   (interactive)
   ;; is an oef-variable highlighted in the buffer?
   (if oef-highlighted-variable
@@ -2084,7 +2093,7 @@ You can add more examples in the examples folder in your `user-emacs-directory'"
   (setq flash_file (read-string "Name of the flash file (your_file.swf has to be upload in \\filedir): " flash_file))
   (insert "<div class=\"wimscenter\">")
   (oef-mode-indent-line)
-  (newline)
+  (newline) at point
   (insert "<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\"")
   (oef-mode-indent-line)
   (newline)
@@ -2947,7 +2956,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 ;;----------------COMPANY BACKEND-----------------------------
 
 (defvar oef-mode-completions '()
-"The content of this  variable is generated automatically." 
+"The content of this variable is generated automatically for COMPANY completion." 
 )
 
 (setq oef-mode-completions
@@ -3051,7 +3060,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "C-o ee") 'oef-edit-exercise-in-browser) ;
   (define-key oef-mode-map (kbd "C-o ed") 'oef-edit-document-in-browser) ;
   (define-key oef-mode-map (kbd "C-c C-c") 'oef-edit-in-browser) ;
-  (define-key oef-mode-map (kbd "<down-mouse-1>") 
+  (define-key oef-mode-map (kbd "<down-mouse-1>") ;  (de)highlighting the variable on mouse click and add the variable to completion list
     (lambda (event)
       "Toogle `oef-variable' highlighting on mouse click"
       (interactive "e")
