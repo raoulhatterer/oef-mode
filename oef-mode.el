@@ -2980,24 +2980,27 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 	       oef-random-functions
 	       oef-canvasdraw-commands))
 
-(defun company-oef-mode-backend (command &optional arg &rest ignored)
-  (interactive (list 'interactive))
+;; (defun company-oef-mode-backend (command &optional arg &rest ignored)
+;;   (interactive (list 'interactive))
+;;   (case command
+;;     (interactive (company-begin-backend 'company-oef-mode-backend))
+;;      ; If point is at the end of a word, `company-grab-word' return it. Otherwise, if point is not inside a symbol, return an empty string.`and' return the same thing. prefix : The backend should return the text to be completed.  It must be text immediately before point.  Returning nil from this command passes control to the next backend.
+;;     (prefix
+;;      (let ((word company-grab-word))
+;;        (if (string= "" 
+;; 		    (and (eq major-mode 'oef-mode)  
+;; 			 word)
+;; 		    )
+;; 	   word))
+;;      (candidates
+;;       (remove-if-not
+;;        (lambda (c) (string-prefix-p arg c))
+;;        oef-mode-completions))
+;;      ;;    (meta (format "This value is named %s" arg))    
+;;     )
+;;   )
 
-  (case command
-    (interactive (company-begin-backend 'company-oef-mode-backend))
-    (prefix
-     (and (eq major-mode 'oef-mode)
-     	  (company-grab-word))
-     )
-    (candidates
-    (remove-if-not
-      (lambda (c) (string-prefix-p arg c))
-      oef-mode-completions))
-;;    (meta (format "This value is named %s" arg))    
-    )
-  )
-
-(add-to-list 'company-backends 'company-oef-mode-backend)
+;; (add-to-list 'company-backends 'company-oef-mode-backend)
 
 
 
