@@ -10,7 +10,7 @@
 ;; Created: July 2017
 ;; Keywords: languages
 ;; URL: http://github.com/raoulhatterer/oef-mode
-;; Package-Requires: ((rainbow-mode)(emmet-mode)(rainbow-delimiters)(expand-region)(cl-li)(company-mode))
+;; Package-Requires: ((rainbow-mode)(emmet-mode)(rainbow-delimiters)(expand-region)(cl-li)(company))
 ;; News:
 ;; Package-Type: multi
 
@@ -3000,26 +3000,28 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 ;;     )
 ;;   )
 
-(defun company-oef-mode-backend (command &optional arg &rest ignored)
-  (interactive (list 'interactive))
 
-  (case command
-    (interactive (company-begin-backend 'company-oef-mode-backend))
-    (prefix
-     (and (eq major-mode 'oef-mode)
-          (company-grab-word))
-     )
-    (candidates
-    (remove-if-not
-      (lambda (c) (string-prefix-p arg c))
-      oef-mode-completions))
-;;    (meta (format "This value is named %s" arg))    
-    )
-  )
+
+;; (defun company-oef-mode-backend (command &optional arg &rest ignored)
+;;   (interactive (list 'interactive))
+
+;;   (case command
+;;     (interactive (company-begin-backend 'company-oef-mode-backend))
+;;     (prefix
+;;      (and (eq major-mode 'oef-mode)
+;;           (company-grab-word))
+;;      )
+;;     (candidates
+;;      (remove-if-not
+;;       (lambda (c) (string-prefix-p arg c))
+;;       oef-mode-completions))
+;;     ;;    (meta (format "This value is named %s" arg))    
+;;     )
+;;   )
 
 
   
-(add-to-list 'company-backends 'company-oef-mode-backend)
+;; (add-to-list 'company-backends 'company-oef-mode-backend)
 
 
 
