@@ -10,7 +10,7 @@
 ;; Created: July 2017
 ;; Keywords: languages
 ;; URL: http://github.com/raoulhatterer/oef-mode
-;; Package-Requires: ((rainbow-mode)(emmet-mode)(rainbow-delimiters)(expand-region)(cl-li)(company))
+;; Package-Requires: ((rainbow-mode)(emmet-mode)(rainbow-delimiters)(expand-region)(cl-li)(company-mode))
 ;; News:
 ;; Package-Type: multi
 
@@ -2986,11 +2986,11 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 ;;     (interactive (company-begin-backend 'company-oef-mode-backend))
 ;;      ; If point is at the end of a word, `company-grab-word' return it. Otherwise, if point is not inside a symbol, return an empty string.`and' return the same thing. prefix : The backend should return the text to be completed.  It must be text immediately before point.  Returning nil from this command passes control to the next backend.
 ;;     (prefix
-;;      (let ((word company-grab-word))
+;;      (let ((word (company-grab-word)))
 ;;        (if (string= "" 
 ;; 		    (and (eq major-mode 'oef-mode)  
-;; 			 word)
-;; 		    )
+;; 			 word))
+;; 	   nil
 ;; 	   word))
 ;;      (candidates
 ;;       (remove-if-not
@@ -3000,7 +3000,26 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 ;;     )
 ;;   )
 
-;; (add-to-list 'company-backends 'company-oef-mode-backend)
+(defun company-oef-mode-backend (command &optional arg &rest ignored)
+  (interactive (list 'interactive))
+
+  (case command
+    (interactive (company-begin-backend 'company-oef-mode-backend))
+    (prefix
+     (and (eq major-mode 'oef-mode)
+          (company-grab-word))
+     )
+    (candidates
+    (remove-if-not
+      (lambda (c) (string-prefix-p arg c))
+      oef-mode-completions))
+;;    (meta (format "This value is named %s" arg))    
+    )
+  )
+
+
+  
+(add-to-list 'company-backends 'company-oef-mode-backend)
 
 
 
