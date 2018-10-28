@@ -349,7 +349,7 @@
 (defcustom oef-line-spacing 0.1
   "Additional space to put between lines when displaying an `oef-mode' buffer."
   :group 'oef)
-  
+
 (defcustom oef-these-phrases-are-made-of-words-not-keywords
   '("la solution" "de solution" "en solution" "une solution" "d'une solution" "des conditions" "tout point" "du point" "plusieurs points" "ses points" "un point")
   "You can add your own phases here."
@@ -1001,7 +1001,7 @@
   )
 
 (defvar oef-definitions-slib-scripts (append oef-definitions-slib-algebra oef-definitions-slib-analysis  oef-definitions-slib-chemistry oef-definitions-slib-circuits oef-definitions-slib-data oef-definitions-slib-draw oef-definitions-slib-function oef-definitions-slib-games oef-definitions-slib-geogebra oef-definitions-slib-graph oef-definitions-slib-graphpaper oef-definitions-slib-lang oef-definitions-slib-life oef-definitions-slib-list oef-definitions-slib-matrix oef-definitions-slib-media oef-definitions-slib-numeration oef-definitions-slib-oef oef-definitions-slib-polynomial oef-definitions-slib-set oef-definitions-slib-stat oef-definitions-slib-text oef-definitions-slib-triplerelation oef-definitions-slib-utilities)
-    "Used for highlighting and completion and for completion (`oef-mode-completions') and for a submenu `All' in the menu Script Library.
+  "Used for highlighting and completion and for completion (`oef-mode-completions') and for a submenu `All' in the menu Script Library.
 
 Automatically build from following lists: `oef-definitions-slib-algebra' `oef-definitions-slib-analysis' `oef-definitions-slib-chemistry' `oef-definitions-slib-circuits' `oef-definitions-slib-data' `oef-definitions-slib-draw' `oef-definitions-slib-function' `oef-definitions-slib-games' `oef-definitions-slib-geogebra' `oef-definitions-slib-graph' `oef-definitions-slib-graphpaper' `oef-definitions-slib-lang' `oef-definitions-slib-life' `oef-definitions-slib-list' `oef-definitions-slib-matrix' `oef-definitions-slib-media' `oef-definitions-slib-numeration' `oef-definitions-slib-oef' `oef-definitions-slib-polynomial' `oef-definitions-slib-set' `oef-definitions-slib-stat' `oef-definitions-slib-text' `oef-definitions-slib-triplerelation' `oef-definitions-slib-utilities'")
 
@@ -1084,7 +1084,7 @@ This function call `oef-add-variable-as-keyword-for-completion'."
   (add-to-list 'oef-mode-completions (substring-no-properties oef-highlighted-variable))
   (oef-make-candidats))
 
-  
+
 (defun oef-highlight-variable ()
   "Highlight a variable (with the function `oef-hl-on') or unhighlight an highlighted variable (with the function `oef-hl-off')."
   (interactive)
@@ -1199,7 +1199,7 @@ This function call `oef-add-variable-as-keyword-for-completion'."
     (goto-char (point-min))
     (if (search-forward "\\statement{" nil t)
 	(oef-edit-exercise-in-browser)
-	(oef-edit-document-in-browser))))
+      (oef-edit-document-in-browser))))
 
 (defun oef-edit-exercise-in-browser()
   "Edit exercise in browser."
@@ -1210,7 +1210,7 @@ This function call `oef-add-variable-as-keyword-for-completion'."
 	(let ((oef-filename (file-name-nondirectory (buffer-file-name))))
 	  (browse-url  (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".6&+lang=fr&+module=adm%2Fmodtool&+cmd=reply&+jobreq=edfile&+fname=src%2F" oef-filename))))
     (message-box "You are not connected. You have to connect to a wims session first.")))
-  
+
 (defun oef-edit-document-in-browser()
   "Edit document in browser."
   (interactive)
@@ -1312,11 +1312,11 @@ This function call `oef-add-variable-as-keyword-for-completion'."
 		    ))))
 
 (defun oef-insert-embed-reply()
-    "This fonction insert embed answer in statement."
+  "This fonction insert embed answer in statement."
   (interactive)
   (insert "\\embed{reply}")
   (backward-char 1)
- )
+  )
 
 (defun oef-insert-answer()
   "this function instert an answer blueprint"
@@ -1415,9 +1415,9 @@ This function call `oef-add-variable-as-keyword-for-completion'."
    (mapcar                   ; (`mapcar' `function' `sequence') `mapcar' applies `function' to each element of `sequence', and returns a list of the results.
     (lambda                  ; here start the fuction: a lambda expression (witch is an anonymous function object). The first element of a lambda expression is always the symbol lambda.
       (x)                    ; The second element is a list of symbols—the argument variable names. This is called the lambda list.
-                             ; The next element could be The documentation string
-                             ; The next element could be (interactive code-string). This declares how to provide arguments if the function is used interactively.Functions with this declaration are called commands; they can be called using M-x or bound to a key.
-                             ; The rest of the elements are the body of the function: the Lisp code to do the work of the function. The value returned by the function is the value returned by the last element of the body: The rest of the elements in MENU are menu items. A menu item can be a vector of three elements:  [NAME CALLBACK ENABLE]
+					; The next element could be The documentation string
+					; The next element could be (interactive code-string). This declares how to provide arguments if the function is used interactively.Functions with this declaration are called commands; they can be called using M-x or bound to a key.
+					; The rest of the elements are the body of the function: the Lisp code to do the work of the function. The value returned by the function is the value returned by the last element of the body: The rest of the elements in MENU are menu items. A menu item can be a vector of three elements:  [NAME CALLBACK ENABLE]
       (vector (file-name-nondirectory x) ;NAME
               `(lambda () (interactive) (find-file-read-only ,x) ; CALLBACK
                  t) ;ENABLE
@@ -1490,387 +1490,387 @@ This function call `oef-add-variable-as-keyword-for-completion'."
 
 (defun oef-get-slib-algebra ()
   "This function create a submenu `Algebra' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Algebra"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(algebra/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-algebra ; sequence : here a list of string
-      ) ; end of mapcar
-     )
+  (easy-menu-create-menu
+   "Algebra"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(algebra/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-algebra ; sequence : here a list of string
+    ) ; end of mapcar
+   )
   ) ; end of defun oef-get-slib-algebra
 
 (defun oef-get-slib-analysis ()
   "This function create a submenu `Analysis' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Analysis"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(analysis/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-analysis ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-analysis
+  (easy-menu-create-menu
+   "Analysis"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(analysis/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-analysis ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-analysis
 
 (defun oef-get-slib-chemistry ()
   "This function create a submenu `Chemistry' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Chemistry"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(chemistry/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-chemistry ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-chemistry
+  (easy-menu-create-menu
+   "Chemistry"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(chemistry/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-chemistry ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-chemistry
 
 (defun oef-get-slib-circuits ()
   "This function create a submenu `Circuits' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Circuits"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(circuits/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-circuits ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-circuits
+  (easy-menu-create-menu
+   "Circuits"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(circuits/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-circuits ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-circuits
 
 (defun oef-get-slib-data ()
   "This function create a submenu `Data' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Data"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(data/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-data ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-data
+  (easy-menu-create-menu
+   "Data"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(data/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-data ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-data
 
 (defun oef-get-slib-draw ()
   "This function create a submenu `Draw' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Draw"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(draw/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-draw ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-draw
+  (easy-menu-create-menu
+   "Draw"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(draw/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-draw ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-draw
 
 (defun oef-get-slib-function ()
   "This function create a submenu `Function' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Function"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(function/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-function ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-function
+  (easy-menu-create-menu
+   "Function"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(function/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-function ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-function
 
 (defun oef-get-slib-games ()
   "This function create a submenu `Games' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Games"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(games/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-games ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-games
+  (easy-menu-create-menu
+   "Games"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(games/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-games ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-games
 
 (defun oef-get-slib-geogebra ()
   "This function create a submenu `Geogebra' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Geogebra"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-geogebra ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-geogebra
+  (easy-menu-create-menu
+   "Geogebra"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-geogebra ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-geogebra
 
 (defun oef-get-slib-graph ()
   "This function create a submenu `Graph' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Graph"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(graph/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-graph ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-graph
+  (easy-menu-create-menu
+   "Graph"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(graph/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-graph ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-graph
 
 (defun oef-get-slib-graphpaper ()
   "This function create a submenu `Graphpaper' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Graphpaper"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(graphpaper/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-graphpaper ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-graphpaper
+  (easy-menu-create-menu
+   "Graphpaper"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(graphpaper/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-graphpaper ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-graphpaper
 
 (defun oef-get-slib-lang ()
   "This function create a submenu `Lang' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Lang"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(lang/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-lang ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-lang
+  (easy-menu-create-menu
+   "Lang"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(lang/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-lang ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-lang
 
 (defun oef-get-slib-life ()
   "This function create a submenu `Life' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Life"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(life/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-life ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-life
+  (easy-menu-create-menu
+   "Life"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(life/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-life ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-life
 
 (defun oef-get-slib-list ()
   "This function create a submenu `List' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "List"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(list/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-list ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-list
+  (easy-menu-create-menu
+   "List"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(list/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-list ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-list
 
 (defun oef-get-slib-matrix ()
   "This function create a submenu `Matrix' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Matrix"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(matrix/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-matrix ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-matrix
+  (easy-menu-create-menu
+   "Matrix"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(matrix/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-matrix ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-matrix
 
 (defun oef-get-slib-media ()
   "This function create a submenu `Media' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Media"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(media/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-media ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-media
+  (easy-menu-create-menu
+   "Media"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(media/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-media ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-media
 
 (defun oef-get-slib-numeration ()
   "This function create a submenu `Numeration' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Numeration"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(numeration/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-numeration ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-numeration
+  (easy-menu-create-menu
+   "Numeration"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(numeration/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-numeration ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-numeration
 
 (defun oef-get-slib-oef ()
   "This function create a submenu `OEF' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "OEF"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(oef/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-oef ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-oef
+  (easy-menu-create-menu
+   "OEF"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(oef/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-oef ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-oef
 
 (defun oef-get-slib-polynomial ()
   "This function create a submenu `Polynomial' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Polynomial"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(polynomial/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-polynomial ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-polynomial
+  (easy-menu-create-menu
+   "Polynomial"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(polynomial/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-polynomial ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-polynomial
 
 (defun oef-get-slib-set ()
   "This function create a submenu `Set' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Set"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(set/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-set ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-set
+  (easy-menu-create-menu
+   "Set"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(set/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-set ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-set
 
 (defun oef-get-slib-stat ()
   "This function create a submenu `Stat' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Stat"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(stat/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-stat ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-stat
+  (easy-menu-create-menu
+   "Stat"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(stat/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-stat ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-stat
 
 (defun oef-get-slib-text ()
   "This function create a submenu `Text' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Text"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(text/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lamda expression
-      oef-definitions-slib-text ; sequence : here a list of string
-      ) ; end of mapcar
-     )
-    ) ; end of defun oef-get-slib-text
+  (easy-menu-create-menu
+   "Text"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(text/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lamda expression
+    oef-definitions-slib-text ; sequence : here a list of string
+    ) ; end of mapcar
+   )
+  ) ; end of defun oef-get-slib-text
 
 (defun oef-get-slib-triplerelation ()
   "This function create a submenu `Triplerelation' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Triplerelation"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(triplerelation/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lambda expression
-      oef-definitions-slib-triplerelation ; sequence : here a list of string
-      ) ; end of triplerelation
-     )
-    ) ; end of defun oef-get-slib-triplerelation
+  (easy-menu-create-menu
+   "Triplerelation"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(triplerelation/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lambda expression
+    oef-definitions-slib-triplerelation ; sequence : here a list of string
+    ) ; end of triplerelation
+   )
+  ) ; end of defun oef-get-slib-triplerelation
 
 (defun oef-get-slib-utilities ()
   "This function create a submenu `Utilities' with ‘oef-slib-scripts’."
-    (easy-menu-create-menu
-     "Utilities"
-     (mapcar
-      (lambda (x);             
-	(vector (replace-regexp-in-string "slib(utilities/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
-		`(lambda () (interactive)
-		   (insert   ,x)
-		   t))
-	)               ; end of the lambda expression
-      oef-definitions-slib-utilities ; sequence : here a list of string
-      ) ; end of triplerelation
-     )
-    ) ; end of defun oef-get-slib-utilities
+  (easy-menu-create-menu
+   "Utilities"
+   (mapcar
+    (lambda (x);             
+      (vector (replace-regexp-in-string "slib(utilities/" "" (replace-regexp-in-string " «parameters»)" "" x)) ; each script name in the submenu
+	      `(lambda () (interactive)
+		 (insert   ,x)
+		 t))
+      )               ; end of the lambda expression
+    oef-definitions-slib-utilities ; sequence : here a list of string
+    ) ; end of triplerelation
+   )
+  ) ; end of defun oef-get-slib-utilities
 
 (defun oef-get-answers-options ()
   "This function create a submenu `Answers_Types_and_Options' with the types and options of an answer from `oef-answers-options'."
@@ -2336,65 +2336,65 @@ If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigi
       )))
 
 (defun  oef-chemistry-simple-bond()
-"Insert a character."
+  "Insert a character."
   (interactive)
   (insert " – ")
   )
 (defun  oef-insert-french-opening-guillemet()
-"Insert a character."
+  "Insert a character."
   (interactive)
   (insert "« ")
   )
 (defun  oef-insert-french-closing-guillemet()
-"Insert a character."
+  "Insert a character."
   (interactive)
   (insert " »")
   )
 (defun  oef-insert-french-guillemets()
-"Insert a character."
+  "Insert a character."
   (interactive)
   (insert "«»")
   (backward-char)
   )
 
 (defun  oef-insert-non-breaking-space()
-"Insert a non breaking space character."
+  "Insert a non breaking space character."
   (interactive)
   (insert " ")
   )
 
 (defun  oef-chemistry-double-bond()
-"Insert a character."
+  "Insert a character."
   (interactive)
   (insert " = ")
   )
 
 (defun  oef-chemistry-triple-bond()
-"Insert a character."
+  "Insert a character."
   (interactive)
   (insert " ≡ ")
   )
 
 (defun  oef-insert-rightarrow()
-"Insert a character."
+  "Insert a character."
   (interactive)
   (insert "&rarr;")
   )
 
 (defun  oef-insert-longrightarrow()
-"Insert a character."
+  "Insert a character."
   (interactive)
   (insert "\\longrightarrow")
   )
 
 (defun  oef-insert-harpoons()
-"Insert a character."
+  "Insert a character."
   (interactive)
   (insert "⇌")
   )
 
 (defun  oef-insert-ell()
-"Insert a character."
+  "Insert a character."
   (interactive)
   (insert "ℓ")
   )
@@ -2957,8 +2957,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 
 ;;----------------COMPANY BACKEND-----------------------------
 
-(defvar oef-mode-completions '()
-  "The content of this variable is generated automatically for COMPANY completion." 
+(defvar oef-completions '()
+  "The content of this variable is a list of keyphrases (keywords...).  It's generated automatically for COMPANY completion." 
   )
 
 (defvar oef-grabed-word nil
@@ -2966,7 +2966,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   )
 
 (defvar oef-candidats nil
-"List of candidats.  Made of Three first letters of items in oef-mod-completion."
+  "List of candidats.  Made of Three first letters of items in oef-completion."
   )
 
 (setq oef-completions
@@ -2993,12 +2993,12 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (defun oef-make-candidats()
   "Make a list of candidats (3 first characters) to detect if oef-mode-backend is required."
   (interactive)
-(let ((mylist oef-completions)(myword))
-  (while mylist
-    (setq myword (pop mylist))
-    (if (> (length myword) 2)
-	(add-to-list 'oef-candidats (substring myword 0 3))
-      ))))
+  (let ((mylist oef-completions)(myword))
+    (while mylist
+      (setq myword (pop mylist))
+      (if (> (length myword) 2)
+	  (add-to-list 'oef-candidats (substring myword 0 3))
+	))))
 
 (defun company-oef-mode-backend (command &optional arg &rest ignored)
   "Detect if company-oef-mode-bakend is required.  If yes company-oef-mode-backend will sugest competions.  If not the next backend is called."
@@ -3019,7 +3019,6 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      (remove-if-not
       (lambda (c) (string-prefix-p arg c))
       oef-completions))
-    ;;    (meta (format "This value is named %s" arg))    
     )
   )
 
@@ -3028,7 +3027,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 ;;-----------MAJOR MODE----------------------------------------
 ;;;###autoload
 (define-derived-mode oef-mode sgml-mode
-		     "oef-mode"
+  "oef-mode"
   "'Online Exercise Format' mode"
   (mapc
    (lambda (package)
