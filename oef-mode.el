@@ -2956,8 +2956,17 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 ;;----------------COMPANY BACKEND-----------------------------
 
 (defvar oef-mode-completions '()
-"The content of this variable is generated automatically for COMPANY completion." 
-)
+  "The content of this variable is generated automatically for COMPANY completion." 
+  )
+
+(defvar oef-grabed-word nil
+  "The content of this variable is get before point by company-mode."
+  )
+
+
+(defvar oef-candidats nil
+"List of candidats.  Made of Three first letters of items in oef-mod-completion."
+  )
 
 (setq oef-mode-completions
       (append  oef-answers-options
@@ -2979,6 +2988,40 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 	       oef-maths-functions
 	       oef-random-functions
 	       oef-canvasdraw-commands))
+
+
+(defun oef-make-candidats()
+  "Make a list of candidats (3 first characters) to detect if oef-mode-backend is required."
+  (interactive)
+(let ((mylist oef-mode-completions)(myword))
+  (while mylist
+    (setq myword (pop mylist))
+    (if (> (length myword) 2)
+	(add-to-list 'oef-candidats (substring myword 0 3))
+      ))))
+
+(defun company-oef-mode-backend (command &optional arg &rest ignored)
+  (interactive (list 'interactive))
+  (case command
+    (interactive (company-begin-backend 'company-oef-mode-backend))
+    (prefix
+     (setq oef-grabed-word (company-grab-word))
+     (if (member
+	  oef-grabed-word
+	  oef-candidats
+	  )
+	 oef-grabed-word
+       nil)
+     )		
+    (candidates
+     (remove-if-not
+      (lambda (c) (string-prefix-p arg c))
+      oef-mode-completions))
+    ;;    (meta (format "This value is named %s" arg))    
+    )
+  )
+
+(add-to-list 'company-backends 'company-oef-mode-backend)
 
 ;; (defun company-oef-mode-backend (command &optional arg &rest ignored)
 ;;   (interactive (list 'interactive))
@@ -3002,6 +3045,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 
 
 
+
 ;; (defun company-oef-mode-backend (command &optional arg &rest ignored)
 ;;   (interactive (list 'interactive))
 
@@ -3009,42 +3053,18 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 ;;     (interactive (company-begin-backend 'company-oef-mode-backend))
 ;;     (prefix
 ;;      (and (eq major-mode 'oef-mode)
-;;           (company-grab-word))
+;;      	  (company-grab-word))
 ;;      )
 ;;     (candidates
-;;      (remove-if-not
+;;     (remove-if-not
 ;;       (lambda (c) (string-prefix-p arg c))
 ;;       oef-mode-completions))
-;;     ;;    (meta (format "This value is named %s" arg))    
+;; ;;    (meta (format "This value is named %s" arg))    
 ;;     )
 ;;   )
 
-
-  
 ;; (add-to-list 'company-backends 'company-oef-mode-backend)
 
-
-
-
-
-(defun company-oef-mode-backend (command &optional arg &rest ignored)
-  (interactive (list 'interactive))
-
-  (case command
-    (interactive (company-begin-backend 'company-oef-mode-backend))
-    (prefix
-     (and (eq major-mode 'oef-mode)
-     	  (company-grab-word))
-     )
-    (candidates
-    (remove-if-not
-      (lambda (c) (string-prefix-p arg c))
-      oef-mode-completions))
-;;    (meta (format "This value is named %s" arg))    
-    )
-  )
-
-(add-to-list 'company-backends 'company-oef-mode-backend)
 
 
 
@@ -3069,7 +3089,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     (progn    ; if the background is dark
       (set-face-attribute 'oef-font-h1text-face nil :inherit 'oef-font-h1text-darkbg-face)
       (set-face-attribute 'oef-font-h2text-face nil :inherit 'oef-font-h2text-darkbg-face)))
-
+  (oef-make-candidats)
+  
   ;; key binding
   (define-key oef-mode-map (kbd "/") nil) ; to have forward-slash with multiple-cursors
   (define-key oef-mode-map (kbd "C-C C-e") 'oef-close-tag)
