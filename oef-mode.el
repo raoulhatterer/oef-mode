@@ -1221,6 +1221,23 @@ This function call `oef-add-variable-as-keyword-for-completion'."
 	  (browse-url (replace-regexp-in-string ".oef" "" (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".6&+lang=fr&+module=adm%2Fdoc&+cmd=reply&+job=edit&+doc=1&+block=" oef-filename)))))
     (message-box "You are not connected. You have to connect to a wims session first.\n\nIn your browser :\n- Connect to Modtool\n- Go to the main page of your document\n- Select and copy the url in the clipboard\n\nIn emacs :\n- Connect to a wims session")))
 
+(defun oef-goto-answers()
+  "Goto answers"
+  (interactive)
+  (goto-char (point-min))
+  (search-forward "\\answer{" nil t)
+  (beginning-of-line)
+  (recenter-top-bottom)
+  )
+
+(defun oef-goto-statement()
+  "Goto Statement"
+  (interactive)
+  (goto-char (point-min))
+  (search-forward "\\statement{" nil t)
+  (recenter-top-bottom)
+  )
+
 (defun oef-select-parameter ()
   "Select the first «parameter» from the beginning of line."
   (interactive)
@@ -2445,6 +2462,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["Files" nil t]
     ["---" nil t]
     ["Expand Emmet Line" emmet-expand-line t]
+    ["Goto" nil t]
     ["Highlight Variable at point (toggle)" oef-highlight-variable t] ;`Highlight oef variable' added to Text menu-bar
     ("Html Tag"
      ["Tag Folding" nil t]
@@ -2558,6 +2576,9 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Symbol" "Guillemets")[" »" oef-insert-french-closing-guillemet])
 (easy-menu-add-item oef-menu-bar '("Symbol" "Guillemets")["« »" oef-insert-french-guillemets])
 (easy-menu-add-item oef-menu-bar '("Symbol")["Non Breaking Space  " oef-insert-non-breaking-space])
+(easy-menu-add-item oef-menu-bar '("Goto")["Goto Answer" oef-goto-answers :help"Goto Answers"]) ;
+(easy-menu-add-item oef-menu-bar '("Goto")["Goto Line" goto-line :help"Goto line"]) ;
+(easy-menu-add-item oef-menu-bar '("Goto")["Goto Statement" oef-goto-statement :help"Goto Statement"]) ;
 (easy-menu-add-item oef-menu-bar '("Html Tag")["Select Tag Pair" oef-mode-mark-sgml-tag-pair :help"Mark the current opening and closing tag"]) ;
 (easy-menu-add-item oef-menu-bar '("Html Tag")["Select Inner Tag" er/mark-inner-tag :help"Mark the content between current opening and closing tag"]) ;
 (easy-menu-add-item oef-menu-bar '("Html Tag")["<b> bold" oef-insert-tag-b]) ;
@@ -3059,6 +3080,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "C-M-<") 'oef-insert-french-guillemets)      ; french «»
   (define-key oef-mode-map (kbd "C-M-SPC") 'oef-insert-non-breaking-space)
   (define-key oef-mode-map (kbd "TAB") 'oef-mode-indent-line)
+  (define-key oef-mode-map (kbd "M-g a") 'oef-goto-answers)
+  (define-key oef-mode-map (kbd "M-g s") 'oef-goto-statement)    
   (define-key oef-mode-map (kbd "C-o tt>") 'yafolding-toggle-element)
   (define-key oef-mode-map (kbd "C-o ts") 'yafolding-show-all)
   (define-key oef-mode-map (kbd "C-o th") 'yafolding-hide-all)
