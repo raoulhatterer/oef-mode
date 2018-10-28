@@ -199,7 +199,8 @@
 (defface oef-font-answer-command-face
   '((t
      (:box
-      (:line-width 1 :color "orange red" :style nil)
+      (:line-width 2 :color "#FFF2F2" :style nil)
+      :background "#FFF2F2"
       :inherit
       (oef-font-command-face))))
   "Face for answer command"
@@ -1226,6 +1227,15 @@ This function call `oef-add-variable-as-keyword-for-completion'."
   (interactive)
   (goto-char (point-min))
   (search-forward "\\answer{" nil t)
+  (beginning-of-line)
+  (recenter-top-bottom)
+  )
+
+(defun oef-goto-css()
+  "Goto CSS"
+  (interactive)
+  (goto-char (point-min))
+  (search-forward "\\css{" nil t)
   (beginning-of-line)
   (recenter-top-bottom)
   )
@@ -2577,6 +2587,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Symbol" "Guillemets")["« »" oef-insert-french-guillemets])
 (easy-menu-add-item oef-menu-bar '("Symbol")["Non Breaking Space  " oef-insert-non-breaking-space])
 (easy-menu-add-item oef-menu-bar '("Goto")["Goto Answer" oef-goto-answers :help"Goto Answers"]) ;
+(easy-menu-add-item oef-menu-bar '("Goto")["Goto CSS" oef-goto-css :help"Goto CSS"]) ;
 (easy-menu-add-item oef-menu-bar '("Goto")["Goto Line" goto-line :help"Goto line"]) ;
 (easy-menu-add-item oef-menu-bar '("Goto")["Goto Statement" oef-goto-statement :help"Goto Statement"]) ;
 (easy-menu-add-item oef-menu-bar '("Html Tag")["Select Tag Pair" oef-mode-mark-sgml-tag-pair :help"Mark the current opening and closing tag"]) ;
@@ -3081,6 +3092,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "C-M-SPC") 'oef-insert-non-breaking-space)
   (define-key oef-mode-map (kbd "TAB") 'oef-mode-indent-line)
   (define-key oef-mode-map (kbd "M-g a") 'oef-goto-answers)
+  (define-key oef-mode-map (kbd "M-g c") 'oef-goto-css)  
   (define-key oef-mode-map (kbd "M-g s") 'oef-goto-statement)    
   (define-key oef-mode-map (kbd "C-o tt>") 'yafolding-toggle-element)
   (define-key oef-mode-map (kbd "C-o ts") 'yafolding-show-all)
