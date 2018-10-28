@@ -10,6 +10,7 @@ Features (Non-exhaustive)
 
 * Syntax highlighting 
 * Automatic indentation
+* Completion suggestions
 * Connection to a wims session
 * OEF Menu with:
     - Examples
@@ -19,20 +20,26 @@ Features (Non-exhaustive)
 Requirements
 ------------
 
-- Emacs 24.4+
+- Emacs
+- rainbow-mode
+- emmet-mode
+- rainbow-delimiters
+- expand-region
+- cl-li
+- company-mode
 
 Installation
 ------------
 
 I would recommend El-get http://wikemacs.org/wiki/El-get to install oef-mode
 
--GnuTLS must be available
+ - GnuTLS must be available
 So the idea is that you copy/paste this code into your *scratch* buffer:
 (gnutls-available-p)
 hit C-j, and if you get 't' GnuTLS is available but if you get 'nil'  you have to install it:
 On Aquamacs you need Aquamacs >=3.5
 
-copy/paste this code into your *scratch* buffer: 
+ - copy/paste this code into your *scratch* buffer: 
 
 (url-retrieve
  "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el"
@@ -40,9 +47,9 @@ copy/paste this code into your *scratch* buffer:
    (goto-char (point-max))
    (eval-print-last-sexp)))
 
-hit C-j, and you have a working el-get.
+ - hit C-j, and you have a working el-get.
 
-- 
+
 
 
 Development

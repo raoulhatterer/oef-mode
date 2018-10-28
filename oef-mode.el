@@ -10,7 +10,7 @@
 ;; Created: July 2017
 ;; Keywords: languages
 ;; URL: http://github.com/raoulhatterer/oef-mode
-;; Package-Requires: ((rainbow-mode)(emmet-mode)(rainbow-delimiters)(expand-region)(cl-li)(company))
+;; Package-Requires: ((rainbow-mode)(emmet-mode)(rainbow-delimiters)(expand-region)(cl-li)(company-mode))
 ;; News:
 ;; Package-Type: multi
 
