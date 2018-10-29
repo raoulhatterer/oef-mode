@@ -59,7 +59,7 @@
 ;; Then put the following (without ;;) in your Emacs init file "~/.emacs"
 ;;vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 ;;  (add-to-list 'load-path "~/.emacs.d/lisp/") ;; Tell Emacs where is your personal elisp lib dir
-;;  (load "oef") ;; load the packaged named oef (best not to include the ending “.el” or “.elc”)
+;;  (load "oef-mode") ;; load the packaged named oef (best not to include the ending “.el” or “.elc”)
 ;;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ;; before the line (package-initialize).
 ;; * aquamacs (OSX):
@@ -104,27 +104,27 @@
 ;; To use company-mode in all buffers, add the following line to your init file:
 ;; (require 'company)
 ;; (add-hook 'after-init-hook 'global-company-mode)
-;; * rainbow-delimiters
+;; * `rainbow-delimiters'
 ;; add to your init file:
 ;; (require 'rainbow-delimiters)
 ;;    (add-hook 'oef-mode-hook 'rainbow-delimiters-mode) ; Auto-start parens matching
-;; * rainbow-mode
+;; * `rainbow-mode'
 ;; add to your init file:
 ;; (require 'rainbow-mode)
 ;;    (add-to-list 'rainbow-html-colors-major-mode-list 'oef-mode) ; 
 ;;    (add-hook 'oef-mode-hook 'rainbow-mode) ; Auto-start HTML and CSS colorization
-;; * yafolding
+;; * `yafolding'
 ;; Folding code blocks based on indentation
 ;; Automatically installed and launch
-;; * auctex for LaTeX-math-mode
-;; * wrap-region
-;; (require 'wrap-region)
+;; * `auctex' for `LaTeX-math-mode'
+;; * `wrap-region'
 ;; add to your init file:
-;;    (add-hook 'oef-mode-hook 'wrap-region-mode)
-;; * expand-region
+;; (require 'wrap-region)
+;; (add-hook 'oef-mode-hook 'wrap-region-mode)
+;; * `expand-region'
 ;; add to your init file:
 ;; (require 'expand-region)
-;;    (global-set-key (kbd "C-=") 'er/expand-region)
+;; (global-set-key (kbd "C-=") 'er/expand-region)
 
 ;;==============================================================================
 
