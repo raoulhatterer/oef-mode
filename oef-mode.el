@@ -10,7 +10,7 @@
 ;; Created: July 2017
 ;; Keywords: languages
 ;; URL: http://github.com/raoulhatterer/oef-mode
-;; Package-Requires: ((rainbow-mode)(emmet-mode)(rainbow-delimiters)(expand-region)(cl-li)(company-mode))
+;; Package-Requires: ((emmet-mode)(company-mode)(rainbow-delimiters)(rainbow-mode)(yafolding)(auctex)(wrap-region)(expand-region)(cl-lib))
 ;; News:
 ;; Package-Type: multi
 
@@ -99,8 +99,8 @@
 ;; (add-hook 'html-mode-hook 'emmet-mode)
 ;; (add-hook 'css-mode-hook  'emmet-mode)
 ;; (add-hook 'web-mode-hook  'emmet-mode)
-;; * company
-;; `Company' is a modular completion framework.
+;; * company-mode
+;; `Company-mode' is a modular completion framework.
 ;; To use company-mode in all buffers, add the following line to your init file:
 ;; (require 'company)
 ;; (add-hook 'after-init-hook 'global-company-mode)
@@ -113,11 +113,11 @@
 ;; (require 'rainbow-mode)
 ;;    (add-to-list 'rainbow-html-colors-major-mode-list 'oef-mode) ; 
 ;;    (add-hook 'oef-mode-hook 'rainbow-mode) ; Auto-start HTML and CSS colorization
-;; * yafolding-mode
+;; * yafolding
 ;; Folding code blocks based on indentation
 ;; Automatically installed and launch
-;; * LaTeX-math-mode
-;; * wrap-region-mode
+;; * auctex for LaTeX-math-mode
+;; * wrap-region
 ;; (require 'wrap-region)
 ;; add to your init file:
 ;;    (add-hook 'oef-mode-hook 'wrap-region-mode)
@@ -355,6 +355,12 @@
   '("la solution" "de solution" "en solution" "une solution" "d'une solution" "des conditions" "tout point" "du point" "plusieurs points" "ses points" "un point")
   "You can add your own phases here."
   :group 'oef)
+
+(defvar oef-grabed-word-for-goto nil
+  "This variable is used to navigate in the buffer.")
+
+(defvar oef-answers-index nil
+  "This variable is used to navigate in the buffer.")
 
 (defvar oef-menu-answers-options ; "STAR BLANK TYPE" or "BLANK BLANK BLANK OPTION" in the menu DONE
   '("type=" "option=" "weight=" "* type=default"
@@ -1238,6 +1244,26 @@ This function call `oef-add-variable-as-keyword-for-completion'."
   (search-forward "\\css{" nil t)
   (beginning-of-line)
   (recenter-top-bottom)
+  )
+(defun oef-goto-reply()
+  "From an answer go to the correspondant reply.  From a reply34 go to the next reply"
+  (interactive)
+  (setq oef-grabed-word-for-goto (substring-no-properties (word-at-point)))
+  (if (> (length oef-grabed-word-for-goto) 5)
+      (if (string= oef-grabed-word-for-goto "answer")
+	  (progn
+	    (beginning-of-sexp)
+	    (if (= (char-before) 92) ;char antislash
+		(progn
+		  (setq oef-answers-index 1)
+		  (while (if (search-backward "\\answer{" nil t )
+			     (1+ oef-answers-index)
+			   ))
+		  (message-box "%s" oef-answers-index)
+		  )
+	      )  ; 
+	    )
+	))
   )
 
 (defun oef-goto-statement()

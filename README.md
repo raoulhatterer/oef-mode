@@ -21,6 +21,7 @@ Requirements
 ------------
 
 - Emacs
+- Yafolding
 - rainbow-mode
 - emmet-mode
 - rainbow-delimiters
