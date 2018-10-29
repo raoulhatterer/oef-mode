@@ -1,7 +1,7 @@
 
 
 # oef-mode
-provide oef-mode (Online Exercise Format for wims) to emacs  
+Provide oef-mode (Online Exercise Format for wims) to emacs  
 
 ## Features (Non-exhaustive)
 * Syntax highlighting 
@@ -15,13 +15,14 @@ provide oef-mode (Online Exercise Format for wims) to emacs
  
 ## Requirements
 - Emacs
-- Yafolding
-- rainbow-mode
 - emmet-mode
+- company-mode
 - rainbow-delimiters
+- rainbow-mode
+- wrap-region
 - expand-region
 - cl-li
-- company-mode
+- yafolding
 
 ## Installation
 I would recommend El-get http://wikemacs.org/wiki/El-get to install oef-mode
