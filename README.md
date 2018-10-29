@@ -34,21 +34,46 @@ Installation
 
 I would recommend El-get http://wikemacs.org/wiki/El-get to install oef-mode
 
- - GnuTLS must be available
+
+#  GnuTLS must be available
 So the idea is that you copy/paste this code into your *scratch* buffer:
-(gnutls-available-p)
-hit C-j, and if you get 't' GnuTLS is available but if you get 'nil'  you have to install it:
-On Aquamacs you need Aquamacs >=3.5
 
- - copy/paste this code into your *scratch* buffer: 
+    (gnutls-available-p)
 
-(url-retrieve
- "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el"
- (lambda (s)
-   (goto-char (point-max))
-   (eval-print-last-sexp)))
+hit C-j, and if you get 't' GnuTLS is available but if you get 'nil'  you have to install it.
 
- - hit C-j, and you have a working el-get.
+
+## On Aquamacs
+
+Usually user-specific customizations should go into ~/Library/Preferences/Aquamacs Emacs/Preferences.el
+though El-get must be called before (package-initialize) yet customization.el contain (package-initialize)
+we have to put user-specific customizations into customizations.el.
+
+So :
+
+- Edit  ~/Library/Preferences/Aquamacs Emacs/customizations.el  : 
+- Copy- paste this code before (package-initialize):
+
+        ;; for El-get
+        (with-eval-after-load 'tls
+          (push "/private/etc/ssl/cert.pem" gnutls-trustfiles))
+        
+        (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+        (unless (require 'el-get nil 'noerror)
+          (with-current-buffer
+              (url-retrieve-synchronously
+               "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+            (goto-char (point-max))
+            (eval-print-last-sexp)))
+        
+        (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+        (el-get 'sync)
+        
+        (package-initialize)
+
+(The 2 first lines are a way to have GnuTLC working because Aquamacs doesn't support GNUTLS. )
+
+- Save and restart Aquamacs.
 
 
 
