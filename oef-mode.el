@@ -1245,25 +1245,30 @@ This function call `oef-add-variable-as-keyword-for-completion'."
   (beginning-of-line)
   (recenter-top-bottom)
   )
+
 (defun oef-goto-reply()
   "From an answer go to the correspondant reply.  From a reply34 go to the next reply"
   (interactive)
-  (setq oef-grabed-word-for-goto (substring-no-properties (word-at-point)))
+  (setq oef-grabed-word-for-goto (word-at-point))
+					;  (message-box oef-grabed-word-for-goto)
   (if (> (length oef-grabed-word-for-goto) 5)
       (if (string= oef-grabed-word-for-goto "answer")
-	  (progn
-	    (beginning-of-sexp)
-	    (if (= (char-before) 92) ;char antislash
-		(progn
-		  (setq oef-answers-index 1)
-		  (while (if (search-backward "\\answer{" nil t )
-			     (1+ oef-answers-index)
-			   ))
-		  (message-box "%s" oef-answers-index)
-		  )
-	      )  ; 
-	    )
-	))
+  	  (progn
+  	    (beginning-of-sexp)
+  	    (if (= (char-before) 92) ;char antislash
+  		(progn
+  		  (setq oef-answers-index 1)
+  		  (while (if (search-backward "\\answer{" nil t )
+  			     (1+ oef-answers-index)
+  			   ))
+  		  (message-box "%s" oef-answers-index)
+  		  )
+  	      )
+  	    )
+	(search-forward "\\embed{reply" nil t)
+  	)
+    (search-forward "\\embed{reply" nil t)
+    )
   )
 
 (defun oef-goto-statement()
@@ -2615,17 +2620,17 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Goto")["Goto Answer" oef-goto-answers :help"Goto Answers"]) ;
 (easy-menu-add-item oef-menu-bar '("Goto")["Goto CSS" oef-goto-css :help"Goto CSS"]) ;
 (easy-menu-add-item oef-menu-bar '("Goto")["Goto Line" goto-line :help"Goto line"]) ;
-(easy-menu-add-item oef-menu-bar '("Goto")["Goto Statement" oef-goto-statement :help"Goto Statement"]) ;
+(easy-menu-add-item oef-menu-bar '("Goto")["Goto Statement" oef-goto-reply :help"Goto Reply"])
+(easy-menu-add-item oef-menu-bar '("Goto")["Goto Statement" oef-goto-statement :help"Goto Statement"])
 (easy-menu-add-item oef-menu-bar '("Html Tag")["Select Tag Pair" oef-mode-mark-sgml-tag-pair :help"Mark the current opening and closing tag"]) ;
 (easy-menu-add-item oef-menu-bar '("Html Tag")["Select Inner Tag" er/mark-inner-tag :help"Mark the content between current opening and closing tag"]) ;
 (easy-menu-add-item oef-menu-bar '("Html Tag")["<b> bold" oef-insert-tag-b]) ;
 (easy-menu-add-item oef-menu-bar '("Html Tag")["<mark> marked text" oef-insert-tag-mark]) ;
 (easy-menu-add-item oef-menu-bar '("Html Tag")["<sub> superscript" oef-insert-tag-sub]) ;
 (easy-menu-add-item oef-menu-bar '("Html Tag")["<sup> subscript" oef-insert-tag-sup]) ;
-(easy-menu-add-item oef-menu-bar '("Html Tag" "Tag Folding")["Toogle Element" yafolding-toggle-element])
-(easy-menu-add-item oef-menu-bar '("Html Tag" "Tag Folding")["Hide All" yafolding-hide-all])
-(easy-menu-add-item oef-menu-bar '("Html Tag" "Tag Folding")["Show All" yafolding-show-all])
-(easy-menu-add-item oef-menu-bar '("Html Tag" "Tag Folding")["Hide All" yafolding-hide-all])
+(easy-menu-add-item oef-menu-bar '("Html Tag" "Tag Folding")["Toogle      [C-o tt]" yafolding-toggle-element])
+(easy-menu-add-item oef-menu-bar '("Html Tag" "Tag Folding")["Show (All)  [C-o ts]" yafolding-show-all])
+(easy-menu-add-item oef-menu-bar '("Html Tag" "Tag Folding")["Hide (All)  [C-o th]" yafolding-hide-all])
 (easy-menu-add-item oef-menu-bar '("Rainbow")["Delimiters (toogle)" rainbow-delimiters-mode])
 (easy-menu-add-item oef-menu-bar '("Rainbow")["Colors (toogle)" rainbow-mode])
 (easy-menu-add-item oef-menu-bar '("Indent")["Indent line" oef-mode-indent-line])
@@ -3119,8 +3124,9 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "TAB") 'oef-mode-indent-line)
   (define-key oef-mode-map (kbd "M-g a") 'oef-goto-answers)
   (define-key oef-mode-map (kbd "M-g c") 'oef-goto-css)  
+  (define-key oef-mode-map (kbd "M-g r") 'oef-goto-reply)  
   (define-key oef-mode-map (kbd "M-g s") 'oef-goto-statement)    
-  (define-key oef-mode-map (kbd "C-o tt>") 'yafolding-toggle-element)
+  (define-key oef-mode-map (kbd "C-o tt") 'yafolding-toggle-element)
   (define-key oef-mode-map (kbd "C-o ts") 'yafolding-show-all)
   (define-key oef-mode-map (kbd "C-o th") 'yafolding-hide-all)
   (define-key oef-mode-map (kbd "C-:") 'indent-region) ; alias for indent-region because C-\ is not working in Aquamacs with french keyboard
@@ -3128,7 +3134,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "C-o C-p") 'oef-select-parameter) ;
   (define-key oef-mode-map (kbd "C-o m") 'oef-insert-math) ;
   (define-key oef-mode-map (kbd "C-o tp") 'oef-mode-mark-sgml-tag-pair) ;
-  (define-key oef-mode-map (kbd "C-o ts") 'er/mark-inner-tag) ;  
+  (define-key oef-mode-map (kbd "C-o ti") 'er/mark-inner-tag) ;  
   (define-key oef-mode-map (kbd "C-o tb") 'oef-insert-tag-b) ;  
   (define-key oef-mode-map (kbd "C-o tm") 'oef-insert-tag-mark) ;      
   (define-key oef-mode-map (kbd "C-o t_") 'oef-insert-tag-sub) ;      
