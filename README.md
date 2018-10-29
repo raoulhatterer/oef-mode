@@ -1,13 +1,9 @@
 
 
 # oef-mode
-========
-
 provide oef-mode (Online Exercise Format for wims) to emacs  
 
 ## Features (Non-exhaustive)
--------------------------
-
 * Syntax highlighting 
 * Automatic indentation
 * Completion suggestions
@@ -18,8 +14,6 @@ provide oef-mode (Online Exercise Format for wims) to emacs
     - OEF Commands and Keywords
  
 ## Requirements
-------------
-
 - Emacs
 - Yafolding
 - rainbow-mode
@@ -30,8 +24,6 @@ provide oef-mode (Online Exercise Format for wims) to emacs
 - company-mode
 
 ## Installation
-------------
-
 I would recommend El-get http://wikemacs.org/wiki/El-get to install oef-mode
 
 
@@ -75,12 +67,13 @@ Copy- paste this code before (package-initialize):
 
 - Save and restart Aquamacs. el-get will be downloaded and installed .
 
-- Install oef-mode from el-get: `M-x el-get-install` `oef-mode`
+- Install oef-mode from el-get : `M-x el-get-install` `oef-mode`
 
 
 ### Required packages
 
 - Edit  ~/Library/Preferences/Aquamacs Emacs/Preferences.el  : 
+
 Copy- paste this code :
 
 
@@ -124,8 +117,7 @@ Copy- paste this code :
         (global-set-key (kbd "C-=") 'er/expand-region)
 
 
-Development
------------
+## Development
 
 Before developing this package please remove it from Emacs if it was
 installed before. You'll need [Cask][cask] to install the dependencies.
@@ -147,8 +139,8 @@ I usually use the following workflow when I develop this package:
 8. Change something in the source code;
 9. Go to the step `6`.
 
-Licence
--------
+## Licence
+
 
 Totally GPL
 
