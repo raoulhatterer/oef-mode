@@ -1234,7 +1234,7 @@ This function call `oef-add-variable-as-keyword-for-completion'."
   (goto-char (point-min))
   (search-forward "\\answer{" nil t)
   (beginning-of-line)
-  (recenter-top-bottom)
+  (recenter)
   )
 
 (defun oef-goto-css()
@@ -1243,40 +1243,68 @@ This function call `oef-add-variable-as-keyword-for-completion'."
   (goto-char (point-min))
   (search-forward "\\css{" nil t)
   (beginning-of-line)
-  (recenter-top-bottom)
+  (recenter)
   )
 
+;; (defun oef-goto-reply()
+;;   "From an answer go to the correspondant reply.  From a reply go to the next reply"
+;;   (interactive)
+;;   (setq oef-grabed-word-for-goto (word-at-point))
+;; 					;  (message-box oef-grabed-word-for-goto)
+;;   (if (> (length oef-grabed-word-for-goto) 5)
+;;       (if (string= oef-grabed-word-for-goto "answer")
+;;   	  (progn
+;;   	    (beginning-of-sexp)
+;;   	    (if (= (char-before) 92) ;char antislash
+;;   		(progn
+;;   		  (setq oef-answers-index 1)
+;;   		  (while (if (search-backward "\\answer{" nil t )
+;;   			     (1+ oef-answers-index)
+;;   			   ))
+;;   		  (message-box "%s" oef-answers-index)
+;;   		  )
+;;   	      )
+;;   	    )
+;; 	(progn
+;; 	  (search-forward "\\embed{reply" nil t)
+;; ;	  (recenter-top-bottom)
+;; 	  )
+;;   	)
+;;     (progn
+;;       (beginning-of-buffer)
+;;      (search-forward "\\embed{reply" nil t)
+;;       (recenter-top-bottom)
+;;       )
+;;     )
+;;   )
+
+
 (defun oef-goto-reply()
-  "From an answer go to the correspondant reply.  From a reply34 go to the next reply"
+  "From an answer go to the correspondant reply.  From a reply go to the next reply"
   (interactive)
   (setq oef-grabed-word-for-goto (word-at-point))
-					;  (message-box oef-grabed-word-for-goto)
-  (if (> (length oef-grabed-word-for-goto) 5)
-      (if (string= oef-grabed-word-for-goto "answer")
-  	  (progn
-  	    (beginning-of-sexp)
-  	    (if (= (char-before) 92) ;char antislash
-  		(progn
-  		  (setq oef-answers-index 1)
-  		  (while (if (search-backward "\\answer{" nil t )
-  			     (1+ oef-answers-index)
-  			   ))
-  		  (message-box "%s" oef-answers-index)
-  		  )
-  	      )
-  	    )
-	(search-forward "\\embed{reply" nil t)
-  	)
-    (search-forward "\\embed{reply" nil t)
-    )
-  )
+  (if oef-grabed-word-for-goto
+      (progn
+;;	(message-box oef-grabed-word-for-goto)
+	(when (string-match-p "reply[0-9]+" (substring-no-properties oef-grabed-word-for-goto))
+	  (search-forward "\\embed{reply" nil t)
+	  (recenter))
+	(when (string= oef-grabed-word-for-goto "answer")
+	  (beginning-of-buffer)
+	  (search-forward "\\embed{reply" nil t)
+	  (recenter)))
+    (progn
+      (beginning-of-buffer)
+      (search-forward "\\embed{reply" nil t)
+      (recenter)) )  )
+
 
 (defun oef-goto-statement()
   "Goto Statement"
   (interactive)
   (goto-char (point-min))
   (search-forward "\\statement{" nil t)
-  (recenter-top-bottom)
+  (recenter)
   )
 
 (defun oef-select-parameter ()
