@@ -1474,8 +1474,7 @@ This function call `oef-add-variable-as-keyword-for-completion'."
 
 (defun oef-flydraw-commands-highlight()
   "Called after EWW is done rendering because eww is asynchronous."
-  (set-word-wrap)
-  (show-newlines-mode 0)
+  (visual-line-mode)
   (highlight-regexp "^:\\w*")
   (remove-hook 'eww-after-render-hook #'oef-flydraw-commands-highlight)
   )
