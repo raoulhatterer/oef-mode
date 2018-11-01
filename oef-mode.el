@@ -451,7 +451,7 @@
   "Used for a dedicated submenu thanks to `oef-get-answers-options'.")
 
 (defvar oef-answers-options nil
-  "`oef-answers-options' used for highlighting and for completion (`oef-mode-completions').  It is automatically build from the variable `oef-menu-answers-options' a list of answers types and options.")
+  "`oef-answers-options' used for highlighting and for completion (`oef-completions').  It is automatically build from the variable `oef-menu-answers-options' a list of answers types and options.")
 
 (defvar oef-definitions-commands ; in the menu DONE
   '("title{«Exercise Title»}"
@@ -1008,7 +1008,7 @@
   )
 
 (defvar oef-definitions-slib-scripts (append oef-definitions-slib-algebra oef-definitions-slib-analysis  oef-definitions-slib-chemistry oef-definitions-slib-circuits oef-definitions-slib-data oef-definitions-slib-draw oef-definitions-slib-function oef-definitions-slib-games oef-definitions-slib-geogebra oef-definitions-slib-graph oef-definitions-slib-graphpaper oef-definitions-slib-lang oef-definitions-slib-life oef-definitions-slib-list oef-definitions-slib-matrix oef-definitions-slib-media oef-definitions-slib-numeration oef-definitions-slib-oef oef-definitions-slib-polynomial oef-definitions-slib-set oef-definitions-slib-stat oef-definitions-slib-text oef-definitions-slib-triplerelation oef-definitions-slib-utilities)
-  "Used for highlighting and completion and for completion (`oef-mode-completions') and for a submenu `All' in the menu Script Library.
+  "Used for highlighting and completion and for completion (`oef-completions') and for a submenu `All' in the menu Script Library.
 
 Automatically build from following lists: `oef-definitions-slib-algebra' `oef-definitions-slib-analysis' `oef-definitions-slib-chemistry' `oef-definitions-slib-circuits' `oef-definitions-slib-data' `oef-definitions-slib-draw' `oef-definitions-slib-function' `oef-definitions-slib-games' `oef-definitions-slib-geogebra' `oef-definitions-slib-graph' `oef-definitions-slib-graphpaper' `oef-definitions-slib-lang' `oef-definitions-slib-life' `oef-definitions-slib-list' `oef-definitions-slib-matrix' `oef-definitions-slib-media' `oef-definitions-slib-numeration' `oef-definitions-slib-oef' `oef-definitions-slib-polynomial' `oef-definitions-slib-set' `oef-definitions-slib-stat' `oef-definitions-slib-text' `oef-definitions-slib-triplerelation' `oef-definitions-slib-utilities'")
 
@@ -1086,9 +1086,9 @@ This function call `oef-add-variable-as-keyword-for-completion'."
   )
 
 (defun oef-add-variable-as-keyword-for-completion ()
-  "Add the variable in `oef-mode-completions' for completion with oef-mode-backend."
+  "Add the variable in `oef-completions' for completion with oef-mode-backend."
   (interactive)
-  (add-to-list 'oef-mode-completions (substring-no-properties oef-highlighted-variable))
+  (add-to-list 'oef-completions (substring-no-properties oef-highlighted-variable))
   (oef-make-candidats))
 
 
@@ -3113,8 +3113,6 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     )
   )
 
-(add-to-list 'company-backends 'company-oef-mode-backend)
-
 ;;-----------MAJOR MODE----------------------------------------
 ;;;###autoload
 (define-derived-mode oef-mode sgml-mode
@@ -3136,6 +3134,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
       (set-face-attribute 'oef-font-h1text-face nil :inherit 'oef-font-h1text-darkbg-face)
       (set-face-attribute 'oef-font-h2text-face nil :inherit 'oef-font-h2text-darkbg-face)))
   (oef-make-candidats) ; candidats for completions with company-oef-mode-backend
+  (add-to-list 'company-backends 'company-oef-mode-backend)
   
   ;; key binding
   (define-key oef-mode-map (kbd "/") nil) ; to have forward-slash with multiple-cursors
