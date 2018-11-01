@@ -2648,7 +2648,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Goto")["Goto Answer" oef-goto-answers :help"Goto Answers"]) ;
 (easy-menu-add-item oef-menu-bar '("Goto")["Goto CSS" oef-goto-css :help"Goto CSS"]) ;
 (easy-menu-add-item oef-menu-bar '("Goto")["Goto Line" goto-line :help"Goto line"]) ;
-(easy-menu-add-item oef-menu-bar '("Goto")["Goto Statement" oef-goto-reply :help"Goto Reply"])
+(easy-menu-add-item oef-menu-bar '("Goto")["Goto Reply" oef-goto-reply :help"Goto Reply"])
 (easy-menu-add-item oef-menu-bar '("Goto")["Goto Statement" oef-goto-statement :help"Goto Statement"])
 (easy-menu-add-item oef-menu-bar '("Html Tag")["Select Tag Pair" oef-mode-mark-sgml-tag-pair :help"Mark the current opening and closing tag"]) ;
 (easy-menu-add-item oef-menu-bar '("Html Tag")["Select Inner Tag" er/mark-inner-tag :help"Mark the content between current opening and closing tag"]) ;
