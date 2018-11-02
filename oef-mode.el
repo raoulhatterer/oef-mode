@@ -1290,8 +1290,8 @@ This function call `oef-add-variable-as-keyword-for-completion'."
 	  (search-forward "\\embed{reply" nil t)
 	  (recenter))
 	(when (string= oef-grabed-word-for-goto "answer")
-	  (beginning-of-buffer)
-	  (search-forward "\\embed{reply" nil t)
+;;	  (beginning-of-buffer)
+	  (search-backward "\\embed{reply" nil t)
 	  (recenter)))
     (progn
       (beginning-of-buffer)
