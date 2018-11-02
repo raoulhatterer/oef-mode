@@ -1191,9 +1191,10 @@ This function call `oef-add-variable-as-keyword-for-completion'."
   (interactive)
   (let ((link (substring-no-properties (gui-get-selection 'CLIPBOARD)))
         (url1  "http://wims.unice.fr/wims/wims.cgi\\?session=")
-	(url2  "https://wims.unice.fr/wims/wims.cgi\\?session="))
+	(url2  "https://wims.unice.fr/wims/wims.cgi\\?session=")
+	(url3  "https://wims.unice.fr/~wims/wims.cgi\\?session="))
     (save-match-data
-      (if (or (string-match url1 link)(string-match url2 link))
+      (if (or (string-match url1 link)(string-match url2 link)(string-match url3 link))
 	  (progn
 	    (setq oef-wims-session  (substring-no-properties (replace-regexp-in-string ".*session=" "" (gui-get-selection 'CLIPBOARD)) 0 10))
 	    (message (concat "Connected to Wims Session : " oef-wims-session)))
@@ -1289,15 +1290,20 @@ This function call `oef-add-variable-as-keyword-for-completion'."
 	(when (string-match-p "reply[0-9]+" (substring-no-properties oef-grabed-word-for-goto))
 	  (search-forward "\\embed{reply" nil t)
 	  (recenter))
-	(when (string= oef-grabed-word-for-goto "answer")
-	  (beginning-of-buffer)
-	  (search-forward "\\embed{reply" nil t)
-	  (recenter)))
+	(beginning-of-line)
+	(forward-char 1)
+	(if (string= (word-at-point) "answer")
+	    (progn
+	      (search-backward "\\embed{reply" nil t)
+	      (recenter))
+	  (progn
+	    (beginning-of-buffer)
+	    (search-forward "\\embed{reply" nil t)
+	    (recenter))))
     (progn
       (beginning-of-buffer)
       (search-forward "\\embed{reply" nil t)
-      (recenter)) )  )
-
+      (recenter))))
 
 (defun oef-goto-statement()
   "Goto Statement"
