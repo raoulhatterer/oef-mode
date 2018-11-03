@@ -451,7 +451,7 @@
   "Used for a dedicated submenu thanks to `oef-get-answers-options'.")
 
 (defvar oef-answers-options nil
-  "`oef-answers-options' used for highlighting and for completion (`oef-mode-completions').  It is automatically build from the variable `oef-menu-answers-options' a list of answers types and options.")
+  "`oef-answers-options' used for highlighting and for completion (`oef-completions').  It is automatically build from the variable `oef-menu-answers-options' a list of answers types and options.")
 
 (defvar oef-definitions-commands ; in the menu DONE
   '("title{«Exercise Title»}"
@@ -1008,7 +1008,7 @@
   )
 
 (defvar oef-definitions-slib-scripts (append oef-definitions-slib-algebra oef-definitions-slib-analysis  oef-definitions-slib-chemistry oef-definitions-slib-circuits oef-definitions-slib-data oef-definitions-slib-draw oef-definitions-slib-function oef-definitions-slib-games oef-definitions-slib-geogebra oef-definitions-slib-graph oef-definitions-slib-graphpaper oef-definitions-slib-lang oef-definitions-slib-life oef-definitions-slib-list oef-definitions-slib-matrix oef-definitions-slib-media oef-definitions-slib-numeration oef-definitions-slib-oef oef-definitions-slib-polynomial oef-definitions-slib-set oef-definitions-slib-stat oef-definitions-slib-text oef-definitions-slib-triplerelation oef-definitions-slib-utilities)
-  "Used for highlighting and completion and for completion (`oef-mode-completions') and for a submenu `All' in the menu Script Library.
+  "Used for highlighting and completion and for completion (`oef-completions') and for a submenu `All' in the menu Script Library.
 
 Automatically build from following lists: `oef-definitions-slib-algebra' `oef-definitions-slib-analysis' `oef-definitions-slib-chemistry' `oef-definitions-slib-circuits' `oef-definitions-slib-data' `oef-definitions-slib-draw' `oef-definitions-slib-function' `oef-definitions-slib-games' `oef-definitions-slib-geogebra' `oef-definitions-slib-graph' `oef-definitions-slib-graphpaper' `oef-definitions-slib-lang' `oef-definitions-slib-life' `oef-definitions-slib-list' `oef-definitions-slib-matrix' `oef-definitions-slib-media' `oef-definitions-slib-numeration' `oef-definitions-slib-oef' `oef-definitions-slib-polynomial' `oef-definitions-slib-set' `oef-definitions-slib-stat' `oef-definitions-slib-text' `oef-definitions-slib-triplerelation' `oef-definitions-slib-utilities'")
 
@@ -1086,9 +1086,9 @@ This function call `oef-add-variable-as-keyword-for-completion'."
   )
 
 (defun oef-add-variable-as-keyword-for-completion ()
-  "Add the variable in `oef-mode-completions' for completion with oef-mode-backend."
+  "Add the variable in `oef-completions' for completion with oef-mode-backend."
   (interactive)
-  (add-to-list 'oef-mode-completions (substring-no-properties oef-highlighted-variable))
+  (add-to-list 'oef-completions (substring-no-properties oef-highlighted-variable))
   (oef-make-candidats))
 
 
@@ -1191,9 +1191,10 @@ This function call `oef-add-variable-as-keyword-for-completion'."
   (interactive)
   (let ((link (substring-no-properties (gui-get-selection 'CLIPBOARD)))
         (url1  "http://wims.unice.fr/wims/wims.cgi\\?session=")
-	(url2  "https://wims.unice.fr/wims/wims.cgi\\?session="))
+	(url2  "https://wims.unice.fr/wims/wims.cgi\\?session=")
+	(url3  "https://wims.unice.fr/~wims/wims.cgi\\?session="))
     (save-match-data
-      (if (or (string-match url1 link)(string-match url2 link))
+      (if (or (string-match url1 link)(string-match url2 link)(string-match url3 link))
 	  (progn
 	    (setq oef-wims-session  (substring-no-properties (replace-regexp-in-string ".*session=" "" (gui-get-selection 'CLIPBOARD)) 0 10))
 	    (message (concat "Connected to Wims Session : " oef-wims-session)))
@@ -1285,19 +1286,26 @@ This function call `oef-add-variable-as-keyword-for-completion'."
   (setq oef-grabed-word-for-goto (word-at-point))
   (if oef-grabed-word-for-goto
       (progn
-;;	(message-box oef-grabed-word-for-goto)
+	;;	(message-box oef-grabed-word-for-goto)
 	(when (string-match-p "reply[0-9]+" (substring-no-properties oef-grabed-word-for-goto))
 	  (search-forward "\\embed{reply" nil t)
 	  (recenter))
-	(when (string= oef-grabed-word-for-goto "answer")
-;;	  (beginning-of-buffer)
-	  (search-backward "\\embed{reply" nil t)
-	  (recenter)))
-    (progn
-      (beginning-of-buffer)
-      (search-forward "\\embed{reply" nil t)
-      (recenter)) )  )
-
+	(beginning-of-line)
+	(forward-char 1)
+	(if (string= (word-at-point) "answer")
+	    (progn
+	      (search-backward "\\embed{reply" nil t)
+	      (recenter))
+	  (progn
+	    (beginning-of-buffer)
+	    (search-forward "\\embed{reply" nil t)
+	    (recenter)))
+	)
+    )
+  (progn
+    (beginning-of-buffer)
+    (search-forward "\\embed{reply" nil t)
+    (recenter)))
 
 (defun oef-goto-statement()
   "Goto Statement"
@@ -1474,8 +1482,7 @@ This function call `oef-add-variable-as-keyword-for-completion'."
 
 (defun oef-flydraw-commands-highlight()
   "Called after EWW is done rendering because eww is asynchronous."
-  (set-word-wrap)
-  (show-newlines-mode 0)
+  (visual-line-mode)
   (highlight-regexp "^:\\w*")
   (remove-hook 'eww-after-render-hook #'oef-flydraw-commands-highlight)
   )
@@ -2648,7 +2655,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Goto")["Goto Answer" oef-goto-answers :help"Goto Answers"]) ;
 (easy-menu-add-item oef-menu-bar '("Goto")["Goto CSS" oef-goto-css :help"Goto CSS"]) ;
 (easy-menu-add-item oef-menu-bar '("Goto")["Goto Line" goto-line :help"Goto line"]) ;
-(easy-menu-add-item oef-menu-bar '("Goto")["Goto Statement" oef-goto-reply :help"Goto Reply"])
+(easy-menu-add-item oef-menu-bar '("Goto")["Goto Reply" oef-goto-reply :help"Goto Reply"])
 (easy-menu-add-item oef-menu-bar '("Goto")["Goto Statement" oef-goto-statement :help"Goto Statement"])
 (easy-menu-add-item oef-menu-bar '("Html Tag")["Select Tag Pair" oef-mode-mark-sgml-tag-pair :help"Mark the current opening and closing tag"]) ;
 (easy-menu-add-item oef-menu-bar '("Html Tag")["Select Inner Tag" er/mark-inner-tag :help"Mark the content between current opening and closing tag"]) ;
@@ -3113,8 +3120,6 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     )
   )
 
-(add-to-list 'company-backends 'company-oef-mode-backend)
-
 ;;-----------MAJOR MODE----------------------------------------
 ;;;###autoload
 (define-derived-mode oef-mode sgml-mode
@@ -3136,6 +3141,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
       (set-face-attribute 'oef-font-h1text-face nil :inherit 'oef-font-h1text-darkbg-face)
       (set-face-attribute 'oef-font-h2text-face nil :inherit 'oef-font-h2text-darkbg-face)))
   (oef-make-candidats) ; candidats for completions with company-oef-mode-backend
+  (add-to-list 'company-backends 'company-oef-mode-backend)
   
   ;; key binding
   (define-key oef-mode-map (kbd "/") nil) ; to have forward-slash with multiple-cursors
