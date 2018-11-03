@@ -1299,13 +1299,13 @@ This function call `oef-add-variable-as-keyword-for-completion'."
 	  (progn
 	    (beginning-of-buffer)
 	    (search-forward "\\embed{reply" nil t)
-	    (recenter)))
-	)
+	    (recenter))))
+    (progn
+      (beginning-of-buffer)
+      (search-forward "\\embed{reply" nil t)
+      (recenter))
     )
-  (progn
-    (beginning-of-buffer)
-    (search-forward "\\embed{reply" nil t)
-    (recenter)))
+  )
 
 (defun oef-goto-statement()
   "Goto Statement"
