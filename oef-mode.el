@@ -1189,15 +1189,14 @@ This function call `oef-add-variable-as-keyword-for-completion'."
 (defun oef-get-wims-session ()
   "Extract the wims session if there's a URL from a wims session on the clipboard."
   (interactive)
-  (let ((link (substring-no-properties (gui-get-selection 'CLIPBOARD)))
-        (url1  "http://wims.unice.fr/wims/wims.cgi\\?session=")
-	(url2  "https://wims.unice.fr/wims/wims.cgi\\?session=")
-	(url3  "https://wims.unice.fr/~wims/wims.cgi\\?session="))
+  (let ((link (substring-no-properties (gui-get-selection 'CLIPBOARD))))
     (save-match-data
-      (if (or (string-match url1 link)(string-match url2 link)(string-match url3 link))
-	  (progn
-	    (setq oef-wims-session  (substring-no-properties (replace-regexp-in-string ".*session=" "" (gui-get-selection 'CLIPBOARD)) 0 10))
-	    (message (concat "Connected to Wims Session : " oef-wims-session)))
+      (if  (and (string-match "https?://\\([^/]+\\)[^=]+=\\([^.]+\\).\\([^&]+\\)&\\+lang=\\([^&]+\\).+" link)
+                (setq oef-wims-server (match-string 1 link)
+                      oef-wims-session (match-string 2 link)
+                      oef-wims-call (match-string 3 link)
+                      oef-wims-lang (match-string 4 link)))
+          (message (concat "Connected to Wims Session : " oef-wims-session " on server : " oef-wims-server))
         (error "No wims URL with session on the clipboard")))))
 
 (defun oef-edit-in-browser()
@@ -1214,9 +1213,10 @@ This function call `oef-add-variable-as-keyword-for-completion'."
   (interactive)
   (if oef-wims-session
       (progn
+        (setq oef-wims-call (number-to-string (+ 1 (string-to-number oef-wims-call))))
 	(oef-copy-all-or-region)
 	(let ((oef-filename (file-name-nondirectory (buffer-file-name))))
-	  (browse-url  (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".6&+lang=fr&+module=adm%2Fmodtool&+cmd=reply&+jobreq=edfile&+fname=src%2F" oef-filename))))
+	  (browse-url  (concat "http://" oef-wims-server "/wims/wims.cgi?session=" oef-wims-session "." oef-wims-call "&+lang=" oef-wims-lang "&+module=adm%2Fmodtool&+cmd=reply&+jobreq=edfile&+fname=src%2F" oef-filename))))
     (message-box "You are not connected. You have to connect to a wims session first.")))
 
 (defun oef-edit-document-in-browser()
@@ -1224,10 +1224,11 @@ This function call `oef-add-variable-as-keyword-for-completion'."
   (interactive)
   (if oef-wims-session
       (progn
+        (setq oef-wims-call (number-to-string (+ 1 (string-to-number oef-wims-call))))
 	(oef-copy-all-or-region)
 	(let ((oef-filename (file-name-nondirectory (buffer-file-name))))
-	  (browse-url (replace-regexp-in-string ".oef" "" (concat "http://wims.unice.fr/wims/wims.cgi?session=" oef-wims-session  ".6&+lang=fr&+module=adm%2Fdoc&+cmd=reply&+job=edit&+doc=1&+block=" oef-filename)))))
-    (message-box "You are not connected. You have to connect to a wims session first.\n\nIn your browser :\n- Connect to Modtool\n- Go to the main page of your document\n- Select and copy the url in the clipboard\n\nIn emacs :\n- Connect to a wims session")))
+	  (browse-url (replace-regexp-in-string ".oef" "" (concat "http://" oef-wims-server "/wims/wims.cgi?session=" oef-wims-session  "." oef-wims-call "&+lang=" oef-wims-lang "&+module=adm%2Fdoc&+cmd=reply&+job=edit&+doc=1&+block=" oef-filename)))))
+    (message-box "You are not connected. You have to connect to a wims session first.\nIn your browser :\n- Connect to Modtool\n- Go to the main page of your document\n- Select and copy the url in the clipboard\n\nIn emacs :\n- Connect to a wims session")))
 
 (defun oef-goto-answers()
   "Goto answers"
