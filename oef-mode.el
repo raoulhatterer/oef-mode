@@ -2664,13 +2664,13 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Html Tag")["<mark> marked text" oef-insert-tag-mark]) ;
 (easy-menu-add-item oef-menu-bar '("Html Tag")["<sub> superscript" oef-insert-tag-sub]) ;
 (easy-menu-add-item oef-menu-bar '("Html Tag")["<sup> subscript" oef-insert-tag-sup]) ;
-(easy-menu-add-item oef-menu-bar '("Html Tag" "Tag Folding")["Toogle      [C-o tt]" yafolding-toggle-element])
-(easy-menu-add-item oef-menu-bar '("Html Tag" "Tag Folding")["Show (All)  [C-o ts]" yafolding-show-all])
-(easy-menu-add-item oef-menu-bar '("Html Tag" "Tag Folding")["Hide (All)  [C-o th]" yafolding-hide-all])
+(easy-menu-add-item oef-menu-bar '("Html Tag" "Tag Folding")["Toogle      [C-o t t]" yafolding-toggle-element])
+(easy-menu-add-item oef-menu-bar '("Html Tag" "Tag Folding")["Show (All)  [C-o t s]" yafolding-show-all])
+(easy-menu-add-item oef-menu-bar '("Html Tag" "Tag Folding")["Hide (All)  [C-o t h]" yafolding-hide-all])
 (easy-menu-add-item oef-menu-bar '("Rainbow")["Delimiters (toogle)" rainbow-delimiters-mode])
 (easy-menu-add-item oef-menu-bar '("Rainbow")["Colors (toogle)" rainbow-mode])
 (easy-menu-add-item oef-menu-bar '("Indent")["Indent line" oef-mode-indent-line])
-(easy-menu-add-item oef-menu-bar '("Indent")["Indent Region       ^:    or..." indent-region])
+(easy-menu-add-item oef-menu-bar '("Indent")["Indent Region" indent-region])
 (easy-menu-add-item oef-menu-bar '("Indent")["Indent Rigidly" indent-rigidly])
 (easy-menu-add-item oef-menu-bar '()["Wims Session" nil t]); it's not a real connection (It just extract the session id from the URL)
 (easy-menu-add-item oef-menu-bar '("Wims Session")["Connect to a Wims Session" oef-get-wims-session :help "Connect emacs to the active Wims Session if the URL is in the CLIPBOARD."]); it's not a real connection (It just extract the session id from the URL)
@@ -3160,12 +3160,12 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "M-g a") 'oef-goto-answers)
   (define-key oef-mode-map (kbd "M-g c") 'oef-goto-css)  
   (define-key oef-mode-map (kbd "M-g r") 'oef-goto-reply)  
-  (define-key oef-mode-map (kbd "M-g s") 'oef-goto-statement)    
+  (define-key oef-mode-map (kbd "M-g s") 'oef-goto-statement)
+  (define-key oef-mode-map (kbd "C-:") 'indent-region) ; alias for indent-region because C-M-\ is not working with a french keyboard on osx
+  (define-key oef-mode-map (kbd "C-o") nil) ;
   (define-key oef-mode-map (kbd "C-o tt") 'yafolding-toggle-element)
   (define-key oef-mode-map (kbd "C-o ts") 'yafolding-show-all)
   (define-key oef-mode-map (kbd "C-o th") 'yafolding-hide-all)
-  (define-key oef-mode-map (kbd "C-:") 'indent-region) ; alias for indent-region because C-\ is not working in Aquamacs with french keyboard
-  (define-key oef-mode-map (kbd "C-o") nil) ;
   (define-key oef-mode-map (kbd "C-o C-p") 'oef-select-parameter) ;
   (define-key oef-mode-map (kbd "C-o m") 'oef-insert-math) ;
   (define-key oef-mode-map (kbd "C-o tp") 'oef-mode-mark-sgml-tag-pair) ;
