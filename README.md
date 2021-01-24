@@ -14,7 +14,7 @@ Provide oef-mode (Online Exercise Format for wims) to emacs
     - OEF Commands and Keywords
  
 ## Requirements
-- Emacs
+- Emacs or Aquamacs
 - emmet-mode
 - company-mode
 - rainbow-delimiters
@@ -26,6 +26,22 @@ Provide oef-mode (Online Exercise Format for wims) to emacs
 
 ## Installation
 I would recommend El-get http://wikemacs.org/wiki/El-get to install oef-mode
+
+
+### On emacs
+
+
+#### If you use el-get :
+- Put this line in your init file
+(load "oef-mode.el") ;; load the packaged named oef-mode
+
+#### If you don't use el-get :
+-  in the dir "~/.emacs.d/lisp/", (create that directory if it doesn't exist) create  a directory named oef-mode
+- copy the content https://github.com/raoulhatterer/oef-mode in this directory
+
+(add-to-list 'load-path "~/.emacs.d/lisp/oef-mode") ;; Tell emacs where is your personal elisp lib dir
+(load "oef-mode.el") ;; load the packaged named oef-mode
+
 
 
 ### On Aquamacs
