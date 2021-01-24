@@ -21,7 +21,7 @@ Provide oef-mode (Online Exercise Format for wims) to emacs
 - company-mode: Company is a text completion framework for Emacs. The name stands for "complete anything". It uses pluggable back-ends and front-ends to retrieve and display completion candidates. https://company-mode.github.io
 - rainbow-delimiters: highlights delimiters such as parentheses, brackets or braces according to their depth. Each successive level is highlighted in a different color. This makes it easy to spot matching delimiters. https://github.com/Fanael/rainbow-delimiters
 - rainbow-mode: This minor mode sets background color to strings that match color names, e.g. #0000ff is displayed in white with a blue background.
-- wrap-region: Wrap Region is a minor mode for Emacs that wraps a region with punctuations. Select a region and press any of the following keys: ", ', (, {, [ or press "C-c w" to wrap with markup, e.g. <div>Selection</div> 
+- wrap-region: Wrap Region is a minor mode for Emacs that wraps a region with punctuations. Select a region and press any of the following keys: ", ', (, {, [ or press "C-c w" to wrap with markup, e.g. `<div>Selection</div>`
 - expand-region: 
 Expand region increases the selected region by semantic units. Just keep pressing "C-=" until it selects what you want. f you expand too far, you can contract the region by pressing - (minus key). https://github.com/magnars/expand-region.el
 - cl-lib: Some CommonLisp functions and macros can be used in EmacsLisp programs. 
