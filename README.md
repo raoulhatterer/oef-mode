@@ -40,9 +40,10 @@ I would recommend El-get http://wikemacs.org/wiki/El-get to install oef-mode
 #### If you don't use el-get :
 -  in the dir "~/.emacs.d/lisp/", (create that directory if it doesn't exist) create  a directory named oef-mode
 - Download the zip file https://github.com/raoulhatterer/oef-mode/archive/master.zip unzip the content in this directory
+- Add those lines in your init file:
+ - `(add-to-list 'load-path "~/.emacs.d/lisp/oef-mode") ;; Tell emacs where is your personal elisp lib dir`
 
-`(add-to-list 'load-path "~/.emacs.d/lisp/oef-mode") ;; Tell emacs where is your personal elisp lib dir`
-`(load "oef-mode.el") ;; load the package named oef-mode`
+ - `(load "oef-mode.el") ;; load the package named oef-mode`
 
 
 
