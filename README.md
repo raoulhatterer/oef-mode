@@ -28,14 +28,6 @@ Provide oef-mode (Online Exercise Format for wims) to emacs
 I would recommend El-get http://wikemacs.org/wiki/El-get to install oef-mode
 
 
-###  GnuTLS must be available
-So the idea is that you copy/paste this code into your *scratch* buffer:
-
-    (gnutls-available-p)
-
-hit C-j, and if you get 't' GnuTLS is available but if you get 'nil'  you have to install it.
-
-
 ### On Aquamacs
 
 Usually user-specific customizations should go into ~/Library/Preferences/Aquamacs Emacs/Preferences.el
