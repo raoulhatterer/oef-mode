@@ -4,7 +4,7 @@
 ;; Copyright 2017-2017 Raoul HATTERER
 
 ;; Author: Raoul Hatterer <hatterer.raoul@gmail.com>
-;; Version: 
+;; Version: 20210124.1109
 ;; Maintainer: Raoul Hatterer <hatterer.raoul@gmail.com>
 
 ;; Created: July 2017
