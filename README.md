@@ -14,8 +14,8 @@ Provide oef-mode (Online Exercise Format for wims) to emacs
     - OEF Commands and Keywords
  
 ## Requirements
-- Emacs or Aquamacs:
-    - OSX: https://emacsformacosx.com
+- Emacs:
+    - OSX: https://emacsformacosx.com  or Aquamacs
     - GNU/Linux: Most GNU/Linux distributions provide GNU Emacs in their repositories, which is the recommended way to install Emacs unless you always want to use the latest release.
 - emmet-mode: a way to Write HTML and CSS quicker. Place point in a zencoding snippet and press C-j to expand it. https://github.com/rooney/zencoding
 - company-mode: Company is a text completion framework for Emacs. The name stands for "complete anything". It uses pluggable back-ends and front-ends to retrieve and display completion candidates. https://company-mode.github.io
