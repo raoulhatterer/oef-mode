@@ -8,7 +8,7 @@
 
 @dircategory Languages
 @direntry
-* oef-mode: (oef-mode).     OEF veut dire ''online exercise format'', un format pour des exercices mathématiques destinés aux systèmes d'enseignement assisté par ordinateur. L'avantage du format OEF est que les exercices sous ce format sont très faciles à créer. Le format d'un fichier OEF est très similaire à LaTeX. Il est composé d'instructions suivies d'un ou plusieurs paramètres. 
+* oef-mode: (oef-mode).    oef-mode manual 
 @end direntry
 
 @c Mise à jour du manuel:
@@ -22,11 +22,15 @@
 @copying
 This is the oef-mode manual, version beta
 right @copyright{} 2017 2018 2019 2020 Raoul Hatterer.
+
+
+
+OEF veut dire ''online exercise format'', un format pour des exercices mathématiques destinés aux systèmes d'enseignement assisté par ordinateur. L'avantage du format OEF est que les exercices sous ce format sont très faciles à créer. Le format d'un fichier OEF est très similaire à LaTeX. Il est composé d'instructions suivies d'un ou plusieurs paramètres. 
 @end copying
 
 @ifnottex
 @node Top
-@top Short Sample
+@top Manuel d'utilisation d'oef-mode
 @insertcopying
 @end ifnottex
 
