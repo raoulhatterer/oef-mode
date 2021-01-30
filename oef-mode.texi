@@ -21,10 +21,10 @@
 @c texi2pdf oef-mode.texi 
 
 @copying
-This is the oef-mode manual, version beta (in french)
+This is the @code{oef-mode} manual, version beta (in french)
 right @copyright{} 2017 - 2020 Raoul Hatterer.
 
-OEF veut dire ''online exercise format'', un format pour des exercices interactifs destinés aux systèmes d'enseignement assisté par ordinateur. Le format d'un fichier OEF est très similaire à LaTeX. Il est composé d'instructions suivies d'un ou plusieurs paramètres. Le mode oef-mode a pour ambition d'être une solution efficace pour la création et la mise en ligne d'exercices sous ce format.
+OEF veut dire ''online exercise format'', un format pour des exercices interactifs destinés aux systèmes d'enseignement assisté par ordinateur. Le format d'un fichier OEF est très similaire à @code{LaTeX}. Il est composé d'instructions suivies d'un ou plusieurs paramètres. Le mode @code{oef-mode} pour emacs a pour ambition d'être un outil efficace pour la création et la mise en ligne d'exercices sous ce format.
 @end copying
 
 
