@@ -8,23 +8,32 @@
 
 @dircategory Languages
 @direntry
-* oef-mode: (oef-mode).    major mode for editing online exercise format (french manual)
+* oef-mode: (oef-mode).    major mode for editing online exercise format documents (french manual)
 @end direntry
 
-@c Mise à jour du manuel:
-@c ---------------------
-@c Effacer dir du répertoire oef-mode avant de faire un push vers Github
-@c Générer le fichier info à partir du Terminal:
+@c Mise à jour du manuel (développement):
+@c -------------------------------------
+@c Effacer "dir" du répertoire oef-mode avant de faire un push vers Github
+@c Générer le fichier info à partir du Terminal OSX (ou du shell sous emacs mais pas  à partir de eshell):
 @c cd .emacs.d/el-get/oef-mode
 @c makeinfo oef-mode.texi
 @c Générer le fichier pdf à partir du Terminal:
-@c texi2pdf oef-mode.texi 
+@c texi2pdf oef-mode.texi
+@c Faire la mise à jour avec:
+@c el-get-upate oef-mode
+@c quitter puis relancer emacs
 
 @copying
 This is the @code{oef-mode} manual, version beta (in french)
-right @copyright{} 2017 - 2020 Raoul Hatterer.
 
-OEF veut dire ''online exercise format'', un format pour des exercices interactifs destinés aux systèmes d'enseignement assisté par ordinateur. Le format d'un fichier OEF est très similaire à @code{LaTeX}. Il est composé d'instructions suivies d'un ou plusieurs paramètres. Le mode @code{oef-mode} pour emacs a pour ambition d'être un outil efficace pour la création et la mise en ligne d'exercices sous ce format.
+@quotation
+OEF veut dire ''Online Exercise Format'', un format pour des exercices ou des documents interactifs destinés à l'enseignement assisté par ordinateur.
+
+Le format d'un fichier OEF est très similaire à LaTeX. Il est composé d'instructions suivies d'un ou plusieurs paramètres. Le mode @code{oef-mode} pour emacs a pour ambition d'être un outil efficace pour la création et la mise en ligne de documents ou d'exercices sous ce format.
+@end quotation
+
+Copyright @copyright{} 2017 - 2020 Raoul Hatterer.
+
 @end copying
 
 
@@ -44,21 +53,57 @@ OEF veut dire ''online exercise format'', un format pour des exercices interacti
 @c Output the table of contents at the beginning.
 @contents
 
-
-
-
 @ifnottex
 @node Top
 @top Manuel d'utilisation d'oef-mode
 @insertcopying
 @end ifnottex
 
-@menu 
+@menu
+* Introduction:: Commencer
+* Structure:: Structure des documents et exercices 
 * First Chapter::    The first chapter is the
                          only chapter in this sample.
 * Index::            Complete index.
 @end menu
 
+
+@node Introduction
+@chapter Introduction
+
+@menu
+* Résumé:: Bref résumé de ce que permet oef-mode
+* Installation:: Installer oef-mode
+* Activation:: Comment activer oef-mode pour certains buffers
+* Retours:: Rapporter des bugs, des idées, des patchs...
+* Conventions:: Conventions d'écriture
+@end menu
+
+@node Résumé
+@section Résumé
+@code{oef-mode} un un mode majeur permettant d'éditer des exercices et des documents au format « online exercise format ».     
+
+Il propose un menu et des raccourcis permettant d'accéder aux commandes, fonctions, scripts... spécifiques au format OEF.
+
+@node Installation
+@section  Installation
+
+@node Activation
+@section  Activation
+
+@node Retours
+@section  Retours
+
+@node Conventions
+@section  Conventions
+
+@node Structure
+@chapter Structure
+@cindex chapitre, structure
+
+
+
+Le fichier d’un exercice OEF peut être décomposé schématiquement en trois parties :
 
 @node First Chapter
 @chapter First Chapter
