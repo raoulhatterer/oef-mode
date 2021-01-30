@@ -1,14 +1,14 @@
 \input texinfo  @c -*-texinfo-*-
 @c %**start of header 
 @setfilename oef-mode.info
-@settitle Manuel oef-mode
+@settitle Manuel oef-mode beta (french)
 @documentencoding UTF-8
 @documentlanguage fr_FR
 @c %**end of header
 
 @dircategory Languages
 @direntry
-* oef-mode: (oef-mode).    oef-mode manual 
+* oef-mode: (oef-mode).    major mode for editing online exercise format (french manual)
 @end direntry
 
 @c Mise à jour du manuel:
@@ -16,17 +16,36 @@
 @c Effacer dir du répertoire oef-mode avant de faire un push vers Github
 @c Générer le fichier info à partir du Terminal:
 @c cd .emacs.d/el-get/oef-mode
-@c makeinfo oef-mode.texi     
-
+@c makeinfo oef-mode.texi
+@c Générer le fichier pdf à partir du Terminal:
+@c texi2pdf oef-mode.texi 
 
 @copying
-This is the oef-mode manual, version beta
-right @copyright{} 2017 2018 2019 2020 Raoul Hatterer.
+This is the oef-mode manual, version beta (in french)
+right @copyright{} 2017 - 2020 Raoul Hatterer.
 
-
-
-OEF veut dire ''online exercise format'', un format pour des exercices mathématiques destinés aux systèmes d'enseignement assisté par ordinateur. L'avantage du format OEF est que les exercices sous ce format sont très faciles à créer. Le format d'un fichier OEF est très similaire à LaTeX. Il est composé d'instructions suivies d'un ou plusieurs paramètres. 
+OEF veut dire ''online exercise format'', un format pour des exercices interactifs destinés aux systèmes d'enseignement assisté par ordinateur. Le format d'un fichier OEF est très similaire à LaTeX. Il est composé d'instructions suivies d'un ou plusieurs paramètres. Le mode oef-mode a pour ambition d'être une solution efficace pour la création et la mise en ligne d'exercices sous ce format.
 @end copying
+
+
+@titlepage
+@title oef-mode
+@subtitle  mode majeur d'emacs pour éditer des exercices et des documents
+@subtitle au format « online exercise format » (version beta du 30 janvier 2020)
+@author Raoul Hatterer
+
+
+@c The following two commands start the copyright page.
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+
+@c Output the table of contents at the beginning.
+@contents
+
+
+
 
 @ifnottex
 @node Top
@@ -75,11 +94,6 @@ This is the second item.
 @c Ce manuel va vous expliquer comment utiliser le package oef-mode.
 
 
-@c @titlepage
-@c @title oef-mode : Online Exercise Format for emacs
-@c @subtitle v0.1-fr 9 août 2018
-@c @author Raoul Hatterer
-@c @end titlepage
  
 
 @c @menu
