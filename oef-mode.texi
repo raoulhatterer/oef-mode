@@ -1,7 +1,7 @@
 \input texinfo  @c -*-texinfo-*-
 @c %**start of header 
 @setfilename oef-mode.info
-@settitle Manuel oef-mode beta (french)
+@settitle Manuel oef-mode version alpha (french)
 @documentencoding UTF-8
 @documentlanguage fr_FR
 @c %**end of header
@@ -24,7 +24,7 @@
 @c quitter puis relancer emacs
 
 @copying
-This is the @code{oef-mode} manual, version beta (in french)
+This is the @code{oef-mode} manual, version alpha (in french)
 
 @quotation
 OEF veut dire ''Online Exercise Format'', un format pour des exercices ou des documents interactifs destinés à l'enseignement assisté par ordinateur.
@@ -40,7 +40,7 @@ Copyright @copyright{} 2017 - 2020 Raoul Hatterer.
 @titlepage
 @title oef-mode
 @subtitle  mode majeur d'emacs pour éditer des exercices et des documents
-@subtitle au format « online exercise format » (version beta du 30 janvier 2020)
+@subtitle au format « online exercise format » (version alpha du 31 janvier 2020)
 @author Raoul Hatterer
 
 
@@ -88,8 +88,157 @@ Il propose un menu et des raccourcis permettant d'accéder aux commandes, foncti
 @node Installation
 @section  Installation
 
+@node Installation d'emacs
+@subsection Installation d'emacs
+
+@itemize
+@item Si vous êtes sous Linux vous saurez certainement installer emacs.
+@item Sous mac OSX vous pouvez installer la version que vous trouverez ici: @url{https://emacsformacosx.com}
+
+Si vous lisez ces lignes en français, le clavier de votre Mac est surement en français.
+
+Par défaut, les deux touches @kbd{option} ont été reconfigurées en touche Meta @kbd{M-} pour emacs et vous avez perdu l'accès aux accolades (@kbd{option parenthèse}) et aux crochets (@kbd{option shift parenthèse}).
+
+Éditer le fichier d'initialisation (@samp{~/.emacs.d/init.el}) et rajouter les lignes suivantes qui permettent d'avoir la touche @kbd{option} de gauche qui agit comme @kbd{meta} tandis que la touche @kbd{option} de droite reste inchangée pour pouvoir accéder à des caractères comme les acolades ou les crochets. 
+
+Pour cela, tapez @kbd{C-x C-f} (c'est-à-dire @kbd{control} x suivi de @kbd{control} f).
+
+@command{Find file:} apparaît sous la fenêtre. Saisir @samp{~/.emacs.d/init.el} et valider.
+
+Coller le code suivant, sans indentation:
+
+@cartouche
+@lisp
+;; mac specific bindings
+(setq mac-right-command-modifier nil ; cmd de droite = cmd
+      mac-command-modifier nil ; cmd de gauche = cmd
+      mac-option-modifier 'meta ; option de gauche = meta
+      mac-right-option-modifier nil ; opt de droite = car spéciaux
+      mac-control-modifier 'control ; control de gauche = control 
+      ns-function-modifier 'hyper ; fn key = hyper
+      ns-right-alternate-modifier nil); cette touche n'existe pas.
+ ;; INDENT-REGION on OSX 
+(global-set-key (kbd "C-:") 'indent-region)
+
+(package-initialize)
+
+(define-coding-system-alias 'UTF-8  'utf-8)
+(load-library "iso-transl") ; pour avoir l'accent circonflexe
+
+(use-package osx-trash
+  :ensure t
+  :config
+  (osx-trash-setup)
+  (setq delete-by-moving-to-trash t)  
+  )
+@end lisp
+@end cartouche
+
+Sauvegardez avec @kbd{C-x C-s} puis quitter emacs (@kbd{C-x C-c}), relancez emacs et vérifiez que vous pouvez avoir les accolades. 
+
+@item Si vous êtes sous Wimdows
+
+Suivre les explications que vous trouverez ici: @url{https://www.gnu.org/software/emacs/download.html}
+
+@end itemize
+
+
+
+
+@node Installer oef-mode
+@subsection Installer oef-mode
+
+@code{oef-mode} ne faisant pas partie des librairies pré-installées avec emacs, il vous faudra l'installer. Pour cela, je recommande d'utiliser el-get @url{http://wikemacs.org/wiki/El-get}
+
+@itemize @bullet
+@item Si vous souhaitez utiliser @code{el-get}:
+
+@enumerate
+
+@item Éditer le fichier d'initialisation (@code{~/.emacs.d/init.el}) et rajouter les lignes suivantes qui permettent d'installer @code{el-get}, use-package, company-mode et oef-mode s'ils ne le sont pas déjà :
+
+@cartouche
+@lisp
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+;; installation initiale si elle est requise
+(unless (require 'el-get nil 'noerror)
+  (with-current-buffer
+    (url-retrieve-synchronously
+"https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el"
+        )
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
+
+(add-to-list 'el-get-recipe-path
+             "~/.emacs.d/el-get-user/recipes")
+(el-get 'sync) 
+
+;; Vérification des mises à jour
+(setq my:el-get-packages
+      '( el-get
+	 use-package
+	 company-mode
+	 oef-mode
+	 ))
+
+(el-get 'sync my:el-get-packages) 
+
+
+;; Active la complétion
+(use-package company
+  :ensure t
+  :config
+  (add-hook 'after-init-hook 'global-company-mode)
+  )
+;; global activation of the unicode symbol completion 
+
+;; Permet d'activer le mode oef-mode quand on visite les
+;;fichiers avec l'extension .oef
+(load "oef-mode.el") ;; load the packaged named oef-mode
+@end lisp
+@end cartouche
+
+
+@item Quitter et relancer emacs
+
+@end enumerate
+
+
+
+@item Si vous n'utilisez pas el-get:
+
+Par convention, le répertoire @file{"~/.emacs.d/lisp/"} est la destination des bibliothèques installées de façon manuelle.
+
+@enumerate
+@item S'il n'existe pas encore, créer le répertoire @code{"~/.emacs.d/lisp/"}
+@item Télécharger l'archive zip @url{https://github.com/raoulhatterer/oef-mode/archive/master.zip}, la décompresser dans le répertoire  @file{"~/.emacs.d/lisp/"}
+@item Ajouter le code suivant à votre fichier @file{~/.emacs.d/init.el} avant la ligne @samp{(package-initialize)}.
+
+@lisp
+(add-to-list 'load-path "~/.emacs.d/lisp/oef-mode") ;; Tell emacs where is your personal elisp lib dir
+(load "oef-mode.el") ;; load the package named oef-mode
+@end lisp
+@item Quitter et relancer emacs. 
+@end enumerate
+
+La dernière version vient d'être installée. Pour faire des mise à jour dans le futur, il y a la commande @code{M-x: el-get-update oef-mode}
+
+@end itemize
+
+
+
+
+
+
+
+
 @node Activation
 @section  Activation
+
+
+
+
+
 
 @node Retours
 @section  Retours
@@ -128,46 +277,6 @@ This is the second item.
 
 @printindex cp
  
-
-
-
-@c @node Top, , (dir), (dir)
-@c @comment  node-name,  next,  previous,  up
-
-@c top oef-mode User Manual
-
-@c Ce manuel va vous expliquer comment utiliser le package oef-mode.
-
-
- 
-
-@c @menu
-@c * Introduction::
-@c * Installation:: Comment installer oef-mode
-@c @end menu
-
-@c @node Introduction, Installation, Top, Top
-@c @comment  node-name,  next,  previous,  up
-@c @chapter Introduction
-
-
-@c @node Installation,  , Introduction, Top
-@c @comment  node-name,  next,  previous,  up
-@c @chapter Installation
-
-@c @node Linux,  , Installation, Installation
-@c @comment  node-name,  next,  previous,  up
-@c @section Linux
-
-@c If you want Emacs to load the file 'oef-mode.el' when it starts, put the file 'oef-mode.el'
-@c in the dir "~/.emacs.d/lisp/", (create that directory if it doesn't exist).
-@c By convention, the dir ~/.emacs.d/lisp/ is for packages you manually installed.
-@c Then put the following in your Emacs init file "~/.emacs"
-@c vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-@c  (add-to-list 'load-path "~/.emacs.d/lisp/") ;; Tell Emacs where is your personal elisp lib dir
-@c  (load "oef") ;; load the packaged named oef (best not to include the ending “.el” or “.elc”)
-@c ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-@c before the line (package-initialize).
 
 
 
