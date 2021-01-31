@@ -92,40 +92,41 @@ File: oef-mode.info,  Node: Installation d'emacs,  Next: Installer oef-mode,  Up
 --------------------------
 
    • Si vous êtes sous Linux vous saurez certainement installer emacs.
-   • Sous mac OSX vous pouvez installer la version que vous trouverez
+   • Sous mac OSX, vous pouvez installer la version que vous trouverez
      ici: <https://emacsformacosx.com>
 
      Si vous lisez ces lignes en français, le clavier de votre Mac est
-     surement en français.
-
-     Par défaut, les deux touches ‘option’ ont été reconfigurées en
-     touche Meta ‘M-’ pour emacs et vous avez perdu l’accès aux
-     accolades (‘option parenthèse’) et aux crochets (‘option shift
-     parenthèse’).
+     probablement en français.  Vous vous apercevrez que, par défaut,
+     les deux touches ‘option’ ont été configurées en touche Meta ‘M-’
+     pour emacs ce qui fait que vous avez perdu l’accès aux accolades
+     (‘option parenthèse’), aux crochets (‘option shift parenthèse’) et
+     aux autres caractères auxquels vous aviez accès par le biais de la
+     touche ‘option’.
 
      Éditer le fichier d’initialisation (‘~/.emacs.d/init.el’) et
      rajouter les lignes suivantes qui permettent d’avoir la touche
-     ‘option’ de gauche qui agit comme ‘meta’ tandis que la touche
+     ‘option’ de gauche qui agit comme ‘Meta’ tandis que la touche
      ‘option’ de droite reste inchangée pour pouvoir accéder à des
      caractères comme les acolades ou les crochets.
 
      Pour cela, tapez ‘C-x C-f’ (c’est-à-dire ‘control’ x suivi de
-     ‘control’ f).
+     ‘control’ f) dans emacs.
 
      ‘Find file:’ apparaît sous la fenêtre.  Saisir ‘~/.emacs.d/init.el’
      et valider.
 
      Coller le code suivant, sans indentation:
 
-          ;; mac specific bindings
+          ;;; mac specific bindings
           (setq mac-right-command-modifier nil ; cmd de droite = cmd
                 mac-command-modifier nil ; cmd de gauche = cmd
                 mac-option-modifier 'meta ; option de gauche = meta
-                mac-right-option-modifier nil ; opt de droite = car spéciaux
+                mac-right-option-modifier nil ; opt de droite = car speciaux
                 mac-control-modifier 'control ; control de gauche = control
                 ns-function-modifier 'hyper ; fn key = hyper
                 ns-right-alternate-modifier nil); cette touche n'existe pas.
-           ;; INDENT-REGION on OSX
+
+          ;;; INDENT-REGION on OSX
           (global-set-key (kbd "C-:") 'indent-region)
 
           (package-initialize)
@@ -133,7 +134,7 @@ File: oef-mode.info,  Node: Installation d'emacs,  Next: Installer oef-mode,  Up
           (define-coding-system-alias 'UTF-8  'utf-8)
           (load-library "iso-transl") ; pour avoir l'accent circonflexe
 
-          ;; Les fichiers supprimés dans emacs vont dans la corbeille
+          ;;; Les fichiers qu'on supprime dans emacs vont dans la corbeille
           (use-package osx-trash
             :ensure t
             :config
@@ -251,8 +252,7 @@ File: oef-mode.info,  Node: Structure,  Next: First Chapter,  Prev: Introduction
 2 Structure
 ***********
 
-Le fichier d’un exercice OEF peut être décomposé schématiquement en
-trois parties :
+bla
 
 
 File: oef-mode.info,  Node: First Chapter,  Next: Index,  Prev: Structure,  Up: Top
@@ -289,13 +289,13 @@ Node: Introduction1810
 Node: Résumé2186
 Node: Installation2550
 Node: Installation d'emacs2742
-Node: Installer oef-mode5328
-Node: Activation8367
-Node: Retours8496
-Node: Conventions8618
-Node: Structure8729
-Node: First Chapter8943
-Node: Index9181
+Node: Installer oef-mode5482
+Node: Activation8521
+Node: Retours8650
+Node: Conventions8772
+Node: Structure8883
+Node: First Chapter9007
+Node: Index9245
 
 End Tag Table
 

@@ -93,15 +93,13 @@ Il propose un menu et des raccourcis permettant d'accéder aux commandes, foncti
 
 @itemize
 @item Si vous êtes sous Linux vous saurez certainement installer emacs.
-@item Sous mac OSX vous pouvez installer la version que vous trouverez ici: @url{https://emacsformacosx.com}
+@item Sous mac OSX, vous pouvez installer la version que vous trouverez ici: @url{https://emacsformacosx.com}
 
-Si vous lisez ces lignes en français, le clavier de votre Mac est surement en français.
+Si vous lisez ces lignes en français, le clavier de votre Mac est probablement en français. Vous vous apercevrez que, par défaut, les deux touches @kbd{option} ont été configurées en touche Meta @kbd{M-} pour emacs ce qui fait que vous avez perdu l'accès aux accolades (@kbd{option parenthèse}), aux crochets (@kbd{option shift parenthèse}) et aux autres caractères auxquels vous aviez accès par le biais de la touche @kbd{option}.
 
-Par défaut, les deux touches @kbd{option} ont été reconfigurées en touche Meta @kbd{M-} pour emacs et vous avez perdu l'accès aux accolades (@kbd{option parenthèse}) et aux crochets (@kbd{option shift parenthèse}).
+Éditer le fichier d'initialisation (@samp{~/.emacs.d/init.el}) et rajouter les lignes suivantes qui permettent d'avoir la touche @kbd{option} de gauche qui agit comme @kbd{Meta} tandis que la touche @kbd{option} de droite reste inchangée pour pouvoir accéder à des caractères comme les acolades ou les crochets. 
 
-Éditer le fichier d'initialisation (@samp{~/.emacs.d/init.el}) et rajouter les lignes suivantes qui permettent d'avoir la touche @kbd{option} de gauche qui agit comme @kbd{meta} tandis que la touche @kbd{option} de droite reste inchangée pour pouvoir accéder à des caractères comme les acolades ou les crochets. 
-
-Pour cela, tapez @kbd{C-x C-f} (c'est-à-dire @kbd{control} x suivi de @kbd{control} f).
+Pour cela, tapez @kbd{C-x C-f} (c'est-à-dire @kbd{control} x suivi de @kbd{control} f) dans emacs.
 
 @command{Find file:} apparaît sous la fenêtre. Saisir @samp{~/.emacs.d/init.el} et valider.
 
@@ -109,15 +107,16 @@ Coller le code suivant, sans indentation:
 
 @cartouche
 @lisp
-;; mac specific bindings
+;;; mac specific bindings
 (setq mac-right-command-modifier nil ; cmd de droite = cmd
       mac-command-modifier nil ; cmd de gauche = cmd
       mac-option-modifier 'meta ; option de gauche = meta
-      mac-right-option-modifier nil ; opt de droite = car spéciaux
+      mac-right-option-modifier nil ; opt de droite = car speciaux
       mac-control-modifier 'control ; control de gauche = control 
       ns-function-modifier 'hyper ; fn key = hyper
       ns-right-alternate-modifier nil); cette touche n'existe pas.
- ;; INDENT-REGION on OSX 
+
+;;; INDENT-REGION on OSX 
 (global-set-key (kbd "C-:") 'indent-region)
 
 (package-initialize)
@@ -125,7 +124,7 @@ Coller le code suivant, sans indentation:
 (define-coding-system-alias 'UTF-8  'utf-8)
 (load-library "iso-transl") ; pour avoir l'accent circonflexe
 
-;; Les fichiers supprimés dans emacs vont dans la corbeille
+;;; Les fichiers qu'on supprime dans emacs vont dans la corbeille
 (use-package osx-trash
   :ensure t
   :config
@@ -252,9 +251,7 @@ La dernière version vient d'être installée. Pour faire des mise à jour dans 
 @chapter Structure
 @cindex chapitre, structure
 
-
-
-Le fichier d’un exercice OEF peut être décomposé schématiquement en trois parties :
+bla
 
 @node First Chapter
 @chapter First Chapter
