@@ -218,7 +218,8 @@ el-get <http://wikemacs.org/wiki/El-get>
        3. Ajouter le code suivant à votre fichier ‘~/.emacs.d/init.el’
           avant la ligne ‘(package-initialize)’.
 
-               (add-to-list 'load-path "~/.emacs.d/lisp/oef-mode") ;; Tell emacs where is your personal elisp lib dir
+               ;; Tell emacs where is your personal elisp lib dir
+               (add-to-list 'load-path "~/.emacs.d/lisp/oef-mode")
                (load "oef-mode.el") ;; load the package named oef-mode
        4. Quitter et relancer emacs.
 
@@ -289,12 +290,12 @@ Node: Résumé2186
 Node: Installation2550
 Node: Installation d'emacs2742
 Node: Installer oef-mode5328
-Node: Activation8352
-Node: Retours8481
-Node: Conventions8603
-Node: Structure8714
-Node: First Chapter8928
-Node: Index9166
+Node: Activation8367
+Node: Retours8496
+Node: Conventions8618
+Node: Structure8729
+Node: First Chapter8943
+Node: Index9181
 
 End Tag Table
 

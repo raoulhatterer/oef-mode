@@ -216,7 +216,8 @@ Par convention, le répertoire @file{"~/.emacs.d/lisp/"} est la destination des 
 @item Ajouter le code suivant à votre fichier @file{~/.emacs.d/init.el} avant la ligne @samp{(package-initialize)}.
 
 @lisp
-(add-to-list 'load-path "~/.emacs.d/lisp/oef-mode") ;; Tell emacs where is your personal elisp lib dir
+;; Tell emacs where is your personal elisp lib dir
+(add-to-list 'load-path "~/.emacs.d/lisp/oef-mode")
 (load "oef-mode.el") ;; load the package named oef-mode
 @end lisp
 @item Quitter et relancer emacs. 
