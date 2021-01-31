@@ -125,6 +125,7 @@ Coller le code suivant, sans indentation:
 (define-coding-system-alias 'UTF-8  'utf-8)
 (load-library "iso-transl") ; pour avoir l'accent circonflexe
 
+;; Les fichiers supprimés dans emacs vont dans la corbeille
 (use-package osx-trash
   :ensure t
   :config
@@ -136,7 +137,7 @@ Coller le code suivant, sans indentation:
 
 Sauvegardez avec @kbd{C-x C-s} puis quitter emacs (@kbd{C-x C-c}), relancez emacs et vérifiez que vous pouvez avoir les accolades. 
 
-@item Si vous êtes sous Wimdows
+@item Si vous êtes sous Windows
 
 Suivre les explications que vous trouverez ici: @url{https://www.gnu.org/software/emacs/download.html}
 

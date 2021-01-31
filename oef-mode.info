@@ -133,6 +133,7 @@ File: oef-mode.info,  Node: Installation d'emacs,  Next: Installer oef-mode,  Up
           (define-coding-system-alias 'UTF-8  'utf-8)
           (load-library "iso-transl") ; pour avoir l'accent circonflexe
 
+          ;; Les fichiers supprimés dans emacs vont dans la corbeille
           (use-package osx-trash
             :ensure t
             :config
@@ -143,7 +144,7 @@ File: oef-mode.info,  Node: Installation d'emacs,  Next: Installer oef-mode,  Up
      Sauvegardez avec ‘C-x C-s’ puis quitter emacs (‘C-x C-c’), relancez
      emacs et vérifiez que vous pouvez avoir les accolades.
 
-   • Si vous êtes sous Wimdows
+   • Si vous êtes sous Windows
 
      Suivre les explications que vous trouverez ici:
      <https://www.gnu.org/software/emacs/download.html>
@@ -287,13 +288,13 @@ Node: Introduction1810
 Node: Résumé2186
 Node: Installation2550
 Node: Installation d'emacs2742
-Node: Installer oef-mode5257
-Node: Activation8281
-Node: Retours8410
-Node: Conventions8532
-Node: Structure8643
-Node: First Chapter8857
-Node: Index9095
+Node: Installer oef-mode5328
+Node: Activation8352
+Node: Retours8481
+Node: Conventions8603
+Node: Structure8714
+Node: First Chapter8928
+Node: Index9166
 
 End Tag Table
 
