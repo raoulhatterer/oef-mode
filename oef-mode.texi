@@ -27,7 +27,7 @@
 This is the @code{oef-mode} manual, version alpha (in french)
 
 @quotation
-OEF veut dire ''Online Exercise Format'', un format pour des exercices ou des documents interactifs destinés à l'enseignement assisté par ordinateur.
+OEF veut dire ''Online Exercise Format'', un format pour d'exercices et de documents interactifs destinés à l'enseignement assisté par ordinateur.
 
 Le format d'un fichier OEF est très similaire à LaTeX. Il est composé d'instructions suivies d'un ou plusieurs paramètres. Le mode @code{oef-mode} pour emacs a pour ambition d'être un outil efficace pour la création et la mise en ligne de documents ou d'exercices sous ce format.
 @end quotation
@@ -39,8 +39,8 @@ Copyright @copyright{} 2017 - 2020 Raoul Hatterer.
 
 @titlepage
 @title oef-mode
-@subtitle  mode majeur d'emacs pour éditer des exercices et des documents
-@subtitle au format « online exercise format » (version alpha du 31 janvier 2020)
+@subtitle  mode majeur d'emacs pour éditer des exercices et des documents interactifs
+@subtitle au format « online exercise format » (version alpha du 05 février 2021)
 @author Raoul Hatterer
 
 
@@ -60,23 +60,20 @@ Copyright @copyright{} 2017 - 2020 Raoul Hatterer.
 @end ifnottex
 
 @menu
-* Introduction:: Commencer
-* Structure:: Structure des documents et exercices 
-* First Chapter::    The first chapter is the
-                         only chapter in this sample.
-* Index::            Complete index.
+* Introduction::                Commencer
+* Index::                       Complete index.
 @end menu
 
+@c --------------------------------------------------------------------------------
 
 @node Introduction
 @chapter Introduction
 
 @menu
-* Résumé:: Bref résumé de ce que permet oef-mode
-* Installation:: Installer oef-mode
-* Activation:: Comment activer oef-mode pour certains buffers
-* Retours:: Rapporter des bugs, des idées, des patchs...
-* Conventions:: Conventions d'écriture
+* Résumé::                      Bref résumé de ce que permet oef-mode
+* Installation::                Installer oef-mode
+* Activation::                  Comment activer oef-mode pour certains buffers
+* Retours::                     Rapporter des bugs, des idées, des patchs...
 @end menu
 
 @node Résumé
@@ -226,40 +223,9 @@ La dernière version vient d'être installée. Pour faire des mise à jour dans 
 
 @end itemize
 
-
-
-
-
-
-
-
 @node Activation
 @section  Activation
 
-
-
-
-
-
-@node Retours
-@section  Retours
-
-@node Conventions
-@section  Conventions
-
-@node Structure
-@chapter Structure
-@cindex chapitre, structure
-
-bla
-
-@node First Chapter
-@chapter First Chapter
-
-@cindex chapter, first
-
-This is the first chapter.
-@cindex index entry, another
 
 Here is a numbered list.
 
@@ -270,6 +236,17 @@ This is the first item.
 @item
 This is the second item.
 @end enumerate
+
+
+@node Retours
+@section Retours
+
+
+
+
+
+@c --------------------------------------------------------------------------------
+
 
 @node Index
 @unnumbered Index
