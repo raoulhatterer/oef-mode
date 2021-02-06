@@ -95,7 +95,7 @@ Il propose un menu et des raccourcis permettant d'accéder aux commandes, foncti
 @node Installation d'emacs
 @subsection Installation d'emacs
 
-Certains lecteurs connaissent peut être déjà Wims et le format OEF et sont à la recherche d'informations pour installer emacs et tester oef-mode.
+Cette partie est à destination des lecteurs du document PDF qui, connaissant peut-être déjà Wims et le format OEF, souhaiteraient tester @command{oef-mode}. Ils trouveront ici des indications pour installer emacs.
 
 @c Suivre les explications données ici  @url{http://ergoemacs.org/emacs/which_emacs.html}
 @menu
@@ -106,16 +106,21 @@ Certains lecteurs connaissent peut être déjà Wims et le format OEF et sont à
 
 
 @node Sous Windows
-
-
 @itemize
-@item Se rendre à la page de téléchargement: @url{http://ftp.gnu.org/pub/gnu/emacs/windows/}
+@item Déterminez si votre Microsoft Wimdows est 32 ou 64 bits: pour cela, appuyez sur la touche @key{Window} ; commencez à taper ``Afficher le système d'exploitation exécuté par votre ordinateur'' dans la zone de recherche et sélectionnez ce choix.  Cela fait apparaître une fenêtre dans laquelle le type de système (32 ou 64 bits) est indiqué.
+@item Rendez-vous ensuite à la page de téléchargement: @url{https://ftp.gnu.org/pub/gnu/emacs/windows/emacs-27/} et téléchargez l'installateur:
+@itemize
+@item @command{emacs-$VERSION-x86_64-installer.exe} si votre système d'exploitation est 64 bits
+@item @command{emacs-$VERSION-i686-installer.exe} si votre système d'exploitation est 32 bits
+@end itemize
+@item Lancez le programme d'installation pour installer emacs sur votre ordinateur.
 @end itemize
 
 @node Sous Mac OSX
-
+@itemize
 @item Si vous êtes sous Linux vous saurez certainement installer emacs.
 @item Sous mac OSX, vous pouvez installer la version que vous trouverez ici: @url{https://emacsformacosx.com}
+@end itemize
 
 @node Sous Linux
 

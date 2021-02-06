@@ -3,9 +3,9 @@ oef-mode.texi.
 
 This is the ‘oef-mode’ manual, version alpha (in french)
 
-     OEF veut dire ”Online Exercise Format”, un format pour des
-     exercices ou des documents interactifs destinés à l’enseignement
-     assisté par ordinateur.
+     OEF veut dire ”Online Exercise Format”, un format pour d’exercices
+     et de documents interactifs destinés à l’enseignement assisté par
+     ordinateur.
 
      Le format d’un fichier OEF est très similaire à LaTeX. Il est
      composé d’instructions suivies d’un ou plusieurs paramètres.  Le
@@ -28,9 +28,9 @@ Manuel d’utilisation d’oef-mode
 
 This is the ‘oef-mode’ manual, version alpha (in french)
 
-     OEF veut dire ”Online Exercise Format”, un format pour des
-     exercices ou des documents interactifs destinés à l’enseignement
-     assisté par ordinateur.
+     OEF veut dire ”Online Exercise Format”, un format pour d’exercices
+     et de documents interactifs destinés à l’enseignement assisté par
+     ordinateur.
 
      Le format d’un fichier OEF est très similaire à LaTeX. Il est
      composé d’instructions suivies d’un ou plusieurs paramètres.  Le
@@ -42,43 +42,43 @@ This is the ‘oef-mode’ manual, version alpha (in french)
 
 * Menu:
 
-* Introduction:: Commencer
-* Structure:: Structure des documents et exercices
-* First Chapter::    The first chapter is the
-                         only chapter in this sample.
-* Index::            Complete index.
+* Introduction::                Commencer
+* Index::                       Complete index.
 
 
-File: oef-mode.info,  Node: Introduction,  Next: Structure,  Prev: Top,  Up: Top
+File: oef-mode.info,  Node: Introduction,  Next: Index,  Prev: Top,  Up: Top
 
 1 Introduction
 **************
 
+Le présent manuel est disponible au format PDF, mais il est également
+intégré, une fois le package oef-mode installé, au système d’information
+d’emacs accessible par le raccourci ‘C-h i’.
+
 * Menu:
 
-* Résumé:: Bref résumé de ce que permet oef-mode
-* Installation:: Installer oef-mode
-* Activation:: Comment activer oef-mode pour certains buffers
-* Retours:: Rapporter des bugs, des idées, des patchs...
-* Conventions:: Conventions d’écriture
+* Résumé::                      Bref résumé de ce que permet oef-mode
+* Installations::               Installer emacs, el-get, use-package, oef-mode
+* Activation::                  Comment activer oef-mode pour certains buffers
+* Retours::                     Rapporter des bugs, des idées, des patchs...
 
 
-File: oef-mode.info,  Node: Résumé,  Next: Installation,  Up: Introduction
+File: oef-mode.info,  Node: Résumé,  Next: Installations,  Up: Introduction
 
 1.1 Résumé
 ==========
 
-‘oef-mode’ un un mode majeur permettant d’éditer des exercices et des
+‘oef-mode’ est un mode majeur permettant d’éditer des exercices et des
 documents au format « online exercise format ».
 
    Il propose un menu et des raccourcis permettant d’accéder aux
 commandes, fonctions, scripts...  spécifiques au format OEF.
 
 
-File: oef-mode.info,  Node: Installation,  Next: Activation,  Prev: Résumé,  Up: Introduction
+File: oef-mode.info,  Node: Installations,  Next: Activation,  Prev: Résumé,  Up: Introduction
 
-1.2 Installation
-================
+1.2 Installations
+=================
 
 * Menu:
 
@@ -86,72 +86,108 @@ File: oef-mode.info,  Node: Installation,  Next: Activation,  Prev: Résumé,  U
 * Installer oef-mode::
 
 
-File: oef-mode.info,  Node: Installation d'emacs,  Next: Installer oef-mode,  Up: Installation
+File: oef-mode.info,  Node: Installation d'emacs,  Next: Installer oef-mode,  Up: Installations
 
 1.2.1 Installation d’emacs
 --------------------------
+
+Cette partie est à destination des lecteurs du document PDF qui,
+connaissant peut-être déjà Wims et le format OEF, souhaiteraient tester
+‘oef-mode’.  Ils trouveront ici des indications pour installer emacs.
+
+* Menu:
+
+* Sous Windows::                Télécharger et installer la version Windows d’emacs
+* Sous Mac OSX::                Télécharger et installer la version Mac d’emacs
+* Sous Linux::                  Télécharger et installer la version Linux d’emacs
+
+
+File: oef-mode.info,  Node: Sous Windows,  Next: Sous Mac OSX,  Up: Installation d'emacs
+
+   • Déterminez si votre Microsoft Wimdows est 32 ou 64 bits: pour cela,
+     appuyez sur la touche <Window> ; commencez à taper “Afficher le
+     système d’exploitation exécuté par votre ordinateur” dans la zone
+     de recherche et sélectionnez ce choix.  Cela fait apparaître une
+     fenêtre dans laquelle le type de système (32 ou 64 bits) est
+     indiqué.
+   • Rendez-vous ensuite à la page de téléchargement:
+     <https://ftp.gnu.org/pub/gnu/emacs/windows/emacs-27/> et
+     téléchargez l’installateur:
+        • ‘emacs-$VERSION-x86_64-installer.exe’ si votre système
+          d’exploitation est 64 bits
+        • ‘emacs-$VERSION-i686-installer.exe’ si votre système
+          d’exploitation est 32 bits
+   • Lancez le programme d’installation pour installer emacs sur votre
+     ordinateur.
+
+
+File: oef-mode.info,  Node: Sous Mac OSX,  Next: Sous Linux,  Prev: Sous Windows,  Up: Installation d'emacs
 
    • Si vous êtes sous Linux vous saurez certainement installer emacs.
    • Sous mac OSX, vous pouvez installer la version que vous trouverez
      ici: <https://emacsformacosx.com>
 
-     Si vous lisez ces lignes en français, le clavier de votre Mac est
-     probablement en français.  Vous vous apercevrez que, par défaut,
-     les deux touches ‘option’ ont été configurées en touche Meta ‘M-’
-     pour emacs ce qui fait que vous avez perdu l’accès aux accolades
-     (‘option parenthèse’), aux crochets (‘option shift parenthèse’) et
-     aux autres caractères auxquels vous aviez accès par le biais de la
-     touche ‘option’.
-
-     Éditer le fichier d’initialisation (‘~/.emacs.d/init.el’) et
-     rajouter les lignes suivantes qui permettent d’avoir la touche
-     ‘option’ de gauche qui agit comme ‘Meta’ tandis que la touche
-     ‘option’ de droite reste inchangée pour pouvoir accéder à des
-     caractères comme les acolades ou les crochets.
-
-     Pour cela, tapez ‘C-x C-f’ (c’est-à-dire ‘control’ x suivi de
-     ‘control’ f) dans emacs.
-
-     ‘Find file:’ apparaît sous la fenêtre.  Saisir ‘~/.emacs.d/init.el’
-     et valider.
-
-     Coller le code suivant, sans indentation:
-
-          ;;; mac specific bindings
-          (setq mac-right-command-modifier nil ; cmd de droite = cmd
-                mac-command-modifier nil ; cmd de gauche = cmd
-                mac-option-modifier 'meta ; option de gauche = meta
-                mac-right-option-modifier nil ; opt de droite = car speciaux
-                mac-control-modifier 'control ; control de gauche = control
-                ns-function-modifier 'hyper ; fn key = hyper
-                ns-right-alternate-modifier nil); cette touche n'existe pas.
-
-          ;;; INDENT-REGION on OSX
-          (global-set-key (kbd "C-:") 'indent-region)
-
-          (package-initialize)
-
-          (define-coding-system-alias 'UTF-8  'utf-8)
-          (load-library "iso-transl") ; pour avoir l'accent circonflexe
-
-          ;;; Les fichiers qu'on supprime dans emacs vont dans la corbeille
-          (use-package osx-trash
-            :ensure t
-            :config
-            (osx-trash-setup)
-            (setq delete-by-moving-to-trash t)
-            )
-
-     Sauvegardez avec ‘C-x C-s’ puis quitter emacs (‘C-x C-c’), relancez
-     emacs et vérifiez que vous pouvez avoir les accolades.
-
-   • Si vous êtes sous Windows
-
-     Suivre les explications que vous trouverez ici:
-     <https://www.gnu.org/software/emacs/download.html>
+
+File: oef-mode.info,  Node: Sous Linux,  Prev: Sous Mac OSX,  Up: Installation d'emacs
 
 
-File: oef-mode.info,  Node: Installer oef-mode,  Prev: Installation d'emacs,  Up: Installation
+File: oef-mode.info,  Node: Gestionnaires de packages
+
+‘oef-mode’ ne faisant pas partie des librairies pré-installées avec
+emacs, il vous faudra l’installer.  Pour cela, je recommande d’utiliser
+el-get <http://wikemacs.org/wiki/El-get>
+
+   Si vous lisez ces lignes en français, le clavier de votre Mac est
+probablement en français.  Vous vous apercevrez que, par défaut, les
+deux touches ‘option’ ont été configurées en touche Meta ‘M-’ pour emacs
+ce qui fait que vous avez perdu l’accès aux accolades (‘option
+parenthèse’), aux crochets (‘option shift parenthèse’) et aux autres
+caractères auxquels vous aviez accès par le biais de la touche ‘option’.
+
+   Éditer le fichier d’initialisation (‘~/.emacs.d/init.el’) et rajouter
+les lignes suivantes qui permettent d’avoir la touche ‘option’ de gauche
+qui agit comme ‘Meta’ tandis que la touche ‘option’ de droite reste
+inchangée pour pouvoir accéder à des caractères comme les acolades ou
+les crochets.
+
+   Pour cela, tapez ‘C-x C-f’ (c’est-à-dire ‘control’ x suivi de
+‘control’ f) dans emacs.
+
+   ‘Find file:’ apparaît sous la fenêtre.  Saisir ‘~/.emacs.d/init.el’
+et valider.
+
+   Coller le code suivant, sans indentation:
+
+     ;;; mac specific bindings
+     (setq mac-right-command-modifier nil ; cmd de droite = cmd
+           mac-command-modifier nil ; cmd de gauche = cmd
+           mac-option-modifier 'meta ; option de gauche = meta
+           mac-right-option-modifier nil ; opt de droite = car speciaux
+           mac-control-modifier 'control ; control de gauche = control
+           ns-function-modifier 'hyper ; fn key = hyper
+           ns-right-alternate-modifier nil); cette touche n'existe pas.
+
+     ;;; INDENT-REGION on OSX
+     (global-set-key (kbd "C-:") 'indent-region)
+
+     (package-initialize)
+
+     (define-coding-system-alias 'UTF-8  'utf-8)
+     (load-library "iso-transl") ; pour avoir l'accent circonflexe
+
+     ;;; Les fichiers qu'on supprime dans emacs vont dans la corbeille
+     (use-package osx-trash
+       :ensure t
+       :config
+       (osx-trash-setup)
+       (setq delete-by-moving-to-trash t)
+       )
+
+   Sauvegardez avec ‘C-x C-s’ puis quitter emacs (‘C-x C-c’), relancez
+emacs et vérifiez que vous pouvez avoir les accolades.
+
+
+File: oef-mode.info,  Node: Installer oef-mode,  Prev: Installation d'emacs,  Up: Installations
 
 1.2.2 Installer oef-mode
 ------------------------
@@ -229,73 +265,45 @@ el-get <http://wikemacs.org/wiki/El-get>
      oef-mode’
 
 
-File: oef-mode.info,  Node: Activation,  Next: Retours,  Prev: Installation,  Up: Introduction
+File: oef-mode.info,  Node: Activation,  Next: Retours,  Prev: Installations,  Up: Introduction
 
 1.3 Activation
 ==============
 
-
-File: oef-mode.info,  Node: Retours,  Next: Conventions,  Prev: Activation,  Up: Introduction
-
-1.4 Retours
-===========
-
-
-File: oef-mode.info,  Node: Conventions,  Prev: Retours,  Up: Introduction
-
-1.5 Conventions
-===============
-
-
-File: oef-mode.info,  Node: Structure,  Next: First Chapter,  Prev: Introduction,  Up: Top
-
-2 Structure
-***********
-
-bla
-
-
-File: oef-mode.info,  Node: First Chapter,  Next: Index,  Prev: Structure,  Up: Top
-
-3 First Chapter
-***************
-
-This is the first chapter.
-
-   Here is a numbered list.
+Here is a numbered list.
 
   1. This is the first item.
 
   2. This is the second item.
 
 
-File: oef-mode.info,  Node: Index,  Prev: First Chapter,  Up: Top
+File: oef-mode.info,  Node: Retours,  Prev: Activation,  Up: Introduction
+
+1.4 Retours
+===========
+
+
+File: oef-mode.info,  Node: Index,  Prev: Introduction,  Up: Top
 
 Index
 *****
 
- [index ]
-* Menu:
-
-* chapitre, structure:                   Structure.             (line 6)
-* chapter, first:                        First Chapter.         (line 6)
-* index entry, another:                  First Chapter.         (line 6)
-
 
 
 Tag Table:
-Node: Top846
-Node: Introduction1810
-Node: Résumé2186
-Node: Installation2550
-Node: Installation d'emacs2742
-Node: Installer oef-mode5482
-Node: Activation8521
-Node: Retours8650
-Node: Conventions8772
-Node: Structure8883
-Node: First Chapter9007
-Node: Index9245
+Node: Top845
+Node: Introduction1683
+Node: Résumé2317
+Node: Installations2683
+Node: Installation d'emacs2878
+Node: Sous Windows3518
+Node: Sous Mac OSX4462
+Node: Sous Linux4760
+Node: Gestionnaires de packages4850
+Node: Installer oef-mode7175
+Node: Activation10215
+Node: Retours10432
+Node: Index10534
 
 End Tag Table
 
