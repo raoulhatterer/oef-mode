@@ -23,6 +23,10 @@
 @c el-get-upate oef-mode
 @c quitter puis relancer emacs
 
+@c Insérer les commandes texinfo dans emacs:
+@c -----------------------------------------
+@c https://www.gnu.org/software/texinfo/manual/texinfo/html_node/Inserting.html
+
 @copying
 This is the @code{oef-mode} manual, version alpha (in french)
 
@@ -69,28 +73,58 @@ Copyright @copyright{} 2017 - 2020 Raoul Hatterer.
 @node Introduction
 @chapter Introduction
 
+Le présent manuel est disponible au format PDF, mais il est également intégré, une fois le package oef-mode installé, au système d'information d'emacs accessible par le raccourci @kbd{C-h i}.  
+
+
 @menu
 * Résumé::                      Bref résumé de ce que permet oef-mode
-* Installation::                Installer oef-mode
+* Installations::               Installer emacs, el-get, use-package, oef-mode
 * Activation::                  Comment activer oef-mode pour certains buffers
 * Retours::                     Rapporter des bugs, des idées, des patchs...
 @end menu
 
 @node Résumé
 @section Résumé
-@code{oef-mode} un un mode majeur permettant d'éditer des exercices et des documents au format « online exercise format ».     
+@code{oef-mode} est un mode majeur permettant d'éditer des exercices et des documents au format « online exercise format ».     
 
 Il propose un menu et des raccourcis permettant d'accéder aux commandes, fonctions, scripts... spécifiques au format OEF.
 
-@node Installation
-@section  Installation
+@node Installations
+@section  Installations
 
 @node Installation d'emacs
 @subsection Installation d'emacs
 
+Certains lecteurs connaissent peut être déjà Wims et le format OEF et sont à la recherche d'informations pour installer emacs et tester oef-mode.
+
+@c Suivre les explications données ici  @url{http://ergoemacs.org/emacs/which_emacs.html}
+@menu
+* Sous Windows::                Télécharger et installer la version Windows d'emacs
+* Sous Mac OSX::                Télécharger et installer la version Mac d'emacs
+* Sous Linux::                  Télécharger et installer la version Linux d'emacs
+@end menu
+
+
+@node Sous Windows
+
+
 @itemize
+@item Se rendre à la page de téléchargement: @url{http://ftp.gnu.org/pub/gnu/emacs/windows/}
+@end itemize
+
+@node Sous Mac OSX
+
 @item Si vous êtes sous Linux vous saurez certainement installer emacs.
 @item Sous mac OSX, vous pouvez installer la version que vous trouverez ici: @url{https://emacsformacosx.com}
+
+@node Sous Linux
+
+
+
+@node Gestionnaires de packages
+
+
+@code{oef-mode} ne faisant pas partie des librairies pré-installées avec emacs, il vous faudra l'installer. Pour cela, je recommande d'utiliser el-get @url{http://wikemacs.org/wiki/El-get}
 
 Si vous lisez ces lignes en français, le clavier de votre Mac est probablement en français. Vous vous apercevrez que, par défaut, les deux touches @kbd{option} ont été configurées en touche Meta @kbd{M-} pour emacs ce qui fait que vous avez perdu l'accès aux accolades (@kbd{option parenthèse}), aux crochets (@kbd{option shift parenthèse}) et aux autres caractères auxquels vous aviez accès par le biais de la touche @kbd{option}.
 
@@ -133,11 +167,6 @@ Coller le code suivant, sans indentation:
 
 Sauvegardez avec @kbd{C-x C-s} puis quitter emacs (@kbd{C-x C-c}), relancez emacs et vérifiez que vous pouvez avoir les accolades. 
 
-@item Si vous êtes sous Windows
-
-Suivre les explications que vous trouverez ici: @url{https://www.gnu.org/software/emacs/download.html}
-
-@end itemize
 
 
 
