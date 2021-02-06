@@ -9,7 +9,7 @@ This is the ‘oef-mode’ manual, version alpha (in french)
 
      Le format d’un fichier OEF est très similaire à LaTeX. Il est
      composé d’instructions suivies d’un ou plusieurs paramètres.  Le
-     mode ‘oef-mode’ pour emacs a pour ambition d’être un outil efficace
+     mode ‘oef-mode’ pour Emacs a pour ambition d’être un outil efficace
      pour la création et la mise en ligne de documents ou d’exercices
      sous ce format.
 
@@ -34,7 +34,7 @@ This is the ‘oef-mode’ manual, version alpha (in french)
 
      Le format d’un fichier OEF est très similaire à LaTeX. Il est
      composé d’instructions suivies d’un ou plusieurs paramètres.  Le
-     mode ‘oef-mode’ pour emacs a pour ambition d’être un outil efficace
+     mode ‘oef-mode’ pour Emacs a pour ambition d’être un outil efficace
      pour la création et la mise en ligne de documents ou d’exercices
      sous ce format.
 
@@ -43,7 +43,7 @@ This is the ‘oef-mode’ manual, version alpha (in french)
 * Menu:
 
 * Introduction::                Commencer
-* Index::                       Complete index.
+* Index::                       Index
 
 
 File: oef-mode.info,  Node: Introduction,  Next: Index,  Prev: Top,  Up: Top
@@ -53,12 +53,12 @@ File: oef-mode.info,  Node: Introduction,  Next: Index,  Prev: Top,  Up: Top
 
 Le présent manuel est disponible au format PDF, mais il est également
 intégré, une fois le package oef-mode installé, au système d’information
-d’emacs accessible par le raccourci ‘C-h i’.
+d’Emacs accessible par le raccourci ‘C-h i’.
 
 * Menu:
 
 * Résumé::                      Bref résumé de ce que permet oef-mode
-* Installations::               Installer emacs, el-get, use-package, oef-mode
+* Installations::               Installer Emacs, el-get, use-package, oef-mode
 * Activation::                  Comment activer oef-mode pour certains buffers
 * Retours::                     Rapporter des bugs, des idées, des patchs...
 
@@ -84,6 +84,8 @@ File: oef-mode.info,  Node: Installations,  Next: Activation,  Prev: Résumé,  
 
 * Installation d'emacs::
 * Fichier d'initialisation::
+* Gestionnaires de packages::
+* Configurer le clavier du Mac::
 * Installer oef-mode::
 
 
@@ -94,7 +96,7 @@ File: oef-mode.info,  Node: Installation d'emacs,  Next: Fichier d'initialisatio
 
 Cette partie est à destination des lecteurs du document PDF qui,
 connaissant peut-être déjà Wims et le format OEF, souhaiteraient tester
-‘oef-mode’.  Ils trouveront ici des indications pour installer emacs.
+‘oef-mode’.  Ils trouveront ici des indications pour installer Emacs.
 
 * Menu:
 
@@ -121,7 +123,7 @@ File: oef-mode.info,  Node: Sous Windows,  Next: Sous Mac OSX,  Up: Installation
           d’exploitation est 64 bits
         • ‘emacs-$VERSION-i686-installer.exe’ si votre système
           d’exploitation est 32 bits
-   • Lancez le programme d’installation pour installer emacs sur votre
+   • Lancez le programme d’installation pour installer Emacs sur votre
      ordinateur.
 
 
@@ -142,7 +144,7 @@ File: oef-mode.info,  Node: Sous Linux,  Prev: Sous Mac OSX,  Up: Installation d
 ‘sudo apt-get install emacs27’
 
 
-File: oef-mode.info,  Node: Fichier d'initialisation,  Next: Installer oef-mode,  Prev: Installation d'emacs,  Up: Installations
+File: oef-mode.info,  Node: Fichier d'initialisation,  Next: Gestionnaires de packages,  Prev: Installation d'emacs,  Up: Installations
 
 1.2.2 Fichier d’initialisation
 ------------------------------
@@ -150,7 +152,7 @@ File: oef-mode.info,  Node: Fichier d'initialisation,  Next: Installer oef-mode,
 Le fichier d’initialisation est un fichier qu’Emacs charge lorsqu’il
 démarre.  Il est utilisé pour personnaliser Emacs.
 
-   Sous linux et Mac, par défaut, Emacs cherche le fichier
+   Sous Linux et Mac, par défaut, Emacs cherche le fichier
 d’initialisation aux emplacements suivants :
 
    • ‘~/.emacs’
@@ -164,28 +166,27 @@ d’initialisation aux emplacements suivants :
      privilégier)
    • ‘%HOMEPATH%\AppData\Roaming\.emacs’
 
-* Menu:
-
-* Gestionnaires de packages::
-
 
-File: oef-mode.info,  Node: Gestionnaires de packages,  Up: Fichier d'initialisation
+File: oef-mode.info,  Node: Gestionnaires de packages,  Next: Configurer le clavier du Mac,  Prev: Fichier d'initialisation,  Up: Installations
 
-1.2.2.1 Gestionnaires de packages
-.................................
+1.2.3 Gestionnaires de packages
+-------------------------------
 
-‘oef-mode’ ne faisant pas partie des paquets pré-installées avec emacs,
-il vous faudra l’installer.  De plus, ‘oef-mode’ n’étant pas répertorié
-dans _elpa_, le dépôt de package accessible par défault dans emacs, je
-recommande d’installer el-get <http://wikemacs.org/wiki/El-get> un
-gestionnaire de package alternatif car le package ‘oef-mode’ s’y trouve
-répertorié.
+Le paquet (package) ‘oef-mode’ ne faisant pas partie des paquets
+pré-installés avec emacs, il vous faudra l’installer.  De plus,
+‘oef-mode’ n’étant pas répertorié dans _elpa_, le dépôt de packages
+accessible par défaut dans emacs, je recommande d’installer el-get
+<http://wikemacs.org/wiki/El-get> un gestionnaire de package alternatif
+car le package ‘oef-mode’ s’y trouve répertorié.  Pour cela, nous
+utiliserons un fichier d’initialisation chargé en tout premier appelé
+‘early-init.el’.
 
    Dans Emacs saisir la commande ‘C-x C-f’ ‘Find file:’
 ‘~/.emacs.d/early-init.el’ (ou
-‘%HOMEPATH%\AppData\Roaming\.emacs.d\early-init.el’ sous Windows) pour
-créer un nouveau buffer nommé ‘early-init.el’ et placez y le code
-suivant destiné à installer le gestionnaire de package ‘el-get’:
+‘%HOMEPATH%\AppData\Roaming\.emacs.d\early-init.el’ sous Microsoft
+Windows) pour créer un nouveau buffer nommé ‘early-init.el’ et placez y
+le code suivant (‘C-y’ permet de coller(yank) dans Emacs) destiné à
+installer le gestionnaire de package ‘el-get’:
 
      (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
@@ -201,59 +202,77 @@ suivant destiné à installer le gestionnaire de package ‘el-get’:
      (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
      (el-get 'sync)
 
-   Si vous lisez ces lignes en français, le clavier de votre Mac est
-probablement en français.  Vous vous apercevrez que, par défaut, les
-deux touches ‘option’ ont été configurées en touche Meta ‘M-’ pour emacs
-ce qui fait que vous avez perdu l’accès aux accolades (‘option
-parenthèse’), aux crochets (‘option shift parenthèse’) et aux autres
-caractères auxquels vous aviez accès par le biais de la touche ‘option’.
+   • Sélectionner l’ensemble du code avec ‘C-x h’
+   • Indenter le code avec ‘M-x:’ ‘indent-region’
+   • Sauvegardez avec ‘C-x C-s’
+   • Quittez Emacs avec ‘C-x C-c’
+
+   Microsoft Windows:
+   • Lancez Emacs.  Patientez le temps de l’installation de ‘el-get’.
+     Quittez Emacs.  Relancez Emacs.
+
+   Mac OSX:
+   • Lancez Emacs à partir du Terminal:
+
+     (‘/Applications/Emacs.app/Contents/MacOS/Emacs &’).
+
+   • Patientez le temps de l’installation de ‘el-get’.  Quittez Emacs.
+     Relancez Emacs.
+
+
+File: oef-mode.info,  Node: Configurer le clavier du Mac,  Next: Installer oef-mode,  Prev: Gestionnaires de packages,  Up: Installations
+
+1.2.4 Configurer le clavier du Mac
+----------------------------------
+
+Vous vous apercevrez que, par défaut, les deux touches ‘option’ ont été
+configurées en touche Meta ‘M-’ pour emacs ce qui fait que vous avez
+perdu l’accès aux accolades (‘option parenthèse’), aux crochets (‘option
+shift parenthèse’) et aux autres caractères auxquels vous aviez accès
+par le biais de la touche ‘option’.
 
    Éditer le fichier d’initialisation (‘~/.emacs.d/init.el’) et rajouter
 les lignes suivantes qui permettent d’avoir la touche ‘option’ de gauche
 qui agit comme ‘Meta’ tandis que la touche ‘option’ de droite reste
-inchangée pour pouvoir accéder à des caractères comme les acolades ou
+inchangée pour pouvoir accéder à des caractères comme les accolades ou
 les crochets.
 
    Pour cela, tapez ‘C-x C-f’ (c’est-à-dire ‘control’ x suivi de
-‘control’ f) dans emacs.
+‘control’ f) dans Emacs.
 
    ‘Find file:’ apparaît sous la fenêtre.  Saisir ‘~/.emacs.d/init.el’
 et valider.
 
    Coller le code suivant, sans indentation:
 
-     ;;; mac specific bindings
+     ;; mac specific bindings
      (setq mac-right-command-modifier nil ; cmd de droite = cmd
            mac-command-modifier nil ; cmd de gauche = cmd
            mac-option-modifier 'meta ; option de gauche = meta
-           mac-right-option-modifier nil ; opt de droite = car speciaux
+           mac-right-option-modifier nil ; option de droite = car. spéciaux
            mac-control-modifier 'control ; control de gauche = control
            ns-function-modifier 'hyper ; fn key = hyper
-           ns-right-alternate-modifier nil); cette touche n'existe pas.
+           ns-right-alternate-modifier nil); cette touche n'existe pas
 
-     ;;; INDENT-REGION on OSX
+     ;; INDENT-REGION on OSX
      (global-set-key (kbd "C-:") 'indent-region)
 
-     (package-initialize)
+     (load-library "iso-transl") ; pour avoir l’accent circonflexe
 
-     (define-coding-system-alias 'UTF-8  'utf-8)
-     (load-library "iso-transl") ; pour avoir l'accent circonflexe
+     ;; exec-path
+     (add-to-list 'exec-path "/usr/local/bin")
 
-     ;;; Les fichiers qu'on supprime dans emacs vont dans la corbeille
-     (use-package osx-trash
-       :ensure t
-       :config
-       (osx-trash-setup)
-       (setq delete-by-moving-to-trash t)
-       )
+     ;; load-path
+     (add-to-list 'load-path "~/.emacs.d/lisp")
 
-   Sauvegardez avec ‘C-x C-s’ puis quitter emacs (‘C-x C-c’), relancez
-emacs et vérifiez que vous pouvez avoir les accolades.
+
+   Sauvegardez avec ‘C-x C-s’ puis quitter Emacs (‘C-x C-c’), relancez
+Emacs et vérifiez que vous pouvez avoir les accolades.
 
 
-File: oef-mode.info,  Node: Installer oef-mode,  Prev: Fichier d'initialisation,  Up: Installations
+File: oef-mode.info,  Node: Installer oef-mode,  Prev: Configurer le clavier du Mac,  Up: Installations
 
-1.2.3 Installer oef-mode
+1.2.5 Installer oef-mode
 ------------------------
 
    • Si vous souhaitez utiliser ‘el-get’:
@@ -263,19 +282,6 @@ File: oef-mode.info,  Node: Installer oef-mode,  Prev: Fichier d'initialisation,
           ‘el-get’, use-package, company-mode et oef-mode s’ils ne le
           sont pas déjà :
 
-               (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-               ;; installation initiale si elle est requise
-               (unless (require 'el-get nil 'noerror)
-                 (with-current-buffer
-                   (url-retrieve-synchronously
-               "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el"
-                       )
-                   (goto-char (point-max))
-                   (eval-print-last-sexp)))
-
-               (add-to-list 'el-get-recipe-path
-                            "~/.emacs.d/el-get-user/recipes")
-               (el-get 'sync)
 
                ;; Vérification des mises à jour
                (setq my:el-get-packages
@@ -321,7 +327,7 @@ File: oef-mode.info,  Node: Installer oef-mode,  Prev: Fichier d'initialisation,
        4. Quitter et relancer emacs.
 
      La dernière version vient d’être installée.  Pour faire des mise à
-     jour dans le futur, il y a la commande ‘M-x: el-get-update
+     jour dans le futur, il y a la commande ‘M-x:’ ‘el-get-update
      oef-mode’
 
 
@@ -352,19 +358,20 @@ Index
 
 Tag Table:
 Node: Top845
-Node: Introduction1683
-Node: Résumé2317
-Node: Installations2683
-Node: Installation d'emacs2907
-Node: Sous Windows3553
-Node: Sous Mac OSX4540
-Node: Sous Linux4795
-Node: Fichier d'initialisation4960
-Node: Gestionnaires de packages5748
-Node: Installer oef-mode9140
-Node: Activation11992
-Node: Retours12209
-Node: Index12311
+Node: Introduction1673
+Node: Résumé2307
+Node: Installations2673
+Node: Installation d'emacs2960
+Node: Sous Windows3606
+Node: Sous Mac OSX4593
+Node: Sous Linux4848
+Node: Fichier d'initialisation5013
+Node: Gestionnaires de packages5768
+Node: Configurer le clavier du Mac7881
+Node: Installer oef-mode9926
+Node: Activation12178
+Node: Retours12395
+Node: Index12497
 
 End Tag Table
 

@@ -33,7 +33,7 @@ This is the @code{oef-mode} manual, version alpha (in french)
 @quotation
 OEF veut dire ''Online Exercise Format'', un format pour d'exercices et de documents interactifs destinés à l'enseignement assisté par ordinateur.
 
-Le format d'un fichier OEF est très similaire à LaTeX. Il est composé d'instructions suivies d'un ou plusieurs paramètres. Le mode @code{oef-mode} pour emacs a pour ambition d'être un outil efficace pour la création et la mise en ligne de documents ou d'exercices sous ce format.
+Le format d'un fichier OEF est très similaire à LaTeX. Il est composé d'instructions suivies d'un ou plusieurs paramètres. Le mode @code{oef-mode} pour Emacs a pour ambition d'être un outil efficace pour la création et la mise en ligne de documents ou d'exercices sous ce format.
 @end quotation
 
 Copyright @copyright{} 2017 - 2020 Raoul Hatterer.
@@ -43,7 +43,7 @@ Copyright @copyright{} 2017 - 2020 Raoul Hatterer.
 
 @titlepage
 @title oef-mode
-@subtitle  mode majeur d'emacs pour éditer des exercices et des documents interactifs
+@subtitle  mode majeur d'Emacs pour éditer des exercices et des documents interactifs
 @subtitle au format « online exercise format » (version alpha du 05 février 2021)
 @author Raoul Hatterer
 
@@ -65,7 +65,7 @@ Copyright @copyright{} 2017 - 2020 Raoul Hatterer.
 
 @menu
 * Introduction::                Commencer
-* Index::                       Complete index.
+* Index::                       Index
 @end menu
 
 @c --------------------------------------------------------------------------------
@@ -73,12 +73,12 @@ Copyright @copyright{} 2017 - 2020 Raoul Hatterer.
 @node Introduction
 @chapter Introduction
 
-Le présent manuel est disponible au format PDF, mais il est également intégré, une fois le package oef-mode installé, au système d'information d'emacs accessible par le raccourci @kbd{C-h i}.  
+Le présent manuel est disponible au format PDF, mais il est également intégré, une fois le package oef-mode installé, au système d'information d'Emacs accessible par le raccourci @kbd{C-h i}.  
 
 
 @menu
 * Résumé::                      Bref résumé de ce que permet oef-mode
-* Installations::               Installer emacs, el-get, use-package, oef-mode
+* Installations::               Installer Emacs, el-get, use-package, oef-mode
 * Activation::                  Comment activer oef-mode pour certains buffers
 * Retours::                     Rapporter des bugs, des idées, des patchs...
 @end menu
@@ -95,7 +95,7 @@ Il propose un menu et des raccourcis permettant d'accéder aux commandes, foncti
 @node Installation d'emacs
 @subsection Installation d'emacs
 
-Cette partie est à destination des lecteurs du document PDF qui, connaissant peut-être déjà Wims et le format OEF, souhaiteraient tester @command{oef-mode}. Ils trouveront ici des indications pour installer emacs.
+Cette partie est à destination des lecteurs du document PDF qui, connaissant peut-être déjà Wims et le format OEF, souhaiteraient tester @command{oef-mode}. Ils trouveront ici des indications pour installer Emacs.
 
 @c Suivre les explications données ici  @url{http://ergoemacs.org/emacs/which_emacs.html}
 @menu
@@ -114,7 +114,7 @@ Cette partie est à destination des lecteurs du document PDF qui, connaissant pe
 @item @command{emacs-$VERSION-x86_64-installer.exe} si votre système d'exploitation est 64 bits
 @item @command{emacs-$VERSION-i686-installer.exe} si votre système d'exploitation est 32 bits
 @end itemize
-@item Lancez le programme d'installation pour installer emacs sur votre ordinateur.
+@item Lancez le programme d'installation pour installer Emacs sur votre ordinateur.
 @end itemize
 
 @node Sous Mac OSX
@@ -134,7 +134,7 @@ Sous mac OSX, vous pouvez installer la version que vous trouverez ici: @url{http
 
 Le fichier d'initialisation est un fichier qu'Emacs charge lorsqu'il démarre. Il est utilisé pour personnaliser Emacs.
 
-Sous linux et Mac, par défaut, Emacs cherche le fichier d'initialisation aux emplacements suivants :
+Sous Linux et Mac, par défaut, Emacs cherche le fichier d'initialisation aux emplacements suivants :
 
 @itemize
 @item @file{~/.emacs}
@@ -150,13 +150,13 @@ Sous Microsoft Windows:
 @end itemize
 
 @node Gestionnaires de packages
-@subsubsection Gestionnaires de packages
+@subsection Gestionnaires de packages
 
-@command{oef-mode} ne faisant pas partie des paquets pré-installées avec emacs, il vous faudra l'installer.
- De plus, @code{oef-mode} n'étant pas répertorié dans @emph{elpa}, le dépôt de package accessible par défault dans emacs, je recommande d'installer el-get @url{http://wikemacs.org/wiki/El-get} un gestionnaire de package alternatif car le package @code{oef-mode} s'y trouve répertorié.
+Le paquet (package) @command{oef-mode} ne faisant pas partie des paquets pré-installés avec emacs, il vous faudra l'installer.
+ De plus, @code{oef-mode} n'étant pas répertorié dans @emph{elpa}, le dépôt de packages accessible par défaut dans emacs, je recommande d'installer el-get @url{http://wikemacs.org/wiki/El-get} un gestionnaire de package alternatif car le package @code{oef-mode} s'y trouve répertorié. Pour cela, nous utiliserons un fichier d'initialisation chargé en tout premier appelé @file{early-init.el}. 
 
 
-Dans Emacs saisir la commande @kbd{C-x C-f} @code{Find file:} @file{~/.emacs.d/early-init.el} (ou @file{%HOMEPATH%\AppData\Roaming\.emacs.d\early-init.el} sous Windows) pour créer un nouveau buffer nommé @file{early-init.el} et placez y le code suivant destiné à installer le gestionnaire de package @code{el-get}: 
+Dans Emacs saisir la commande @kbd{C-x C-f} @code{Find file:} @file{~/.emacs.d/early-init.el} (ou @file{%HOMEPATH%\AppData\Roaming\.emacs.d\early-init.el} sous Microsoft Windows) pour créer un nouveau buffer nommé @file{early-init.el} et placez y le code suivant (@kbd{C-y} permet de coller(yank) dans Emacs) destiné à installer le gestionnaire de package @code{el-get}: 
 
 @cartouche
 @lisp
@@ -176,18 +176,35 @@ Dans Emacs saisir la commande @kbd{C-x C-f} @code{Find file:} @file{~/.emacs.d/e
 @end lisp
 @end cartouche
 
+@itemize
+@item Sélectionner l'ensemble du code avec @kbd{C-x h}
+@item Indenter le code avec @kbd{M-x:} @code{indent-region}
+@item Sauvegardez avec @kbd{C-x C-s}
+@item Quittez Emacs avec @kbd{C-x C-c}
+@end itemize
 
+Microsoft Windows:
+@itemize
+@item Lancez Emacs. Patientez le temps de l'installation de @code{el-get}. Quittez Emacs. Relancez Emacs.
+@end itemize
 
+Mac OSX:
+@itemize
+@item Lancez Emacs à partir du Terminal:
 
+(@command{/Applications/Emacs.app/Contents/MacOS/Emacs &}).
 
+@item Patientez le temps de l'installation de @code{el-get}. Quittez Emacs. Relancez Emacs.
+@end itemize
 
+@node Configurer le clavier du Mac
+@subsection Configurer le clavier du Mac
 
+Vous vous apercevrez que, par défaut, les deux touches @kbd{option} ont été configurées en touche Meta @kbd{M-} pour emacs ce qui fait que vous avez perdu l'accès aux accolades (@kbd{option parenthèse}), aux crochets (@kbd{option shift parenthèse}) et aux autres caractères auxquels vous aviez accès par le biais de la touche @kbd{option}.
 
-Si vous lisez ces lignes en français, le clavier de votre Mac est probablement en français. Vous vous apercevrez que, par défaut, les deux touches @kbd{option} ont été configurées en touche Meta @kbd{M-} pour emacs ce qui fait que vous avez perdu l'accès aux accolades (@kbd{option parenthèse}), aux crochets (@kbd{option shift parenthèse}) et aux autres caractères auxquels vous aviez accès par le biais de la touche @kbd{option}.
+Éditer le fichier d'initialisation (@samp{~/.emacs.d/init.el}) et rajouter les lignes suivantes qui permettent d'avoir la touche @kbd{option} de gauche qui agit comme @kbd{Meta} tandis que la touche @kbd{option} de droite reste inchangée pour pouvoir accéder à des caractères comme les accolades ou les crochets. 
 
-Éditer le fichier d'initialisation (@samp{~/.emacs.d/init.el}) et rajouter les lignes suivantes qui permettent d'avoir la touche @kbd{option} de gauche qui agit comme @kbd{Meta} tandis que la touche @kbd{option} de droite reste inchangée pour pouvoir accéder à des caractères comme les acolades ou les crochets. 
-
-Pour cela, tapez @kbd{C-x C-f} (c'est-à-dire @kbd{control} x suivi de @kbd{control} f) dans emacs.
+Pour cela, tapez @kbd{C-x C-f} (c'est-à-dire @kbd{control} x suivi de @kbd{control} f) dans Emacs.
 
 @command{Find file:} apparaît sous la fenêtre. Saisir @samp{~/.emacs.d/init.el} et valider.
 
@@ -195,37 +212,30 @@ Coller le code suivant, sans indentation:
 
 @cartouche
 @lisp
-;;; mac specific bindings
+;; mac specific bindings
 (setq mac-right-command-modifier nil ; cmd de droite = cmd
       mac-command-modifier nil ; cmd de gauche = cmd
       mac-option-modifier 'meta ; option de gauche = meta
-      mac-right-option-modifier nil ; opt de droite = car speciaux
+      mac-right-option-modifier nil ; option de droite = car. spéciaux
       mac-control-modifier 'control ; control de gauche = control 
       ns-function-modifier 'hyper ; fn key = hyper
-      ns-right-alternate-modifier nil); cette touche n'existe pas.
+      ns-right-alternate-modifier nil); cette touche n'existe pas
 
-;;; INDENT-REGION on OSX 
+;; INDENT-REGION on OSX 
 (global-set-key (kbd "C-:") 'indent-region)
 
-(package-initialize)
+(load-library "iso-transl") ; pour avoir l’accent circonflexe
 
-(define-coding-system-alias 'UTF-8  'utf-8)
-(load-library "iso-transl") ; pour avoir l'accent circonflexe
+;; exec-path
+(add-to-list 'exec-path "/usr/local/bin")
 
-;;; Les fichiers qu'on supprime dans emacs vont dans la corbeille
-(use-package osx-trash
-  :ensure t
-  :config
-  (osx-trash-setup)
-  (setq delete-by-moving-to-trash t)  
-  )
+;; load-path
+(add-to-list 'load-path "~/.emacs.d/lisp")
+
 @end lisp
 @end cartouche
 
-Sauvegardez avec @kbd{C-x C-s} puis quitter emacs (@kbd{C-x C-c}), relancez emacs et vérifiez que vous pouvez avoir les accolades. 
-
-
-
+Sauvegardez avec @kbd{C-x C-s} puis quitter Emacs (@kbd{C-x C-c}), relancez Emacs et vérifiez que vous pouvez avoir les accolades. 
 
 
 @node Installer oef-mode
@@ -242,19 +252,6 @@ Sauvegardez avec @kbd{C-x C-s} puis quitter emacs (@kbd{C-x C-c}), relancez emac
 
 @cartouche
 @lisp
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-;; installation initiale si elle est requise
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-    (url-retrieve-synchronously
-"https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el"
-        )
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
-
-(add-to-list 'el-get-recipe-path
-             "~/.emacs.d/el-get-user/recipes")
-(el-get 'sync) 
 
 ;; Vérification des mises à jour
 (setq my:el-get-packages
@@ -305,8 +302,7 @@ Par convention, le répertoire @file{"~/.emacs.d/lisp/"} est la destination des 
 @item Quitter et relancer emacs. 
 @end enumerate
 
-La dernière version vient d'être installée. Pour faire des mise à jour dans le futur, il y a la commande @code{M-x: el-get-update oef-mode}
-
+La dernière version vient d'être installée. Pour faire des mise à jour dans le futur, il y a la commande @code{M-x:}  @command{el-get-update oef-mode}
 @end itemize
 
 @node Activation
