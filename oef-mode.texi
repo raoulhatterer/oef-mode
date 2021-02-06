@@ -156,7 +156,7 @@ Sous Microsoft Windows:
  De plus, @code{oef-mode} n'étant pas répertorié dans @emph{elpa}, le dépôt de package accessible par défault dans emacs, je recommande d'installer el-get @url{http://wikemacs.org/wiki/El-get} un gestionnaire de package alternatif car le package @code{oef-mode} s'y trouve répertorié.
 
 
-Dans Emacs saisir la commande @kbd{C-x C-f} @code{Find file:} @file{~/.emacs.d/early-init.el}  pour créer un nouveau buffer nommé @file{early-init.el} et placez y le code suivant destiné à installer le gestionnaire de package @code{el-get}: 
+Dans Emacs saisir la commande @kbd{C-x C-f} @code{Find file:} @file{~/.emacs.d/early-init.el} (ou @file{%HOMEPATH%\AppData\Roaming\.emacs.d\early-init.el} sous Windows) pour créer un nouveau buffer nommé @file{early-init.el} et placez y le code suivant destiné à installer le gestionnaire de package @code{el-get}: 
 
 @cartouche
 @lisp

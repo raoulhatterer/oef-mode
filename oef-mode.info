@@ -182,9 +182,10 @@ gestionnaire de package alternatif car le package ‘oef-mode’ s’y trouve
 répertorié.
 
    Dans Emacs saisir la commande ‘C-x C-f’ ‘Find file:’
-‘~/.emacs.d/early-init.el’ pour créer un nouveau buffer nommé
-‘early-init.el’ et placez y le code suivant destiné à installer le
-gestionnaire de package ‘el-get’:
+‘~/.emacs.d/early-init.el’ (ou
+‘%HOMEPATH%\AppData\Roaming\.emacs.d\early-init.el’ sous Windows) pour
+créer un nouveau buffer nommé ‘early-init.el’ et placez y le code
+suivant destiné à installer le gestionnaire de package ‘el-get’:
 
      (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
@@ -360,10 +361,10 @@ Node: Sous Mac OSX4540
 Node: Sous Linux4795
 Node: Fichier d'initialisation4960
 Node: Gestionnaires de packages5748
-Node: Installer oef-mode9066
-Node: Activation11918
-Node: Retours12135
-Node: Index12237
+Node: Installer oef-mode9140
+Node: Activation11992
+Node: Retours12209
+Node: Index12311
 
 End Tag Table
 
