@@ -106,6 +106,7 @@ Cette partie est à destination des lecteurs du document PDF qui, connaissant pe
 
 
 @node Sous Windows
+@subsubsection Sous Windows
 @itemize
 @item Déterminez si votre Microsoft Wimdows est 32 ou 64 bits: pour cela, appuyez sur la touche @key{Window} ; commencez à taper ``Afficher le système d'exploitation exécuté par votre ordinateur'' dans la zone de recherche et sélectionnez ce choix.  Cela fait apparaître une fenêtre dans laquelle le type de système (32 ou 64 bits) est indiqué.
 @item Rendez-vous ensuite à la page de téléchargement: @url{https://ftp.gnu.org/pub/gnu/emacs/windows/emacs-27/} et téléchargez l'installateur:
@@ -117,19 +118,70 @@ Cette partie est à destination des lecteurs du document PDF qui, connaissant pe
 @end itemize
 
 @node Sous Mac OSX
-@itemize
-@item Si vous êtes sous Linux vous saurez certainement installer emacs.
-@item Sous mac OSX, vous pouvez installer la version que vous trouverez ici: @url{https://emacsformacosx.com}
-@end itemize
+@subsubsection Sous Mac OSX
+Sous mac OSX, vous pouvez installer la version que vous trouverez ici: @url{https://emacsformacosx.com}
+
 
 @node Sous Linux
+@subsubsection Sous Linux
+@command{sudo apt-get install emacs27}
 
 
+
+
+@node Fichier d'initialisation
+@subsection Fichier d'initialisation
+
+Le fichier d'initialisation est un fichier qu'Emacs charge lorsqu'il démarre. Il est utilisé pour personnaliser Emacs.
+
+Sous linux et Mac, par défaut, Emacs cherche le fichier d'initialisation aux emplacements suivants :
+
+@itemize
+@item @file{~/.emacs}
+@item @file{~/.emacs.el}
+@item @file{~/.emacs.d/init.el} (depuis 2010 il s'agit de l'emplacement à privilégier)
+@end itemize
+
+Sous Microsoft Windows:
+
+@itemize
+@item @file{%HOMEPATH%\AppData\Roaming\.emacs.d\init.el} (emplacement à privilégier)
+@item @file{%HOMEPATH%\AppData\Roaming\.emacs}
+@end itemize
 
 @node Gestionnaires de packages
+@subsubsection Gestionnaires de packages
+
+@command{oef-mode} ne faisant pas partie des paquets pré-installées avec emacs, il vous faudra l'installer.
+ De plus, @code{oef-mode} n'étant pas répertorié dans @emph{elpa}, le dépôt de package accessible par défault dans emacs, je recommande d'installer el-get @url{http://wikemacs.org/wiki/El-get} un gestionnaire de package alternatif car le package @code{oef-mode} s'y trouve répertorié.
 
 
-@code{oef-mode} ne faisant pas partie des librairies pré-installées avec emacs, il vous faudra l'installer. Pour cela, je recommande d'utiliser el-get @url{http://wikemacs.org/wiki/El-get}
+Dans Emacs saisir la commande @kbd{C-x C-f} @code{Find file:} @file{~/.emacs.d/early-init.el}  pour créer un nouveau buffer nommé @file{early-init.el} et placez y le code suivant destiné à installer le gestionnaire de package @code{el-get}: 
+
+@cartouche
+@lisp
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+
+(unless (require 'el-get nil 'noerror)
+  (require 'package)
+  (add-to-list 'package-archives
+               '("melpa" . "http://melpa.org/packages/"))
+  (package-refresh-contents)
+  (package-initialize)
+  (package-install 'el-get)
+  (require 'el-get))
+
+(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
+(el-get 'sync)
+@end lisp
+@end cartouche
+
+
+
+
+
+
+
 
 Si vous lisez ces lignes en français, le clavier de votre Mac est probablement en français. Vous vous apercevrez que, par défaut, les deux touches @kbd{option} ont été configurées en touche Meta @kbd{M-} pour emacs ce qui fait que vous avez perdu l'accès aux accolades (@kbd{option parenthèse}), aux crochets (@kbd{option shift parenthèse}) et aux autres caractères auxquels vous aviez accès par le biais de la touche @kbd{option}.
 
@@ -179,7 +231,7 @@ Sauvegardez avec @kbd{C-x C-s} puis quitter emacs (@kbd{C-x C-c}), relancez emac
 @node Installer oef-mode
 @subsection Installer oef-mode
 
-@code{oef-mode} ne faisant pas partie des librairies pré-installées avec emacs, il vous faudra l'installer. Pour cela, je recommande d'utiliser el-get @url{http://wikemacs.org/wiki/El-get}
+
 
 @itemize @bullet
 @item Si vous souhaitez utiliser @code{el-get}:
