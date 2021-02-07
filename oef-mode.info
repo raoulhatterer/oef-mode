@@ -60,7 +60,6 @@ d’Emacs accessible par le raccourci ‘C-h i’.
 * Résumé::                      Bref résumé de ce que permet oef-mode
 * Installations::               Installer Emacs, el-get, use-package, oef-mode
 * Activation::                  Comment activer oef-mode pour certains buffers
-* Retours::                     Rapporter des bugs, des idées, des patchs...
 
 
 File: oef-mode.info,  Node: Résumé,  Next: Installations,  Up: Introduction
@@ -87,6 +86,8 @@ File: oef-mode.info,  Node: Installations,  Next: Activation,  Prev: Résumé,  
 * Gestionnaires de packages::
 * Configurer le clavier du Mac::
 * Installer oef-mode::
+* Installer oef-mode manuellement::
+* Autres installations::
 
 
 File: oef-mode.info,  Node: Installation d'emacs,  Next: Fichier d'initialisation,  Up: Installations
@@ -269,84 +270,96 @@ et valider.
    Sauvegardez avec ‘C-x C-s’ puis quitter Emacs (‘C-x C-c’), relancez
 Emacs et vérifiez que vous pouvez avoir les accolades.
 
+   Si un fichier ‘~/.emacs’ a été créé dans votre dossier personnel, il
+faut l’effacer car il prend le pas sur le fichier ‘~/.emacs.d/init.el’.
+
 
-File: oef-mode.info,  Node: Installer oef-mode,  Prev: Configurer le clavier du Mac,  Up: Installations
+File: oef-mode.info,  Node: Installer oef-mode,  Next: Installer oef-mode manuellement,  Prev: Configurer le clavier du Mac,  Up: Installations
 
 1.2.5 Installer oef-mode
 ------------------------
 
-   • Si vous souhaitez utiliser ‘el-get’:
+   • Créer ou éditer le fichier d’initialisation (‘~/.emacs.d/init.el’)
+     et rajouter les lignes suivantes qui permettent d’installer
+     ‘oef-mode’, et ‘use-package’, s’ils ne le sont pas déjà:
 
-       1. Éditer le fichier d’initialisation (‘~/.emacs.d/init.el’) et
-          rajouter les lignes suivantes qui permettent d’installer
-          ‘el-get’, use-package, company-mode et oef-mode s’ils ne le
-          sont pas déjà :
+          (setq my:el-get-packages
+                '(cl-lib
+          	el-get
+                  oef-mode
+                  use-package
+                  ))
 
+          (el-get 'sync my:el-get-packages)
 
-               ;; Vérification des mises à jour
-               (setq my:el-get-packages
-                     '( el-get
-               	 use-package
-               	 company-mode
-               	 oef-mode
-               	 ))
+          (use-package company
+          	     :ensure t
+          	     :config
+          (add-hook 'after-init-hook 'global-company-mode)
+          	     )
+          ;; global activation of the unicode symbol completion
 
-               (el-get 'sync my:el-get-packages)
+          ;; Permet d’activer le mode oef-mode quand on visite les
+          ;;fichiers avec l’extension .oef
+          (load "oef-mode.el")
 
+   • Quitter et relancer emacs
 
-               ;; Active la complétion
-               (use-package company
-                 :ensure t
-                 :config
-                 (add-hook 'after-init-hook 'global-company-mode)
-                 )
-               ;; global activation of the unicode symbol completion
-
-               ;; Permet d'activer le mode oef-mode quand on visite les
-               ;;fichiers avec l'extension .oef
-               (load "oef-mode.el") ;; load the packaged named oef-mode
-
-       2. Quitter et relancer emacs
-
-   • Si vous n’utilisez pas el-get:
-
-     Par convention, le répertoire ‘"~/.emacs.d/lisp/"’ est la
-     destination des bibliothèques installées de façon manuelle.
-
-       1. S’il n’existe pas encore, créer le répertoire
-          ‘"~/.emacs.d/lisp/"’
-       2. Télécharger l’archive zip
-          <https://github.com/raoulhatterer/oef-mode/archive/master.zip>,
-          la décompresser dans le répertoire ‘"~/.emacs.d/lisp/"’
-       3. Ajouter le code suivant à votre fichier ‘~/.emacs.d/init.el’
-          avant la ligne ‘(package-initialize)’.
-
-               ;; Tell emacs where is your personal elisp lib dir
-               (add-to-list 'load-path "~/.emacs.d/lisp/oef-mode")
-               (load "oef-mode.el") ;; load the package named oef-mode
-       4. Quitter et relancer emacs.
-
-     La dernière version vient d’être installée.  Pour faire des mise à
-     jour dans le futur, il y a la commande ‘M-x:’ ‘el-get-update
-     oef-mode’
+   La dernière version ‘oef-mode’ vient d’être installée.  Pour faire
+des mise à jour dans le futur, il y a la commande ‘M-x:’ ‘el-get-update
+oef-mode’
 
 
-File: oef-mode.info,  Node: Activation,  Next: Retours,  Prev: Installations,  Up: Introduction
+File: oef-mode.info,  Node: Installer oef-mode manuellement,  Next: Autres installations,  Prev: Installer oef-mode,  Up: Installations
+
+1.2.6 Installer oef-mode manuellement
+-------------------------------------
+
+Si vous utilisiez déjà Emacs, sans ‘el-get’ ni ‘use-package’, une
+alternative est d’installer ‘oef-mode’ manuellement:
+
+   • S’il n’existe pas encore, créer le répertoire ‘"~/.emacs.d/lisp/"’
+   • Télécharger l’archive zip
+     <https://github.com/raoulhatterer/oef-mode/archive/master.zip>, la
+     décompresser dans le répertoire ‘"~/.emacs.d/lisp/"’
+   • Ajouter le code suivant à votre fichier ‘~/.emacs.d/init.el’ ou
+     ‘.emacs’ avant la ligne ‘(package-initialize)’.
+
+          ;; Tell emacs where is your personal elisp lib dir
+          (add-to-list 'load-path "~/.emacs.d/lisp/oef-mode")
+          (load "oef-mode.el") ;; load the package named oef-mode
+
+   • Quitter et relancer emacs.
+
+   Par convention, le répertoire ‘"~/.emacs.d/lisp/"’ est la destination
+des bibliothèques installées de façon manuelle.
+
+
+File: oef-mode.info,  Node: Autres installations,  Prev: Installer oef-mode manuellement,  Up: Installations
+
+1.2.7 Autres installations
+--------------------------
+
+   • Les fichiers qu’on supprime dans emacs vont dans la corbeille du
+     Mac
+
+          ;;; Les fichiers qu’on supprime dans emacs vont dans la corbeille
+          (use-package osx-trash
+          	     :ensure t
+          	     :config
+                       (osx-trash-setup)
+                       (setq delete-by-moving-to-trash t)
+          	     )
+
+
+File: oef-mode.info,  Node: Activation,  Prev: Installations,  Up: Introduction
 
 1.3 Activation
 ==============
 
-Here is a numbered list.
-
-  1. This is the first item.
-
-  2. This is the second item.
-
-
-File: oef-mode.info,  Node: Retours,  Prev: Activation,  Up: Introduction
-
-1.4 Retours
-===========
+   • Pour activer et déactiver le mode: ‘M-x: oef-mode’
+   • Quand vous créez un fichier avec l’extension ‘.oef’ le mode
+     s’active automatiquement.
 
 
 File: oef-mode.info,  Node: Index,  Prev: Introduction,  Up: Top
@@ -354,24 +367,38 @@ File: oef-mode.info,  Node: Index,  Prev: Introduction,  Up: Top
 Index
 *****
 
+ [index ]
+* Menu:
+
+* gestionnnaire, package:                Gestionnaires de packages.
+                                                                (line 6)
+* initialisation, init:                  Fichier d'initialisation.
+                                                                (line 6)
+* installation:                          Installations.         (line 5)
+* installation, emacs:                   Installation d'emacs.  (line 6)
+* installation, emacs, Linux:            Sous Linux.            (line 6)
+* installation, emacs, Mac, OSX:         Sous Mac OSX.          (line 6)
+* installation, emacs, Windows:          Sous Windows.          (line 6)
+
 
 
 Tag Table:
 Node: Top845
 Node: Introduction1673
-Node: Résumé2307
-Node: Installations2673
-Node: Installation d'emacs2960
-Node: Sous Windows3606
-Node: Sous Mac OSX4593
-Node: Sous Linux4848
-Node: Fichier d'initialisation5013
-Node: Gestionnaires de packages5768
-Node: Configurer le clavier du Mac7881
-Node: Installer oef-mode9926
-Node: Activation12178
-Node: Retours12395
-Node: Index12497
+Node: Résumé2229
+Node: Installations2595
+Node: Installation d'emacs2943
+Node: Sous Windows3589
+Node: Sous Mac OSX4576
+Node: Sous Linux4831
+Node: Fichier d'initialisation4996
+Node: Gestionnaires de packages5751
+Node: Configurer le clavier du Mac7864
+Node: Installer oef-mode10068
+Node: Installer oef-mode manuellement11266
+Node: Autres installations12368
+Node: Activation12898
+Node: Index13183
 
 End Tag Table
 
