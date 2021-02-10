@@ -44,7 +44,7 @@ Copyright @copyright{} 2017 - 2020 Raoul Hatterer.
 @titlepage
 @title oef-mode
 @subtitle  mode majeur d'Emacs pour éditer des exercices et des documents interactifs
-@subtitle au format « online exercise format » (version alpha du 05 février 2021)
+@subtitle au format « online exercise format » (version alpha du 07 février 2021)
 @author Raoul Hatterer
 
 
@@ -80,7 +80,6 @@ Le présent manuel est disponible au format PDF, mais il est également intégr�
 * Résumé::                      Bref résumé de ce que permet oef-mode
 * Installations::               Installer Emacs, el-get, use-package, oef-mode
 * Activation::                  Comment activer oef-mode pour certains buffers
-* Retours::                     Rapporter des bugs, des idées, des patchs...
 @end menu
 
 @node Résumé
@@ -91,9 +90,12 @@ Il propose un menu et des raccourcis permettant d'accéder aux commandes, foncti
 
 @node Installations
 @section  Installations
+@cindex installation
+
 
 @node Installation d'emacs
 @subsection Installation d'emacs
+@cindex installation, emacs
 
 Cette partie est à destination des lecteurs du document PDF qui, connaissant peut-être déjà Wims et le format OEF, souhaiteraient tester @command{oef-mode}. Ils trouveront ici des indications pour installer Emacs.
 
@@ -107,6 +109,8 @@ Cette partie est à destination des lecteurs du document PDF qui, connaissant pe
 
 @node Sous Windows
 @subsubsection Sous Windows
+@cindex installation, emacs, Windows
+
 @itemize
 @item Déterminez si votre Microsoft Wimdows est 32 ou 64 bits: pour cela, appuyez sur la touche @key{Window} ; commencez à taper ``Afficher le système d'exploitation exécuté par votre ordinateur'' dans la zone de recherche et sélectionnez ce choix.  Cela fait apparaître une fenêtre dans laquelle le type de système (32 ou 64 bits) est indiqué.
 @item Rendez-vous ensuite à la page de téléchargement: @url{https://ftp.gnu.org/pub/gnu/emacs/windows/emacs-27/} et téléchargez l'installateur:
@@ -119,11 +123,14 @@ Cette partie est à destination des lecteurs du document PDF qui, connaissant pe
 
 @node Sous Mac OSX
 @subsubsection Sous Mac OSX
+@cindex installation, emacs, Mac, OSX
+
 Sous mac OSX, vous pouvez installer la version que vous trouverez ici: @url{https://emacsformacosx.com}
 
 
 @node Sous Linux
 @subsubsection Sous Linux
+@cindex installation, emacs, Linux
 @command{sudo apt-get install emacs27}
 
 
@@ -131,6 +138,7 @@ Sous mac OSX, vous pouvez installer la version que vous trouverez ici: @url{http
 
 @node Fichier d'initialisation
 @subsection Fichier d'initialisation
+@cindex initialisation, init
 
 Le fichier d'initialisation est un fichier qu'Emacs charge lorsqu'il démarre. Il est utilisé pour personnaliser Emacs.
 
@@ -151,6 +159,7 @@ Sous Microsoft Windows:
 
 @node Gestionnaires de packages
 @subsection Gestionnaires de packages
+@cindex gestionnnaire, package
 
 Le paquet (package) @command{oef-mode} ne faisant pas partie des paquets pré-installés avec emacs, il vous faudra l'installer.
  De plus, @code{oef-mode} n'étant pas répertorié dans @emph{elpa}, le dépôt de packages accessible par défaut dans emacs, je recommande d'installer el-get @url{http://wikemacs.org/wiki/El-get} un gestionnaire de package alternatif car le package @code{oef-mode} s'y trouve répertorié. Pour cela, nous utiliserons un fichier d'initialisation chargé en tout premier appelé @file{early-init.el}. 
@@ -237,91 +246,119 @@ Coller le code suivant, sans indentation:
 
 Sauvegardez avec @kbd{C-x C-s} puis quitter Emacs (@kbd{C-x C-c}), relancez Emacs et vérifiez que vous pouvez avoir les accolades. 
 
+Si un fichier @file{~/.emacs} a été créé dans votre dossier personnel, il faut l'effacer car il prend le pas sur le fichier @file{~/.emacs.d/init.el}. 
+
+
 
 @node Installer oef-mode
 @subsection Installer oef-mode
 
 
 
-@itemize @bullet
-@item Si vous souhaitez utiliser @code{el-get}:
+@itemize 
 
-@enumerate
 
-@item Éditer le fichier d'initialisation (@code{~/.emacs.d/init.el}) et rajouter les lignes suivantes qui permettent d'installer @code{el-get}, use-package, company-mode et oef-mode s'ils ne le sont pas déjà :
+
+
+@item Créer ou éditer le fichier d'initialisation (@code{~/.emacs.d/init.el}) et rajouter les lignes suivantes qui permettent d'installer @code{oef-mode}, et @code{use-package},  s'ils ne le sont pas déjà:
 
 @cartouche
 @lisp
-
-;; Vérification des mises à jour
 (setq my:el-get-packages
-      '( el-get
-	 use-package
-	 company-mode
-	 oef-mode
-	 ))
+      '(cl-lib
+	el-get
+        oef-mode	
+        use-package            
+        ))
 
-(el-get 'sync my:el-get-packages) 
+(el-get 'sync my:el-get-packages)
 
-
-;; Active la complétion
 (use-package company
-  :ensure t
-  :config
-  (add-hook 'after-init-hook 'global-company-mode)
-  )
+	     :ensure t
+	     :config
+(add-hook 'after-init-hook 'global-company-mode)
+	     )
 ;; global activation of the unicode symbol completion 
 
-;; Permet d'activer le mode oef-mode quand on visite les
-;;fichiers avec l'extension .oef
-(load "oef-mode.el") ;; load the packaged named oef-mode
+;; Permet d’activer le mode oef-mode quand on visite les
+;;fichiers avec l’extension .oef
+(load "oef-mode.el")
 @end lisp
 @end cartouche
 
 
 @item Quitter et relancer emacs
-
-@end enumerate
-
+@end itemize
 
 
-@item Si vous n'utilisez pas el-get:
+La dernière version @code{oef-mode} vient d'être installée. Pour faire des mise à jour dans le futur, il y a la commande @code{M-x:}  @command{el-get-update oef-mode}
 
-Par convention, le répertoire @file{"~/.emacs.d/lisp/"} est la destination des bibliothèques installées de façon manuelle.
 
-@enumerate
+
+@node Installer oef-mode manuellement
+@subsection Installer oef-mode manuellement
+
+Si vous utilisiez déjà Emacs, sans @code{el-get} ni @code{use-package}, une alternative est d'installer @code{oef-mode} manuellement:
+
+@itemize
 @item S'il n'existe pas encore, créer le répertoire @code{"~/.emacs.d/lisp/"}
 @item Télécharger l'archive zip @url{https://github.com/raoulhatterer/oef-mode/archive/master.zip}, la décompresser dans le répertoire  @file{"~/.emacs.d/lisp/"}
-@item Ajouter le code suivant à votre fichier @file{~/.emacs.d/init.el} avant la ligne @samp{(package-initialize)}.
+@item Ajouter le code suivant à votre fichier @file{~/.emacs.d/init.el} ou @code{.emacs} avant la ligne @samp{(package-initialize)}.
 
+@cartouche
 @lisp
 ;; Tell emacs where is your personal elisp lib dir
 (add-to-list 'load-path "~/.emacs.d/lisp/oef-mode")
 (load "oef-mode.el") ;; load the package named oef-mode
 @end lisp
-@item Quitter et relancer emacs. 
-@end enumerate
+@end cartouche
 
-La dernière version vient d'être installée. Pour faire des mise à jour dans le futur, il y a la commande @code{M-x:}  @command{el-get-update oef-mode}
+@item Quitter et relancer emacs. 
 @end itemize
+
+
+Par convention, le répertoire @file{"~/.emacs.d/lisp/"} est la destination des bibliothèques installées de façon manuelle.
+
+
+
+@node Autres installations
+@subsection Autres installations
+
+
+
+@itemize
+@item Les fichiers qu’on supprime dans emacs vont dans la corbeille du Mac
+
+@cartouche
+@lisp
+;;; Les fichiers qu’on supprime dans emacs vont dans la corbeille
+(use-package osx-trash
+	     :ensure t
+	     :config
+             (osx-trash-setup)
+             (setq delete-by-moving-to-trash t)
+	     )
+@end lisp
+@end cartouche
+
+
+
+@end itemize
+
+
+
+
+
+
 
 @node Activation
 @section  Activation
 
+@itemize
+@item Pour activer et déactiver le mode: @kbd{M-x: oef-mode}
+@item Quand vous créez un fichier avec l'extension @code{.oef} le mode s'active automatiquement.
+@end itemize
 
-Here is a numbered list.
-
-@enumerate
-@item
-This is the first item.
-
-@item
-This is the second item.
-@end enumerate
-
-
-@node Retours
-@section Retours
 
 
 
@@ -337,39 +374,6 @@ This is the second item.
  
 
 
-
-
-@c @node MacOSX,  , Linux, Installation
-@c @comment  node-name,  next,  previous,  up
-
-@c @section MacOSX
-
-@c * aquamacs (OSX):
-@c If you want aquamacs to load the file 'oef-mode.el' when it starts, put the file 'oef-mode.el'
-@c in the dir "~/Library/Preferences/Aquamacs Emacs/Packages/lisp/"
-@c (create that directory if it doesn't exist).
-@c Then put the following (without ;;) in your aquamacs init file
-@c "~/Library/Preferences/Aquamacs Emacs/Preferences.el"
-@c not in  ~/.emacs  witch is deprecated -- meaning 'should not be used for new installations,
-@c but will continue to be supported' -- in Aquamacs on OS X)
-@c vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-@c  (add-to-list 'load-path "~/Library/Preferences/Aquamacs Emacs/Packages/lisp/oef-mode/")
-@c  ;Tell Emacs where is your personal elisp lib dir
-@c  (load "oef-mode")
-@c  ; load the packaged named oef-mode (best not to include the ending “.el” or “.elc”)
-@c ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-@c before the line (package-initialize).
-
-@c How to Debug Aquamacs if you need to:
-@c Past the following command in a terminal:
-@c /Applications/Aquamacs.app/Contents/MacOS/Aquamacs -nw --debug-init
-
-
-
-@c @comment  node-name,  next,  previous,  up
-
-@c @node Windows
-@c @comment  node-name,  next,  previous,  up
 
 
 @bye
