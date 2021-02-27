@@ -1,4 +1,4 @@
-This is oef-mode.info, produced by makeinfo version 6.7 from
+This is oef-mode.info, produced by texi2any version 6.7 from
 oef-mode.texi.
 
 This is the ‘oef-mode’ manual, version alpha (in french)
@@ -43,10 +43,12 @@ This is the ‘oef-mode’ manual, version alpha (in french)
 * Menu:
 
 * Introduction::                Commencer
+* Le compte Modtool::           Le compte Modtool
+* Les documents Wims::          Les documents Wims
 * Index::                       Index
 
 
-File: oef-mode.info,  Node: Introduction,  Next: Index,  Prev: Top,  Up: Top
+File: oef-mode.info,  Node: Introduction,  Next: Le compte Modtool,  Prev: Top,  Up: Top
 
 1 Introduction
 **************
@@ -362,7 +364,104 @@ File: oef-mode.info,  Node: Activation,  Prev: Installations,  Up: Introduction
      s’active automatiquement.
 
 
-File: oef-mode.info,  Node: Index,  Prev: Introduction,  Up: Top
+File: oef-mode.info,  Node: Le compte Modtool,  Next: Les documents Wims,  Prev: Introduction,  Up: Top
+
+2 Le compte Modtool
+*******************
+
+Pour pouvoir développer des modules avec Modtool il faut demander un
+compte par email au gestionnaire du site.
+
+
+File: oef-mode.info,  Node: Les documents Wims,  Next: Index,  Prev: Le compte Modtool,  Up: Top
+
+3 Les documents Wims
+********************
+
+Il s’agit d’un ensemble de pages HTML (donc essentiellement il faut
+connaître la syntaxe HTML et CSS) dans lesquelles peuvent être incluses
+des données calculées ou dessinées par les logiciels attenant à WIMS
+(des commandes supplémentaires étendant les possibilités d’HTML
+permettent de faire cela).  Les documents peuvent être utilisés pour
+proposer des cours avec des exemples à caractère aléatoire et des liens
+directs vers les exercices.
+
+   L’intérêt à faire un document WIMS plutôt que des pages html est donc
+la possibilité d’inclure des exemples qui peuvent être renouvelés par le
+lecteur.  Cela demande quelquefois un peu de travail mais le résultat en
+vaut la peine !  On peut aussi faire des liens directs sur des
+exercices, ou sur des outils.  Les possibilités de déplier et replier
+(avec \fold) permettent à l’élève de se concentrer sur le plan, sur un
+théorème sans sa démonstration ou au contraire sur sa démonstration.
+
+   Pour homogénéiser la présentation des documents vous pouvez ajouter
+votre style CSS valable pour tout le document : pour cela, aller à
+Propriétés du document et copier votre fichier de style ou son adresse
+url.
+
+   Par exemple,
+     <style>
+     div.cours{
+     background-color : #faffe6;
+     margin : 0 5%;
+     padding : 3%;
+     border-width : thin;
+     }
+     </style>
+
+   Vous pouvez aussi ajouter de la même manière du code JavaScript.  Si
+vous êtes un développeur régulier et soumettez vos modules à la
+distribution, demandez que votre page de style soit incluse dans la
+distribution.
+
+   La commande fold permet de déplier et replier une partie d’un
+document.
+
+   J’ai des applets sur un autre site, comment les intégrer à un
+document ?
+
+   Il suffit de mettre l’adresse url des applets.
+
+   Comment classer les pages d’un document ?
+
+   L’option parent permet d’établir une hiérarchie entre les pages d’un
+document en plus des options usuelles précédent et suivant (par défaut,
+le parent est main).  C’est commode pour gérer des "chapitres" et des
+tables de matières de chapitre.
+
+   Les formules TeX débordent.  Que faire ?
+
+   Il vaut mieux couper les formules TeX un peu longues, \(...)  =
+\(...), plutôt que \(...  = ...).  Cela laisse au navigateur le choix de
+les mettre sur la même ligne ou non selon la taille de la fenêtre.
+
+   Dans un document, comment demander au lecteur d’entrer un paramètre ?
+
+   Voici un exemple où le paramètre à entrer est un entier :
+     \def{integer n = randint(2..9)}
+     \form{.}{exemple}{ n =
+     <input size = "6" name = "parm1" value = "\parm1">
+     <input type = "hidden" value = "OK">
+     }
+     \def{integer value = \parm1}
+     \def{integer n = \value issametext NaN ? \parm1: \value}
+
+   Par défaut, l’entier n sera un entier entre 2 et 9.
+
+   J’ai fait un document dans ma classe, comment le citer ?
+
+   Dans un autre document, si le document cité a le numéro c9 :
+‘\link{c9/main}’ On peut aussi remplacer main le nom d’un autre bloc si
+on veut aller à une page particulière.
+
+   J’ai chargé un fichier pdf, ai fait un copier-coller du lien indiqué
+dans le document et le lien n’apparaît pas sur le nom du fichier.
+
+   Si vous avez fait un copier-coller du lien indiqué, il est possible
+que le blanc ait été mal codé.  Enlevez les blancs et remettez-les !
+
+
+File: oef-mode.info,  Node: Index,  Prev: Les documents Wims,  Up: Top
 
 Index
 *****
@@ -374,7 +473,7 @@ Index
                                                                 (line 6)
 * initialisation, init:                  Fichier d'initialisation.
                                                                 (line 6)
-* installation:                          Installations.         (line 5)
+* installation:                          Installations.         (line 6)
 * installation, emacs:                   Installation d'emacs.  (line 6)
 * installation, emacs, Linux:            Sous Linux.            (line 6)
 * installation, emacs, Mac, OSX:         Sous Mac OSX.          (line 6)
@@ -384,21 +483,23 @@ Index
 
 Tag Table:
 Node: Top845
-Node: Introduction1673
-Node: Résumé2229
-Node: Installations2595
-Node: Installation d'emacs2943
-Node: Sous Windows3589
-Node: Sous Mac OSX4576
-Node: Sous Linux4831
-Node: Fichier d'initialisation4996
-Node: Gestionnaires de packages5751
-Node: Configurer le clavier du Mac7864
-Node: Installer oef-mode10068
-Node: Installer oef-mode manuellement11266
-Node: Autres installations12368
-Node: Activation12898
-Node: Index13183
+Node: Introduction1774
+Node: Résumé2342
+Node: Installations2708
+Node: Installation d'emacs3056
+Node: Sous Windows3702
+Node: Sous Mac OSX4689
+Node: Sous Linux4944
+Node: Fichier d'initialisation5109
+Node: Gestionnaires de packages5864
+Node: Configurer le clavier du Mac7977
+Node: Installer oef-mode10181
+Node: Installer oef-mode manuellement11379
+Node: Autres installations12481
+Node: Activation13011
+Node: Le compte Modtool13296
+Node: Les documents Wims13557
+Node: Index17077
 
 End Tag Table
 

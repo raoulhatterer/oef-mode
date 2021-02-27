@@ -13,6 +13,7 @@
 
 @c Mise à jour du manuel (développement):
 @c -------------------------------------
+@c Mette à jour les menus: Update all menus
 @c Effacer "dir" du répertoire oef-mode avant de faire un push vers Github
 @c Générer le fichier info à partir du Terminal OSX (ou du shell sous emacs mais pas  à partir de eshell):
 @c cd .emacs.d/el-get/oef-mode
@@ -23,9 +24,68 @@
 @c el-get-upate oef-mode
 @c quitter puis relancer emacs
 
-@c Insérer les commandes texinfo dans emacs:
+@c Raccourcis pour insérer les commandes texinfo dans emacs:
 @c -----------------------------------------
 @c https://www.gnu.org/software/texinfo/manual/texinfo/html_node/Inserting.html
+
+@c C-c C-c c
+@c M-x texinfo-insert-@code
+@c Insert @code{}
+
+@c C-c C-c d
+@c M-x texinfo-insert-@dfn
+@c Insert @dfn{}
+
+@c C-c C-c e
+@c M-x texinfo-insert-@end
+@c Insert @end and attempt to insert the correct following word
+
+@c C-c C-c i
+@c M-x texinfo-insert-@item
+@c Insert @item
+
+@c C-c C-c k
+@c M-x texinfo-insert-@kbd
+@c Insert @kbd{}
+
+@c C-c C-c n
+@c M-x texinfo-insert-@node
+@c Insert @node and a comment line listing the sequence for the ‘Next’, ‘Previous’, and ‘Up’ nodes. Leave point after the @node.
+
+@c C-c C-c o
+@c M-x texinfo-insert-@noindent
+@c Insert @noindent and put the cursor at the beginning of the next line.
+
+@c C-c C-c r
+@c M-x texinfo-insert-dwim-@ref
+@c This function and binding were added in Emacs 27.1. Inserts one of @pxref{}, @xref{}, or @ref{} based on the text around point; calling it near an unclosed preceding open parenthesis results in @pxref{}, at the beginning of a sentence or at (point-min) yields @xref{}, any other location (including inside a word), will result in @ref{}. A numeric argument says how many words the braces should surround. Puts the cursor between the braces.
+
+@c C-c C-c s
+@c M-x texinfo-insert-@samp
+@c Insert @samp{} 
+
+@c C-c C-c t
+@c M-x texinfo-insert-@table
+@c Insert @table 
+
+@c C-c C-c v
+@c M-x texinfo-insert-@var
+@c Insert @var{} 
+
+@c C-c C-c x
+@c M-x texinfo-insert-@example
+@c Insert @example 
+
+@c C-c C-c {
+@c M-x texinfo-insert-braces
+@c Insert {} 
+
+@c C-c }
+@c C-c ]
+@c M-x up-list
+
+
+
 
 @copying
 This is the @code{oef-mode} manual, version alpha (in french)
@@ -65,6 +125,8 @@ Copyright @copyright{} 2017 - 2020 Raoul Hatterer.
 
 @menu
 * Introduction::                Commencer
+* Le compte Modtool::           Le compte Modtool
+* Les documents Wims::          Les documents Wims
 * Index::                       Index
 @end menu
 
@@ -92,6 +154,16 @@ Il propose un menu et des raccourcis permettant d'accéder aux commandes, foncti
 @section  Installations
 @cindex installation
 
+
+@menu
+* Installation d'emacs::
+* Fichier d'initialisation::
+* Gestionnaires de packages::
+* Configurer le clavier du Mac::
+* Installer oef-mode::
+* Installer oef-mode manuellement::
+* Autres installations::
+@end menu
 
 @node Installation d'emacs
 @subsection Installation d'emacs
@@ -359,6 +431,113 @@ Par convention, le répertoire @file{"~/.emacs.d/lisp/"} est la destination des 
 @item Quand vous créez un fichier avec l'extension @code{.oef} le mode s'active automatiquement.
 @end itemize
 
+
+
+@c --------------------------------------------------------------------------------
+
+@node Le compte Modtool
+@chapter Le compte Modtool
+
+ Pour pouvoir développer des modules avec Modtool il faut demander un
+compte par email au gestionnaire du site.
+
+
+
+
+
+
+@c --------------------------------------------------------------------------------
+
+@node Les documents Wims
+@chapter Les documents Wims
+
+Il s'agit d'un ensemble de pages HTML (donc essentiellement il faut
+connaître la syntaxe HTML et CSS) dans lesquelles peuvent être incluses des
+données calculées ou dessinées par les logiciels attenant à WIMS (des
+commandes supplémentaires étendant les possibilités d'HTML permettent
+de faire cela). Les documents peuvent être utilisés pour proposer des
+cours avec des exemples à caractère aléatoire et des liens directs
+vers les exercices.
+
+L'intérêt à faire un document WIMS plutôt que des pages html est donc
+la possibilité d'inclure des exemples qui peuvent être renouvelés par
+le lecteur. Cela demande quelquefois un peu de travail mais le
+résultat en vaut la peine ! On peut aussi faire des liens directs sur
+des exercices, ou sur des outils. Les possibilités de déplier et
+replier (avec \fold) permettent à l'élève de se concentrer sur le
+plan, sur un théorème sans sa démonstration ou au contraire sur sa
+démonstration.
+
+
+
+Pour homogénéiser la présentation des documents vous pouvez ajouter
+votre style CSS valable pour tout le document : pour cela, aller à
+Propriétés du document et copier votre fichier de style ou son adresse
+url.
+
+Par exemple,
+@example
+<style>
+div.cours@{
+background-color : #faffe6;
+margin : 0 5%;
+padding : 3%;
+border-width : thin;
+@}
+</style>
+@end example
+
+Vous pouvez aussi ajouter de la même manière du code JavaScript. Si
+vous êtes un développeur régulier et soumettez vos modules à la
+distribution, demandez que votre page de style soit incluse dans la
+distribution.
+
+
+
+La commande fold permet de déplier et replier une partie d'un document.
+
+J'ai des applets sur un autre site, comment les intégrer à un document ?
+
+Il suffit de mettre l'adresse url des applets.
+
+Comment classer les pages d'un document ?
+
+L'option parent permet d'établir une hiérarchie entre les pages d'un document en plus des options usuelles précédent et suivant (par défaut, le parent est main). C'est commode pour gérer des "chapitres" et des tables de matières de chapitre.
+
+Les formules TeX débordent. Que faire ?
+
+Il vaut mieux couper les formules TeX un peu longues, \(...) = \(...), plutôt que \(... = ...). Cela laisse au navigateur le choix de les mettre sur la même ligne ou non selon la taille de la fenêtre.
+
+
+Dans un document, comment demander au lecteur d'entrer un paramètre ?
+
+Voici un exemple où le paramètre à entrer est un entier :
+@example
+\def@{integer n = randint(2..9)@}
+\form@{.@}@{exemple@}@{ n =
+<input size = "6" name = "parm1" value = "\parm1">
+<input type = "hidden" value = "OK">
+@}
+\def@{integer value = \parm1@}
+\def@{integer n = \value issametext NaN ? \parm1: \value@}
+@end example
+
+Par défaut, l'entier n sera un entier entre 2 et 9. 
+
+
+J'ai fait un document dans ma classe, comment le citer ?
+
+Dans un autre document, si le document cité a le numéro c9 :
+@code{\link@{c9/main@}} On peut aussi remplacer main le nom d'un autre bloc si
+on veut aller à une page particulière.
+
+
+J'ai chargé un fichier pdf, ai fait un copier-coller du lien indiqué
+dans le document et le lien n'apparaît pas sur le nom du fichier.
+
+
+Si vous avez fait un copier-coller du lien indiqué, il est possible
+que le blanc ait été mal codé. Enlevez les blancs et remettez-les !
 
 
 

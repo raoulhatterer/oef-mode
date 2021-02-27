@@ -1328,7 +1328,7 @@ This function call `oef-add-variable-as-keyword-for-completion'."
   )
 
 (defun oef-insert-math()
-  "This function insert a mathematical expression"
+  "This function insert a mathematical expression between '\(' and '\)'"
   (interactive  (if (use-region-p)
 		    (progn
 		      (setq start (region-beginning))
