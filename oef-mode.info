@@ -1,4 +1,4 @@
-This is oef-mode.info, produced by texi2any version 6.7 from
+This is oef-mode.info, produced by makeinfo version 6.7 from
 oef-mode.texi.
 
 This is the ‘oef-mode’ manual, version alpha (in french)
@@ -378,21 +378,21 @@ File: oef-mode.info,  Node: Les documents Wims,  Next: Index,  Prev: Le compte M
 3 Les documents Wims
 ********************
 
-Il s’agit d’un ensemble de pages HTML (donc essentiellement il faut
-connaître la syntaxe HTML et CSS) dans lesquelles peuvent être incluses
-des données calculées ou dessinées par les logiciels attenant à WIMS
-(des commandes supplémentaires étendant les possibilités d’HTML
-permettent de faire cela).  Les documents peuvent être utilisés pour
-proposer des cours avec des exemples à caractère aléatoire et des liens
-directs vers les exercices.
+Il s’agit d’un ensemble de pages HTML (il vous faut donc connaître la
+syntaxe HTML et CSS) dans lesquelles peuvent être incluses des données
+calculées ou dessinées par les logiciels attenant à WIMS (des commandes
+supplémentaires étendant les possibilités de HTML permettent de faire
+cela).  Les documents peuvent être utilisés pour proposer des cours avec
+des exemples à caractère aléatoire et des liens directs vers les
+exercices.
 
    L’intérêt à faire un document WIMS plutôt que des pages html est donc
-la possibilité d’inclure des exemples qui peuvent être renouvelés par le
-lecteur.  Cela demande quelquefois un peu de travail mais le résultat en
-vaut la peine !  On peut aussi faire des liens directs sur des
-exercices, ou sur des outils.  Les possibilités de déplier et replier
-(avec \fold) permettent à l’élève de se concentrer sur le plan, sur un
-théorème sans sa démonstration ou au contraire sur sa démonstration.
+la possibilité d’inclure:
+   − des exemples qui peuvent être renouvelés à la volée par le lecteur;
+   − des liens directs sur des exercices, ou sur des outils;
+   − des zones à déplier et replier (avec \fold) qui permettent à
+     l’élève de se concentrer sur le plan, sur un théorème sans sa
+     démonstration ou au contraire sur sa démonstration.
 
    Pour homogénéiser la présentation des documents vous pouvez ajouter
 votre style CSS valable pour tout le document : pour cela, aller à
@@ -409,18 +409,10 @@ url.
      }
      </style>
 
-   Vous pouvez aussi ajouter de la même manière du code JavaScript.  Si
-vous êtes un développeur régulier et soumettez vos modules à la
-distribution, demandez que votre page de style soit incluse dans la
-distribution.
+   Vous pouvez aussi ajouter de la même manière du code JavaScript.
 
-   La commande fold permet de déplier et replier une partie d’un
-document.
-
-   J’ai des applets sur un autre site, comment les intégrer à un
-document ?
-
-   Il suffit de mettre l’adresse url des applets.
+   Pour intégrer des applets présents sur un autre site à un document,
+il suffit de mettre l’adresse url des applets.
 
    Comment classer les pages d’un document ?
 
@@ -499,7 +491,7 @@ Node: Autres installations12481
 Node: Activation13011
 Node: Le compte Modtool13296
 Node: Les documents Wims13557
-Node: Index17077
+Node: Index16760
 
 End Tag Table
 
