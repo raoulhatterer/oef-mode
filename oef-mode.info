@@ -44,7 +44,8 @@ This is the ‘oef-mode’ manual, version alpha (in french)
 
 * Introduction::                Commencer
 * Le compte Modtool::           Le compte Modtool
-* Les documents Wims::          Les documents Wims
+* Les documents Wims::          Les documents Wims (au format oef)
+* Les exercices Wims::          Les exercices Wims (au format oef)
 * Index::                       Index
 
 
@@ -86,7 +87,7 @@ File: oef-mode.info,  Node: Installations,  Next: Activation,  Prev: Résumé,  
 * Installation d'emacs::
 * Fichier d'initialisation::
 * Gestionnaires de packages::
-* Configurer le clavier du Mac::
+* Configurer le clavier du Mac:: Indispensable
 * Installer oef-mode::
 * Installer oef-mode manuellement::
 * Autres installations::
@@ -342,16 +343,69 @@ File: oef-mode.info,  Node: Autres installations,  Prev: Installer oef-mode manu
 1.2.7 Autres installations
 --------------------------
 
-   • Les fichiers qu’on supprime dans emacs vont dans la corbeille du
-     Mac
+* Menu:
 
-          ;;; Les fichiers qu’on supprime dans emacs vont dans la corbeille
-          (use-package osx-trash
-          	     :ensure t
-          	     :config
-                       (osx-trash-setup)
-                       (setq delete-by-moving-to-trash t)
-          	     )
+* Lier emacs à la corbeille::   Les fichiers effacés vont dans la corbeille
+* EMMET-MODE (Zen-coding)::     Transformer des snippets en tags
+
+
+File: oef-mode.info,  Node: Lier emacs à la corbeille,  Next: EMMET-MODE (Zen-coding),  Up: Autres installations
+
+1.2.7.1 Lier emacs à la corbeille
+.................................
+
+Insérer le code suivant dans votre fichier init pour que les fichiers
+supprimés dans emacs aillent dans la corbeille du Mac:
+
+     ;;; Les fichiers qu’on supprime dans emacs vont dans la corbeille
+     (use-package osx-trash
+     	     :ensure t
+     	     :config
+                  (osx-trash-setup)
+                  (setq delete-by-moving-to-trash t)
+     	     )
+
+
+File: oef-mode.info,  Node: EMMET-MODE (Zen-coding),  Prev: Lier emacs à la corbeille,  Up: Autres installations
+
+1.2.7.2 EMMET-MODE (Zen-coding)
+...............................
+
+EMMET-MODE est une méthodes puissante pour coder rapidement du HTML
+
+   Par exemple, le snippet ul>li.item$*3 suivi de ‘C-j’ permet de
+transformer le snippet en tags HTML:
+     <ul>
+         <li class="item1"></li>
+         <li class="item2"></li>
+         <li class="item3"></li>
+     </ul>
+
+   Consulter la page suivante pour découvrir d’autres possibilités:
+<https://github.com/smihica/emmet-mode>
+
+   Pour disposer de raccourcis claviers, placer le code suivant dans
+votre fichier init d’emacs:
+     ;;; EMMET-MODE
+     (defvar emmet-mode-keymap
+       (let
+           ((map (make-sparse-keymap)))
+         (define-key map (kbd "C-j") 'emmet-expand-line)
+         (define-key map (kbd "<C-M-right>") 'emmet-next-edit-point)
+         (define-key map (kbd "<C-M-left>") 'emmet-prev-edit-point)
+         (define-key map (kbd "C-c w") 'emmet-wrap-with-markup)
+         map)
+       "Keymap for emmet minor mode.")
+
+   Raccourcis disponibles:
+‘C-j’
+     Transforme un snippet en tags
+‘<C-M-right>’
+     Point d’édition suivant
+‘<C-M-left>’
+     Point d’édition précédent
+‘C-c w’
+     Transforme le mot sélectionné en tag
 
 
 File: oef-mode.info,  Node: Activation,  Prev: Installations,  Up: Introduction
@@ -373,7 +427,7 @@ Pour pouvoir développer des modules avec Modtool il faut demander un
 compte par email au gestionnaire du site.
 
 
-File: oef-mode.info,  Node: Les documents Wims,  Next: Index,  Prev: Le compte Modtool,  Up: Top
+File: oef-mode.info,  Node: Les documents Wims,  Next: Les exercices Wims,  Prev: Le compte Modtool,  Up: Top
 
 3 Les documents Wims
 ********************
@@ -453,7 +507,75 @@ dans le document et le lien n’apparaît pas sur le nom du fichier.
 que le blanc ait été mal codé.  Enlevez les blancs et remettez-les !
 
 
-File: oef-mode.info,  Node: Index,  Prev: Les documents Wims,  Up: Top
+File: oef-mode.info,  Node: Les exercices Wims,  Next: Index,  Prev: Les documents Wims,  Up: Top
+
+4 Les exercices Wims
+********************
+
+* Menu:
+
+* L'en-tête::
+* Les variables::
+* Les commentaires::
+* Les réponses:: Les réponses.  Les réponses.  Les réponses.  Les réponses.
+
+
+File: oef-mode.info,  Node: L'en-tête,  Next: Les variables,  Up: Les exercices Wims
+
+4.1 L’en-tête
+=============
+
+Le début du fichier doit comporter un en-tête.
+
+   Exemple d’en-tête:
+
+     \title{SEUL SUR MARS}
+     \language{fr}
+     \range{-5..5}
+     \author{hatterer.med@laposte.net}
+     \computeanswer{no}
+     <!-- l utilisateur doit lui-même faire les calculs et entrer la valeur finale -->
+
+   Les différentes commandes dont celles utilisées dans l’en-tête
+figurent dans le menu ‘OEF>Commands’.
+
+
+File: oef-mode.info,  Node: Les variables,  Next: Les commentaires,  Prev: L'en-tête,  Up: Les exercices Wims
+
+4.2 Les variables
+=================
+
+Après l’en-tête, on initialise les différentes variables introduites ou
+calculées.
+
+
+File: oef-mode.info,  Node: Les commentaires,  Next: Les réponses,  Prev: Les variables,  Up: Les exercices Wims
+
+4.3 Les commentaires
+====================
+
+Dans la spécification W3C, un commentaire commence par <!  – et se
+termine par –>
+
+   ‘M-;’ permet d’insérer un commentaire.
+
+
+File: oef-mode.info,  Node: Les réponses,  Prev: Les commentaires,  Up: Les exercices Wims
+
+4.4 Les réponses
+================
+
+Pour insérer une réponse avec oef-mode:
+   − Utiliser le menu OEF>Commands>answer
+   − ‘M-x’ ‘oef-insert-answer’
+   − ‘C-o-a’
+
+   Pour sélectionner les paramètres entre accolades:
+   − ‘M-x’ ‘oef-select-parameter’
+   − ‘C-o C-p’
+
+
+File: oef-mode.info,  Node: Index,  Prev: Les exercices Wims,  Up: Top
 
 Index
 *****
@@ -475,23 +597,30 @@ Index
 
 Tag Table:
 Node: Top845
-Node: Introduction1774
-Node: Résumé2342
-Node: Installations2708
-Node: Installation d'emacs3056
-Node: Sous Windows3702
-Node: Sous Mac OSX4689
-Node: Sous Linux4944
-Node: Fichier d'initialisation5109
-Node: Gestionnaires de packages5864
-Node: Configurer le clavier du Mac7977
-Node: Installer oef-mode10181
-Node: Installer oef-mode manuellement11379
-Node: Autres installations12481
-Node: Activation13011
-Node: Le compte Modtool13296
-Node: Les documents Wims13557
-Node: Index16760
+Node: Introduction1857
+Node: Résumé2425
+Node: Installations2791
+Node: Installation d'emacs3153
+Node: Sous Windows3799
+Node: Sous Mac OSX4786
+Node: Sous Linux5041
+Node: Fichier d'initialisation5206
+Node: Gestionnaires de packages5961
+Node: Configurer le clavier du Mac8074
+Node: Installer oef-mode10278
+Node: Installer oef-mode manuellement11476
+Node: Autres installations12578
+Node: Lier emacs à la corbeille12898
+Node: EMMET-MODE (Zen-coding)13457
+Node: Activation14796
+Node: Le compte Modtool15081
+Node: Les documents Wims15342
+Node: Les exercices Wims18558
+Node: L'en-tête18847
+Node: Les variables19375
+Node: Les commentaires19616
+Node: Les réponses19914
+Node: Index20313
 
 End Tag Table
 

@@ -122,6 +122,7 @@ Copyright @copyright{} 2017 - 2020 Raoul Hatterer.
 
 @ifnottex
 @node Top
+@c --------------------------------------------------------------------------------
 @top Manuel d'utilisation d'oef-mode
 @insertcopying
 @end ifnottex
@@ -129,13 +130,14 @@ Copyright @copyright{} 2017 - 2020 Raoul Hatterer.
 @menu
 * Introduction::                Commencer
 * Le compte Modtool::           Le compte Modtool
-* Les documents Wims::          Les documents Wims
+* Les documents Wims::          Les documents Wims (au format oef)
+* Les exercices Wims::          Les exercices Wims (au format oef)
 * Index::                       Index
 @end menu
 
-@c --------------------------------------------------------------------------------
 
 @node Introduction
+@c --------------------------------------------------------------------------------
 @chapter Introduction
 
 Le présent manuel est disponible au format PDF, mais il est également intégré, une fois le package oef-mode installé, au système d'information d'Emacs accessible par le raccourci @kbd{C-h i}.  
@@ -148,12 +150,14 @@ Le présent manuel est disponible au format PDF, mais il est également intégr�
 @end menu
 
 @node Résumé
+@c --------------------------------------------------------------------------------
 @section Résumé
 @code{oef-mode} est un mode majeur permettant d'éditer des exercices et des documents au format « online exercise format ».     
 
 Il propose un menu et des raccourcis permettant d'accéder aux commandes, fonctions, scripts... spécifiques au format OEF.
 
 @node Installations
+@c --------------------------------------------------------------------------------
 @section  Installations
 @cindex installation
 
@@ -162,7 +166,7 @@ Il propose un menu et des raccourcis permettant d'accéder aux commandes, foncti
 * Installation d'emacs::
 * Fichier d'initialisation::
 * Gestionnaires de packages::
-* Configurer le clavier du Mac::
+* Configurer le clavier du Mac:: Indispensable
 * Installer oef-mode::
 * Installer oef-mode manuellement::
 * Autres installations::
@@ -400,9 +404,16 @@ Par convention, le répertoire @file{"~/.emacs.d/lisp/"} est la destination des 
 @subsection Autres installations
 
 
+@menu
+* Lier emacs à la corbeille::   Les fichiers effacés vont dans la corbeille
+* EMMET-MODE (Zen-coding)::     Transformer des snippets en tags
+@end menu
 
-@itemize
-@item Les fichiers qu’on supprime dans emacs vont dans la corbeille du Mac
+
+@node Lier emacs à la corbeille
+@subsubsection Lier emacs à la corbeille
+
+Insérer le code suivant dans votre fichier init pour que les fichiers supprimés dans emacs aillent dans la corbeille du Mac:
 
 @cartouche
 @lisp
@@ -418,7 +429,52 @@ Par convention, le répertoire @file{"~/.emacs.d/lisp/"} est la destination des 
 
 
 
-@end itemize
+@node EMMET-MODE (Zen-coding)
+@subsubsection EMMET-MODE (Zen-coding)
+
+EMMET-MODE est une méthodes puissante pour coder rapidement du HTML
+
+Par exemple, le snippet ul>li.item$*3 suivi de @kbd{C-j} permet de transformer le snippet en tags HTML:
+@example
+<ul>
+    <li class="item1"></li>
+    <li class="item2"></li>
+    <li class="item3"></li>
+</ul>
+@end example
+
+Consulter la page suivante pour découvrir d'autres possibilités:
+@url{https://github.com/smihica/emmet-mode}
+
+
+Pour disposer de raccourcis claviers, placer le code suivant dans votre fichier init d'emacs:
+@lisp
+;;; EMMET-MODE
+(defvar emmet-mode-keymap
+  (let
+      ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-j") 'emmet-expand-line)
+    (define-key map (kbd "<C-M-right>") 'emmet-next-edit-point)
+    (define-key map (kbd "<C-M-left>") 'emmet-prev-edit-point)
+    (define-key map (kbd "C-c w") 'emmet-wrap-with-markup)
+    map)
+  "Keymap for emmet minor mode.")
+@end lisp
+
+
+Raccourcis disponibles:
+@table @kbd
+@item @kbd{C-j}
+Transforme un snippet en tags
+@item @kbd{<C-M-right>}
+Point d'édition suivant 
+@item @kbd{<C-M-left}>
+Point d'édition précédent
+@item @kbd{C-c w}
+Transforme le mot sélectionné en tag
+@end table
+
+
 
 
 
@@ -427,6 +483,7 @@ Par convention, le répertoire @file{"~/.emacs.d/lisp/"} est la destination des 
 
 
 @node Activation
+@c --------------------------------------------------------------------------------
 @section  Activation
 
 @itemize
@@ -436,9 +493,9 @@ Par convention, le répertoire @file{"~/.emacs.d/lisp/"} est la destination des 
 
 
 
-@c --------------------------------------------------------------------------------
 
 @node Le compte Modtool
+@c --------------------------------------------------------------------------------
 @chapter Le compte Modtool
 
  Pour pouvoir développer des modules avec Modtool il faut demander un
@@ -449,9 +506,9 @@ compte par email au gestionnaire du site.
 
 
 
-@c --------------------------------------------------------------------------------
 
 @node Les documents Wims
+@c --------------------------------------------------------------------------------
 @chapter Les documents Wims
 
 Il s'agit d'un ensemble de pages HTML (il vous faut donc connaître la
@@ -539,11 +596,82 @@ que le blanc ait été mal codé. Enlevez les blancs et remettez-les !
 
 
 
-
+@node Les exercices Wims
 @c --------------------------------------------------------------------------------
+@chapter Les exercices Wims
+
+@menu
+* L'en-tête::
+* Les variables::
+* Les commentaires::
+* Les réponses:: Les réponses.  Les réponses.  Les réponses.  Les réponses.  
+@end menu
+
+
+@node L'en-tête
+@c --------------------------------------------------------------------------------
+@section L'en-tête
+
+Le début du fichier doit comporter un en-tête.
+
+Exemple d'en-tête:
+
+@example
+\title@{SEUL SUR MARS@}
+\language@{fr@}
+\range@{-5..5@}
+\author@{hatterer.med@@laposte.net@}
+\computeanswer@{no@}
+<!-- l utilisateur doit lui-même faire les calculs et entrer la valeur finale -->
+@end example
+
+Les différentes commandes dont celles utilisées dans l'en-tête figurent dans le menu @command{OEF>Commands}.
+
+@node Les variables
+@c --------------------------------------------------------------------------------
+@section Les variables
+
+Après l'en-tête, on initialise les différentes variables introduites ou calculées.
+
+
+
+
+
+
+@node Les commentaires
+@c --------------------------------------------------------------------------------
+@section Les commentaires
+
+Dans la spécification W3C, un commentaire commence par <! -- et se termine par -->
+
+@kbd{M-;} permet d'insérer un commentaire.
+
+
+@node Les réponses
+@c --------------------------------------------------------------------------------
+@section Les réponses
+
+
+Pour insérer une réponse avec oef-mode:
+@itemize @minus
+@item
+Utiliser le menu OEF>Commands>answer 
+@item
+@kbd{M-x} @command{oef-insert-answer}
+@item
+@kbd{C-o-a}
+@end itemize
+
+Pour sélectionner les paramètres entre accolades:
+@itemize @minus
+@item @kbd{M-x} @command{oef-select-parameter}
+@item @kbd{C-o C-p}
+@end itemize
+
 
 
 @node Index
+@c --------------------------------------------------------------------------------
 @unnumbered Index
 
 @printindex cp
