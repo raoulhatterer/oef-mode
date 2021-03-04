@@ -44,8 +44,8 @@ This is the ‘oef-mode’ manual, version alpha (in french)
 
 * Introduction::                Commencer
 * Le compte Modtool::           Le compte Modtool
-* Les documents Wims::          Les documents Wims (au format oef)
-* Les exercices Wims::          Les exercices Wims (au format oef)
+* Les documents Wims::          Les documents Wims (au format OEF)
+* Les exercices Wims::          Les exercices Wims (au format OEF)
 * Index::                       Index
 
 
@@ -87,7 +87,7 @@ File: oef-mode.info,  Node: Installations,  Next: Activation,  Prev: Résumé,  
 * Installation d'emacs::
 * Fichier d'initialisation::
 * Gestionnaires de packages::
-* Configurer le clavier du Mac:: Indispensable
+* Configurer le clavier du Mac::  Indispensable
 * Installer oef-mode::
 * Installer oef-mode manuellement::
 * Autres installations::
@@ -514,13 +514,15 @@ File: oef-mode.info,  Node: Les exercices Wims,  Next: Index,  Prev: Les documen
 
 * Menu:
 
-* L'en-tête::
-* Les variables::
-* Les commentaires::
-* Les réponses:: Les réponses.  Les réponses.  Les réponses.  Les réponses.
+* L'en-tête::                   Requis
+* Les commentaires::            Facultatifs
+* Les variables::               Requises
+* Le texte de l'énoncé::        Requises
+* Les aides (partie facultative)::  Facultatives
+* Les réponses::                Requises
 
 
-File: oef-mode.info,  Node: L'en-tête,  Next: Les variables,  Up: Les exercices Wims
+File: oef-mode.info,  Node: L'en-tête,  Next: Les commentaires,  Up: Les exercices Wims
 
 4.1 L’en-tête
 =============
@@ -540,39 +542,107 @@ Le début du fichier doit comporter un en-tête.
 figurent dans le menu ‘OEF>Commands’.
 
 
-File: oef-mode.info,  Node: Les variables,  Next: Les commentaires,  Prev: L'en-tête,  Up: Les exercices Wims
+File: oef-mode.info,  Node: Les commentaires,  Next: Les variables,  Prev: L'en-tête,  Up: Les exercices Wims
 
-4.2 Les variables
+4.2 Les commentaires
+====================
+
+Dans la spécification W3C, un commentaire commence par ‘<! --’ et se
+termine par ‘-->’
+
+   ‘M-;’ permet d’insérer un commentaire.
+
+
+File: oef-mode.info,  Node: Les variables,  Next: Le texte de l'énoncé,  Prev: Les commentaires,  Up: Les exercices Wims
+
+4.3 Les variables
 =================
 
 Après l’en-tête, on initialise les différentes variables introduites ou
 calculées.
 
-
-File: oef-mode.info,  Node: Les commentaires,  Next: Les réponses,  Prev: Les variables,  Up: Les exercices Wims
-
-4.3 Les commentaires
-====================
-
-Dans la spécification W3C, un commentaire commence par <!  – et se
-termine par –>
-
-   ‘M-;’ permet d’insérer un commentaire.
+   C’est la partie qui fera appel à vos qualités de programmeur car elle
+correspond à «l’intelligence» de l’exercice.
 
 
-File: oef-mode.info,  Node: Les réponses,  Prev: Les commentaires,  Up: Les exercices Wims
+File: oef-mode.info,  Node: Le texte de l'énoncé,  Next: Les aides (partie facultative),  Prev: Les variables,  Up: Les exercices Wims
 
-4.4 Les réponses
+4.4 Le texte de l’énoncé
+========================
+
+‘\statement{...}’
+     pour écrire l’énoncé (cette commande est indispensable mais ne doit
+     apparaître qu’une seule fois)
+
+   Pour ceux qui connaissent Python, c’est un peu comme si l’on avait le
+droit d’utiliser q’une seule fois l’instruction ‘print()’ mais qu’en
+revanche le texte à afficher pouvait être très très long et mis en forme
+au format HTML.
+
+
+File: oef-mode.info,  Node: Les aides (partie facultative),  Next: Les réponses,  Prev: Le texte de l'énoncé,  Up: Les exercices Wims
+
+4.5 Les aides (partie facultative)
+==================================
+
+Cette partie facultative est à placer entre le texte de l’énoncé (*Note
+Le texte de l'énoncé::) et les réponses (*Note Les réponses::).
+
+‘\hint {...}’
+     pour écrire une indication (ce qui apparaît lorsqu’on clique sur le
+     lien ‘Indications’ placé sous l’énoncé)
+‘\help {...}’
+     pour un texte qui apparaîtra lorsque l’utilisateur clique sur
+     ‘Aide’ de la barre de menu en haut de l’exercice.
+
+
+File: oef-mode.info,  Node: Les réponses,  Prev: Les aides (partie facultative),  Up: Les exercices Wims
+
+4.6 Les réponses
 ================
 
-Pour insérer une réponse avec oef-mode:
-   − Utiliser le menu OEF>Commands>answer
-   − ‘M-x’ ‘oef-insert-answer’
-   − ‘C-o-a’
+Après l’énoncé (ou les aides s’il y en a) on mettra la partie concernant
+la saisie et l’analyse des réponses.
 
-   Pour sélectionner les paramètres entre accolades:
+‘\answer{...}{ ... }{type= ...}’
+     pour analyser une réponse
+
+   Puisque généralement plusieurs réponses sont attendues, cette
+commande sera à écrire plusieurs fois (une fois par réponse attendue).
+
+   Vous pouvez bien sûr taper cette commande au clavier, mais sachez
+qu’oef-mode offre plusieurs possibilités pour insérer une réponse:
+   − menu ‘OEF > Commands > answer’
+   − ‘M-x’ ‘oef-insert-answer’
+   − le raccourci ‘C-o-a’
+
+   Et pour sélectionner les paramètres entre accolades avec oef-mode:
    − ‘M-x’ ‘oef-select-parameter’
-   − ‘C-o C-p’
+   − le raccourci ‘C-o C-p’
+
+   Dans la première accolade, on peut mettre du texte qui apparaît
+devant le champ réservé à la réponse.  Cel peut être un résumé de la
+question que l’on a peut-être posée de façon plus détaillée dans
+l’énoncé (*Note Le texte de l'énoncé::).  Pour ceux qui connaissent
+Python, c’est l’équivalent du texte que vous mettez entre les
+parenthèses de l’instruction ‘input()’.  La réponse de l’utilisateur à
+la première question est automatiquement stockée dans la variable
+‘\reply1’ et ainsi de suite pour les autres réponses.  Mais,
+généralement, vous n’allez pas faire appel à ces variables pour analyser
+les réponses de l’utilisateur.  À la place, vous allez préciser entre
+les accolades qui suivent la réponse que vous attendez.
+
+   La deuxième accolade doit contenir les éléments permettant de décider
+si la réponse est juste ou non.  Ces éléments vont dépendre du type
+précisé dans la troisième accolade.
+
+   Le menu ‘OEF > Answers Types and Options’ liste et permet d’insérer
+les différents types et options que vous pouvez utiliser.
+
+   Pour une analyse plus détaillée sachez que la variable ‘\sc_reply1’
+vaut 1 si la réponse donnée est juste, 0.5 si la réponse donnée est
+partiellement juste et 0 si la réponse donnée est fausse pour les types
+de réponse où elle n’a pas été définie explicitement.
 
 
 File: oef-mode.info,  Node: Index,  Prev: Les exercices Wims,  Up: Top
@@ -600,27 +670,29 @@ Node: Top845
 Node: Introduction1857
 Node: Résumé2425
 Node: Installations2791
-Node: Installation d'emacs3153
-Node: Sous Windows3799
-Node: Sous Mac OSX4786
-Node: Sous Linux5041
-Node: Fichier d'initialisation5206
-Node: Gestionnaires de packages5961
-Node: Configurer le clavier du Mac8074
-Node: Installer oef-mode10278
-Node: Installer oef-mode manuellement11476
-Node: Autres installations12578
-Node: Lier emacs à la corbeille12898
-Node: EMMET-MODE (Zen-coding)13457
-Node: Activation14796
-Node: Le compte Modtool15081
-Node: Les documents Wims15342
-Node: Les exercices Wims18558
-Node: L'en-tête18847
-Node: Les variables19375
-Node: Les commentaires19616
-Node: Les réponses19914
-Node: Index20313
+Node: Installation d'emacs3154
+Node: Sous Windows3800
+Node: Sous Mac OSX4787
+Node: Sous Linux5042
+Node: Fichier d'initialisation5207
+Node: Gestionnaires de packages5962
+Node: Configurer le clavier du Mac8075
+Node: Installer oef-mode10279
+Node: Installer oef-mode manuellement11477
+Node: Autres installations12579
+Node: Lier emacs à la corbeille12899
+Node: EMMET-MODE (Zen-coding)13458
+Node: Activation14797
+Node: Le compte Modtool15082
+Node: Les documents Wims15343
+Node: Les exercices Wims18559
+Node: L'en-tête18972
+Node: Les commentaires19503
+Node: Les variables19807
+Node: Le texte de l'énoncé20190
+Node: Les aides (partie facultative)20776
+Node: Les réponses21432
+Node: Index23717
 
 End Tag Table
 

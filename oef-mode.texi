@@ -2,8 +2,8 @@
 @c %**start of header 
 @setfilename oef-mode.info
 @settitle Manuel oef-mode version alpha (french)
-@documentencoding UTF-8
 @documentlanguage fr_FR
+@documentencoding UTF-8
 @c %**end of header
 
 @dircategory Languages
@@ -73,7 +73,8 @@
 
 @c C-c C-c v
 @c M-x texinfo-insert-@var
-@c Insert @var{} 
+@c Insert @var{}
+@c utiliser @code et pas @var pour les variables de programme 
 
 @c C-c C-c x
 @c M-x texinfo-insert-@example
@@ -130,8 +131,8 @@ Copyright @copyright{} 2017 - 2020 Raoul Hatterer.
 @menu
 * Introduction::                Commencer
 * Le compte Modtool::           Le compte Modtool
-* Les documents Wims::          Les documents Wims (au format oef)
-* Les exercices Wims::          Les exercices Wims (au format oef)
+* Les documents Wims::          Les documents Wims (au format OEF)
+* Les exercices Wims::          Les exercices Wims (au format OEF)
 * Index::                       Index
 @end menu
 
@@ -166,7 +167,7 @@ Il propose un menu et des raccourcis permettant d'accéder aux commandes, foncti
 * Installation d'emacs::
 * Fichier d'initialisation::
 * Gestionnaires de packages::
-* Configurer le clavier du Mac:: Indispensable
+* Configurer le clavier du Mac::  Indispensable
 * Installer oef-mode::
 * Installer oef-mode manuellement::
 * Autres installations::
@@ -601,10 +602,12 @@ que le blanc ait été mal codé. Enlevez les blancs et remettez-les !
 @chapter Les exercices Wims
 
 @menu
-* L'en-tête::
-* Les variables::
-* Les commentaires::
-* Les réponses:: Les réponses.  Les réponses.  Les réponses.  Les réponses.  
+* L'en-tête::                   Requis
+* Les commentaires::            Facultatifs
+* Les variables::               Requises
+* Le texte de l'énoncé::        Requises
+* Les aides (partie facultative)::  Facultatives
+* Les réponses::                Requises
 @end menu
 
 
@@ -627,46 +630,118 @@ Exemple d'en-tête:
 
 Les différentes commandes dont celles utilisées dans l'en-tête figurent dans le menu @command{OEF>Commands}.
 
+@node Les commentaires
+@c --------------------------------------------------------------------------------
+@section Les commentaires
+
+Dans la spécification W3C, un commentaire commence par @samp{<! --} et se termine par @samp{-->}
+
+@kbd{M-;} permet d'insérer un commentaire.
+
 @node Les variables
 @c --------------------------------------------------------------------------------
 @section Les variables
 
 Après l'en-tête, on initialise les différentes variables introduites ou calculées.
 
+C'est la partie qui fera appel à vos qualités de programmeur car elle correspond à «l'intelligence» de l'exercice. 
 
 
 
 
-
-@node Les commentaires
+@node Le texte de l'énoncé
 @c --------------------------------------------------------------------------------
-@section Les commentaires
+@section Le texte de l'énoncé
 
-Dans la spécification W3C, un commentaire commence par <! -- et se termine par -->
+@table @command
+@item @command{\statement@{...@}}
+pour écrire l'énoncé (cette commande est indispensable mais ne doit apparaître qu'une seule fois)
+@end table
 
-@kbd{M-;} permet d'insérer un commentaire.
+Pour ceux qui connaissent Python, c'est un peu comme si l'on avait le droit d'utiliser q'une seule fois l'instruction @command{print()} mais qu'en revanche le texte à afficher pouvait être très très long et mis en forme au format HTML.
+
+@node Les aides (partie facultative)
+@c --------------------------------------------------------------------------------
+@section Les aides (partie facultative)
+
+Cette partie facultative est à placer entre le texte de l'énoncé (@xref{Le texte de l'énoncé}) et les réponses (@xref{Les réponses}).
+
+
+@table @command
+@item @command{\hint @{...@}}
+pour écrire une indication (ce qui apparaît lorsqu’on clique sur le lien @command{Indications} placé sous l'énoncé)
+@item @command{\help @{...@}}
+pour un texte qui apparaîtra lorsque l'utilisateur clique sur @command{Aide} de la barre de menu en haut de l’exercice.
+@end table
+
+
 
 
 @node Les réponses
 @c --------------------------------------------------------------------------------
 @section Les réponses
 
+Après l'énoncé (ou les aides s'il y en a) on mettra la partie
+concernant la saisie et l'analyse des réponses.
 
-Pour insérer une réponse avec oef-mode:
+@table @command
+@item @command{\answer@{...@}@{ ... @}@{type= ...@}}
+pour analyser une réponse
+@end table
+
+Puisque généralement plusieurs réponses sont attendues, cette commande
+sera à écrire plusieurs fois (une fois par réponse attendue).
+
+
+Vous pouvez bien sûr taper cette commande au clavier, mais sachez
+qu'oef-mode offre plusieurs possibilités pour insérer une réponse:
 @itemize @minus
 @item
-Utiliser le menu OEF>Commands>answer 
+menu @command{OEF > Commands > answer}
 @item
 @kbd{M-x} @command{oef-insert-answer}
 @item
-@kbd{C-o-a}
+le raccourci @kbd{C-o-a}
 @end itemize
 
-Pour sélectionner les paramètres entre accolades:
+Et pour sélectionner les paramètres entre accolades avec oef-mode:
 @itemize @minus
-@item @kbd{M-x} @command{oef-select-parameter}
-@item @kbd{C-o C-p}
+@item
+@kbd{M-x} @command{oef-select-parameter}
+@item
+le raccourci @kbd{C-o C-p}
 @end itemize
+
+
+
+Dans la première accolade, on peut mettre du texte qui apparaît devant
+le champ réservé à la réponse. Cel peut être un résumé de la question
+que l'on a peut-être posée de façon plus détaillée dans l'énoncé
+(@xref{Le texte de l'énoncé}). Pour ceux qui connaissent Python, c'est
+l'équivalent du texte que vous mettez entre les parenthèses de
+l'instruction @command{input()}. La réponse de l'utilisateur à la
+première question est automatiquement stockée dans la variable
+@code{\reply1} et ainsi de suite pour les autres réponses. Mais,
+généralement, vous n'allez pas faire appel à ces variables pour
+analyser les réponses de l'utilisateur. À la place, vous allez
+préciser entre les accolades qui suivent la réponse que vous attendez.
+
+
+
+La deuxième accolade doit contenir les éléments permettant de décider
+si la réponse est juste ou non. Ces éléments vont dépendre du type
+précisé dans la troisième accolade.
+
+
+Le menu @command{OEF > Answers Types and Options} liste et permet
+d'insérer les différents types et options que vous pouvez utiliser.
+
+Pour une analyse plus détaillée sachez que la variable
+@code{\sc_reply1} vaut 1 si la réponse donnée est juste, 0.5 si la
+réponse donnée est partiellement juste et 0 si la réponse donnée est
+fausse pour les types de réponse où elle n’a pas été définie
+explicitement.
+
 
 
 
@@ -676,7 +751,6 @@ Pour sélectionner les paramètres entre accolades:
 
 @printindex cp
  
-
 
 
 
