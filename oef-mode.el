@@ -1479,7 +1479,7 @@ This function call `oef-add-variable-as-keyword-for-completion'."
   "Browse Flydraw commands in emacs (english version)"
   (interactive)
   (add-hook 'eww-after-render-hook #'oef-flydraw-commands-highlight)  ;oef-flydraw-commands-highlight is called after EWW is done rendering because eww is asynchronous
-  (eww "https://subversion.renater.fr/wimsdev/trunk/wims/src/Flydraw/commands")
+  (eww "http://pwet.fr/man/linux/commandes/flydraw/")
   )
 
 (defun oef-flydraw-commands-highlight()
