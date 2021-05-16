@@ -357,6 +357,18 @@
   "You can add your own phases here."
   :group 'oef)
 
+(defcustom oef-author "First Name, Last Name"
+  "Author name"
+  :group 'oef)
+
+(defcustom oef-email "your@email"
+  "Author email"
+  :group 'oef)
+
+(defcustom oef-language "fr"
+  "Language"
+  :group 'oef)
+
 (defvar oef-grabed-word-for-goto nil
   "This variable is used to navigate in the buffer.")
 
@@ -1406,6 +1418,30 @@ This function call `oef-add-variable-as-keyword-for-completion'."
 		    (insert "<sup></sup>")
 		    (backward-char 6)
 		    ))))
+
+(defun oef-new-exercise()
+  "This fonction insert minimal blueprint for a new exercise."
+  (interactive)
+  (insert "\\title{«Exercise Title»}")
+  (newline)
+  (insert "\\author{")(insert oef-author)(insert "}")
+  (newline)
+  (insert "\\email{")(insert oef-email)(insert "}")
+  (newline)
+  (insert "\\language{")(insert oef-language)(insert "}")
+  (newline)
+  (insert "\\range{-5..5}")
+  (newline)
+  (insert "\\computeanswer{ no }")
+  (newline)
+  (insert "<!-- l utilisateur doit lui-même faire les calculs et entrer la valeur finale -->")
+  (newline)
+  (newline)
+  (insert "<!-- VARIABLES -->")
+  (newline)
+  (newline)
+  (insert "\\statement{«exercise statement / énoncé de l'exercice»}")
+  )
 
 (defun oef-insert-embed-reply()
   "This fonction insert embed answer in statement"
@@ -3170,6 +3206,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "M-g s") 'oef-goto-statement)
   (define-key oef-mode-map (kbd "C-:") 'indent-region) ; alias for indent-region because C-M-\ is not working with a french keyboard on osx
   (define-key oef-mode-map (kbd "C-o") nil) ;
+  (define-key oef-mode-map (kbd "C-o n") 'oef-new-exercise) ;  
   (define-key oef-mode-map (kbd "C-o tt") 'yafolding-toggle-element)
   (define-key oef-mode-map (kbd "C-o ts") 'yafolding-show-all)
   (define-key oef-mode-map (kbd "C-o th") 'yafolding-hide-all)
