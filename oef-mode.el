@@ -1420,7 +1420,7 @@ This function call `oef-add-variable-as-keyword-for-completion'."
 		    ))))
 
 (defun oef-new-exercise()
-  "This fonction insert minimal blueprint for a new exercise."
+  "This fonction insert minimal blueprint for a new exercise"
   (interactive)
   (insert "\\title{«Exercise Title»}")
   (newline)
@@ -1442,6 +1442,48 @@ This function call `oef-add-variable-as-keyword-for-completion'."
   (newline)
   (insert "\\statement{«exercise statement / énoncé de l'exercice»}")
   )
+
+(defun oef-variable-complex()
+  "This function insert initialization for a variable of complex number type in exercise"
+  (interactive)
+  (insert "\\complex{=}")
+  (backward-char 2))
+
+(defun oef-variable-function()
+  "This function insert initialization for a variable of function type in exercise"
+  (interactive)
+  (insert "\\function{=}")
+  (backward-char 2))
+
+(defun oef-variable-integer()
+  "This function insert initialization for a variable of integer number type in exercise"
+  (interactive)
+  (insert "\\integer{=}")
+  (backward-char 2))
+
+(defun oef-variable-matrix()
+  "This function insert initialization for a variable of matrix type in exercise"
+  (interactive)
+  (insert "\\matrix{=}")
+  (backward-char 2))
+
+(defun oef-variable-rational()
+  "This function insert initialization for a variable of rational number type (quotient) in exercise"
+  (interactive)
+  (insert "\\rational{=}")
+  (backward-char 2))
+
+(defun oef-variable-real()
+  "This function insert initialization for a variable of real number type in exercise"
+  (interactive)
+  (insert "\\real{=}")
+  (backward-char 2))
+
+(defun oef-variable-text()
+  "This function insert initialization for a variable of text type in exercise"
+  (interactive)
+  (insert "\\text{=}")
+  (backward-char 2))
 
 (defun oef-insert-embed-reply()
   "This fonction insert embed answer in statement"
@@ -2636,7 +2678,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["Comment (toggle)" oef-comment-toggle t]
     ["Defined Variables" nil t]
     ["Documents" nil t]
-    ["Initializations of Variables" nil t]
+    ["Initializations of Variables (C-o v)" nil t]
     ["Mathematical Expression" oef-insert-math t]
     ["Random" nil t]
     ["Reserved Words" nil t]
@@ -2729,8 +2771,8 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Random")["Shuffle List" (lambda () (interactive) (insert "shuffle()") (forward-char -1)) :help "Syntax: shuffle(\\list)\n\nA new list with randomly permuted items in list is returned."])
 (easy-menu-add-item oef-menu-bar '("Symbol" "Greek")["Ɣ" (lambda () (interactive) (insert "Ɣ"))])
 (easy-menu-add-item oef-menu-bar '()["Rainbow" nil t])
-(easy-menu-add-item oef-menu-bar '("Initializations of Variables") (oef-get-exo-init-types)) ; we add the submenu `Exercises' to the oef-menu-bar.
-(easy-menu-add-item oef-menu-bar '("Initializations of Variables") (oef-get-doc-init-types)) ; we add the submenu `Documents' to the oef-menu-bar.
+(easy-menu-add-item oef-menu-bar '("Initializations of Variables (C-o v)") (oef-get-exo-init-types)) ; we add the submenu `Exercises' to the oef-menu-bar.
+(easy-menu-add-item oef-menu-bar '("Initializations of Variables (C-o v)") (oef-get-doc-init-types)) ; we add the submenu `Documents' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (oef-get-menu-commands)) ; we add the submenu `Commands' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '("Commands") (oef-get-menu-special-commands)) ; we add the submenu `Special' in menu `Commands' to the oef-menu-bar.
 (easy-menu-add-item oef-menu-bar '() (oef-get-answers-options)) ; we add the submenu `Answers types and options' to the oef-menu-bar.
@@ -3206,7 +3248,14 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
   (define-key oef-mode-map (kbd "M-g s") 'oef-goto-statement)
   (define-key oef-mode-map (kbd "C-:") 'indent-region) ; alias for indent-region because C-M-\ is not working with a french keyboard on osx
   (define-key oef-mode-map (kbd "C-o") nil) ;
-  (define-key oef-mode-map (kbd "C-o n") 'oef-new-exercise) ;  
+  (define-key oef-mode-map (kbd "C-o n") 'oef-new-exercise) ;
+  (define-key oef-mode-map (kbd "C-o vc") 'oef-variable-complex) ;    
+  (define-key oef-mode-map (kbd "C-o vf") 'oef-variable-function) ;  
+  (define-key oef-mode-map (kbd "C-o vi") 'oef-variable-integer) ;            
+  (define-key oef-mode-map (kbd "C-o vm") 'oef-variable-matrix) ;          
+  (define-key oef-mode-map (kbd "C-o vq") 'oef-variable-rational) ;        
+  (define-key oef-mode-map (kbd "C-o vr") 'oef-variable-real) ;      
+  (define-key oef-mode-map (kbd "C-o vt") 'oef-variable-text) ;    
   (define-key oef-mode-map (kbd "C-o tt") 'yafolding-toggle-element)
   (define-key oef-mode-map (kbd "C-o ts") 'yafolding-show-all)
   (define-key oef-mode-map (kbd "C-o th") 'yafolding-hide-all)
