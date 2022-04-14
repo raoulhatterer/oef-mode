@@ -1,10 +1,10 @@
 ;;; oef-mode.el --- Major mode for editing oef (wims) templates
 ;;; -*- coding: utf-8 -*-
 
-;; Copyright 2017-2021 Raoul HATTERER
+;; Copyright 2017-2022 Raoul HATTERER
 
 ;; Author: Raoul Hatterer <hatterer.raoul@gmail.com>
-;; Version: 20210509.2242
+;; Version: 20220414.2120
 ;; Maintainer: Raoul Hatterer <hatterer.raoul@gmail.com>
 
 ;; Created: July 2017
@@ -340,9 +340,9 @@
   "Face for html mark tag"
   :group 'oef-faces)
 
-(defface oef-font-canvasdraw-face
+(defface oef-font-draw-face
   '((t  :background "Green"))
-  "Face for canvasdraw commands"
+  "Face for draw commands"
   :group 'oef-faces)
 
 
@@ -1042,8 +1042,8 @@ Automatically build from following lists: `oef-definitions-slib-algebra' `oef-de
   '("random" "randint" "shuffle" "randomitem" "randomrow")
   "Used for highlighting and completion.")
 
-(defvar oef-canvasdraw-commands ; in the menu DONE
-  '("affine" "angle" "animate" "arc" "arrow" "arrow2" "arrowhead" "arrows" "arrows2" "audio" "axis" "axisnumbering" "barchart" "bezier" "bgcolor" "bgimage" "blink" "boxplot" "boxplotdata" "canvasdraw" "canvastype" "centerstring" "circle" "circles" "clearbutton" "clock" "copy" "copyresized" "crosshair" "crosshairs" "crosshairsize" "cursor" "curve" "dashed" "dashtype" "delete" "demiline" "demilines" "diamondfill" "disk" "disks" "disks" "display" "dotfill" "drag" "ellipse" "erase" "fcircle" "fcircles" "fill" "fillcolor" "filled" "filltoborder" "floodfill" "fontcolor" "fontfamily" "fontsize" "fpoly" "frect" "frects" "froundrect" "froundrects" "fsquare" "ftriangle" "ftriangles" "functionlabel" "grid" "gridfill" "halfline" "halflines" "hatchfill" "highlight" "hline" "hlines" "horizontalline" "horizontallines" "html" "http" "imagefill" "input" "inputstyle" "intooltip" "jscurve" "jsmath" "jsplot" "killaffine" "killrotate" "killslider" "killtranslate" "killtranslation" "lattice" "legend" "legendcolors" "levelcurve" "line" "linegraph" "lines" "linewidth" "mathml" "mouse" "mouse_degree" "mousex" "mousey" "multidash" "multidraw" "multifill" "multifillcolors" "multifillopacity" "multilabel" "multilinewidth" "multisnaptogrid" "multistrokecolors" "multistrokeopacity" "multiuserinput" "noaxis" "noayis" "note:" "onclick" "opacity" "parallel" "piechart" "pixels" "pixelsize" "plotsteps" "point" "pointer" "points" "poly" "polyline" "popup" "precision" "protractor" "ranget" "rangex" "rangey" "rays" "rect" "rects" "replyformat" "rotate" "rotationcenter" "roundrect" "roundrects" "ruler" "seg" "segment" "segments" "segs" "setlimits" "setpixel" "sgraph" "size" "slider" "sliderfunction_x" "sliderfunction_y" "snaptofun" "snaptofunction" "snaptogrid" "snaptopoints" "square" "status" "string" "stringup" "strokecolor" "text" "textarea" "textup" "trace_jscurve" "trange" "translate" "translation" "transparent" "triangle" "triangles" "userboxplot" "userboxplotdata" "userdraw" "userinput" "userinput_function" "userinput_textarea" "userinput_xy" "usertextarea_xy" "vector" "vectors" "verticalline" "verticallines" "video" "vline" "vlines" "xaxis" "xaxistext" "xaxistextup" "xaxisup" "xerrorbars" "xlabel" "xlogbase" "xlogscale" "xrange" "xsnaptogrid" "xunit" "xylogscale" "yaxis" "yerrorbars" "ylabel" "ylogbase" "ylogscale" "yrange" "ysnaptogrid" "yunit" "zoom")
+(defvar oef-draw-commands ; in the menu DONE
+  '("affine" "angle" "animate" "arc" "arrow" "arrow2" "arrowhead" "arrows" "arrows2" "audio" "axis" "axisnumbering" "barchart" "bezier" "bgcolor" "bgimage" "blink" "boxplot" "boxplotdata" "canvasdraw" "canvastype" "centerstring" "circle" "circles" "clearbutton" "clock" "copy" "copyresized" "crosshair" "crosshairs" "crosshairsize" "cursor" "curve" "dashed" "dashtype" "delete" "demiline" "demilines" "diamondfill" "disk" "disks" "disks" "display" "dotfill" "drag" "darrow" "dhline" "dline" "dlines" "dvline" "ellipse" "erase" "fcircle" "fcircles" "fill" "fillcolor" "filled" "filltoborder" "floodfill" "fontcolor" "fontfamily" "fontsize" "fpoly" "frect" "frects" "froundrect" "froundrects" "fsquare" "ftriangle" "ftriangles" "functionlabel" "grid" "gridfill" "halfline" "halflines" "hatchfill" "highlight" "hline" "hlines" "horizontalline" "horizontallines" "html" "http" "imagefill" "input" "inputstyle" "intooltip" "jscurve" "jsmath" "jsplot" "killaffine" "killrotate" "killslider" "killtranslate" "killtranslation" "lattice" "legend" "legendcolors" "levelcurve" "line" "linegraph" "lines" "linewidth" "mathml" "mouse" "mouse_degree" "mousex" "mousey" "multidash" "multidraw" "multifill" "multifillcolors" "multifillopacity" "multilabel" "multilinewidth" "multisnaptogrid" "multistrokecolors" "multistrokeopacity" "multiuserinput" "noaxis" "noayis" "note:" "onclick" "opacity" "parallel" "piechart" "pixels" "pixelsize" "plotsteps" "point" "pointer" "points" "poly" "polyline" "popup" "precision" "protractor" "ranget" "rangex" "rangey" "rays" "rect" "rects" "replyformat" "rotate" "rotationcenter" "roundrect" "roundrects" "ruler" "seg" "segment" "segments" "segs" "setlimits" "setpixel" "sgraph" "size" "slider" "sliderfunction_x" "sliderfunction_y" "snaptofun" "snaptofunction" "snaptogrid" "snaptopoints" "square" "status" "string" "stringup" "strokecolor" "text" "textarea" "textup" "trace_jscurve" "trange" "translate" "translation" "transparent" "triangle" "triangles" "userboxplot" "userboxplotdata" "userdraw" "userinput" "userinput_function" "userinput_textarea" "userinput_xy" "usertextarea_xy" "vector" "vectors" "verticalline" "verticallines" "video" "vline" "vlines" "xaxis" "xaxistext" "xaxistextup" "xaxisup" "xerrorbars" "xlabel" "xlogbase" "xlogscale" "xrange" "xsnaptogrid" "xunit" "xylogscale" "yaxis" "yerrorbars" "ylabel" "ylogbase" "ylogscale" "yrange" "ysnaptogrid" "yunit" "zoom")
   "Used for highlighting and completion.")
 
 (defvar oef-example-files
@@ -2436,6 +2436,7 @@ This function uses `sgml-mode-syntax-table' because with `oef-mode-syntax-table'
   (interactive)
   (with-syntax-table sgml-mode-syntax-table (mc/mark-sgml-tag-pair)))
 
+;; ;sauvegarde au cas ou la tentative de réécriture de oef-mode-indent-line échoue
 (defun oef-mode-indent-line ()
   "This function try to smartly indent the line.
 
@@ -2443,6 +2444,298 @@ It uses `sgml-mode-syntax-table' because with `oef-mode-syntax-table' there are 
 If it fails (it will after '<' or '>' comparison signs) you can use `indent-rigidly' for re-indent manually"
   (interactive)
   (with-syntax-table sgml-mode-syntax-table (sgml-indent-line)))
+
+
+;; (defun oef-mode-indent-line ()
+;;   "This function try to smartly indent the line."
+;;   (interactive)
+;;   (let* ((savep (point))                ;sauvegarde la position de point dans savep
+;; 	 (indent-col
+;; 	  (save-excursion               ;Save point, and current buffer; execute BODY; restore those things.
+;;             (message "point: %d" (point))
+;;             (message "savep: %d" savep)
+;; 	    (back-to-indentation)       ;déplace le point sur le premier caractère non blanc sur cette ligne
+;;             (if (>= (point) savep) (message "savep nil")) 
+;;             (if (>= (point) savep) (setq savep nil)) ;efface savep si le point se trouvait parmi les caractères blancs de début de ligne
+;; 	    (oef-mode-calculate-indent)))); calcule l'indentation et place la valeur dans indent-col
+;;     (if (null indent-col)
+;; 	'noindent
+;;       (if savep                         
+;; 	  (save-excursion (indent-line-to indent-col)) ;si le point se trouve après le premier caractère non blanc on réalise l'indentation au niveau de indent-col tout en conservant la position du curseur au niveau du même caractère dans la ligne
+;;         (indent-line-to indent-col))))) ;si le point se trouve parmi les caractères blancs on réalise l'indentation au niveau de indent-col et on place le point sur le premier caractère non blanc
+
+;; (defun oef-mode-lexical-context (&optional limit)
+;;   "Return the lexical context at point as (TYPE . START).
+;; START is the location of the start of the lexical element.
+;; TYPE is one of `string', `comment', `tag', `cdata', `pi', or `text'.
+
+;; Optional argument LIMIT is the position to start parsing from.
+;; If nil, start from a preceding tag at indentation."
+;;   (save-excursion
+;;     (let ((pos (point))
+;; 	  text-start state)
+;;       (if limit
+;;           (goto-char limit)
+;;         ;; Skip tags backwards until we find one at indentation
+;;         (while (and (ignore-errors (oef-mode-parse-tag-backward))
+;;                     (not (sgml-at-indentation-p)))))
+;;       (with-syntax-table sgml-tag-syntax-table
+;; 	(while (< (point) pos)
+;; 	  ;; When entering this loop we're inside text.
+;; 	  (setq text-start (point))
+;; 	  (skip-chars-forward "^<" pos)
+;;           (setq state
+;;                 (cond
+;;                  ((= (point) pos)
+;;                   ;; We got to the end without seeing a tag.
+;;                   nil)
+;;                  ((looking-at "<!\\[[A-Z]+\\[")
+;;                   ;; We've found a CDATA section or similar.
+;;                   (let ((cdata-start (point)))
+;;                     (unless (search-forward "]]>" pos 'move)
+;;                       (list 0 nil nil 'cdata nil nil nil nil cdata-start))))
+;; 		 ((looking-at comment-start-skip)
+;; 		  ;; parse-partial-sexp doesn't handle <!-- comments -->,
+;; 		  ;; or only if ?- is in sgml-specials, so match explicitly
+;; 		  (let ((start (point)))
+;; 		    (unless (re-search-forward comment-end-skip pos 'move)
+;; 		      (list 0 nil nil nil t nil nil nil start))))
+;;                  ((and sgml-xml-mode (looking-at "<\\?"))
+;;                   ;; Processing Instructions.
+;;                   ;; In SGML, it's basically a normal tag of the form
+;;                   ;; <?NAME ...> but in XML, it takes the form <? ... ?>.
+;;                   (let ((pi-start (point)))
+;;                     (unless (search-forward "?>" pos 'move)
+;;                       (list 0 nil nil 'pi nil nil nil nil pi-start))))
+;;                  (t
+;;                   ;; We've reached a tag.  Parse it.
+;;                   ;; FIXME: Handle net-enabling start-tags
+;;                   (parse-partial-sexp (point) pos 0))))))
+;;       (cond
+;;        ((memq (nth 3 state) '(cdata pi)) (cons (nth 3 state) (nth 8 state)))
+;;        ((nth 3 state) (cons 'string (nth 8 state)))
+;;        ((nth 4 state) (cons 'comment (nth 8 state)))
+;;        ((and state (> (nth 0 state) 0)) (cons 'tag (nth 1 state)))
+;;        (t (cons 'text text-start))))))
+
+
+
+
+;; (defun oef-mode-parse-tag-backward (&optional limit)
+;;   "Parse an SGML tag backward, and return information about the tag.
+;; Assume that parsing starts from within a textual context.
+;; Leave point at the beginning of the tag."
+;;   (catch 'found
+;;     (let (tag-type tag-start tag-end name)
+;;       (or (sgml--find-<>-backward limit)
+;; 	  (error "No tag found"))
+;;       (when (eq (char-after) ?<)
+;; 	;; Oops!! Looks like we were not in a textual context after all!.
+;; 	;; Let's try to recover.
+;;         ;; Remember the tag-start so we don't need to look for it later.
+;; 	;; This is not just an optimization but also makes sure we don't get
+;; 	;; stuck in infloops in cases where "looking back for <" would not go
+;; 	;; back far enough.
+;;         (setq tag-start (point))
+;; 	(with-syntax-table sgml-tag-syntax-table
+;; 	  (let ((pos (point)))
+;; 	    (condition-case nil
+;;                 ;; FIXME: This does not correctly skip over PI an CDATA tags.
+;; 		(sgml-forward-sexp 1)
+;; 	      (scan-error
+;; 	       ;; This < seems to be just a spurious one, let's ignore it.
+;; 	       (goto-char pos)
+;; 	       (throw 'found (oef-mode-parse-tag-backward limit))))
+;; 	    ;; Check it is really a tag, without any extra < or > inside.
+;; 	    (unless (sgml-tag-text-p pos (point))
+;; 	      (goto-char pos)
+;; 	      (throw 'found (oef-mode-parse-tag-backward limit)))
+;; 	    (forward-char -1))))
+;;       (setq tag-end (1+ (point)))
+;;       (cond
+;;        ((sgml-looking-back-at "--")	; comment
+;; 	(setq tag-type 'comment
+;; 	      tag-start (or tag-start (search-backward "<!--" nil t))))
+;;        ((sgml-looking-back-at "]]")	; cdata
+;; 	(setq tag-type 'cdata
+;; 	      tag-start (or tag-start
+;;                             (re-search-backward "<!\\[[A-Z]+\\[" nil t))))
+;;        ((sgml-looking-back-at "?")      ; XML processing-instruction
+;;         (setq tag-type 'pi
+;;               ;; IIUC: SGML processing instructions take the form <?foo ...>
+;;               ;; i.e. a "normal" tag, handled below.  In XML this is changed
+;;               ;; to <?foo ... ?> where "..." can contain < and > and even <?
+;;               ;; but not ?>.  This means that when parsing backward, there's
+;;               ;; no easy way to make sure that we find the real beginning of
+;;               ;; the PI.
+;; 	      tag-start (or tag-start (search-backward "<?" nil t))))
+;;        (t
+;;         (unless tag-start
+;;           (setq tag-start
+;;                 (with-syntax-table sgml-tag-syntax-table
+;;                   (goto-char tag-end)
+;;                   (condition-case nil
+;;                       (sgml-forward-sexp -1)
+;;                     (scan-error
+;;                      ;; This > isn't really the end of a tag. Skip it.
+;;                      (goto-char (1- tag-end))
+;;                      (throw 'found (sgml-parse-tag-backward limit))))
+;;                   (point))))
+;; 	(goto-char (1+ tag-start))
+;; 	(pcase (char-after)
+;; 	  (?! (setq tag-type 'decl))    ; declaration
+;; 	  (?? (setq tag-type 'pi))      ; processing-instruction
+;; 	  (?% (setq tag-type 'jsp))	; JSP tags
+;; 	  (?/				; close-tag
+;; 	   (forward-char 1)
+;; 	   (setq tag-type 'close
+;; 		 name (sgml-parse-tag-name)))
+;; 	  (_				; open or empty tag
+;; 	   (setq tag-type 'open
+;; 		 name (sgml-parse-tag-name))
+;; 	   (if (or (eq ?/ (char-before (- tag-end 1)))
+;; 		   (sgml-empty-tag-p name))
+;; 	       (setq tag-type 'empty))))))
+;;       (goto-char tag-start)
+;;       (sgml-make-tag tag-type tag-start tag-end name))))
+
+
+
+
+;; (defun oef-mode-calculate-indent (&optional lcon)
+;;   "Calculate the column to which this line should be indented.
+;; LCON is the lexical context, if any.
+;; lexical context at point as (TYPE . START)
+;; TYPE is one of `string', `comment', `tag', `cdata', `pi', or `text'.
+;; START is the location of the start of the lexical element.
+;; "
+;;   (unless lcon (setq lcon (oef-mode-lexical-context)))
+;;   (message "(TYPE. START): %S " lcon)
+;;   ;; Indent comment-start markers inside <!-- just like comment-end markers.
+;;   (if (and (eq (car lcon) 'tag)
+;; 	   (looking-at "--")
+;; 	   (save-excursion (goto-char (cdr lcon)) (looking-at "<!--")))
+;;       (setq lcon (cons 'comment (+ (cdr lcon) 2))))
+
+;;   (pcase (car lcon)
+
+;;     ('string
+;;      ;; Go back to previous non-empty line.
+;;      (while (and (> (point) (cdr lcon))
+;; 		 (zerop (forward-line -1))
+;; 		 (looking-at "[ \t]*$")))
+;;      (if (> (point) (cdr lcon))
+;; 	 ;; Previous line is inside the string.
+;; 	 (current-indentation)
+;;        (goto-char (cdr lcon))
+;;        (1+ (current-column))))
+
+;;     ('comment
+;;      (let ((mark (looking-at "--")))
+;;        ;; Go back to previous non-empty line.
+;;        (while (and (> (point) (cdr lcon))
+;; 		   (zerop (forward-line -1))
+;; 		   (or (looking-at "[ \t]*$")
+;; 		       (if mark (not (looking-at "[ \t]*--"))))))
+;;        (if (> (point) (cdr lcon))
+;; 	   ;; Previous line is inside the comment.
+;; 	   (skip-chars-forward " \t")
+;; 	 (goto-char (cdr lcon))
+;; 	 ;; Skip `<!' to get to the `--' with which we want to align.
+;; 	 (search-forward "--")
+;; 	 (goto-char (match-beginning 0)))
+;;        (when (and (not mark) (looking-at "--"))
+;; 	 (forward-char 2) (skip-chars-forward " \t"))
+;;        (current-column)))
+
+;;     ;; We don't know how to indent it.  Let's be honest about it.
+;;     ('cdata nil)
+;;     ;; We don't know how to indent it.  Let's be honest about it.
+;;     ('pi nil)
+
+;;     ('tag
+;;      (goto-char (+ (cdr lcon) sgml-attribute-offset))
+;;      (skip-chars-forward "^ \t\n")	;Skip tag name.
+;;      (skip-chars-forward " \t")
+;;      (if (not (eolp))
+;; 	 (current-column)
+;;        ;; This is the first attribute: indent.
+;;        (goto-char (+ (cdr lcon) sgml-attribute-offset))
+;;        (+ (current-column) sgml-basic-offset)))
+
+;;     ('text
+;;      (while (looking-at "</")
+;;        (sgml-forward-sexp 1)
+;;        (skip-chars-forward " \t"))
+;;      (let* ((here (point))
+;; 	    (unclosed (and ;; (not sgml-xml-mode)
+;; 		       (looking-at sgml-tag-name-re)
+;; 		       (assoc-string (match-string 1)
+;; 				     sgml-unclosed-tags 'ignore-case)
+;; 		       (match-string 1)))
+;; 	    (context
+;; 	     ;; If possible, align on the previous non-empty text line.
+;; 	     ;; Otherwise, do a more serious parsing to find the
+;; 	     ;; tag(s) relative to which we should be indenting.
+;; 	     (if (and (not unclosed) (skip-chars-backward " \t")
+;; 		      (< (skip-chars-backward " \t\n") 0)
+;; 		      (back-to-indentation)
+;; 		      (> (point) (cdr lcon)))
+;; 		 nil
+;; 	       (goto-char here)
+;; 	       (nreverse (sgml-get-context (if unclosed nil 'empty)))))
+;; 	    (there (point)))
+;;        ;; Ignore previous unclosed start-tag in context.
+;;        (while (and context unclosed
+;; 		   (eq t (compare-strings
+;; 			  (sgml-tag-name (car context)) nil nil
+;; 			  unclosed nil nil t)))
+;; 	 (setq context (cdr context)))
+;;        ;; Indent to reflect nesting.
+;;        (cond
+;; 	;; If we were not in a text context after all, let's try again.
+;; 	((and context (> (sgml-tag-end (car context)) here))
+;; 	 (goto-char here)
+;; 	 (sgml-calculate-indent
+;; 	  (cons (if (memq (sgml-tag-type (car context)) '(comment cdata))
+;; 		    (sgml-tag-type (car context)) 'tag)
+;; 		(sgml-tag-start (car context)))))
+;; 	;; Align on the first element after the nearest open-tag, if any.
+;; 	((and context
+;; 	      (goto-char (sgml-tag-end (car context)))
+;; 	      (skip-chars-forward " \t\n")
+;; 	      (< (point) here) (sgml-at-indentation-p))
+;; 	 (current-column))
+;; 	;; ;; If the parsing failed, try to recover.
+;; 	;; ((and (null context) (bobp)
+;; 	;; 	(not (eq (char-after here) ?<)))
+;; 	;;  (goto-char here)
+;; 	;;  (if (and (looking-at "--[ \t\n]*>")
+;; 	;; 	    (re-search-backward "<!--" nil t))
+;; 	;;      ;; No wonder parsing failed: we're in a comment.
+;; 	;;      (sgml-calculate-indent (prog2 (goto-char (match-end 0))
+;; 	;; 				  (sgml-lexical-context)
+;; 	;; 				(goto-char here)))
+;; 	;;    ;; We have no clue what's going on, let's be honest about it.
+;; 	;;    nil))
+;; 	;; Otherwise, just follow the rules.
+;; 	(t
+;; 	 (goto-char there)
+;; 	 (+ (current-column)
+;; 	    (* sgml-basic-offset (length context)))))))
+
+;;     (_
+;;      (error "Unrecognized context %s" (car lcon)))
+
+;;     ))
+
+
+
+
+
+
+
+
 
 ;; No more usefull since indent-line-function targets oef-mode-indent-line
 ;; (defun oef-mode-indent-region (start end)
@@ -2643,7 +2936,9 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
     ["---" nil t]
     ["Answers Types and Options" nil t]
     ["Commands" nil t]
-    ("Canvasdraw"
+    ["Comment (toggle)" oef-comment-toggle t]
+    ["Defined Variables" nil t]
+    ("Draw"
      ["example" oef-canvasdraw-example t]
      ("Flydraw doc"
       ["English" oef-flydraw-commands t]
@@ -2675,8 +2970,6 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ["X" nil t]
      ["Y" nil t]
      ["Z" nil t])
-    ["Comment (toggle)" oef-comment-toggle t]
-    ["Defined Variables" nil t]
     ["Documents" nil t]
     ["Initializations of Variables (C-o v)" nil t]
     ["Mathematical Expression" oef-insert-math t]
@@ -2836,305 +3129,315 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 (easy-menu-add-item oef-menu-bar '("Documents" "Link")["Reload" oef-reload :help " Reload the page.\n\nUp to 2 arguments: the text to show on the link and the position to go (anchor).\nReloading a page is interesting when it contains random variables.\nIn this case, to each reloading, the resulting page is different."])
 (easy-menu-add-item oef-menu-bar '("Documents")["Tooltip" oef-tooltip :help "Tooltip on words.\n\nUp to 3 arguments:\nArgument 1: the prompt. You may change the style of the prompt by using HTML tags\nor by defining the css style class span.tooltip.\nArgument 2 (optional): the options of the tooltip between [ ]. If the word nojs\nis added (outside the brackets), the used javascript is not reload (it is sufficient to load it once at the begining of the html page).\nArgument 3 : the text inside the tooltip."])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "A")["affine" (lambda () (interactive) (insert "affine a,b,c,d,tx,ty ")) :help "affine a,b,c,d,tx,ty\n\n\t○ defines a transformation matrix for subsequent objects\n\t○ images drawn by setting skew params a & d will be very different from Flydraw's \"affine a,b,c,d,e,tx,ty\" !!\n\t○ use keyword 'killaffine' to end the transformation\n\t○ note 1: only 'draggable' / 'noclick' objects can be transformed.\n\t○ note 2: do not use 'onclick' or 'drag xy' with tranformation objects : the mouse coordinates do not get transformed (yet)\n\t○ note 3: no matrix operations on the transformation matrix implemented (yet)\n\t○ a : Scales the drawings horizontally\n\t○ b : Skews the drawings horizontally\n\t○ c : Skews the drawings vertically\n\t○ d : Scales the drawings vertically\n\t○ tx: Moves the drawings horizontally in xrange coordinate system\n\t○ ty: Moves the drawings vertically in yrange coordinate system\n\t○ the data precision may be set by preceding command \"precision int\""])
+(easy-menu-add-item oef-menu-bar '("Draw" "A")["affine" (lambda () (interactive) (insert "affine a,b,c,d,tx,ty ")) :help "affine a,b,c,d,tx,ty\n\n\t○ defines a transformation matrix for subsequent objects\n\t○ images drawn by setting skew params a & d will be very different from Flydraw's \"affine a,b,c,d,e,tx,ty\" !!\n\t○ use keyword 'killaffine' to end the transformation\n\t○ note 1: only 'draggable' / 'noclick' objects can be transformed.\n\t○ note 2: do not use 'onclick' or 'drag xy' with tranformation objects : the mouse coordinates do not get transformed (yet)\n\t○ note 3: no matrix operations on the transformation matrix implemented (yet)\n\t○ a : Scales the drawings horizontally\n\t○ b : Skews the drawings horizontally\n\t○ c : Skews the drawings vertically\n\t○ d : Scales the drawings vertically\n\t○ tx: Moves the drawings horizontally in xrange coordinate system\n\t○ ty: Moves the drawings vertically in yrange coordinate system\n\t○ the data precision may be set by preceding command \"precision int\""])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "A")["angle" (lambda () (interactive) (insert "angle xc,yc,width,start_angle,end_angle,color ")) :help "angle xc,yc,width,start_angle,end_angle,color\n\n\t○ width is in x-range\n\t○ will zoom in/out\n\t○ if size is controlled by command 'slider' use radians to set limits of slider."])
+(easy-menu-add-item oef-menu-bar '("Draw" "A")["angle" (lambda () (interactive) (insert "angle xc,yc,width,start_angle,end_angle,color ")) :help "angle xc,yc,width,start_angle,end_angle,color\n\n\t○ width is in x-range\n\t○ will zoom in/out\n\t○ if size is controlled by command 'slider' use radians to set limits of slider."])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "A")["animate" (lambda () (interactive) (insert "animate type ")) :help "animate type\n\n\t○ REMOVED : this should be done with a slider\n\t○ type may be \"point\" (nothing else , yet...)\n\t○ the point is a filled rectangle ; adjust colour with command 'fillcolor colorname/hexnumber'\n\t○ will animate a point on the next plot/curve command\n\t○ the curve will not be draw\n\t○ moves repeatedly from xmin to xmax"])
+(easy-menu-add-item oef-menu-bar '("Draw" "A")["animate" (lambda () (interactive) (insert "animate type ")) :help "animate type\n\n\t○ REMOVED : this should be done with a slider\n\t○ type may be \"point\" (nothing else , yet...)\n\t○ the point is a filled rectangle ; adjust colour with command 'fillcolor colorname/hexnumber'\n\t○ will animate a point on the next plot/curve command\n\t○ the curve will not be draw\n\t○ moves repeatedly from xmin to xmax"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "A")["arc" (lambda () (interactive) (insert "arc xc,yc,width,height,start_angle,end_angle,color ")) :help "arc xc,yc,width,height,start_angle,end_angle,color\n\n\t○ can not be set \"onclick\" or \"drag xy\"\n\t○ attention: width in height in x/y-range\n\t○ will not zoom in or zoom out (because radius is given in pixels an not in x/y-system !). Panning will work\n\t○ use command 'angle' for scalable angle"])
+(easy-menu-add-item oef-menu-bar '("Draw" "A")["arc" (lambda () (interactive) (insert "arc xc,yc,width,height,start_angle,end_angle,color ")) :help "arc xc,yc,width,height,start_angle,end_angle,color\n\n\t○ can not be set \"onclick\" or \"drag xy\"\n\t○ attention: width in height in x/y-range\n\t○ will not zoom in or zoom out (because radius is given in pixels an not in x/y-system !). Panning will work\n\t○ use command 'angle' for scalable angle"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "A")["arrow" (lambda () (interactive) (insert "arrow x1,y1,x2,y2,h,color ")) :help "arrow x1,y1,x2,y2,h,color\n\n\t○ alternative command:vector\n\t○ draw a single headed arrow / vector from (x1:y1) to (x2:y2)\n\t○ with arrowhead size h in px and in color 'color'\n\t○ use command 'linewidth int' to adjust thickness of the arrow\n\t○ may be set draggable / onclick"])
+(easy-menu-add-item oef-menu-bar '("Draw" "A")["arrow" (lambda () (interactive) (insert "arrow x1,y1,x2,y2,h,color ")) :help "arrow x1,y1,x2,y2,h,color\n\n\t○ alternative command:vector\n\t○ draw a single headed arrow / vector from (x1:y1) to (x2:y2)\n\t○ with arrowhead size h in px and in color 'color'\n\t○ use command 'linewidth int' to adjust thickness of the arrow\n\t○ may be set draggable / onclick"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "A")["arrow2" (lambda () (interactive) (insert "arrow2 ")) :help "arrow2 x1,y1,x2,y2,h,color\n\n\t○ draw a double headed arrow/vector from (x1:y1) to (x2:y2)\n\t○ with arrowhead size h in px and in color 'color'\n\t○ use command 'arrowhead int' to adjust the arrow head size\n\t○ use command 'linewidth int' to adjust thickness of the arrow\n\t○ may be set draggable / onclick"])
+(easy-menu-add-item oef-menu-bar '("Draw" "A")["arrow2" (lambda () (interactive) (insert "arrow2 ")) :help "arrow2 x1,y1,x2,y2,h,color\n\n\t○ draw a double headed arrow/vector from (x1:y1) to (x2:y2)\n\t○ with arrowhead size h in px and in color 'color'\n\t○ use command 'arrowhead int' to adjust the arrow head size\n\t○ use command 'linewidth int' to adjust thickness of the arrow\n\t○ may be set draggable / onclick"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "A")["arrowhead" (lambda () (interactive) (insert "arrowhead int ")) :help "arrowhead int\n\n\t○ default 8 (pixels)"])
+(easy-menu-add-item oef-menu-bar '("Draw" "A")["arrowhead" (lambda () (interactive) (insert "arrowhead int ")) :help "arrowhead int\n\n\t○ default 8 (pixels)"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "A")["arrows" (lambda () (interactive) (insert "arrows color,head (px),x1,y1,x2,y2...x_n,y_n ")) :help "arrows color,head (px),x1,y1,x2,y2...x_n,y_n\n\n\t○ alternative command:vectors\n\t○ draw single headed arrows / vectors from (x1:y1) to (x2:y2) ... (x3:y3) to (x4:y4) etc ... in color 'color'\n\t○ use command 'linewidth int' to adjust thickness of the arrow\n\t○ may be set draggable / onclick individually"])
+(easy-menu-add-item oef-menu-bar '("Draw" "A")["arrows" (lambda () (interactive) (insert "arrows color,head (px),x1,y1,x2,y2...x_n,y_n ")) :help "arrows color,head (px),x1,y1,x2,y2...x_n,y_n\n\n\t○ alternative command:vectors\n\t○ draw single headed arrows / vectors from (x1:y1) to (x2:y2) ... (x3:y3) to (x4:y4) etc ... in color 'color'\n\t○ use command 'linewidth int' to adjust thickness of the arrow\n\t○ may be set draggable / onclick individually"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "A")["arrows2" (lambda () (interactive) (insert "arrows2 color,head (px),x1,y1,x2,y2...x_n,y_n ")) :help "arrows2 color,head (px),x1,y1,x2,y2...x_n,y_n\n\n\t○ draw double headed arrows / vectors from (x1:y1) to (x2:y2) ... (x3:y3) to (x4:y4) etc ... in color 'color'\n\t○ use command 'linewidth int' to adjust thickness of the arrows\n\t○ may be set draggable / onclick individually"])
+(easy-menu-add-item oef-menu-bar '("Draw" "A")["arrows2" (lambda () (interactive) (insert "arrows2 color,head (px),x1,y1,x2,y2...x_n,y_n ")) :help "arrows2 color,head (px),x1,y1,x2,y2...x_n,y_n\n\n\t○ draw double headed arrows / vectors from (x1:y1) to (x2:y2) ... (x3:y3) to (x4:y4) etc ... in color 'color'\n\t○ use command 'linewidth int' to adjust thickness of the arrows\n\t○ may be set draggable / onclick individually"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "A")["audio" (lambda () (interactive) (insert "audio x,y,w,h,loop,visible,audiofile location ")) :help "audio x,y,w,h,loop,visible,audiofile location\n\n\t○ x,y : left top corner of audio element (in xrange / yrange)\n\t○ w,y : width and height in pixels\n\t○ loop : 0 or 1 ( 1 = loop audio fragment)\n\t○ visible : 0 or 1 (1 = show controls)\n\t○ audio format may be in *.mp3 or *.ogg\n\t○ If you are using *.mp3 : be aware that FireFox will not (never) play this ! (Pattented format)\n\t○ if you are using *.ogg : be aware that Microsoft based systems not support it natively\n\t○ To avoid problems supply both types (mp3 and ogg) of audiofiles.\n\t the program will use both as source tag\n\t○ example: upload both audio1.ogg and audio1.mp3 to http://server/files/\n\t audio 0,0,http://server/files/audio1.mp3\n\t svdraw will copy html-tag audio1.mp3 to audio1.ogg\n\t and the browser will play the compatible file (audio1.ogg or audio1.mp3)"])
+(easy-menu-add-item oef-menu-bar '("Draw" "A")["audio" (lambda () (interactive) (insert "audio x,y,w,h,loop,visible,audiofile location ")) :help "audio x,y,w,h,loop,visible,audiofile location\n\n\t○ x,y : left top corner of audio element (in xrange / yrange)\n\t○ w,y : width and height in pixels\n\t○ loop : 0 or 1 ( 1 = loop audio fragment)\n\t○ visible : 0 or 1 (1 = show controls)\n\t○ audio format may be in *.mp3 or *.ogg\n\t○ If you are using *.mp3 : be aware that FireFox will not (never) play this ! (Pattented format)\n\t○ if you are using *.ogg : be aware that Microsoft based systems not support it natively\n\t○ To avoid problems supply both types (mp3 and ogg) of audiofiles.\n\t the program will use both as source tag\n\t○ example: upload both audio1.ogg and audio1.mp3 to http://server/files/\n\t audio 0,0,http://server/files/audio1.mp3\n\t svdraw will copy html-tag audio1.mp3 to audio1.ogg\n\t and the browser will play the compatible file (audio1.ogg or audio1.mp3)"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "A")["axis" (lambda () (interactive) (insert "axis ")) :help "axis\n\n\t○ keyword (no arguments required)\n\t○ to be used before command grid (see command grid)"])
+(easy-menu-add-item oef-menu-bar '("Draw" "A")["axis" (lambda () (interactive) (insert "axis ")) :help "axis\n\n\t○ keyword (no arguments required)\n\t○ to be used before command grid (see command grid)"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "A")["axisnumbering" (lambda () (interactive) (insert "axisnumbering ")) :help "axisnumbering\n\n\t○ keyword (no arguments required)\n\t○ for special numbering of x-axis or y-axis see grid related commands axis xaxis , xaxisup, noxaxis ,yaxis , yaxisup, noyaxis\n\t○ to be used before command grid (see command grid)"])
+(easy-menu-add-item oef-menu-bar '("Draw" "A")["axisnumbering" (lambda () (interactive) (insert "axisnumbering ")) :help "axisnumbering\n\n\t○ keyword (no arguments required)\n\t○ for special numbering of x-axis or y-axis see grid related commands axis xaxis , xaxisup, noxaxis ,yaxis , yaxisup, noyaxis\n\t○ to be used before command grid (see command grid)"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "B")["barchart" (lambda () (interactive) (insert "barchart x_1:y_1:color_1:x_2:y_2:color_2:...x_n:y_n:color_n ")) :help "barchart x_1:y_1:color_1:x_2:y_2:color_2:...x_n:y_n:color_n\n\n\t○ may only to be used together with command 'grid'\n\t○ can be used together with freestyle x-axis/y-axis texts : see commands 'xaxis','xaxisup' and 'yaxis'\n\t○ use command 'legend' to provide an optional legend in right-top-corner\n\t○ multiple barchart command may be used in a single script\n\t○ also see command 'piechart'\n\t○ note: your arguments are not checked by canvasdraw : use your javascript console in case of trouble..."])
+(easy-menu-add-item oef-menu-bar '("Draw" "B")["barchart" (lambda () (interactive) (insert "barchart x_1:y_1:color_1:x_2:y_2:color_2:...x_n:y_n:color_n ")) :help "barchart x_1:y_1:color_1:x_2:y_2:color_2:...x_n:y_n:color_n\n\n\t○ may only to be used together with command 'grid'\n\t○ can be used together with freestyle x-axis/y-axis texts : see commands 'xaxis','xaxisup' and 'yaxis'\n\t○ use command 'legend' to provide an optional legend in right-top-corner\n\t○ multiple barchart command may be used in a single script\n\t○ also see command 'piechart'\n\t○ note: your arguments are not checked by canvasdraw : use your javascript console in case of trouble..."])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "B")["bezier" (lambda () (interactive) (insert "bezier color,x_start,y_start,x_first,y_first,x_second,y_second,x_end,y_end ")) :help "bezier color,x_start,y_start,x_first,y_first,x_second,y_second,x_end,y_end\n\n\t○ draw a bezier curve between points, starting from (x_start:y_start)\n\t○ can not be dragged or set onclick"])
+(easy-menu-add-item oef-menu-bar '("Draw" "B")["bezier" (lambda () (interactive) (insert "bezier color,x_start,y_start,x_first,y_first,x_second,y_second,x_end,y_end ")) :help "bezier color,x_start,y_start,x_first,y_first,x_second,y_second,x_end,y_end\n\n\t○ draw a bezier curve between points, starting from (x_start:y_start)\n\t○ can not be dragged or set onclick"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "B")["bgcolor" (lambda () (interactive) (insert "bgcolor colorname or #hex ")) :help "bgcolor colorname or #hex\n\n\t○ use this color as background of the "div" containing the canvas(es)"])
+(easy-menu-add-item oef-menu-bar '("Draw" "B")["bgcolor" (lambda () (interactive) (insert "bgcolor colorname or #hex ")) :help "bgcolor colorname or #hex\n\n\t○ use this color as background of the "div" containing the canvas(es)"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "B")["bgimage" (lambda () (interactive) (insert "bgimage image_location ")) :help "bgimage image_location\n\n\t○ use an image as background .\n\t○ technical: we use the background of 'canvas_div'\n\t○ the background image will be resized to match \"width = xsize\" and \"height = ysize\""])
+(easy-menu-add-item oef-menu-bar '("Draw" "B")["bgimage" (lambda () (interactive) (insert "bgimage image_location ")) :help "bgimage image_location\n\n\t○ use an image as background .\n\t○ technical: we use the background of 'canvas_div'\n\t○ the background image will be resized to match \"width = xsize\" and \"height = ysize\""])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "B")["blink" (lambda () (interactive) (insert "blink time(seconds) ")) :help "blink time(seconds)\n\n\t○ NOT IMPLEMETED -YET"])
+(easy-menu-add-item oef-menu-bar '("Draw" "B")["blink" (lambda () (interactive) (insert "blink time(seconds) ")) :help "blink time(seconds)\n\n\t○ NOT IMPLEMETED -YET"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "B")["boxplot" (lambda () (interactive) (insert "boxplot x_or_y,box-height_or_box-width,position,min,Q1,median,Q3,max ")) :help "boxplot x_or_y,box-height_or_box-width,position,min,Q1,median,Q3,max\n\n\t○ example:\n\t\t xrange 0,300\n\t\t yrange 0,10\n\t\t boxplot x,4,8,120,160,170,220,245\n\t\t meaning: create a boxplot in x-direction, with height 4 (in yrange) and centered around line y=8\n\t○ example:\n\t\t xrange 0,10\n\t\t yrange 0,300\n\t\t boxplot y,4,8,120,160,170,220,245\n\t\t meaning: create a boxplot in y-direction, with width 4 (in xrange) and centered around line x=8\n\t○ use command 'filled' to fill the box\n\t\t note: the strokecolor is used for filling Q1, the fillcolor is used for filling Q3\n\t○ use command 'opacity' to adjust fill_opacity of stroke and fill colours\n\t○ use command 'legend' to automatically create a legend\n\t\t unicode allowed in legend\n\t\t use command 'fontfamily' to set the font of the legend.\n\t○ there is no limit to the number of boxplots used.\n\t○ can not be set draggable ('onclick' is not ready ,yet)\n\t○ use keyword 'userboxplot' before command boxplot, if a pupil must draw a boxplot (using his own min,Q1,median,Q3,max data)\n\t○ use keyword 'userboxplotdata' before command boxplot, if a pupil must generate the data by some means.\n\t○ use command 'boxplotdata' when the boxplot should be drawn from wims-generated raw statistical date"])
+(easy-menu-add-item oef-menu-bar '("Draw" "B")["boxplot" (lambda () (interactive) (insert "boxplot x_or_y,box-height_or_box-width,position,min,Q1,median,Q3,max ")) :help "boxplot x_or_y,box-height_or_box-width,position,min,Q1,median,Q3,max\n\n\t○ example:\n\t\t xrange 0,300\n\t\t yrange 0,10\n\t\t boxplot x,4,8,120,160,170,220,245\n\t\t meaning: create a boxplot in x-direction, with height 4 (in yrange) and centered around line y=8\n\t○ example:\n\t\t xrange 0,10\n\t\t yrange 0,300\n\t\t boxplot y,4,8,120,160,170,220,245\n\t\t meaning: create a boxplot in y-direction, with width 4 (in xrange) and centered around line x=8\n\t○ use command 'filled' to fill the box\n\t\t note: the strokecolor is used for filling Q1, the fillcolor is used for filling Q3\n\t○ use command 'opacity' to adjust fill_opacity of stroke and fill colours\n\t○ use command 'legend' to automatically create a legend\n\t\t unicode allowed in legend\n\t\t use command 'fontfamily' to set the font of the legend.\n\t○ there is no limit to the number of boxplots used.\n\t○ can not be set draggable ('onclick' is not ready ,yet)\n\t○ use keyword 'userboxplot' before command boxplot, if a pupil must draw a boxplot (using his own min,Q1,median,Q3,max data)\n\t○ use keyword 'userboxplotdata' before command boxplot, if a pupil must generate the data by some means.\n\t○ use command 'boxplotdata' when the boxplot should be drawn from wims-generated raw statistical date"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "B")["boxplotdata" (lambda () (interactive) (insert "boxplotdata some_data ")) :help "boxplotdata some_data\n\n\t○ 'some_data' are a list of numbers separated by a comma \",\" (items)\n\t○ only be used before command 'boxplot': the command 'boxplot' will provide the boxplot drawing of the data.\n\t○ xrange 0,100\n\t\t yrange 0,10\n\t\t boxplotdata 11,22,13,15,23,43,12,12,14,2,45,32,44,13,21,24,13,19,35,21,24,23\n\t\t boxplot x,4,5\n\t○ note: wims will not check your data input | format. use js-error console to debug any problems.\n\t○ a javascript function 'statistics()' will parse the data and calculate the values [min,Q1,median,Q3,max] and hand them to the boxplot draw\n\t○ function."])
+(easy-menu-add-item oef-menu-bar '("Draw" "B")["boxplotdata" (lambda () (interactive) (insert "boxplotdata some_data ")) :help "boxplotdata some_data\n\n\t○ 'some_data' are a list of numbers separated by a comma \",\" (items)\n\t○ only be used before command 'boxplot': the command 'boxplot' will provide the boxplot drawing of the data.\n\t○ xrange 0,100\n\t\t yrange 0,10\n\t\t boxplotdata 11,22,13,15,23,43,12,12,14,2,45,32,44,13,21,24,13,19,35,21,24,23\n\t\t boxplot x,4,5\n\t○ note: wims will not check your data input | format. use js-error console to debug any problems.\n\t○ a javascript function 'statistics()' will parse the data and calculate the values [min,Q1,median,Q3,max] and hand them to the boxplot draw\n\t○ function."])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["\\canvasdraw" (lambda () (interactive) (insert "\\canvasdraw{«width»,«height»}{\\mydraw} ")) :help "First you have to define a text variable (i.e. \\mydraw) containing the drawing code"])
+(easy-menu-add-item oef-menu-bar '("Draw" "C")["\\canvasdraw" (lambda () (interactive) (insert "\\canvasdraw{«width»,«height»}{\\mydraw} ")) :help "First you have to define a text variable (i.e. \\mydraw) containing the drawing code"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["canvastype" (lambda () (interactive) (insert "canvastype TYPE ")) :help "canvastype TYPE\n\n\t○ for now only usefull before commands filltoborder / floodfill / clickfill etc operations\n\t\t Only the images of this TYPE will be scanned and filled\n\t○ default value of TYPE is DRAG_CANVAS e.g. 5\n\t○ use another TYPE if you know what you are doing...\n\t○ other possible canvasses (transparent PNG pictures xsize x ysize on top of eachother)\n\t\t◦ EXTERNAL_IMAGE_CANVAS = 0\n\t\t◦ BG_CANVAS = 1\n\t\t◦ STATIC_CANVAS = 2\n\t\t◦ MOUSE_CANVAS = 3 : used for command \"mouse\"\n\t\t◦ GRID_CANVAS = 4 :used for command \"grid\"\n\t\t◦ DRAG_CANVAS = 5 :default\n\t\t◦ DRAW_CANVAS = 6 :used for some static drawings\n\t\t◦ TEXT_CANVAS = 7 : used for text-strings\n\t\t◦ CLOCK_CANVAS = 8 : used for command \"clock\"\n\t\t◦ ANIMATE_CANVAS = 9 : not used for now\n\t\t◦ TRACE_CANVAS = 10 : used for command \"trace_jscurve\"\n\t\t◦ JSPLOT_CANVAS = 111 : will be increased with every new command \"jscurve\"\n\t\t◦ FILL_CANVAS = 12 : this will be filled...so do not use !\n\t\t◦ USERDRAW_JSPLOT 13 : will be increased with every new command \"userinput function\""])
+(easy-menu-add-item oef-menu-bar '("Draw" "C")["canvastype" (lambda () (interactive) (insert "canvastype TYPE ")) :help "canvastype TYPE\n\n\t○ for now only usefull before commands filltoborder / floodfill / clickfill etc operations\n\t\t Only the images of this TYPE will be scanned and filled\n\t○ default value of TYPE is DRAG_CANVAS e.g. 5\n\t○ use another TYPE if you know what you are doing...\n\t○ other possible canvasses (transparent PNG pictures xsize x ysize on top of eachother)\n\t\t◦ EXTERNAL_IMAGE_CANVAS = 0\n\t\t◦ BG_CANVAS = 1\n\t\t◦ STATIC_CANVAS = 2\n\t\t◦ MOUSE_CANVAS = 3 : used for command \"mouse\"\n\t\t◦ GRID_CANVAS = 4 :used for command \"grid\"\n\t\t◦ DRAG_CANVAS = 5 :default\n\t\t◦ DRAW_CANVAS = 6 :used for some static drawings\n\t\t◦ TEXT_CANVAS = 7 : used for text-strings\n\t\t◦ CLOCK_CANVAS = 8 : used for command \"clock\"\n\t\t◦ ANIMATE_CANVAS = 9 : not used for now\n\t\t◦ TRACE_CANVAS = 10 : used for command \"trace_jscurve\"\n\t\t◦ JSPLOT_CANVAS = 111 : will be increased with every new command \"jscurve\"\n\t\t◦ FILL_CANVAS = 12 : this will be filled...so do not use !\n\t\t◦ USERDRAW_JSPLOT 13 : will be increased with every new command \"userinput function\""])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["centerstring" (lambda () (interactive) (insert "centerstring color,y-value,the text string ")) :help "centerstring color,y-value,the text string\n\n\t○ title color,y-value,the text string\n\t○ draw a string centered on the canvas at y = y-value\n\t○ can not be set \"onclick\" or \"drag xy\" (...)\n\t○ unicode supported: centerstring red,5,\\u2232\n\t○ use a command like 'fontfamily italic 24px Ariel'\n\t○ to set fonts on browser that support font change"])
+(easy-menu-add-item oef-menu-bar '("Draw" "C")["centerstring" (lambda () (interactive) (insert "centerstring color,y-value,the text string ")) :help "centerstring color,y-value,the text string\n\n\t○ title color,y-value,the text string\n\t○ draw a string centered on the canvas at y = y-value\n\t○ can not be set \"onclick\" or \"drag xy\" (...)\n\t○ unicode supported: centerstring red,5,\\u2232\n\t○ use a command like 'fontfamily italic 24px Ariel'\n\t○ to set fonts on browser that support font change"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["circle" (lambda () (interactive) (insert "circle xc,yc,width (2*r in pixels),color ")) :help "circle xc,yc,width (2*r in pixels),color\n\n\t○ use command 'fcircle xc,yc,d,color'\n\t○ alternative: disk for a filled circle\n\t○ use command 'fillcolor color' to set the fillcolor\n\t○ may be set draggable / onclick\n\t○ will shrink / expand on zoom out / zoom in"])
+(easy-menu-add-item oef-menu-bar '("Draw" "C")["circle" (lambda () (interactive) (insert "circle xc,yc,width (2*r in pixels),color ")) :help "circle xc,yc,width (2*r in pixels),color\n\n\t○ use command 'fcircle xc,yc,d,color'\n\t○ alternative: disk for a filled circle\n\t○ use command 'fillcolor color' to set the fillcolor\n\t○ may be set draggable / onclick\n\t○ will shrink / expand on zoom out / zoom in"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["circles" (lambda () (interactive) (insert "circles color,xc1,yc1,r1,xc2,yc2,r2...xc_n,yc_n,r_n ")) :help "circles color,xc1,yc1,r1,xc2,yc2,r2...xc_n,yc_n,r_n\n\n\t○ attention r = radius in x-range (!)\n\t○ use keyword 'filled' or command 'fcircles' to produce solid circles\n\t○ alternative command:disks\n\t○ use command 'fillcolor color' to set the fillcolor\n\t○ may be set draggable / onclick (individually)\n\t○ will shrink / expand on zoom out / zoom in"])
+(easy-menu-add-item oef-menu-bar '("Draw" "C")["circles" (lambda () (interactive) (insert "circles color,xc1,yc1,r1,xc2,yc2,r2...xc_n,yc_n,r_n ")) :help "circles color,xc1,yc1,r1,xc2,yc2,r2...xc_n,yc_n,r_n\n\n\t○ attention r = radius in x-range (!)\n\t○ use keyword 'filled' or command 'fcircles' to produce solid circles\n\t○ alternative command:disks\n\t○ use command 'fillcolor color' to set the fillcolor\n\t○ may be set draggable / onclick (individually)\n\t○ will shrink / expand on zoom out / zoom in"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["clearbutton" (lambda () (interactive) (insert "clearbutton value ")) :help "clearbutton value\n\n\t○ alternative command:delete\n\t○ alternative command:erase\n\t○ adds a button to clear the userdraw canvas with text 'value'\n\t○ attention command 'clearbutton' is incompatible with multidraw based drawings\n\t(in 'multidraw' there is always a remove_object_button for every drawprimitive)\n\t○ normally userdraw primitives have the option to use middle/right mouse button on\n\ta point of the object to remove this specific object...this clear button will remove all drawings\n\t○ uses the tooltip placeholder div element: may not be used with command 'intooltip'\n\t○ use command 'inputstyle' to style the button...\n\t○ the clearbutton will have id=\"canvas_scripts[%d]\" ; starting with %d=0 for the first script\n\tto change the style of all \"clearbutton\" of all included canvasdraw scripts, use something like\n\tif(document.getElementById(\"clearbutton\"+canvas_scripts[0])){\n\tvar p = 0;\n\twhile(document.getElementById(\"clearbutton\"+canvas_scripts[p])){\n\tdocument.getElementById(\"clearbutton\"+canvas_scripts[p]).className=\"some_class_name\";\n\t<!−− or document.getElementById(\"clearbutton\"+canvas_scripts[p]).setAttribute(\"style\",\"some_style\"); −−>\n\tp++;\n\t};\n\t};"])
+(easy-menu-add-item oef-menu-bar '("Draw" "C")["clearbutton" (lambda () (interactive) (insert "clearbutton value ")) :help "clearbutton value\n\n\t○ alternative command:delete\n\t○ alternative command:erase\n\t○ adds a button to clear the userdraw canvas with text 'value'\n\t○ attention command 'clearbutton' is incompatible with multidraw based drawings\n\t(in 'multidraw' there is always a remove_object_button for every drawprimitive)\n\t○ normally userdraw primitives have the option to use middle/right mouse button on\n\ta point of the object to remove this specific object...this clear button will remove all drawings\n\t○ uses the tooltip placeholder div element: may not be used with command 'intooltip'\n\t○ use command 'inputstyle' to style the button...\n\t○ the clearbutton will have id=\"canvas_scripts[%d]\" ; starting with %d=0 for the first script\n\tto change the style of all \"clearbutton\" of all included canvasdraw scripts, use something like\n\tif(document.getElementById(\"clearbutton\"+canvas_scripts[0])){\n\tvar p = 0;\n\twhile(document.getElementById(\"clearbutton\"+canvas_scripts[p])){\n\tdocument.getElementById(\"clearbutton\"+canvas_scripts[p]).className=\"some_class_name\";\n\t<!−− or document.getElementById(\"clearbutton\"+canvas_scripts[p]).setAttribute(\"style\",\"some_style\"); −−>\n\tp++;\n\t};\n\t};"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["clock" (lambda () (interactive) (insert "clock x,y,r(px),H,M,S,type hourglass,interactive [ ,H_color,M_color,S_color,background_color,foreground_color ] ")) :help "clock x,y,r(px),H,M,S,type hourglass,interactive [ ,H_color,M_color,S_color,background_color,foreground_color ]\n\n\t○ use command 'opacity stroke-opacity,fill-opacity' to adjust foreground (stroke) and background (fill) transparency\n\t○ type hourglass:\n\t type = 0 : only segments\n\t type = 1 : only numbers\n\t type = 2 : numbers and segments\n\t○ colors are optional: if not defined, default values will be used\n\t default colours: clock 0,0,60,4,35,45,1,2\n\t custom colours: clock 0,0,60,4,35,45,1,2,,,,yellow,red\n\t custom colours: clock 0,0,60,4,35,45,1,2,white,green,blue,black,yellow\n\t○ if you don't want a seconds hand (or minutes...), just make it invisible by using the background color of the hourglass...\n\t○ interactive\n\t\t◦ 0 : not interactive, just clock(s)\n\t\t◦ 1 : function read_canvas() will read all active clocks in H:M:S format\n\t\t\t The active clock(s) can be adjusted by pupils\n\t\t◦ 2 : function read_canvas() will return the clicked clock\n\t\t\t (like multiplechoice; first clock in script in nr. 0 )\n\t\t◦ 3: no prefab buttons...create your own buttons (or other means) to make the clock(s) adjustable by javascript function"])
+(easy-menu-add-item oef-menu-bar '("Draw" "C")["clock" (lambda () (interactive) (insert "clock x,y,r(px),H,M,S,type hourglass,interactive [ ,H_color,M_color,S_color,background_color,foreground_color ] ")) :help "clock x,y,r(px),H,M,S,type hourglass,interactive [ ,H_color,M_color,S_color,background_color,foreground_color ]\n\n\t○ use command 'opacity stroke-opacity,fill-opacity' to adjust foreground (stroke) and background (fill) transparency\n\t○ type hourglass:\n\t type = 0 : only segments\n\t type = 1 : only numbers\n\t type = 2 : numbers and segments\n\t○ colors are optional: if not defined, default values will be used\n\t default colours: clock 0,0,60,4,35,45,1,2\n\t custom colours: clock 0,0,60,4,35,45,1,2,,,,yellow,red\n\t custom colours: clock 0,0,60,4,35,45,1,2,white,green,blue,black,yellow\n\t○ if you don't want a seconds hand (or minutes...), just make it invisible by using the background color of the hourglass...\n\t○ interactive\n\t\t◦ 0 : not interactive, just clock(s)\n\t\t◦ 1 : function read_canvas() will read all active clocks in H:M:S format\n\t\t\t The active clock(s) can be adjusted by pupils\n\t\t◦ 2 : function read_canvas() will return the clicked clock\n\t\t\t (like multiplechoice; first clock in script in nr. 0 )\n\t\t◦ 3: no prefab buttons...create your own buttons (or other means) to make the clock(s) adjustable by javascript function"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["copy" (lambda () (interactive) (insert "copy x,y,x1,y1,x2,y2,[filename URL] ")) :help "copy x,y,x1,y1,x2,y2,[filename URL]\n\n\t○ The image may be \"bitmap\" or \"SVG\"\n\t○ Insert the region from (x1,y1) to (x2,y2) (in pixels) of [filename] to (x,y) in x/y-range\n\t○ If x1=y1=x2=y2=-1, the whole [filename URL] is copied.\n\t○ [filename] is the URL of the image\n\t○ URL is normal URL of network reachable image file location\n\t○ if command 'drag x/y/xy' is set before command 'copy', the images will be draggable\n\t○ if keyword 'onclick' is set before command 'copy' the image(s) is clickable (marked with a green rectangle around the image)\n\t○ 'onclick' for external images may be mixed with canvas generated stuff (like lines,curves etc)\n\t○ you may draw / userdraw / drag other stuff on top of an \"imported\" image"])
+(easy-menu-add-item oef-menu-bar '("Draw" "C")["copy" (lambda () (interactive) (insert "copy x,y,x1,y1,x2,y2,[filename URL] ")) :help "copy x,y,x1,y1,x2,y2,[filename URL]\n\n\t○ The image may be \"bitmap\" or \"SVG\"\n\t○ Insert the region from (x1,y1) to (x2,y2) (in pixels) of [filename] to (x,y) in x/y-range\n\t○ If x1=y1=x2=y2=-1, the whole [filename URL] is copied.\n\t○ [filename] is the URL of the image\n\t○ URL is normal URL of network reachable image file location\n\t○ if command 'drag x/y/xy' is set before command 'copy', the images will be draggable\n\t○ if keyword 'onclick' is set before command 'copy' the image(s) is clickable (marked with a green rectangle around the image)\n\t○ 'onclick' for external images may be mixed with canvas generated stuff (like lines,curves etc)\n\t○ you may draw / userdraw / drag other stuff on top of an \"imported\" image"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["copyresized" (lambda () (interactive) (insert "copyresized x1,y2,x2,y2,dx1,dy1,dx2,dy2,image_file_url ")) :help "Insert the region from (x1,y1) to (x2,y2) (in pixels) of [ filename], possibly resized, to the region of (dx1,dy1) to (dx2,dy2) in x/y-range "])
+(easy-menu-add-item oef-menu-bar '("Draw" "C")["copyresized" (lambda () (interactive) (insert "copyresized x1,y2,x2,y2,dx1,dy1,dx2,dy2,image_file_url ")) :help "Insert the region from (x1,y1) to (x2,y2) (in pixels) of [ filename], possibly resized, to the region of (dx1,dy1) to (dx2,dy2) in x/y-range "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["crosshair" (lambda () (interactive) (insert "crosshair x,y,color ")) :help "use command 'crosshairsize int' and / or 'linewidth int' to adjust "])
+(easy-menu-add-item oef-menu-bar '("Draw" "C")["crosshair" (lambda () (interactive) (insert "crosshair x,y,color ")) :help "use command 'crosshairsize int' and / or 'linewidth int' to adjust "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["crosshairs" (lambda () (interactive) (insert "crosshairs color,x1,y1,x2,y2,...,x_n,y_n ")) :help "use command 'crosshairsize int' and / or 'linewidth int' to adjust "])
+(easy-menu-add-item oef-menu-bar '("Draw" "C")["crosshairs" (lambda () (interactive) (insert "crosshairs color,x1,y1,x2,y2,...,x_n,y_n ")) :help "use command 'crosshairsize int' and / or 'linewidth int' to adjust "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["crosshairsize" (lambda () (interactive) (insert "crosshairsize int ")) :help "default 8 (px) "])
+(easy-menu-add-item oef-menu-bar '("Draw" "C")["crosshairsize" (lambda () (interactive) (insert "crosshairsize int ")) :help "default 8 (px) "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["cursor" (lambda () (interactive) (insert "cursor 'some CSS cursor_style' ")) :help "style can be any valid CSS property value, like crosshair, grabbing, move etc "])
+(easy-menu-add-item oef-menu-bar '("Draw" "C")["cursor" (lambda () (interactive) (insert "cursor 'some CSS cursor_style' ")) :help "style can be any valid CSS property value, like crosshair, grabbing, move etc "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "C")["curve" (lambda () (interactive) (insert "curve color,formula(x) ")) :help "use only basic math in your curve: sqrt,^,asin,acos,atan,log,pi,abs,sin,cos,tan,e "])
+(easy-menu-add-item oef-menu-bar '("Draw" "C")["curve" (lambda () (interactive) (insert "curve color,formula(x) ")) :help "use only basic math in your curve: sqrt,^,asin,acos,atan,log,pi,abs,sin,cos,tan,e "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["dashed" (lambda () (interactive) (insert "dashed ")) :help "next object will be drawn with a dashed line "])
+(easy-menu-add-item oef-menu-bar '("Draw" "D")["dashed" (lambda () (interactive) (insert "dashed ")) :help "next object will be drawn with a dashed line "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["dashtype" (lambda () (interactive) (insert "dashtype line_width_px,space_width_px ")) :help "default value "dashtype 2,2" e.g. 2px line and 2px space "])
+(easy-menu-add-item oef-menu-bar '("Draw" "D")["dashtype" (lambda () (interactive) (insert "dashtype line_width_px,space_width_px ")) :help "default value "dashtype 2,2" e.g. 2px line and 2px space "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["delete" (lambda () (interactive) (insert "delete value")) :help "adds a button to clear the userdraw canvas with text 'value' "])
+(easy-menu-add-item oef-menu-bar '("Draw" "D")["delete" (lambda () (interactive) (insert "delete value")) :help "adds a button to clear the userdraw canvas with text 'value' "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["demiline" (lambda () (interactive) (insert "demiline x1,y1,x2,y2,color ")) :help "draws a halfline starting in (x1:y1) and through (x2:y2) in color 'color' (colorname or hex)
+(easy-menu-add-item oef-menu-bar '("Draw" "D")["demiline" (lambda () (interactive) (insert "demiline x1,y1,x2,y2,color ")) :help "draws a halfline starting in (x1:y1) and through (x2:y2) in color 'color' (colorname or hex)
  "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["demilines" (lambda () (interactive) (insert "demilines color,x1,y1,x2,y2,.... ")) :help "draws halflines starting in (x1:y1) and through (x2:y2) in color 'color' (colorname or hex) etc etc "])
+(easy-menu-add-item oef-menu-bar '("Draw" "D")["demilines" (lambda () (interactive) (insert "demilines color,x1,y1,x2,y2,.... ")) :help "draws halflines starting in (x1:y1) and through (x2:y2) in color 'color' (colorname or hex) etc etc "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["diamondfill" (lambda () (interactive) (insert "diamondfill x0,y0,dx,dy,color ")) :help "distances dx,dy in pixels "])
+(easy-menu-add-item oef-menu-bar '("Draw" "D")["diamondfill" (lambda () (interactive) (insert "diamondfill x0,y0,dx,dy,color ")) :help "distances dx,dy in pixels "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["disk" (lambda () (interactive) (insert "disk xc,yc,width (2*r in pixels),color ")) :help "filled circle "])
+(easy-menu-add-item oef-menu-bar '("Draw" "D")["disk" (lambda () (interactive) (insert "disk xc,yc,width (2*r in pixels),color ")) :help "filled circle "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["disks" (lambda () (interactive) (insert "disks color,xc1,yc1,r1,xc2,yc2,r2...xc_n,yc_n,r_n ")) :help "filled circles "])
+(easy-menu-add-item oef-menu-bar '("Draw" "D")["disks" (lambda () (interactive) (insert "disks color,xc1,yc1,r1,xc2,yc2,r2...xc_n,yc_n,r_n ")) :help "filled circles "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["display" (lambda () (interactive) (insert "display TYPE,color,fontsize ")) :help "will display the mouse cursor coordinates. TYPE may be x | y | xy | degree | radian | radius "])
+(easy-menu-add-item oef-menu-bar '("Draw" "D")["display" (lambda () (interactive) (insert "display TYPE,color,fontsize ")) :help "will display the mouse cursor coordinates. TYPE may be x | y | xy | degree | radian | radius "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["dotfill" (lambda () (interactive) (insert "dotfill x0,y0,dx,dy,color ")) :help "distances dx,dy in pixels "])
+(easy-menu-add-item oef-menu-bar '("Draw" "D")["dotfill" (lambda () (interactive) (insert "dotfill x0,y0,dx,dy,color ")) :help "distances dx,dy in pixels "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "D")["drag" (lambda () (interactive) (insert "drag [x][y][xy] ")) :help "the next object will be draggable in x / y / xy direction "])
+(easy-menu-add-item oef-menu-bar '("Draw" "D")["drag" (lambda () (interactive) (insert "drag [x][y][xy] ")) :help "the next object will be draggable in x / y / xy direction "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "E")["ellipse" (lambda () (interactive) (insert "ellipse xc,yc,radius_x,radius_y,color ")) :help "radius_x and radius_y are in pixels "])
+(easy-menu-add-item oef-menu-bar '("Draw" "D")["darrow" (lambda () (interactive) (insert "darrow x1,y1,x2,y2,l,[color] ")) :help "(Synonym: dasharrow dashedarrow) Dashed arrow (x1,y1)- - ->(x2,y2), where l is  the length (in pixels) of arrowhead."])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "E")["erase" (lambda () (interactive) (insert "erase value ")) :help "adds a button to clear the userdraw canvas with text 'value' "])
+(easy-menu-add-item oef-menu-bar '("Draw" "D")["dhline" (lambda () (interactive) (insert "dhline x,y,[color] ")) :help "(Synonym:   dashedhorizontalline  dashhorizontalline  hdline  horizontaldashedline) Dashed horizontal line through (x,y)."])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fcircle" (lambda () (interactive) (insert "fcircle xc,yc,width (2*r in pixels),color ")) :help "alternative: disk for a filled circle "])
+(easy-menu-add-item oef-menu-bar '("Draw" "D")["dline" (lambda () (interactive) (insert "dline x1,y1,x2,y2,[color] ")) :help "(Synonym: dashedline dashline) Dashed line segment (x1,y1)---(x2,y2)."])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fcircles" (lambda () (interactive) (insert "fcircles color,xc1,yc1,r1,xc2,yc2,r2...xc_n,yc_n,r_n ")) :help "alternative command: disks for filled circles "])
+(easy-menu-add-item oef-menu-bar '("Draw" "D")["dlines" (lambda () (interactive) (insert "dlines [color],x1,y1,x2,y2,x3,y3... ")) :help "(Synonym: dashedlines) dashlines n dashed line segments (x1,y1)---(x2,y2)---(x3,y3)..."])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fill" (lambda () (interactive) (insert "fill x,y,color ")) :help "fill the region of point (x:y) with color 'color'. \nNote: filltoborder is a very (client) CPU intensive operation! Filling is done pixel by pixel. "])
+(easy-menu-add-item oef-menu-bar '("Draw" "D")["dvline" (lambda () (interactive) (insert "dvline [x,y,[color] ")) :help "(Synonym:  dashedverticaline  dashverticalline  vdline  verticaldashedline)  Dashed vertical line through (x,y)."])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fillcolor" (lambda () (interactive) (insert "fillcolor colorname or #hex ")) :help "set the color for a filled object "])
+(easy-menu-add-item oef-menu-bar '("Draw" "E")["ellipse" (lambda () (interactive) (insert "ellipse xc,yc,radius_x,radius_y,color ")) :help "radius_x and radius_y are in pixels "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["filled" (lambda () (interactive) (insert "filled ")) :help "the next 'fillable' object (only) will be filled "])
+(easy-menu-add-item oef-menu-bar '("Draw" "E")["erase" (lambda () (interactive) (insert "erase value ")) :help "adds a button to clear the userdraw canvas with text 'value' "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["filltoborder" (lambda () (interactive) (insert "filltoborder x,y,bordercolor,color ")) :help "fill the region of point (x:y) with color 'color'. \nNote: filltoborder is a very (client) CPU intensive operation! Filling is done pixel by pixel. "])
+(easy-menu-add-item oef-menu-bar '("Draw" "F")["fcircle" (lambda () (interactive) (insert "fcircle xc,yc,width (2*r in pixels),color ")) :help "alternative: disk for a filled circle "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["floodfill" (lambda () (interactive) (insert "floodfill x,y,color ")) :help "fill the region of point (x:y) with color 'color'. \nNote: floodfill is a very (client) cpu intensive operation! "])
+(easy-menu-add-item oef-menu-bar '("Draw" "F")["fcircles" (lambda () (interactive) (insert "fcircles color,xc1,yc1,r1,xc2,yc2,r2...xc_n,yc_n,r_n ")) :help "alternative command: disks for filled circles "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fontcolor" (lambda () (interactive) (insert "fontcolor color(hexcolor or colorname) ")) :help "default: black "])
+(easy-menu-add-item oef-menu-bar '("Draw" "F")["fill" (lambda () (interactive) (insert "fill x,y,color ")) :help "fill the region of point (x:y) with color 'color'. \nNote: filltoborder is a very (client) CPU intensive operation! Filling is done pixel by pixel. "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fontfamily" (lambda () (interactive) (insert "fontfamily 'font style' 'font size'px 'fontfamily'")) :help "like 'fontfamily italic 24px Ariel' "])
+(easy-menu-add-item oef-menu-bar '("Draw" "F")["fillcolor" (lambda () (interactive) (insert "fillcolor colorname or #hex ")) :help "set the color for a filled object "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fontsize" (lambda () (interactive) (insert "fontsize int")) :help "default 12px "])
+(easy-menu-add-item oef-menu-bar '("Draw" "F")["filled" (lambda () (interactive) (insert "filled ")) :help "the next 'fillable' object (only) will be filled "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fpoly" (lambda () (interactive) (insert "fpoly color,x1,y1,x2,y2...x_n,y_n")) :help "filled polygon "])
+(easy-menu-add-item oef-menu-bar '("Draw" "F")["filltoborder" (lambda () (interactive) (insert "filltoborder x,y,bordercolor,color ")) :help "fill the region of point (x:y) with color 'color'. \nNote: filltoborder is a very (client) CPU intensive operation! Filling is done pixel by pixel. "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["frect" (lambda () (interactive) (insert "frect x1,y1,x2,y2,color ")) :help "filled rectangle "])
+(easy-menu-add-item oef-menu-bar '("Draw" "F")["floodfill" (lambda () (interactive) (insert "floodfill x,y,color ")) :help "fill the region of point (x:y) with color 'color'. \nNote: floodfill is a very (client) cpu intensive operation! "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["frects" (lambda () (interactive) (insert "frects color,x1,y1,x2,y2,..... ")) :help "filled rectangles "])
+(easy-menu-add-item oef-menu-bar '("Draw" "F")["fontcolor" (lambda () (interactive) (insert "fontcolor color(hexcolor or colorname) ")) :help "default: black "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["froundrect" (lambda () (interactive) (insert "froundrect x1,y1,x2,y2,radius in px,color ")) :help "filled rectangle "])
+(easy-menu-add-item oef-menu-bar '("Draw" "F")["fontfamily" (lambda () (interactive) (insert "fontfamily 'font style' 'font size'px 'fontfamily'")) :help "like 'fontfamily italic 24px Ariel' "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["froundrects" (lambda () (interactive) (insert "froundrects color,radius in px,x1,y1,x2,y2,x3,y3,x4,y4,.... ")) :help "filled rectangles "])
+(easy-menu-add-item oef-menu-bar '("Draw" "F")["fontsize" (lambda () (interactive) (insert "fontsize int")) :help "default 12px "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["fsquare" (lambda () (interactive) (insert "fsquare x,y,side (px) ,color ")) :help "draw a filled square with left top corner (x:y) with side 'side' in color 'color' "])
+(easy-menu-add-item oef-menu-bar '("Draw" "F")["fpoly" (lambda () (interactive) (insert "fpoly color,x1,y1,x2,y2...x_n,y_n")) :help "filled polygon "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["ftriangle" (lambda () (interactive) (insert " x1,y1,x2,y2,x3,y3,color ")) :help "filled triangle "])
+(easy-menu-add-item oef-menu-bar '("Draw" "F")["frect" (lambda () (interactive) (insert "frect x1,y1,x2,y2,color ")) :help "filled rectangle "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["ftriangles" (lambda () (interactive) (insert "ftriangles color,x1,y1,x2,y2,x3,y3,... ")) :help "filled triangles "])
+(easy-menu-add-item oef-menu-bar '("Draw" "F")["frects" (lambda () (interactive) (insert "frects color,x1,y1,x2,y2,..... ")) :help "filled rectangles "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "F")["functionlabel" (lambda () (interactive) (insert "functionlabel some_string ")) :help "define the inputfield text : default value 'f(x)=' "])
+(easy-menu-add-item oef-menu-bar '("Draw" "F")["froundrect" (lambda () (interactive) (insert "froundrect x1,y1,x2,y2,radius in px,color ")) :help "filled rectangle "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "G")["grid" (lambda () (interactive) (insert "grid step_x,step_y,gridcolor ")) :help "if keywords "axis" or "axisnumbering" are set, use : grid step_x,step_y,major_color,minor_x,minor_y,tics height in px,axis_color \nwhere minor x step = step_x / minor_x "])
+(easy-menu-add-item oef-menu-bar '("Draw" "F")["froundrects" (lambda () (interactive) (insert "froundrects color,radius in px,x1,y1,x2,y2,x3,y3,x4,y4,.... ")) :help "filled rectangles "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "G")["gridfill" (lambda () (interactive) (insert "gridfill x0,y0,dx,dy,color ")) :help "distances dx,dy in pixels "])
+(easy-menu-add-item oef-menu-bar '("Draw" "F")["fsquare" (lambda () (interactive) (insert "fsquare x,y,side (px) ,color ")) :help "draw a filled square with left top corner (x:y) with side 'side' in color 'color' "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["halfline" (lambda () (interactive) (insert "halfline x1,y1,x2,y2,color ")) :help "draws a halfline starting in (x1:y1) and through (x2:y2) in color 'color' (colorname or hex) "])
+(easy-menu-add-item oef-menu-bar '("Draw" "F")["ftriangle" (lambda () (interactive) (insert " x1,y1,x2,y2,x3,y3,color ")) :help "filled triangle "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["halflines" (lambda () (interactive) (insert "halflines color,x1,y1,x2,y2,.... ")) :help "draws halflines starting in (x1:y1) and through (x2:y2) in color 'color' (colorname or hex) etc etc "])
+(easy-menu-add-item oef-menu-bar '("Draw" "F")["ftriangles" (lambda () (interactive) (insert "ftriangles color,x1,y1,x2,y2,x3,y3,... ")) :help "filled triangles "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["hatchfill" (lambda () (interactive) (insert "hatchfill x0,y0,dx,dy,color ")) :help "distances dx,dy in pixels"])
+(easy-menu-add-item oef-menu-bar '("Draw" "F")["functionlabel" (lambda () (interactive) (insert "functionlabel some_string ")) :help "define the inputfield text : default value 'f(x)=' "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["highlight" (lambda () (interactive) (insert "highlight color,opacity,linewidth ")) :help "NOT IMPLEMENTED "])
+(easy-menu-add-item oef-menu-bar '("Draw" "G")["grid" (lambda () (interactive) (insert "grid step_x,step_y,gridcolor ")) :help "if keywords "axis" or "axisnumbering" are set, use : grid step_x,step_y,major_color,minor_x,minor_y,tics height in px,axis_color \nwhere minor x step = step_x / minor_x "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["hline" (lambda () (interactive) (insert "hline x,y,color ")) :help "draw a horizontal line through point (x:y) in color 'color' "])
+(easy-menu-add-item oef-menu-bar '("Draw" "G")["gridfill" (lambda () (interactive) (insert "gridfill x0,y0,dx,dy,color ")) :help "distances dx,dy in pixels "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["hlines" (lambda () (interactive) (insert "hlines color,x1,y1,x2,y2,... ")) :help "draw horizontal lines through points (x1:y1)...(xn:yn) in color 'color' "])
+(easy-menu-add-item oef-menu-bar '("Draw" "H")["halfline" (lambda () (interactive) (insert "halfline x1,y1,x2,y2,color ")) :help "draws a halfline starting in (x1:y1) and through (x2:y2) in color 'color' (colorname or hex) "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["horizontalline" (lambda () (interactive) (insert "horizontalline x,y,color ")) :help "draw a horizontal line through point (x:y) in color 'color' "])
+(easy-menu-add-item oef-menu-bar '("Draw" "H")["halflines" (lambda () (interactive) (insert "halflines color,x1,y1,x2,y2,.... ")) :help "draws halflines starting in (x1:y1) and through (x2:y2) in color 'color' (colorname or hex) etc etc "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["horizontallines" (lambda () (interactive) (insert "horizontallines color,x1,y1,x2,y2,... ")) :help "draw horizontal lines through points (x1:y1)...(xn:yn) in color 'color' "])
+(easy-menu-add-item oef-menu-bar '("Draw" "H")["hatchfill" (lambda () (interactive) (insert "hatchfill x0,y0,dx,dy,color ")) :help "distances dx,dy in pixels"])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["html" (lambda () (interactive) (insert "html x1,y1,x2,y2,html_string ")) :help "all tags are allowed "])
+(easy-menu-add-item oef-menu-bar '("Draw" "H")["highlight" (lambda () (interactive) (insert "highlight color,opacity,linewidth ")) :help "NOT IMPLEMENTED "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "H")["http" (lambda () (interactive) (insert "http x1,y1,x2,y2,http://some_adress.com ")) :help "an active html-page will be displayed in an "iframe" rectangle left top (x1:y1) , right bottom (x2:y2) "])
+(easy-menu-add-item oef-menu-bar '("Draw" "H")["hline" (lambda () (interactive) (insert "hline x,y,color ")) :help "draw a horizontal line through point (x:y) in color 'color' "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "I")["imagefill" (lambda () (interactive) (insert "imagefill dx,dy,image_url ")) :help "The next suitable filled object will be filled with 'image_url' tiled. \nIf dx,dy is larger than the image, the whole image will be background to the next object. "])
+(easy-menu-add-item oef-menu-bar '("Draw" "H")["hlines" (lambda () (interactive) (insert "hlines color,x1,y1,x2,y2,... ")) :help "draw horizontal lines through points (x1:y1)...(xn:yn) in color 'color' "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "I")["input" (lambda () (interactive) (insert "input x,y,size,editable,value ")) :help "only active inputfields (editable = 1) will be read with read_canvas() "])
+(easy-menu-add-item oef-menu-bar '("Draw" "H")["horizontalline" (lambda () (interactive) (insert "horizontalline x,y,color ")) :help "draw a horizontal line through point (x:y) in color 'color' "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "I")["inputstyle" (lambda () (interactive) (insert "inputstyle style_description ")) :help "example: inputstyle color:blue;font-weight:bold;font-style:italic;font-size:16pt "])
+(easy-menu-add-item oef-menu-bar '("Draw" "H")["horizontallines" (lambda () (interactive) (insert "horizontallines color,x1,y1,x2,y2,... ")) :help "draw horizontal lines through points (x1:y1)...(xn:yn) in color 'color' "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "I")["intooltip" (lambda () (interactive) (insert "intooltip link_text ")) :help "link_text is a single line (span-element) "])
+(easy-menu-add-item oef-menu-bar '("Draw" "H")["html" (lambda () (interactive) (insert "html x1,y1,x2,y2,html_string ")) :help "all tags are allowed "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "J")["jscurve" (lambda () (interactive) (insert "jscurve color,formula(x) ")) :help "use only basic math in your curve: sqrt,^,asin,acos,atan,log,pi,abs,sin,cos,tan,e "])
+(easy-menu-add-item oef-menu-bar '("Draw" "H")["http" (lambda () (interactive) (insert "http x1,y1,x2,y2,http://some_adress.com ")) :help "an active html-page will be displayed in an "iframe" rectangle left top (x1:y1) , right bottom (x2:y2) "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "J")["jsmath" (lambda () (interactive) (insert "jsmath formula(x) ")) :help "use command 'jsmath formula(x)` for calculating and displaying indiviual points on the curve "])
+(easy-menu-add-item oef-menu-bar '("Draw" "I")["imagefill" (lambda () (interactive) (insert "imagefill dx,dy,image_url ")) :help "The next suitable filled object will be filled with 'image_url' tiled. \nIf dx,dy is larger than the image, the whole image will be background to the next object. "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "J")["jsplot" (lambda () (interactive) (insert "jsplot color,formula(x) ")) :help "use only basic math in your curve: sqrt,^,asin,acos,atan,log,pi,abs,sin,cos,tan,e "])
+(easy-menu-add-item oef-menu-bar '("Draw" "I")["input" (lambda () (interactive) (insert "input x,y,size,editable,value ")) :help "only active inputfields (editable = 1) will be read with read_canvas() "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "K")["killaffine" (lambda () (interactive) (insert "killaffine ")) :help "resets the transformation matrix to 1,0,0,1,0,0 "])
+(easy-menu-add-item oef-menu-bar '("Draw" "I")["inputstyle" (lambda () (interactive) (insert "inputstyle style_description ")) :help "example: inputstyle color:blue;font-weight:bold;font-style:italic;font-size:16pt "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "K")["killrotate" (lambda () (interactive) (insert "killrotate ")) :help "will reset the command rotationcenter xc,yc. \nA following rotate command will have the first object point as rotation center "])
+(easy-menu-add-item oef-menu-bar '("Draw" "I")["intooltip" (lambda () (interactive) (insert "intooltip link_text ")) :help "link_text is a single line (span-element) "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "K")["killslider" (lambda () (interactive) (insert "killslider ")) :help "ends grouping of object under a previously defined slider "])
+(easy-menu-add-item oef-menu-bar '("Draw" "J")["jscurve" (lambda () (interactive) (insert "jscurve color,formula(x) ")) :help "use only basic math in your curve: sqrt,^,asin,acos,atan,log,pi,abs,sin,cos,tan,e "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "K")["killtranslate" (lambda () (interactive) (insert "killtranslate ")) :help "resets the translation matrix to 1,0,0,1,0,0 "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "K")["killtranslation" (lambda () (interactive) (insert "killtranslation ")) :help "resets the translation matrix to 1,0,0,1,0,0 "])
+(easy-menu-add-item oef-menu-bar '("Draw" "J")["jsmath" (lambda () (interactive) (insert "jsmath formula(x) ")) :help "use command 'jsmath formula(x)` for calculating and displaying indiviual points on the curve "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "L")["lattice" (lambda () (interactive) (insert "lattice x0,y0,xv1,yv1,xv2,yv2,n1,n2,color ")) :help "A lattice of n1xn2 points starting with (x0,y0), with n1 rows in direction of (xv1,yv1) and n2 rows in direction of (xv2,yv2). "])
+(easy-menu-add-item oef-menu-bar '("Draw" "J")["jsplot" (lambda () (interactive) (insert "jsplot color,formula(x) ")) :help "use only basic math in your curve: sqrt,^,asin,acos,atan,log,pi,abs,sin,cos,tan,e "])
 
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "L")["legend" (lambda () (interactive) (insert "legend ")) :help "Sorry. There is no help for legend "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "L")["legendcolors" (lambda () (interactive) (insert "legendcolors ")) :help "Sorry. There is no help for legendcolors "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "L")["levelcurve" (lambda () (interactive) (insert "levelcurve ")) :help "Sorry. There is no help for levelcurve "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "L")["line" (lambda () (interactive) (insert "line ")) :help "Sorry. There is no help for line "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "L")["linegraph" (lambda () (interactive) (insert "linegraph ")) :help "Sorry. There is no help for linegraph "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "L")["lines" (lambda () (interactive) (insert "lines ")) :help "Sorry. There is no help for lines "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "L")["linewidth" (lambda () (interactive) (insert "linewidth ")) :help "Sorry. There is no help for linewidth "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "M")["mathml" (lambda () (interactive) (insert "mathml x1,y1,x2,y2,mathml_string")) :help "mathml will be displayed in a rectangle left top (x1:y1) , right bottom (x2:y2) "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "M")["mouse" (lambda () (interactive) (insert "mouse ")) :help "Sorry. There is no help for mouse "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "M")["mouse_degree" (lambda () (interactive) (insert "mouse_degree ")) :help "Sorry. There is no help for mouse_degree "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "M")["mousex" (lambda () (interactive) (insert "mousex ")) :help "Sorry. There is no help for mousex "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "M")["mousey" (lambda () (interactive) (insert "mousey ")) :help "Sorry. There is no help for mousey "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "M")["multidash" (lambda () (interactive) (insert "multidash ")) :help "Sorry. There is no help for multidash "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "M")["multidraw" (lambda () (interactive) (insert "multidraw ")) :help "Sorry. There is no help for multidraw "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "M")["multifill" (lambda () (interactive) (insert "multifill ")) :help "Sorry. There is no help for multifill "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "M")["multifillcolors" (lambda () (interactive) (insert "multifillcolors ")) :help "Sorry. There is no help for multifillcolors "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "M")["multifillopacity" (lambda () (interactive) (insert "multifillopacity ")) :help "Sorry. There is no help for multifillopacity "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "M")["multilabel" (lambda () (interactive) (insert "multilabel ")) :help "Sorry. There is no help for multilabel "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "M")["multilinewidth" (lambda () (interactive) (insert "multilinewidth ")) :help "Sorry. There is no help for multilinewidth "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "M")["multisnaptogrid" (lambda () (interactive) (insert "multisnaptogrid ")) :help "Sorry. There is no help for multisnaptogrid "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "M")["multistrokecolors" (lambda () (interactive) (insert "multistrokecolors ")) :help "Sorry. There is no help for multistrokecolors "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "M")["multistrokeopacity" (lambda () (interactive) (insert "multistrokeopacity ")) :help "Sorry. There is no help for multistrokeopacity "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "M")["multiuserinput" (lambda () (interactive) (insert "multiuserinput ")) :help "Sorry. There is no help for multiuserinput "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "N")["noaxis" (lambda () (interactive) (insert "noaxis ")) :help "Sorry. There is no help for noaxis "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "N")["noayis" (lambda () (interactive) (insert "noayis ")) :help "Sorry. There is no help for noayis "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "N")["note" (lambda () (interactive) (insert "note ")) :help "Sorry. There is no help for note "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "O")["onclick" (lambda () (interactive) (insert "onclick ")) :help "Sorry. There is no help for onclick "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "O")["opacity" (lambda () (interactive) (insert "opacity ")) :help "Sorry. There is no help for opacity "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "P")["parallel" (lambda () (interactive) (insert "parallel ")) :help "Sorry. There is no help for parallel "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "P")["piechart" (lambda () (interactive) (insert "piechart ")) :help "Sorry. There is no help for piechart "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "P")["pixels" (lambda () (interactive) (insert "pixels ")) :help "Sorry. There is no help for pixels "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "P")["pixelsize" (lambda () (interactive) (insert "pixelsize ")) :help "Sorry. There is no help for pixelsize "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "P")["plotsteps" (lambda () (interactive) (insert "plotsteps ")) :help "Sorry. There is no help for plotsteps "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "P")["point" (lambda () (interactive) (insert "point x,y,color ")) :help "draw a single point at (x;y) in color 'color' "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "P")["pointer" (lambda () (interactive) (insert "pointer ")) :help "Sorry. There is no help for pointer "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "P")["points" (lambda () (interactive) (insert "points color,x1,y1,x2,y2,...,x_n,y_n ")) :help "draw multiple points at given coordinates in color 'color' "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "P")["poly" (lambda () (interactive) (insert "poly ")) :help "Sorry. There is no help for poly "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "P")["polyline" (lambda () (interactive) (insert "polyline ")) :help "Sorry. There is no help for polyline "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "P")["popup" (lambda () (interactive) (insert "popup ")) :help "Sorry. There is no help for popup "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "P")["precision" (lambda () (interactive) (insert "precision ")) :help "Sorry. There is no help for precision "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "P")["protractor" (lambda () (interactive) (insert "protractor ")) :help "Sorry. There is no help for protractor "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "R")["ranget" (lambda () (interactive) (insert "ranget ")) :help "Sorry. There is no help for ranget "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "R")["rangex" (lambda () (interactive) (insert "rangex ")) :help "Sorry. There is no help for rangex "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "R")["rangey" (lambda () (interactive) (insert "rangey ")) :help "Sorry. There is no help for rangey "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "R")["rays" (lambda () (interactive) (insert "rays ")) :help "Sorry. There is no help for rays "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "R")["rect" (lambda () (interactive) (insert "rect ")) :help "Sorry. There is no help for rect "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "R")["rects" (lambda () (interactive) (insert "rects ")) :help "Sorry. There is no help for rects "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "R")["replyformat" (lambda () (interactive) (insert "replyformat ")) :help "Sorry. There is no help for replyformat "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "R")["rotate" (lambda () (interactive) (insert "rotate ")) :help "Sorry. There is no help for rotate "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "R")["rotationcenter" (lambda () (interactive) (insert "rotationcenter ")) :help "Sorry. There is no help for rotationcenter "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "R")["roundrect" (lambda () (interactive) (insert "roundrect ")) :help "Sorry. There is no help for roundrect "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "R")["roundrects" (lambda () (interactive) (insert "roundrects ")) :help "Sorry. There is no help for roundrects "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "R")["ruler" (lambda () (interactive) (insert "ruler ")) :help "Sorry. There is no help for ruler "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["seg" (lambda () (interactive) (insert "seg ")) :help "Sorry. There is no help for seg "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["segment" (lambda () (interactive) (insert "segment ")) :help "Sorry. There is no help for segment "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["segments" (lambda () (interactive) (insert "segments ")) :help "Sorry. There is no help for segments "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["segs" (lambda () (interactive) (insert "segs ")) :help "Sorry. There is no help for segs "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["setlimits" (lambda () (interactive) (insert "setlimits ")) :help "Sorry. There is no help for setlimits "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["setpixel" (lambda () (interactive) (insert "setpixel ")) :help "Sorry. There is no help for setpixel "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["sgraph" (lambda () (interactive) (insert "sgraph ")) :help "Sorry. There is no help for sgraph "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["size" (lambda () (interactive) (insert "size ")) :help "Sorry. There is no help for size "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["slider" (lambda () (interactive) (insert "slider ")) :help "Sorry. There is no help for slider "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["sliderfunction_x" (lambda () (interactive) (insert "sliderfunction_x ")) :help "Sorry. There is no help for sliderfunction_x "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["sliderfunction_y" (lambda () (interactive) (insert "sliderfunction_y ")) :help "Sorry. There is no help for sliderfunction_y "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["snaptofun" (lambda () (interactive) (insert "snaptofun ")) :help "Sorry. There is no help for snaptofun "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["snaptofunction" (lambda () (interactive) (insert "snaptofunction ")) :help "Sorry. There is no help for snaptofunction "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["snaptogrid" (lambda () (interactive) (insert "snaptogrid ")) :help "Sorry. There is no help for snaptogrid "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["snaptopoints" (lambda () (interactive) (insert "snaptopoints ")) :help "Sorry. There is no help for snaptopoints "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["square" (lambda () (interactive) (insert "square ")) :help "Sorry. There is no help for square "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["status" (lambda () (interactive) (insert "status ")) :help "Sorry. There is no help for status "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["string" (lambda () (interactive) (insert "string color,x,y,the text string ")) :help "Sorry. There is no help for string "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["stringup" (lambda () (interactive) (insert "stringup ")) :help "Sorry. There is no help for stringup "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "S")["strokecolor" (lambda () (interactive) (insert "strokecolor ")) :help "Sorry. There is no help for strokecolor "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "T")["text" (lambda () (interactive) (insert "text fontcolor,x,y,font,text_string")) :help "font may be described by keywords : giant,huge,normal,small,tiny"])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "T")["textarea" (lambda () (interactive) (insert "textarea ")) :help "Sorry. There is no help for textarea "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "T")["textup" (lambda () (interactive) (insert "textup ")) :help "Sorry. There is no help for textup "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "T")["trace_jscurve" (lambda () (interactive) (insert "trace_jscurve ")) :help "Sorry. There is no help for trace_jscurve "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "T")["trange" (lambda () (interactive) (insert "trange ")) :help "Sorry. There is no help for trange "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "T")["translate" (lambda () (interactive) (insert "translate ")) :help "Sorry. There is no help for translate "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "T")["translation" (lambda () (interactive) (insert "translation ")) :help "Sorry. There is no help for translation "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "T")["transparent" (lambda () (interactive) (insert "transparent ")) :help "Sorry. There is no help for transparent "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "T")["triangle" (lambda () (interactive) (insert "triangle ")) :help "Sorry. There is no help for triangle "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "T")["triangles" (lambda () (interactive) (insert "triangles ")) :help "Sorry. There is no help for triangles "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "U")["userboxplot" (lambda () (interactive) (insert "userboxplot ")) :help "Sorry. There is no help for userboxplot "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "U")["userboxplotdata" (lambda () (interactive) (insert "userboxplotdata ")) :help "Sorry. There is no help for userboxplotdata "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "U")["userdraw" (lambda () (interactive) (insert "userdraw ")) :help "Sorry. There is no help for userdraw "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "U")["userinput" (lambda () (interactive) (insert "userinput ")) :help "Sorry. There is no help for userinput "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "U")["userinput_function" (lambda () (interactive) (insert "userinput_function ")) :help "Sorry. There is no help for userinput_function "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "U")["userinput_textarea" (lambda () (interactive) (insert "userinput_textarea ")) :help "Sorry. There is no help for userinput_textarea "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "U")["userinput_xy" (lambda () (interactive) (insert "userinput_xy ")) :help "Sorry. There is no help for userinput_xy "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "U")["usertextarea_xy" (lambda () (interactive) (insert "usertextarea_xy ")) :help "Sorry. There is no help for usertextarea_xy "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "V")["vector" (lambda () (interactive) (insert "vector ")) :help "Sorry. There is no help for vector "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "V")["vectors" (lambda () (interactive) (insert "vectors ")) :help "Sorry. There is no help for vectors "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "V")["verticalline" (lambda () (interactive) (insert "verticalline ")) :help "Sorry. There is no help for verticalline "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "V")["verticallines" (lambda () (interactive) (insert "verticallines ")) :help "Sorry. There is no help for verticallines "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "V")["video" (lambda () (interactive) (insert "video ")) :help "Sorry. There is no help for video "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "V")["vline" (lambda () (interactive) (insert "vline ")) :help "Sorry. There is no help for vline "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "V")["vlines" (lambda () (interactive) (insert "vlines ")) :help "Sorry. There is no help for vlines "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "X")["xaxis" (lambda () (interactive) (insert "xaxis ")) :help "Sorry. There is no help for xaxis "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "X")["xaxistext" (lambda () (interactive) (insert "xaxistext ")) :help "Sorry. There is no help for xaxistext "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "X")["xaxistextup" (lambda () (interactive) (insert "xaxistextup ")) :help "Sorry. There is no help for xaxistextup "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "X")["xaxisup" (lambda () (interactive) (insert "xaxisup ")) :help "Sorry. There is no help for xaxisup "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "X")["xerrorbars" (lambda () (interactive) (insert "xerrorbars ")) :help "Sorry. There is no help for xerrorbars "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "X")["xlabel" (lambda () (interactive) (insert "xlabel ")) :help "Sorry. There is no help for xlabel "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "X")["xlogbase" (lambda () (interactive) (insert "xlogbase ")) :help "Sorry. There is no help for xlogbase "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "X")["xlogscale" (lambda () (interactive) (insert "xlogscale ")) :help "Sorry. There is no help for xlogscale "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "X")["xrange" (lambda () (interactive) (insert "xrange ")) :help "Sorry. There is no help for xrange "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "X")["xsnaptogrid" (lambda () (interactive) (insert "xsnaptogrid ")) :help "Sorry. There is no help for xsnaptogrid "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "X")["xunit" (lambda () (interactive) (insert "xunit ")) :help "Sorry. There is no help for xunit "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "X")["xylogscale" (lambda () (interactive) (insert "xylogscale ")) :help "Sorry. There is no help for xylogscale "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "Y")["yaxis" (lambda () (interactive) (insert "yaxis ")) :help "Sorry. There is no help for yaxis "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "Y")["yerrorbars" (lambda () (interactive) (insert "yerrorbars ")) :help "Sorry. There is no help for yerrorbars "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "Y")["ylabel" (lambda () (interactive) (insert "ylabel ")) :help "Sorry. There is no help for ylabel "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "Y")["ylogbase" (lambda () (interactive) (insert "ylogbase ")) :help "Sorry. There is no help for ylogbase "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "Y")["ylogscale" (lambda () (interactive) (insert "ylogscale ")) :help "Sorry. There is no help for ylogscale "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "Y")["yrange" (lambda () (interactive) (insert "yrange ")) :help "Sorry. There is no help for yrange "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "Y")["ysnaptogrid" (lambda () (interactive) (insert "ysnaptogrid ")) :help "Sorry. There is no help for ysnaptogrid "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "Y")["yunit" (lambda () (interactive) (insert "yunit ")) :help "Sorry. There is no help for yunit "])
-(easy-menu-add-item oef-menu-bar '("Canvasdraw" "Z")["zoom" (lambda () (interactive) (insert "zoom ")) :help "Sorry. There is no help for zoom "])
+(easy-menu-add-item oef-menu-bar '("Draw" "K")["killaffine" (lambda () (interactive) (insert "killaffine ")) :help "resets the transformation matrix to 1,0,0,1,0,0 "])
+
+(easy-menu-add-item oef-menu-bar '("Draw" "K")["killrotate" (lambda () (interactive) (insert "killrotate ")) :help "will reset the command rotationcenter xc,yc. \nA following rotate command will have the first object point as rotation center "])
+
+(easy-menu-add-item oef-menu-bar '("Draw" "K")["killslider" (lambda () (interactive) (insert "killslider ")) :help "ends grouping of object under a previously defined slider "])
+
+(easy-menu-add-item oef-menu-bar '("Draw" "K")["killtranslate" (lambda () (interactive) (insert "killtranslate ")) :help "resets the translation matrix to 1,0,0,1,0,0 "])
+(easy-menu-add-item oef-menu-bar '("Draw" "K")["killtranslation" (lambda () (interactive) (insert "killtranslation ")) :help "resets the translation matrix to 1,0,0,1,0,0 "])
+
+(easy-menu-add-item oef-menu-bar '("Draw" "L")["lattice" (lambda () (interactive) (insert "lattice x0,y0,xv1,yv1,xv2,yv2,n1,n2,color ")) :help "A lattice of n1xn2 points starting with (x0,y0), with n1 rows in direction of (xv1,yv1) and n2 rows in direction of (xv2,yv2). "])
+
+(easy-menu-add-item oef-menu-bar '("Draw" "L")["legend" (lambda () (interactive) (insert "legend ")) :help "Sorry. There is no help for legend "])
+(easy-menu-add-item oef-menu-bar '("Draw" "L")["legendcolors" (lambda () (interactive) (insert "legendcolors ")) :help "Sorry. There is no help for legendcolors "])
+(easy-menu-add-item oef-menu-bar '("Draw" "L")["levelcurve" (lambda () (interactive) (insert "levelcurve ")) :help "Sorry. There is no help for levelcurve "])
+(easy-menu-add-item oef-menu-bar '("Draw" "L")["line" (lambda () (interactive) (insert "line ")) :help "Sorry. There is no help for line "])
+(easy-menu-add-item oef-menu-bar '("Draw" "L")["linegraph" (lambda () (interactive) (insert "linegraph ")) :help "Sorry. There is no help for linegraph "])
+(easy-menu-add-item oef-menu-bar '("Draw" "L")["lines" (lambda () (interactive) (insert "lines ")) :help "Sorry. There is no help for lines "])
+(easy-menu-add-item oef-menu-bar '("Draw" "L")["linewidth" (lambda () (interactive) (insert "linewidth ")) :help "Sorry. There is no help for linewidth "])
+(easy-menu-add-item oef-menu-bar '("Draw" "M")["mathml" (lambda () (interactive) (insert "mathml x1,y1,x2,y2,mathml_string")) :help "mathml will be displayed in a rectangle left top (x1:y1) , right bottom (x2:y2) "])
+(easy-menu-add-item oef-menu-bar '("Draw" "M")["mouse" (lambda () (interactive) (insert "mouse ")) :help "Sorry. There is no help for mouse "])
+(easy-menu-add-item oef-menu-bar '("Draw" "M")["mouse_degree" (lambda () (interactive) (insert "mouse_degree ")) :help "Sorry. There is no help for mouse_degree "])
+(easy-menu-add-item oef-menu-bar '("Draw" "M")["mousex" (lambda () (interactive) (insert "mousex ")) :help "Sorry. There is no help for mousex "])
+(easy-menu-add-item oef-menu-bar '("Draw" "M")["mousey" (lambda () (interactive) (insert "mousey ")) :help "Sorry. There is no help for mousey "])
+(easy-menu-add-item oef-menu-bar '("Draw" "M")["multidash" (lambda () (interactive) (insert "multidash ")) :help "Sorry. There is no help for multidash "])
+(easy-menu-add-item oef-menu-bar '("Draw" "M")["multidraw" (lambda () (interactive) (insert "multidraw ")) :help "Sorry. There is no help for multidraw "])
+(easy-menu-add-item oef-menu-bar '("Draw" "M")["multifill" (lambda () (interactive) (insert "multifill ")) :help "Sorry. There is no help for multifill "])
+(easy-menu-add-item oef-menu-bar '("Draw" "M")["multifillcolors" (lambda () (interactive) (insert "multifillcolors ")) :help "Sorry. There is no help for multifillcolors "])
+(easy-menu-add-item oef-menu-bar '("Draw" "M")["multifillopacity" (lambda () (interactive) (insert "multifillopacity ")) :help "Sorry. There is no help for multifillopacity "])
+(easy-menu-add-item oef-menu-bar '("Draw" "M")["multilabel" (lambda () (interactive) (insert "multilabel ")) :help "Sorry. There is no help for multilabel "])
+(easy-menu-add-item oef-menu-bar '("Draw" "M")["multilinewidth" (lambda () (interactive) (insert "multilinewidth ")) :help "Sorry. There is no help for multilinewidth "])
+(easy-menu-add-item oef-menu-bar '("Draw" "M")["multisnaptogrid" (lambda () (interactive) (insert "multisnaptogrid ")) :help "Sorry. There is no help for multisnaptogrid "])
+(easy-menu-add-item oef-menu-bar '("Draw" "M")["multistrokecolors" (lambda () (interactive) (insert "multistrokecolors ")) :help "Sorry. There is no help for multistrokecolors "])
+(easy-menu-add-item oef-menu-bar '("Draw" "M")["multistrokeopacity" (lambda () (interactive) (insert "multistrokeopacity ")) :help "Sorry. There is no help for multistrokeopacity "])
+(easy-menu-add-item oef-menu-bar '("Draw" "M")["multiuserinput" (lambda () (interactive) (insert "multiuserinput ")) :help "Sorry. There is no help for multiuserinput "])
+(easy-menu-add-item oef-menu-bar '("Draw" "N")["noaxis" (lambda () (interactive) (insert "noaxis ")) :help "Sorry. There is no help for noaxis "])
+(easy-menu-add-item oef-menu-bar '("Draw" "N")["noayis" (lambda () (interactive) (insert "noayis ")) :help "Sorry. There is no help for noayis "])
+(easy-menu-add-item oef-menu-bar '("Draw" "N")["note" (lambda () (interactive) (insert "note ")) :help "Sorry. There is no help for note "])
+(easy-menu-add-item oef-menu-bar '("Draw" "O")["onclick" (lambda () (interactive) (insert "onclick ")) :help "Sorry. There is no help for onclick "])
+(easy-menu-add-item oef-menu-bar '("Draw" "O")["opacity" (lambda () (interactive) (insert "opacity ")) :help "Sorry. There is no help for opacity "])
+(easy-menu-add-item oef-menu-bar '("Draw" "P")["parallel" (lambda () (interactive) (insert "parallel ")) :help "Sorry. There is no help for parallel "])
+(easy-menu-add-item oef-menu-bar '("Draw" "P")["piechart" (lambda () (interactive) (insert "piechart ")) :help "Sorry. There is no help for piechart "])
+(easy-menu-add-item oef-menu-bar '("Draw" "P")["pixels" (lambda () (interactive) (insert "pixels ")) :help "Sorry. There is no help for pixels "])
+(easy-menu-add-item oef-menu-bar '("Draw" "P")["pixelsize" (lambda () (interactive) (insert "pixelsize ")) :help "Sorry. There is no help for pixelsize "])
+(easy-menu-add-item oef-menu-bar '("Draw" "P")["plotsteps" (lambda () (interactive) (insert "plotsteps ")) :help "Sorry. There is no help for plotsteps "])
+(easy-menu-add-item oef-menu-bar '("Draw" "P")["point" (lambda () (interactive) (insert "point x,y,color ")) :help "draw a single point at (x;y) in color 'color' "])
+(easy-menu-add-item oef-menu-bar '("Draw" "P")["pointer" (lambda () (interactive) (insert "pointer ")) :help "Sorry. There is no help for pointer "])
+(easy-menu-add-item oef-menu-bar '("Draw" "P")["points" (lambda () (interactive) (insert "points color,x1,y1,x2,y2,...,x_n,y_n ")) :help "draw multiple points at given coordinates in color 'color' "])
+(easy-menu-add-item oef-menu-bar '("Draw" "P")["poly" (lambda () (interactive) (insert "poly ")) :help "Sorry. There is no help for poly "])
+(easy-menu-add-item oef-menu-bar '("Draw" "P")["polyline" (lambda () (interactive) (insert "polyline ")) :help "Sorry. There is no help for polyline "])
+(easy-menu-add-item oef-menu-bar '("Draw" "P")["popup" (lambda () (interactive) (insert "popup ")) :help "Sorry. There is no help for popup "])
+(easy-menu-add-item oef-menu-bar '("Draw" "P")["precision" (lambda () (interactive) (insert "precision ")) :help "Sorry. There is no help for precision "])
+(easy-menu-add-item oef-menu-bar '("Draw" "P")["protractor" (lambda () (interactive) (insert "protractor ")) :help "Sorry. There is no help for protractor "])
+(easy-menu-add-item oef-menu-bar '("Draw" "R")["ranget" (lambda () (interactive) (insert "ranget ")) :help "Sorry. There is no help for ranget "])
+(easy-menu-add-item oef-menu-bar '("Draw" "R")["rangex" (lambda () (interactive) (insert "rangex ")) :help "Sorry. There is no help for rangex "])
+(easy-menu-add-item oef-menu-bar '("Draw" "R")["rangey" (lambda () (interactive) (insert "rangey ")) :help "Sorry. There is no help for rangey "])
+(easy-menu-add-item oef-menu-bar '("Draw" "R")["rays" (lambda () (interactive) (insert "rays ")) :help "Sorry. There is no help for rays "])
+(easy-menu-add-item oef-menu-bar '("Draw" "R")["rect" (lambda () (interactive) (insert "rect ")) :help "Sorry. There is no help for rect "])
+(easy-menu-add-item oef-menu-bar '("Draw" "R")["rects" (lambda () (interactive) (insert "rects ")) :help "Sorry. There is no help for rects "])
+(easy-menu-add-item oef-menu-bar '("Draw" "R")["replyformat" (lambda () (interactive) (insert "replyformat ")) :help "Sorry. There is no help for replyformat "])
+(easy-menu-add-item oef-menu-bar '("Draw" "R")["rotate" (lambda () (interactive) (insert "rotate ")) :help "Sorry. There is no help for rotate "])
+(easy-menu-add-item oef-menu-bar '("Draw" "R")["rotationcenter" (lambda () (interactive) (insert "rotationcenter ")) :help "Sorry. There is no help for rotationcenter "])
+(easy-menu-add-item oef-menu-bar '("Draw" "R")["roundrect" (lambda () (interactive) (insert "roundrect ")) :help "Sorry. There is no help for roundrect "])
+(easy-menu-add-item oef-menu-bar '("Draw" "R")["roundrects" (lambda () (interactive) (insert "roundrects ")) :help "Sorry. There is no help for roundrects "])
+(easy-menu-add-item oef-menu-bar '("Draw" "R")["ruler" (lambda () (interactive) (insert "ruler ")) :help "Sorry. There is no help for ruler "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["seg" (lambda () (interactive) (insert "seg ")) :help "Sorry. There is no help for seg "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["segment" (lambda () (interactive) (insert "segment ")) :help "Sorry. There is no help for segment "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["segments" (lambda () (interactive) (insert "segments ")) :help "Sorry. There is no help for segments "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["segs" (lambda () (interactive) (insert "segs ")) :help "Sorry. There is no help for segs "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["setlimits" (lambda () (interactive) (insert "setlimits ")) :help "Sorry. There is no help for setlimits "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["setpixel" (lambda () (interactive) (insert "setpixel ")) :help "Sorry. There is no help for setpixel "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["sgraph" (lambda () (interactive) (insert "sgraph ")) :help "Sorry. There is no help for sgraph "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["size" (lambda () (interactive) (insert "size ")) :help "Sorry. There is no help for size "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["slider" (lambda () (interactive) (insert "slider ")) :help "Sorry. There is no help for slider "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["sliderfunction_x" (lambda () (interactive) (insert "sliderfunction_x ")) :help "Sorry. There is no help for sliderfunction_x "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["sliderfunction_y" (lambda () (interactive) (insert "sliderfunction_y ")) :help "Sorry. There is no help for sliderfunction_y "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["snaptofun" (lambda () (interactive) (insert "snaptofun ")) :help "Sorry. There is no help for snaptofun "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["snaptofunction" (lambda () (interactive) (insert "snaptofunction ")) :help "Sorry. There is no help for snaptofunction "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["snaptogrid" (lambda () (interactive) (insert "snaptogrid ")) :help "Sorry. There is no help for snaptogrid "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["snaptopoints" (lambda () (interactive) (insert "snaptopoints ")) :help "Sorry. There is no help for snaptopoints "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["square" (lambda () (interactive) (insert "square ")) :help "Sorry. There is no help for square "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["status" (lambda () (interactive) (insert "status ")) :help "Sorry. There is no help for status "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["string" (lambda () (interactive) (insert "string color,x,y,the text string ")) :help "Sorry. There is no help for string "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["stringup" (lambda () (interactive) (insert "stringup ")) :help "Sorry. There is no help for stringup "])
+(easy-menu-add-item oef-menu-bar '("Draw" "S")["strokecolor" (lambda () (interactive) (insert "strokecolor ")) :help "Sorry. There is no help for strokecolor "])
+(easy-menu-add-item oef-menu-bar '("Draw" "T")["text" (lambda () (interactive) (insert "text fontcolor,x,y,font,text_string")) :help "font may be described by keywords : giant,huge,normal,small,tiny"])
+(easy-menu-add-item oef-menu-bar '("Draw" "T")["textarea" (lambda () (interactive) (insert "textarea ")) :help "Sorry. There is no help for textarea "])
+(easy-menu-add-item oef-menu-bar '("Draw" "T")["textup" (lambda () (interactive) (insert "textup ")) :help "Sorry. There is no help for textup "])
+(easy-menu-add-item oef-menu-bar '("Draw" "T")["trace_jscurve" (lambda () (interactive) (insert "trace_jscurve ")) :help "Sorry. There is no help for trace_jscurve "])
+(easy-menu-add-item oef-menu-bar '("Draw" "T")["trange" (lambda () (interactive) (insert "trange ")) :help "Sorry. There is no help for trange "])
+(easy-menu-add-item oef-menu-bar '("Draw" "T")["translate" (lambda () (interactive) (insert "translate ")) :help "Sorry. There is no help for translate "])
+(easy-menu-add-item oef-menu-bar '("Draw" "T")["translation" (lambda () (interactive) (insert "translation ")) :help "Sorry. There is no help for translation "])
+(easy-menu-add-item oef-menu-bar '("Draw" "T")["transparent" (lambda () (interactive) (insert "transparent ")) :help "Sorry. There is no help for transparent "])
+(easy-menu-add-item oef-menu-bar '("Draw" "T")["triangle" (lambda () (interactive) (insert "triangle ")) :help "Sorry. There is no help for triangle "])
+(easy-menu-add-item oef-menu-bar '("Draw" "T")["triangles" (lambda () (interactive) (insert "triangles ")) :help "Sorry. There is no help for triangles "])
+(easy-menu-add-item oef-menu-bar '("Draw" "U")["userboxplot" (lambda () (interactive) (insert "userboxplot ")) :help "Sorry. There is no help for userboxplot "])
+(easy-menu-add-item oef-menu-bar '("Draw" "U")["userboxplotdata" (lambda () (interactive) (insert "userboxplotdata ")) :help "Sorry. There is no help for userboxplotdata "])
+(easy-menu-add-item oef-menu-bar '("Draw" "U")["userdraw" (lambda () (interactive) (insert "userdraw ")) :help "Sorry. There is no help for userdraw "])
+(easy-menu-add-item oef-menu-bar '("Draw" "U")["userinput" (lambda () (interactive) (insert "userinput ")) :help "Sorry. There is no help for userinput "])
+(easy-menu-add-item oef-menu-bar '("Draw" "U")["userinput_function" (lambda () (interactive) (insert "userinput_function ")) :help "Sorry. There is no help for userinput_function "])
+(easy-menu-add-item oef-menu-bar '("Draw" "U")["userinput_textarea" (lambda () (interactive) (insert "userinput_textarea ")) :help "Sorry. There is no help for userinput_textarea "])
+(easy-menu-add-item oef-menu-bar '("Draw" "U")["userinput_xy" (lambda () (interactive) (insert "userinput_xy ")) :help "Sorry. There is no help for userinput_xy "])
+(easy-menu-add-item oef-menu-bar '("Draw" "U")["usertextarea_xy" (lambda () (interactive) (insert "usertextarea_xy ")) :help "Sorry. There is no help for usertextarea_xy "])
+(easy-menu-add-item oef-menu-bar '("Draw" "V")["vector" (lambda () (interactive) (insert "vector ")) :help "Sorry. There is no help for vector "])
+(easy-menu-add-item oef-menu-bar '("Draw" "V")["vectors" (lambda () (interactive) (insert "vectors ")) :help "Sorry. There is no help for vectors "])
+(easy-menu-add-item oef-menu-bar '("Draw" "V")["verticalline" (lambda () (interactive) (insert "verticalline ")) :help "Sorry. There is no help for verticalline "])
+(easy-menu-add-item oef-menu-bar '("Draw" "V")["verticallines" (lambda () (interactive) (insert "verticallines ")) :help "Sorry. There is no help for verticallines "])
+(easy-menu-add-item oef-menu-bar '("Draw" "V")["video" (lambda () (interactive) (insert "video ")) :help "Sorry. There is no help for video "])
+(easy-menu-add-item oef-menu-bar '("Draw" "V")["vline" (lambda () (interactive) (insert "vline ")) :help "Sorry. There is no help for vline "])
+(easy-menu-add-item oef-menu-bar '("Draw" "V")["vlines" (lambda () (interactive) (insert "vlines ")) :help "Sorry. There is no help for vlines "])
+(easy-menu-add-item oef-menu-bar '("Draw" "X")["xaxis" (lambda () (interactive) (insert "xaxis ")) :help "Sorry. There is no help for xaxis "])
+(easy-menu-add-item oef-menu-bar '("Draw" "X")["xaxistext" (lambda () (interactive) (insert "xaxistext ")) :help "Sorry. There is no help for xaxistext "])
+(easy-menu-add-item oef-menu-bar '("Draw" "X")["xaxistextup" (lambda () (interactive) (insert "xaxistextup ")) :help "Sorry. There is no help for xaxistextup "])
+(easy-menu-add-item oef-menu-bar '("Draw" "X")["xaxisup" (lambda () (interactive) (insert "xaxisup ")) :help "Sorry. There is no help for xaxisup "])
+(easy-menu-add-item oef-menu-bar '("Draw" "X")["xerrorbars" (lambda () (interactive) (insert "xerrorbars ")) :help "Sorry. There is no help for xerrorbars "])
+(easy-menu-add-item oef-menu-bar '("Draw" "X")["xlabel" (lambda () (interactive) (insert "xlabel ")) :help "Sorry. There is no help for xlabel "])
+(easy-menu-add-item oef-menu-bar '("Draw" "X")["xlogbase" (lambda () (interactive) (insert "xlogbase ")) :help "Sorry. There is no help for xlogbase "])
+(easy-menu-add-item oef-menu-bar '("Draw" "X")["xlogscale" (lambda () (interactive) (insert "xlogscale ")) :help "Sorry. There is no help for xlogscale "])
+(easy-menu-add-item oef-menu-bar '("Draw" "X")["xrange" (lambda () (interactive) (insert "xrange ")) :help "Sorry. There is no help for xrange "])
+(easy-menu-add-item oef-menu-bar '("Draw" "X")["xsnaptogrid" (lambda () (interactive) (insert "xsnaptogrid ")) :help "Sorry. There is no help for xsnaptogrid "])
+(easy-menu-add-item oef-menu-bar '("Draw" "X")["xunit" (lambda () (interactive) (insert "xunit ")) :help "Sorry. There is no help for xunit "])
+(easy-menu-add-item oef-menu-bar '("Draw" "X")["xylogscale" (lambda () (interactive) (insert "xylogscale ")) :help "Sorry. There is no help for xylogscale "])
+(easy-menu-add-item oef-menu-bar '("Draw" "Y")["yaxis" (lambda () (interactive) (insert "yaxis ")) :help "Sorry. There is no help for yaxis "])
+(easy-menu-add-item oef-menu-bar '("Draw" "Y")["yerrorbars" (lambda () (interactive) (insert "yerrorbars ")) :help "Sorry. There is no help for yerrorbars "])
+(easy-menu-add-item oef-menu-bar '("Draw" "Y")["ylabel" (lambda () (interactive) (insert "ylabel ")) :help "Sorry. There is no help for ylabel "])
+(easy-menu-add-item oef-menu-bar '("Draw" "Y")["ylogbase" (lambda () (interactive) (insert "ylogbase ")) :help "Sorry. There is no help for ylogbase "])
+(easy-menu-add-item oef-menu-bar '("Draw" "Y")["ylogscale" (lambda () (interactive) (insert "ylogscale ")) :help "Sorry. There is no help for ylogscale "])
+(easy-menu-add-item oef-menu-bar '("Draw" "Y")["yrange" (lambda () (interactive) (insert "yrange ")) :help "Sorry. There is no help for yrange "])
+(easy-menu-add-item oef-menu-bar '("Draw" "Y")["ysnaptogrid" (lambda () (interactive) (insert "ysnaptogrid ")) :help "Sorry. There is no help for ysnaptogrid "])
+(easy-menu-add-item oef-menu-bar '("Draw" "Y")["yunit" (lambda () (interactive) (insert "yunit ")) :help "Sorry. There is no help for yunit "])
+(easy-menu-add-item oef-menu-bar '("Draw" "Z")["zoom" (lambda () (interactive) (insert "zoom ")) :help "Sorry. There is no help for zoom "])
 
 (add-hook 'menu-bar-update-hook 'oef-update-menu) ; 
 
@@ -3172,7 +3475,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 	       oef-pari-functions
 	       oef-maths-functions
 	       oef-random-functions
-	       oef-canvasdraw-commands))
+	       oef-draw-commands))
 
 (defun oef-make-candidats()
   "Make a list of candidats (3 first characters) to detect if oef-mode-backend is required."
@@ -3337,7 +3640,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
      ("\\(\\\\(\\)\\([^ ]*\\)\\(\\\\)\\)" (1 'oef-font-formula-braces-face)(3 'oef-font-formula-braces-face)) ;  \(mathematical formula\)
      ("<mark>\\([^>]*\\)</mark>" (1 'oef-font-mark-face)) ;  <mark></mark>
      ("\\(^ *<p class=\"mark\">\\)" (1 'oef-font-mark-face)) ;  <p class="mark"></p>
-     (,(regexp-opt oef-canvasdraw-commands 'words) . 'oef-font-canvasdraw-face)
+     (,(regexp-opt oef-draw-commands 'words) . 'oef-font-draw-face)
      ("\\(\\\\\\){" 1 'oef-font-positivenumber-face) ; latex expression \{}
      ("\\\\\\w+\\([0-9]?_?\\w?\\)*" . 'oef-font-variable-name-face) ; '\variable'
      ("[^\\w]\\([0-9]+\\(\\.[0-9]+\\)?\\)" 1 'oef-font-positivenumber-face) ; a number
