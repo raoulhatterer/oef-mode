@@ -3652,6 +3652,7 @@ On nonblank line, delete any immediately following blank lines.")) ;`Delete Blan
 
 ;;---- AUTO-ACTIVATION of Mode When Opening File -------------------------------
 
+;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.oef?\\'" . oef-mode)) ;wims file
 
 (provide 'oef-mode)
