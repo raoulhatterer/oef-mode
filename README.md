@@ -19,7 +19,6 @@ Provide oef-mode (Online Exercise Format for wims) to emacs
     - GNU/Linux: Most GNU/Linux distributions provide GNU Emacs in their repositories, which is the recommended way to install Emacs unless you always want to use the latest release.
 - emmet-mode: a way to Write HTML and CSS quicker. Place point in a zencoding snippet and press C-j to expand it. https://github.com/rooney/zencoding
 - company-mode: Company is a text completion framework for Emacs. The name stands for "complete anything". It uses pluggable back-ends and front-ends to retrieve and display completion candidates. https://company-mode.github.io
-- rainbow-delimiters: highlights delimiters such as parentheses, brackets or braces according to their depth. Each successive level is highlighted in a different color. This makes it easy to spot matching delimiters. https://github.com/Fanael/rainbow-delimiters
 - rainbow-mode: This minor mode sets background color to strings that match color names, e.g. #0000ff is displayed in white with a blue background.
 - wrap-region: Wrap Region is a minor mode for Emacs that wraps a region with punctuations. Select a region and press any of the following keys: ", ', (, {, [ or press "C-c w" to wrap with markup, e.g. `<div>Selection</div>`
 - expand-region: 
@@ -110,11 +109,6 @@ Copy- paste this code :
         (require 'company)
         ;; To use company-mode in all buffers, add the following line to your init file:
         (add-hook 'after-init-hook 'global-company-mode)
-
-        ;; * `rainbow-delimiters'
-        ;; add to your init file:
-        (require 'rainbow-delimiters)
-        (add-hook 'oef-mode-hook 'rainbow-delimiters-mode) ; Auto-start parens matching
 
         ;; * `rainbow-mode'
         ;; add to your init file:
