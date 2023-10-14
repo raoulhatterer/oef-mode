@@ -145,7 +145,7 @@ File: oef-mode.info,  Node: Sous Linux,  Prev: Sous Mac OSX,  Up: Installation d
 1.2.1.3 Sous Linux
 ..................
 
-‘sudo apt-get install emacs27’
+‘sudo apt-get install emacs’
 
 
 File: oef-mode.info,  Node: Fichier d'initialisation,  Next: Gestionnaires de packages,  Prev: Installation d'emacs,  Up: Installations
