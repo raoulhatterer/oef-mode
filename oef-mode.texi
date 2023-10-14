@@ -20,6 +20,7 @@
 @c makeinfo oef-mode.texi
 @c Générer le fichier pdf à partir du Terminal:
 @c texi2pdf oef-mode.texi
+@c Faire un push vers Github
 @c Faire la mise à jour avec:
 @c el-get-upate oef-mode
 @c quitter puis relancer emacs

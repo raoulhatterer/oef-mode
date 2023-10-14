@@ -1,7 +1,7 @@
-This is oef-mode.info, produced by makeinfo version 6.7 from
+This is oef-mode.info, produced by makeinfo version 7.0.1 from
 oef-mode.texi.
 
-This is the ‘oef-mode’ manual, version alpha (in french)
+This is the ‘oef-mode’ manual, version alpha (in french) "20231014.0413"
 
      OEF veut dire ”Online Exercise Format”, un format pour d’exercices
      et de documents interactifs destinés à l’enseignement assisté par
@@ -13,7 +13,7 @@ This is the ‘oef-mode’ manual, version alpha (in french)
      pour la création et la mise en ligne de documents ou d’exercices
      sous ce format.
 
-   Copyright © 2017 - 2020 Raoul Hatterer.
+   Copyright © 2017 - 2023 Raoul Hatterer.
 
 INFO-DIR-SECTION Languages
 START-INFO-DIR-ENTRY
@@ -26,7 +26,7 @@ File: oef-mode.info,  Node: Top,  Next: Introduction,  Up: (dir)
 Manuel d’utilisation d’oef-mode
 *******************************
 
-This is the ‘oef-mode’ manual, version alpha (in french)
+This is the ‘oef-mode’ manual, version alpha (in french) "20231014.0413"
 
      OEF veut dire ”Online Exercise Format”, un format pour d’exercices
      et de documents interactifs destinés à l’enseignement assisté par
@@ -38,7 +38,7 @@ This is the ‘oef-mode’ manual, version alpha (in french)
      pour la création et la mise en ligne de documents ou d’exercices
      sous ce format.
 
-   Copyright © 2017 - 2020 Raoul Hatterer.
+   Copyright © 2017 - 2023 Raoul Hatterer.
 
 * Menu:
 
@@ -666,33 +666,33 @@ Index
 
 
 Tag Table:
-Node: Top845
-Node: Introduction1857
-Node: Résumé2425
-Node: Installations2791
-Node: Installation d'emacs3154
-Node: Sous Windows3800
-Node: Sous Mac OSX4787
-Node: Sous Linux5042
-Node: Fichier d'initialisation5207
-Node: Gestionnaires de packages5962
-Node: Configurer le clavier du Mac8075
-Node: Installer oef-mode10279
-Node: Installer oef-mode manuellement11477
-Node: Autres installations12579
-Node: Lier emacs à la corbeille12899
-Node: EMMET-MODE (Zen-coding)13458
-Node: Activation14797
-Node: Le compte Modtool15082
-Node: Les documents Wims15343
-Node: Les exercices Wims18559
-Node: L'en-tête18972
-Node: Les commentaires19503
-Node: Les variables19807
-Node: Le texte de l'énoncé20190
-Node: Les aides (partie facultative)20776
-Node: Les réponses21432
-Node: Index23717
+Node: Top863
+Node: Introduction1891
+Node: Résumé2459
+Node: Installations2825
+Node: Installation d'emacs3188
+Node: Sous Windows3834
+Node: Sous Mac OSX4821
+Node: Sous Linux5076
+Node: Fichier d'initialisation5239
+Node: Gestionnaires de packages5994
+Node: Configurer le clavier du Mac8107
+Node: Installer oef-mode10311
+Node: Installer oef-mode manuellement11509
+Node: Autres installations12611
+Node: Lier emacs à la corbeille12931
+Node: EMMET-MODE (Zen-coding)13490
+Node: Activation14829
+Node: Le compte Modtool15114
+Node: Les documents Wims15375
+Node: Les exercices Wims18591
+Node: L'en-tête19004
+Node: Les commentaires19535
+Node: Les variables19839
+Node: Le texte de l'énoncé20222
+Node: Les aides (partie facultative)20808
+Node: Les réponses21464
+Node: Index23749
 
 End Tag Table
 
