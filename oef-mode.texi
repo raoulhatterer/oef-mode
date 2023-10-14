@@ -194,7 +194,7 @@ Cette partie est à destination des lecteurs du document PDF qui, connaissant pe
 
 @itemize
 @item Déterminez si votre Microsoft Wimdows est 32 ou 64 bits: pour cela, appuyez sur la touche @key{Window} ; commencez à taper ``Afficher le système d'exploitation exécuté par votre ordinateur'' dans la zone de recherche et sélectionnez ce choix.  Cela fait apparaître une fenêtre dans laquelle le type de système (32 ou 64 bits) est indiqué.
-@item Rendez-vous ensuite à la page de téléchargement: @url{https://ftp.gnu.org/pub/gnu/emacs/windows/emacs-27/} et téléchargez l'installateur:
+@item Rendez-vous ensuite à la page de téléchargement: @url{https://ftp.gnu.org/pub/gnu/emacs/windows/emacs-29/} et téléchargez l'installateur:
 @itemize
 @item @command{emacs-$VERSION-x86_64-installer.exe} si votre système d'exploitation est 64 bits
 @item @command{emacs-$VERSION-i686-installer.exe} si votre système d'exploitation est 32 bits

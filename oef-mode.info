@@ -121,7 +121,7 @@ File: oef-mode.info,  Node: Sous Windows,  Next: Sous Mac OSX,  Up: Installation
      fenêtre dans laquelle le type de système (32 ou 64 bits) est
      indiqué.
    • Rendez-vous ensuite à la page de téléchargement:
-     <https://ftp.gnu.org/pub/gnu/emacs/windows/emacs-27/> et
+     <https://ftp.gnu.org/pub/gnu/emacs/windows/emacs-29/> et
      téléchargez l’installateur:
         • ‘emacs-$VERSION-x86_64-installer.exe’ si votre système
           d’exploitation est 64 bits
