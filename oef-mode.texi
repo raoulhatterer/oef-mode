@@ -1,7 +1,7 @@
 \input texinfo  @c -*-texinfo-*-
 @c %**start of header 
 @setfilename oef-mode.info
-@settitle Manuel oef-mode version alpha (french) "20231014.0413"
+@settitle Manuel oef-mode version alpha (french) "20240512.1741"
 @documentlanguage fr_FR
 @documentencoding UTF-8
 @c %**end of header
@@ -13,7 +13,7 @@
 
 @c Mise à jour du manuel (développement):   
 @c -------------------------------------
-@c Mette à jour les menus: Update all menus
+@c Mette à jour les menus: Texinfo > Update all menus
 @c Effacer "dir" du répertoire oef-mode avant de faire un push vers Github
 @c Générer le fichier info à partir du Terminal OSX (ou du shell sous emacs mais pas  à partir de eshell):
 @c cd .emacs.d/el-get/oef-mode
