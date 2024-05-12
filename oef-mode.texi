@@ -1,7 +1,7 @@
 \input texinfo  @c -*-texinfo-*-
 @c %**start of header 
 @setfilename oef-mode.info
-@settitle Manuel oef-mode version alpha (french) "20240512.1741"
+@settitle Manuel oef-mode version alpha (french) "20240512.1750"
 @documentlanguage fr_FR
 @documentencoding UTF-8
 @c %**end of header
@@ -13,16 +13,16 @@
 
 @c Mise à jour du manuel (développement):   
 @c -------------------------------------
-@c Mette à jour les menus: Texinfo > Update all menus
-@c Effacer "dir" du répertoire oef-mode avant de faire un push vers Github
+@c Mette à jour les menus: Texinfo > Update all menus (`C-c C-u C-a`)
 @c Générer le fichier info à partir du Terminal OSX (ou du shell sous emacs mais pas  à partir de eshell):
 @c cd .emacs.d/el-get/oef-mode
 @c makeinfo oef-mode.texi
 @c Générer le fichier pdf à partir du Terminal:
 @c texi2pdf oef-mode.texi
-@c Faire un push vers Github
+@c Effacer "dir" du répertoire oef-mode avant de faire un push vers Github
+@c Faire un push vers Github à laide de magit`C-c m`
 @c Faire la mise à jour avec:
-@c el-get-upate oef-mode
+@c M-x: el-get-upate oef-mode
 @c quitter puis relancer emacs
 
 @c Raccourcis pour insérer les commandes texinfo dans emacs:
