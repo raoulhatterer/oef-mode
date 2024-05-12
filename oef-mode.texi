@@ -1,7 +1,7 @@
 \input texinfo  @c -*-texinfo-*-
 @c %**start of header 
 @setfilename oef-mode.info
-@settitle Manuel oef-mode version alpha (french) "20240512.1750"
+@settitle Manuel oef-mode version alpha (french) "20240512.1820"
 @documentlanguage fr_FR
 @documentencoding UTF-8
 @c %**end of header
@@ -93,7 +93,7 @@
 
 
 @copying
-This is the @code{oef-mode} manual, version alpha (in french) "20231014.0413"
+This is the @code{oef-mode} manual, version alpha (in french) "20240512.1820"
 
 @quotation
 OEF veut dire ''Online Exercise Format'', un format pour d'exercices et de documents interactifs destinés à l'enseignement assisté par ordinateur.
@@ -101,7 +101,7 @@ OEF veut dire ''Online Exercise Format'', un format pour d'exercices et de docum
 Le format d'un fichier OEF est très similaire à LaTeX. Il est composé d'instructions suivies d'un ou plusieurs paramètres. Le mode @code{oef-mode} pour Emacs a pour ambition d'être un outil efficace pour la création et la mise en ligne de documents ou d'exercices sous ce format.
 @end quotation
 
-Copyright @copyright{} 2017 - 2023 Raoul Hatterer.
+Copyright @copyright{} 2017 - 2024 Raoul Hatterer.
 
 @end copying
 
@@ -109,7 +109,7 @@ Copyright @copyright{} 2017 - 2023 Raoul Hatterer.
 @titlepage
 @title oef-mode
 @subtitle  mode majeur d'Emacs pour éditer des exercices et des documents interactifs
-@subtitle au format « online exercise format » (version alpha "20231014.0413")
+@subtitle au format « online exercise format » (version alpha "20240512.1820")
 @author Raoul Hatterer
 
 

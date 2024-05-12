@@ -1,7 +1,7 @@
 This is oef-mode.info, produced by makeinfo version 7.1 from
 oef-mode.texi.
 
-This is the ‘oef-mode’ manual, version alpha (in french) "20231014.0413"
+This is the ‘oef-mode’ manual, version alpha (in french) "20240512.1820"
 
      OEF veut dire "Online Exercise Format", un format pour d'exercices
      et de documents interactifs destinés à l'enseignement assisté par
@@ -13,7 +13,7 @@ This is the ‘oef-mode’ manual, version alpha (in french) "20231014.0413"
      pour la création et la mise en ligne de documents ou d'exercices
      sous ce format.
 
-   Copyright © 2017 - 2023 Raoul Hatterer.
+   Copyright © 2017 - 2024 Raoul Hatterer.
 
 INFO-DIR-SECTION Languages
 START-INFO-DIR-ENTRY
@@ -26,7 +26,7 @@ File: oef-mode.info,  Node: Top,  Next: Introduction,  Up: (dir)
 Manuel d'utilisation d'oef-mode
 *******************************
 
-This is the ‘oef-mode’ manual, version alpha (in french) "20231014.0413"
+This is the ‘oef-mode’ manual, version alpha (in french) "20240512.1820"
 
      OEF veut dire "Online Exercise Format", un format pour d'exercices
      et de documents interactifs destinés à l'enseignement assisté par
@@ -38,7 +38,7 @@ This is the ‘oef-mode’ manual, version alpha (in french) "20231014.0413"
      pour la création et la mise en ligne de documents ou d'exercices
      sous ce format.
 
-   Copyright © 2017 - 2023 Raoul Hatterer.
+   Copyright © 2017 - 2024 Raoul Hatterer.
 
 * Menu:
 
