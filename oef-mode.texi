@@ -1,7 +1,7 @@
 \input texinfo  @c -*-texinfo-*-
 @c %**start of header 
 @setfilename oef-mode.info
-@settitle Manuel oef-mode version alpha (french) "20240513.1955"
+@settitle Manuel oef-mode version alpha (french) "20240513.2005"
 @documentlanguage fr_FR
 @documentencoding UTF-8
 @c %**end of header
@@ -95,7 +95,7 @@
 
 
 @copying
-This is the @code{oef-mode} manual, version alpha (in french) "20240513.1955"
+This is the @code{oef-mode} manual, version alpha (in french) "20240513.2005"
 
 @quotation
 OEF veut dire ''Online Exercise Format'', un format pour d'exercices et de documents interactifs destinés à l'enseignement assisté par ordinateur.
@@ -111,7 +111,7 @@ Copyright @copyright{} 2017 - 2024 Raoul Hatterer.
 @titlepage
 @title oef-mode
 @subtitle  mode majeur d'Emacs pour éditer des exercices et des documents interactifs
-@subtitle au format « online exercise format » (version alpha "20240513.1955")
+@subtitle au format « online exercise format » (version alpha "20240513.2005")
 @author Raoul Hatterer
 
 
@@ -173,6 +173,11 @@ Le compte Modtool
 * Posséder un compte développeur::
 * Ajout d'un exercice OEF::
 * Utiliser des fichiers de données::
+
+Utiliser des fichiers de données
+
+* Référence par index::
+* Dictionnaires::
 
 Les exercices Wims
 
@@ -600,7 +605,12 @@ Vous pouvez alors tester votre exercice en cliquant @samp{Tester le module}.
 On peut stocker des données dans un fichier que nous appellerons ici @samp{tableau} pour les utiliser ensuite dans un ou plusieurs exercices.
 
 
+@menu
+* Référence par index::
+* Dictionnaires::
+@end menu
 
+@node Référence par index
 @subsection Référence par index
 @cindex record, recordcnt
 
@@ -657,8 +667,8 @@ randrow(wims(record \i of tableau))}
 
 Ici, on compte le nombre d'enregistrements avec @code{recordcnt} (ici 2, mais il pourrait y en avoir plus). Et on prend une ligne par type. On pourra donc poser une question de chaque type.
 
-
-@subsection Dictionnaire
+@node Dictionnaires
+@subsection Dictionnaires
 @cindex lookup
 
 Donnons un autre exemple d'utilisation de tableau extérieur aux exercices.
