@@ -1,17 +1,18 @@
 This is oef-mode.info, produced by makeinfo version 7.1 from
 oef-mode.texi.
 
-This is the ‘oef-mode’ manual, version alpha (in french) "20240512.1820"
+This is the ‘oef-mode’ manual, version alpha (in french)
+"20240513.1955"
 
-     OEF veut dire "Online Exercise Format", un format pour d'exercices
-     et de documents interactifs destinés à l'enseignement assisté par
-     ordinateur.
+     OEF veut dire "Online Exercise Format", un format pour
+     d'exercices et de documents interactifs destinés à l'enseignement
+     assisté par ordinateur.
 
      Le format d'un fichier OEF est très similaire à LaTeX. Il est
      composé d'instructions suivies d'un ou plusieurs paramètres.  Le
-     mode ‘oef-mode’ pour Emacs a pour ambition d'être un outil efficace
-     pour la création et la mise en ligne de documents ou d'exercices
-     sous ce format.
+     mode ‘oef-mode’ pour Emacs a pour ambition d'être un outil
+     efficace pour la création et la mise en ligne de documents ou
+     d'exercices sous ce format.
 
    Copyright © 2017 - 2024 Raoul Hatterer.
 
@@ -26,17 +27,18 @@ File: oef-mode.info,  Node: Top,  Next: Introduction,  Up: (dir)
 Manuel d'utilisation d'oef-mode
 *******************************
 
-This is the ‘oef-mode’ manual, version alpha (in french) "20240512.1820"
+This is the ‘oef-mode’ manual, version alpha (in french)
+"20240513.1955"
 
-     OEF veut dire "Online Exercise Format", un format pour d'exercices
-     et de documents interactifs destinés à l'enseignement assisté par
-     ordinateur.
+     OEF veut dire "Online Exercise Format", un format pour
+     d'exercices et de documents interactifs destinés à l'enseignement
+     assisté par ordinateur.
 
      Le format d'un fichier OEF est très similaire à LaTeX. Il est
      composé d'instructions suivies d'un ou plusieurs paramètres.  Le
-     mode ‘oef-mode’ pour Emacs a pour ambition d'être un outil efficace
-     pour la création et la mise en ligne de documents ou d'exercices
-     sous ce format.
+     mode ‘oef-mode’ pour Emacs a pour ambition d'être un outil
+     efficace pour la création et la mise en ligne de documents ou
+     d'exercices sous ce format.
 
    Copyright © 2017 - 2024 Raoul Hatterer.
 
@@ -48,6 +50,51 @@ This is the ‘oef-mode’ manual, version alpha (in french) "20240512.1820"
 * Les exercices Wims::          Les exercices Wims (au format OEF)
 * Index::                       Index
 
+ -- The Detailed Node Listing --
+
+Introduction
+
+* Résumé::                      Bref résumé de ce que permet oef-mode
+* Installations::               Installer Emacs, el-get, use-package, oef-mode
+* Activation::                  Comment activer oef-mode pour certains buffers
+
+Installations
+
+* Installation d'emacs::
+* Fichier d'initialisation::
+* Gestionnaires de packages::
+* Configurer le clavier du Mac::  Indispensable
+* Installer oef-mode::
+* Installer oef-mode manuellement::
+* Autres installations::
+
+Installation d'emacs
+
+* Sous Windows::                Télécharger et installer la version Windows d'emacs
+* Sous Mac OSX::                Télécharger et installer la version Mac d'emacs
+* Sous Linux::                  Télécharger et installer la version Linux d'emacs
+
+Autres installations
+
+* Lier emacs à la corbeille::   Les fichiers effacés vont dans la corbeille
+* EMMET-MODE (Zen-coding)::     Transformer des snippets en tags
+
+Le compte Modtool
+
+* Posséder un compte développeur::
+* Ajout d'un exercice OEF::
+* Utiliser des fichiers de données::
+
+Les exercices Wims
+
+* L'en-tête::                   Requis
+* Les commentaires::            Facultatifs
+* Les variables::               Requises
+* Le texte de l'énoncé::        Requises
+* Les aides (partie facultative)::  Facultatives
+* Les réponses::                Requises
+
+
 
 File: oef-mode.info,  Node: Introduction,  Next: Le compte Modtool,  Prev: Top,  Up: Top
 
@@ -55,8 +102,8 @@ File: oef-mode.info,  Node: Introduction,  Next: Le compte Modtool,  Prev: Top, 
 **************
 
 Le présent manuel est disponible au format PDF, mais il est également
-intégré, une fois le package oef-mode installé, au système d'information
-d'Emacs accessible par le raccourci ‘C-h i’.
+intégré, une fois le package oef-mode installé, au système
+d'information d'Emacs accessible par le raccourci ‘C-h i’.
 
 * Menu:
 
@@ -99,8 +146,9 @@ File: oef-mode.info,  Node: Installation d'emacs,  Next: Fichier d'initialisatio
 --------------------------
 
 Cette partie est à destination des lecteurs du document PDF qui,
-connaissant peut-être déjà Wims et le format OEF, souhaiteraient tester
-‘oef-mode’.  Ils trouveront ici des indications pour installer Emacs.
+connaissant peut-être déjà Wims et le format OEF, souhaiteraient
+tester ‘oef-mode’.  Ils trouveront ici des indications pour installer
+Emacs.
 
 * Menu:
 
@@ -114,12 +162,12 @@ File: oef-mode.info,  Node: Sous Windows,  Next: Sous Mac OSX,  Up: Installation
 1.2.1.1 Sous Windows
 ....................
 
-   • Déterminez si votre Microsoft Wimdows est 32 ou 64 bits: pour cela,
-     appuyez sur la touche <Window> ; commencez à taper "Afficher le
-     système d'exploitation exécuté par votre ordinateur" dans la zone
-     de recherche et sélectionnez ce choix.  Cela fait apparaître une
-     fenêtre dans laquelle le type de système (32 ou 64 bits) est
-     indiqué.
+   • Déterminez si votre Microsoft Wimdows est 32 ou 64 bits: pour
+     cela, appuyez sur la touche <Window> ; commencez à taper
+     "Afficher le système d'exploitation exécuté par votre ordinateur"
+     dans la zone de recherche et sélectionnez ce choix.  Cela fait
+     apparaître une fenêtre dans laquelle le type de système (32 ou 64
+     bits) est indiqué.
    • Rendez-vous ensuite à la page de téléchargement:
      <https://ftp.gnu.org/pub/gnu/emacs/windows/emacs-29/> et
      téléchargez l'installateur:
@@ -180,16 +228,16 @@ Le paquet (package) ‘oef-mode’ ne faisant pas partie des paquets
 pré-installés avec emacs, il vous faudra l'installer.  De plus,
 ‘oef-mode’ n'étant pas répertorié dans _elpa_, le dépôt de packages
 accessible par défaut dans emacs, je recommande d'installer el-get
-<http://wikemacs.org/wiki/El-get> un gestionnaire de package alternatif
-car le package ‘oef-mode’ s'y trouve répertorié.  Pour cela, nous
-utiliserons un fichier d'initialisation chargé en tout premier appelé
-‘early-init.el’.
+<http://wikemacs.org/wiki/El-get> un gestionnaire de package
+alternatif car le package ‘oef-mode’ s'y trouve répertorié.  Pour
+cela, nous utiliserons un fichier d'initialisation chargé en tout
+premier appelé ‘early-init.el’.
 
    Dans Emacs saisir la commande ‘C-x C-f’ ‘Find file:’
 ‘~/.emacs.d/early-init.el’ (ou
 ‘%HOMEPATH%\AppData\Roaming\.emacs.d\early-init.el’ sous Microsoft
-Windows) pour créer un nouveau buffer nommé ‘early-init.el’ et placez y
-le code suivant (‘C-y’ permet de coller(yank) dans Emacs) destiné à
+Windows) pour créer un nouveau buffer nommé ‘early-init.el’ et placez
+y le code suivant (‘C-y’ permet de coller(yank) dans Emacs) destiné à
 installer le gestionnaire de package ‘el-get’:
 
      (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -229,17 +277,17 @@ File: oef-mode.info,  Node: Configurer le clavier du Mac,  Next: Installer oef-m
 1.2.4 Configurer le clavier du Mac
 ----------------------------------
 
-Vous vous apercevrez que, par défaut, les deux touches ‘option’ ont été
-configurées en touche Meta ‘M-’ pour emacs ce qui fait que vous avez
-perdu l'accès aux accolades (‘option parenthèse’), aux crochets (‘option
-shift parenthèse’) et aux autres caractères auxquels vous aviez accès
-par le biais de la touche ‘option’.
+Vous vous apercevrez que, par défaut, les deux touches ‘option’ ont
+été configurées en touche Meta ‘M-’ pour emacs ce qui fait que vous
+avez perdu l'accès aux accolades (‘option parenthèse’), aux crochets
+(‘option shift parenthèse’) et aux autres caractères auxquels vous
+aviez accès par le biais de la touche ‘option’.
 
-   Éditer le fichier d'initialisation (‘~/.emacs.d/init.el’) et rajouter
-les lignes suivantes qui permettent d'avoir la touche ‘option’ de gauche
-qui agit comme ‘Meta’ tandis que la touche ‘option’ de droite reste
-inchangée pour pouvoir accéder à des caractères comme les accolades ou
-les crochets.
+   Éditer le fichier d'initialisation (‘~/.emacs.d/init.el’) et
+rajouter les lignes suivantes qui permettent d'avoir la touche
+‘option’ de gauche qui agit comme ‘Meta’ tandis que la touche ‘option’
+de droite reste inchangée pour pouvoir accéder à des caractères comme
+les accolades ou les crochets.
 
    Pour cela, tapez ‘C-x C-f’ (c'est-à-dire ‘control’ x suivi de
 ‘control’ f) dans Emacs.
@@ -273,8 +321,9 @@ et valider.
    Sauvegardez avec ‘C-x C-s’ puis quitter Emacs (‘C-x C-c’), relancez
 Emacs et vérifiez que vous pouvez avoir les accolades.
 
-   Si un fichier ‘~/.emacs’ a été créé dans votre dossier personnel, il
-faut l'effacer car il prend le pas sur le fichier ‘~/.emacs.d/init.el’.
+   Si un fichier ‘~/.emacs’ a été créé dans votre dossier personnel,
+il faut l'effacer car il prend le pas sur le fichier
+‘~/.emacs.d/init.el’.
 
 
 File: oef-mode.info,  Node: Installer oef-mode,  Next: Installer oef-mode manuellement,  Prev: Configurer le clavier du Mac,  Up: Installations
@@ -282,9 +331,10 @@ File: oef-mode.info,  Node: Installer oef-mode,  Next: Installer oef-mode manuel
 1.2.5 Installer oef-mode
 ------------------------
 
-   • Créer ou éditer le fichier d'initialisation (‘~/.emacs.d/init.el’)
-     et rajouter les lignes suivantes qui permettent d'installer
-     ‘oef-mode’, et ‘use-package’, s'ils ne le sont pas déjà:
+   • Créer ou éditer le fichier d'initialisation
+     (‘~/.emacs.d/init.el’) et rajouter les lignes suivantes qui
+     permettent d'installer ‘oef-mode’, et ‘use-package’, s'ils ne le
+     sont pas déjà:
 
           (setq my:el-get-packages
                 '(cl-lib
@@ -309,8 +359,8 @@ File: oef-mode.info,  Node: Installer oef-mode,  Next: Installer oef-mode manuel
    • Quitter et relancer emacs
 
    La dernière version ‘oef-mode’ vient d'être installée.  Pour faire
-des mise à jour dans le futur, il y a la commande ‘M-x:’ ‘el-get-update
-oef-mode’
+des mise à jour dans le futur, il y a la commande ‘M-x:’
+‘el-get-update oef-mode’
 
 
 File: oef-mode.info,  Node: Installer oef-mode manuellement,  Next: Autres installations,  Prev: Installer oef-mode,  Up: Installations
@@ -321,10 +371,11 @@ File: oef-mode.info,  Node: Installer oef-mode manuellement,  Next: Autres insta
 Si vous utilisiez déjà Emacs, sans ‘el-get’ ni ‘use-package’, une
 alternative est d'installer ‘oef-mode’ manuellement:
 
-   • S'il n'existe pas encore, créer le répertoire ‘"~/.emacs.d/lisp/"’
+   • S'il n'existe pas encore, créer le répertoire
+     ‘"~/.emacs.d/lisp/"’
    • Télécharger l'archive zip
-     <https://github.com/raoulhatterer/oef-mode/archive/master.zip>, la
-     décompresser dans le répertoire ‘"~/.emacs.d/lisp/"’
+     <https://github.com/raoulhatterer/oef-mode/archive/master.zip>,
+     la décompresser dans le répertoire ‘"~/.emacs.d/lisp/"’
    • Ajouter le code suivant à votre fichier ‘~/.emacs.d/init.el’ ou
      ‘.emacs’ avant la ligne ‘(package-initialize)’.
 
@@ -334,8 +385,8 @@ alternative est d'installer ‘oef-mode’ manuellement:
 
    • Quitter et relancer emacs.
 
-   Par convention, le répertoire ‘"~/.emacs.d/lisp/"’ est la destination
-des bibliothèques installées de façon manuelle.
+   Par convention, le répertoire ‘"~/.emacs.d/lisp/"’ est la
+destination des bibliothèques installées de façon manuelle.
 
 
 File: oef-mode.info,  Node: Autres installations,  Prev: Installer oef-mode manuellement,  Up: Installations
@@ -423,8 +474,130 @@ File: oef-mode.info,  Node: Le compte Modtool,  Next: Les documents Wims,  Prev:
 2 Le compte Modtool
 *******************
 
+* Menu:
+
+* Posséder un compte développeur::
+* Ajout d'un exercice OEF::
+* Utiliser des fichiers de données::
+
+
+File: oef-mode.info,  Node: Posséder un compte développeur,  Next: Ajout d'un exercice OEF,  Up: Le compte Modtool
+
+2.1 Posséder un compte développeur
+==================================
+
 Pour pouvoir développer des modules avec Modtool il faut demander un
-compte par email au gestionnaire du site.
+compte développeur par email au gestionnaire du site.
+
+   Vous recevrez un login et un mot de passe, vous permettant de vous
+connecter pour créer des ressources.
+
+   Vous pouvez alors créer un module en cliquant sur le lien ‘créer un
+nouveau module’.
+
+
+File: oef-mode.info,  Node: Ajout d'un exercice OEF,  Prev: Posséder un compte développeur,  Up: Le compte Modtool
+
+2.2 Ajout d'un exercice OEF
+===========================
+
+Pour mettre un nouvel exercice dans le module :
+  1. Utilisez un mot court et significatif.  Évitez les caractères
+     spéciaux et les noms trop longs.  Cela simplifie les processus de
+     contrôle du code.  par exemple ‘toto’.
+  2. Dans le champ ‘Ajouter un autre fichier’, mettez ce nom précédé
+     de ‘src/’ et suivi de l'extension ‘.oef’, dans notre exemple cela
+     donne: ‘src/toto.oef’.
+  3. Dans la fenêtre qui apparaît, copiez le source de votre exercice.
+  4. Cliquez sur ‘Enregistrer’.
+
+   Attention : ‘src’ est un nom imposé de répertoire dans lequel
+doivent être toutes les sources d'exercices OEF : il est important que
+le nom du fichier se termine par ‘.oef’ et qu'il se trouve dans le
+répertoire ‘src’, c'est-à-dire que l'adresse soit ‘src/xxx.oef’
+
+   Vous pouvez alors tester votre exercice en cliquant ‘Tester le
+module’.
+
+
+File: oef-mode.info,  Node: Utiliser des fichiers de données,  Prev: Ajout d'un exercice OEF,  Up: Le compte Modtool
+
+2.3 Utiliser des fichiers de données
+====================================
+
+On peut stocker des données dans un fichier que nous appellerons ici
+‘tableau’ pour les utiliser ensuite dans un ou plusieurs exercices.
+
+2.3.1 Référence par index
+-------------------------
+
+Plutôt que d'avoir les phrases dans le fichier d'exercice, créez un
+fichier d'adresse tableau (attention, cette fois-ci ne pas mettre src)
+et mettez-y le texte suivant:
+
+:Je suis grand ??et,est,ai?? brun.
+Le café ??est,et,ai?? chaud.
+La fleur ??est,et,ai?? rouge.
+Le soleil ??est,et,ai?? chaud
+J'??ai,est,et?? chaud
+
+:L'élève ??est,et?? sérieux ??et,est?? appliqué.
+Paul se ramasse ??et,est?? se relève.
+Le pull ??est,et?? chaud ??et,est?? léger.
+La rue ??est,et?? étroite ??et,est?? en pente.
+Pierre ??est,et?? fort en mathématiques ??et,est?? en français.
+La lumière sur le port ??est,et?? très belle en hiver ??et,est?? en été.
+
+   Remarquez le signe de ponctuation ‘:’.  Il va être possible
+maintenant dans un exercice de charger ces données soit en entier,
+soit sélectivement pour la partie entre deux signes ‘:’ consécutifs.
+Donnons les premières commandes permettant cette utilisation:
+
+\text{Tableau = wims(record 1 of tableau)}
+\text{a = randomrow(\Tableau)}
+
+   ‘record 1’ chargera les cinq premières lignes du tableau, plus
+exactement celles entre le premier ‘:’ et le second.
+
+\text{Tableau = wims(record 2 of tableau)}
+\text{a = randomrow(\Tableau)}
+
+   ‘record 2’ chargera les six lignes suivantes (donc ici les 6
+dernières) du tableau (il faudra bien sûr changer la suite de
+l'exercice qui ne fonctionnera plus)
+
+\text{Tableau = wims(record 0 of tableau)}
+\text{a = randomrow(\Tableau)}
+
+   ‘record 0’ chargera toutes les lignes du fichier tableau
+
+\integer{m = wims(recordcnt tableau)}
+\matrix{Tableau = }
+\for{ i = 1 to \m}{
+\text{Tableau = \Tableau
+randrow(wims(record \i of tableau))}
+
+   Ici, on compte le nombre d'enregistrements avec ‘recordcnt’ (ici 2,
+mais il pourrait y en avoir plus).  Et on prend une ligne par type.
+On pourra donc poser une question de chaque type.
+
+2.3.2 Dictionnaire
+------------------
+
+Donnons un autre exemple d'utilisation de tableau extérieur aux
+exercices.  Il s'agit de tableau de type "dictionnaire" où des clés
+sont associées à des valeurs (comme en python) de la forme suivante :
+
+azote:.....
+hydrogene:....
+
+   On peut alors aller chercher la ligne associée à azote avec la
+commande ‘lookup’ suivie de la clé
+
+\text{ligne= wims(lookup azote in tableau)}
+
+   et récupérer ensuite les informations qui suivent et dont vous avez
+besoin.
 
 
 File: oef-mode.info,  Node: Les documents Wims,  Next: Les exercices Wims,  Prev: Le compte Modtool,  Up: Top
@@ -434,15 +607,16 @@ File: oef-mode.info,  Node: Les documents Wims,  Next: Les exercices Wims,  Prev
 
 Il s'agit d'un ensemble de pages HTML (il vous faut donc connaître la
 syntaxe HTML et CSS) dans lesquelles peuvent être incluses des données
-calculées ou dessinées par les logiciels attenant à WIMS (des commandes
-supplémentaires étendant les possibilités de HTML permettent de faire
-cela).  Les documents peuvent être utilisés pour proposer des cours avec
-des exemples à caractère aléatoire et des liens directs vers les
-exercices.
+calculées ou dessinées par les logiciels attenant à WIMS (des
+commandes supplémentaires étendant les possibilités de HTML permettent
+de faire cela).  Les documents peuvent être utilisés pour proposer des
+cours avec des exemples à caractère aléatoire et des liens directs
+vers les exercices.
 
-   L'intérêt à faire un document WIMS plutôt que des pages html est donc
-la possibilité d'inclure:
-   − des exemples qui peuvent être renouvelés à la volée par le lecteur;
+   L'intérêt à faire un document WIMS plutôt que des pages html est
+donc la possibilité d'inclure:
+   − des exemples qui peuvent être renouvelés à la volée par le
+     lecteur;
    − des liens directs sur des exercices, ou sur des outils;
    − des zones à déplier et replier (avec \fold) qui permettent à
      l'élève de se concentrer sur le plan, sur un théorème sans sa
@@ -470,18 +644,19 @@ il suffit de mettre l'adresse url des applets.
 
    Comment classer les pages d'un document ?
 
-   L'option parent permet d'établir une hiérarchie entre les pages d'un
-document en plus des options usuelles précédent et suivant (par défaut,
-le parent est main).  C'est commode pour gérer des "chapitres" et des
-tables de matières de chapitre.
+   L'option parent permet d'établir une hiérarchie entre les pages
+d'un document en plus des options usuelles précédent et suivant (par
+défaut, le parent est main).  C'est commode pour gérer des "chapitres"
+et des tables de matières de chapitre.
 
    Les formules TeX débordent.  Que faire ?
 
    Il vaut mieux couper les formules TeX un peu longues, \(...)  =
-\(...), plutôt que \(...  = ...).  Cela laisse au navigateur le choix de
-les mettre sur la même ligne ou non selon la taille de la fenêtre.
+\(...), plutôt que \(...  = ...).  Cela laisse au navigateur le choix
+de les mettre sur la même ligne ou non selon la taille de la fenêtre.
 
-   Dans un document, comment demander au lecteur d'entrer un paramètre ?
+   Dans un document, comment demander au lecteur d'entrer un paramètre
+?
 
    Voici un exemple où le paramètre à entrer est un entier :
      \def{integer n = randint(2..9)}
@@ -497,11 +672,12 @@ les mettre sur la même ligne ou non selon la taille de la fenêtre.
    J'ai fait un document dans ma classe, comment le citer ?
 
    Dans un autre document, si le document cité a le numéro c9 :
-‘\link{c9/main}’ On peut aussi remplacer main le nom d'un autre bloc si
-on veut aller à une page particulière.
+‘\link{c9/main}’ On peut aussi remplacer main le nom d'un autre bloc
+si on veut aller à une page particulière.
 
-   J'ai chargé un fichier pdf, ai fait un copier-coller du lien indiqué
-dans le document et le lien n'apparaît pas sur le nom du fichier.
+   J'ai chargé un fichier pdf, ai fait un copier-coller du lien
+indiqué dans le document et le lien n'apparaît pas sur le nom du
+fichier.
 
    Si vous avez fait un copier-coller du lien indiqué, il est possible
 que le blanc ait été mal codé.  Enlevez les blancs et remettez-les !
@@ -558,11 +734,11 @@ File: oef-mode.info,  Node: Les variables,  Next: Le texte de l'énoncé,  Prev:
 4.3 Les variables
 =================
 
-Après l'en-tête, on initialise les différentes variables introduites ou
-calculées.
+Après l'en-tête, on initialise les différentes variables introduites
+ou calculées.
 
-   C'est la partie qui fera appel à vos qualités de programmeur car elle
-correspond à «l'intelligence» de l'exercice.
+   C'est la partie qui fera appel à vos qualités de programmeur car
+elle correspond à «l'intelligence» de l'exercice.
 
 
 File: oef-mode.info,  Node: Le texte de l'énoncé,  Next: Les aides (partie facultative),  Prev: Les variables,  Up: Les exercices Wims
@@ -571,13 +747,13 @@ File: oef-mode.info,  Node: Le texte de l'énoncé,  Next: Les aides (partie fac
 ========================
 
 ‘\statement{...}’
-     pour écrire l'énoncé (cette commande est indispensable mais ne doit
-     apparaître qu'une seule fois)
+     pour écrire l'énoncé (cette commande est indispensable mais ne
+     doit apparaître qu'une seule fois)
 
-   Pour ceux qui connaissent Python, c'est un peu comme si l'on avait le
-droit d'utiliser q'une seule fois l'instruction ‘print()’ mais qu'en
-revanche le texte à afficher pouvait être très très long et mis en forme
-au format HTML.
+   Pour ceux qui connaissent Python, c'est un peu comme si l'on avait
+le droit d'utiliser q'une seule fois l'instruction ‘print()’ mais
+qu'en revanche le texte à afficher pouvait être très très long et mis
+en forme au format HTML.
 
 
 File: oef-mode.info,  Node: Les aides (partie facultative),  Next: Les réponses,  Prev: Le texte de l'énoncé,  Up: Les exercices Wims
@@ -585,12 +761,12 @@ File: oef-mode.info,  Node: Les aides (partie facultative),  Next: Les réponses
 4.5 Les aides (partie facultative)
 ==================================
 
-Cette partie facultative est à placer entre le texte de l'énoncé (*Note
-Le texte de l'énoncé::) et les réponses (*Note Les réponses::).
+Cette partie facultative est à placer entre le texte de l'énoncé
+(*Note Le texte de l'énoncé::) et les réponses (*Note Les réponses::).
 
 ‘\hint {...}’
-     pour écrire une indication (ce qui apparaît lorsqu’on clique sur le
-     lien ‘Indications’ placé sous l'énoncé)
+     pour écrire une indication (ce qui apparaît lorsqu’on clique sur
+     le lien ‘Indications’ placé sous l'énoncé)
 ‘\help {...}’
      pour un texte qui apparaîtra lorsque l'utilisateur clique sur
      ‘Aide’ de la barre de menu en haut de l’exercice.
@@ -601,8 +777,8 @@ File: oef-mode.info,  Node: Les réponses,  Prev: Les aides (partie facultative)
 4.6 Les réponses
 ================
 
-Après l'énoncé (ou les aides s'il y en a) on mettra la partie concernant
-la saisie et l'analyse des réponses.
+Après l'énoncé (ou les aides s'il y en a) on mettra la partie
+concernant la saisie et l'analyse des réponses.
 
 ‘\answer{...}{ ... }{type= ...}’
      pour analyser une réponse
@@ -628,21 +804,21 @@ Python, c'est l'équivalent du texte que vous mettez entre les
 parenthèses de l'instruction ‘input()’.  La réponse de l'utilisateur à
 la première question est automatiquement stockée dans la variable
 ‘\reply1’ et ainsi de suite pour les autres réponses.  Mais,
-généralement, vous n'allez pas faire appel à ces variables pour analyser
-les réponses de l'utilisateur.  À la place, vous allez préciser entre
-les accolades qui suivent la réponse que vous attendez.
+généralement, vous n'allez pas faire appel à ces variables pour
+analyser les réponses de l'utilisateur.  À la place, vous allez
+préciser entre les accolades qui suivent la réponse que vous attendez.
 
-   La deuxième accolade doit contenir les éléments permettant de décider
-si la réponse est juste ou non.  Ces éléments vont dépendre du type
-précisé dans la troisième accolade.
+   La deuxième accolade doit contenir les éléments permettant de
+décider si la réponse est juste ou non.  Ces éléments vont dépendre du
+type précisé dans la troisième accolade.
 
    Le menu ‘OEF > Answers Types and Options’ liste et permet d'insérer
 les différents types et options que vous pouvez utiliser.
 
    Pour une analyse plus détaillée sachez que la variable ‘\sc_reply1’
 vaut 1 si la réponse donnée est juste, 0.5 si la réponse donnée est
-partiellement juste et 0 si la réponse donnée est fausse pour les types
-de réponse où elle n’a pas été définie explicitement.
+partiellement juste et 0 si la réponse donnée est fausse pour les
+types de réponse où elle n’a pas été définie explicitement.
 
 
 File: oef-mode.info,  Node: Index,  Prev: Les exercices Wims,  Up: Top
@@ -653,46 +829,58 @@ Index
  [index ]
 * Menu:
 
+* Compte développeur:                    Posséder un compte développeur.
+                                                             (line  6)
+* exercice, OEF:                         Ajout d'un exercice OEF.
+                                                             (line  6)
 * gestionnnaire, package:                Gestionnaires de packages.
-                                                                (line 6)
+                                                             (line  6)
 * initialisation, init:                  Fichier d'initialisation.
-                                                                (line 6)
-* installation:                          Installations.         (line 6)
-* installation, emacs:                   Installation d'emacs.  (line 6)
-* installation, emacs, Linux:            Sous Linux.            (line 6)
-* installation, emacs, Mac, OSX:         Sous Mac OSX.          (line 6)
-* installation, emacs, Windows:          Sous Windows.          (line 6)
+                                                             (line  6)
+* installation:                          Installations.      (line  6)
+* installation, emacs:                   Installation d'emacs.
+                                                             (line  6)
+* installation, emacs, Linux:            Sous Linux.         (line  6)
+* installation, emacs, Mac, OSX:         Sous Mac OSX.       (line  6)
+* installation, emacs, Windows:          Sous Windows.       (line  6)
+* lookup:                                Utiliser des fichiers de données.
+                                                             (line 65)
+* record, recordcnt:                     Utiliser des fichiers de données.
+                                                             (line 12)
 
 
 
 Tag Table:
 Node: Top843
-Node: Introduction1849
-Node: Résumé2413
-Node: Installations2775
-Node: Installation d'emacs3138
-Node: Sous Windows3776
-Node: Sous Mac OSX4749
-Node: Sous Linux5004
-Node: Fichier d'initialisation5167
-Node: Gestionnaires de packages5908
-Node: Configurer le clavier du Mac8005
-Node: Installer oef-mode10199
-Node: Installer oef-mode manuellement11389
-Node: Autres installations12483
-Node: Lier emacs à la corbeille12803
-Node: EMMET-MODE (Zen-coding)13362
-Node: Activation14693
-Node: Le compte Modtool14974
-Node: Les documents Wims15235
-Node: Les exercices Wims18417
-Node: L'en-tête18830
-Node: Les commentaires19355
-Node: Les variables19657
-Node: Le texte de l'énoncé20032
-Node: Les aides (partie facultative)20600
-Node: Les réponses21250
-Node: Index23509
+Node: Introduction3207
+Node: Résumé3771
+Node: Installations4133
+Node: Installation d'emacs4496
+Node: Sous Windows5134
+Node: Sous Mac OSX6107
+Node: Sous Linux6362
+Node: Fichier d'initialisation6525
+Node: Gestionnaires de packages7266
+Node: Configurer le clavier du Mac9363
+Node: Installer oef-mode11557
+Node: Installer oef-mode manuellement12752
+Node: Autres installations13851
+Node: Lier emacs à la corbeille14171
+Node: EMMET-MODE (Zen-coding)14730
+Node: Activation16061
+Node: Le compte Modtool16342
+Node: Posséder un compte développeur16603
+Node: Ajout d'un exercice OEF17126
+Node: Utiliser des fichiers de données18207
+Node: Les documents Wims20960
+Node: Les exercices Wims24147
+Node: L'en-tête24560
+Node: Les commentaires25085
+Node: Les variables25387
+Node: Le texte de l'énoncé25762
+Node: Les aides (partie facultative)26330
+Node: Les réponses26980
+Node: Index29239
 
 End Tag Table
 
